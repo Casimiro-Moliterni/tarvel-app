@@ -23,10 +23,11 @@
                                         </div>
                                         <div class="col-md-6">
                                             <div class="form-group">
-                                                <label for="longitude">Aggiungi Destinazione</label>
-                                                <input id="longitude" type="text" name="longitude"
-                                                    class="form-control" placeholder="Aggiungi destinazione *"
-                                                    required="required" data-error="Destinazione è obbligatoria.">
+                                                <label for="address"><strong>Aggiungi Destinazione *</strong></label>
+                                                <input type="text" class="form-control" id="address" name="address"
+                                                    value="{{ old('address') }}" autocomplete="off">
+                                                <div id="addressSuggestions" class="list-group position-absolute"></div>
+                                                <div class="invalid-feedback" id="addressError"></div>
                                             </div>
                                         </div>
                                     </div>
@@ -52,8 +53,7 @@
                                         <div class="col-md-12">
                                             <div class="form-group">
                                                 <label for="thumb">Immagine *</label>
-                                                <input id="thumb" type="file" name="thumb" class="form-control"
-                                                    required="required" data-error="Immagine è obbligatoria.">
+                                                <input id="thumb" type="file" name="thumb" class="form-control">
                                             </div>
                                         </div>
                                     </div>
@@ -65,9 +65,16 @@
                                                     rows="4" required="required" data-error="Descrizione è obbligatoria."></textarea>
                                             </div>
                                         </div>
-                                        <div class="col-md-12 mt-3 d-flex justify-content-center">
-                                            <input type="submit" class="btn  btn-send pt-2 btn-block"
-                                                value="Crea">
+                                        <input type="hidden" id="longitude" name="longitude"
+                                            value="{{ old('longitude') }}">
+                                        <input type="hidden" id="latitude" name="latitude"
+                                            value="{{ old('latitude') }}">
+
+                                        <div class="col-md-12 mt-3 send-btn d-flex justify-content-center">
+                                            <button >
+                                                Crea
+                                                <i class="fa-solid fa-check"></i>
+                                            </button>
                                         </div>
                                     </div>
                                 </div>
@@ -85,7 +92,9 @@
 
         </div>
     </div>
-
 </section>
-<script>
-</script>
+<link rel="stylesheet" type="text/css" href="https://api.tomtom.com/maps-sdk-for-web/cdn/6.x/6.21.0/maps/maps.css" />
+<script src="https://api.tomtom.com/maps-sdk-for-web/cdn/6.x/6.21.0/maps/maps-web.min.js"></script>
+<script src="https://api.tomtom.com/maps-sdk-for-web/cdn/6.x/6.21.0/services/services-web.min.js"></script>
+{{-- axios cdn --}}
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>

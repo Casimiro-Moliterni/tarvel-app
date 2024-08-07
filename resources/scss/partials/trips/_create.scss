@@ -1,42 +1,111 @@
 .trip-create {
-    .my-card{
+    .my-card {
         border-radius: 10px;
         border: 4px solid sienna;
         background: linear-gradient(0deg, rgba(20, 22, 21, 0.08) 0%, rgba(0, 0, 0, 0.105) 100%);
     }
+
     h1 {
         margin-bottom: 40px;
     }
-    
+
     label {
         color: #333;
         font-size: 22px;
-        font-weight: 800;
+        font-weight: 500;
     }
-    input{
+
+    input {
+        font-size: 2.5rem;
+        font-weight: 400;
         padding: 1.5rem;
         border-radius: 10px;
-        border: 2px solid rgba(162, 239, 46, 0.351);
     }
+  textarea{
+    font-size: 2.5rem;
+    font-weight: 400;
+    padding: 1.5rem;
+    border-radius: 10px;
+  }
     .btn-send {
         font-weight: 300;
         text-transform: uppercase;
         letter-spacing: 0.2em;
         width: 80%;
         margin-left: 3px;
-        }
+    }
+
     .help-block.with-errors {
         color: #ff5050;
         margin-top: 5px;
-    
+
     }
-    
-    .card{
+
+    .card {
         margin-left: 10px;
         margin-right: 10px;
     }
-    
+
     &.disabled {
         display: none;
+    }
+
+    .send-btn {
+        button {
+            position: relative;
+            padding: 15px 45px;
+            width: auto;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 1.5rem;
+            border-radius: 15px;
+            border: 2px solid #00c2cb;
+            background: none;
+            color: #00c2cb;
+            cursor: pointer;
+            outline: none;
+            transition: 200ms;
+        }
+
+        i {
+            position: absolute;
+            color: transparent;
+            transition: 200ms;
+        }
+
+        button:focus {
+            color: transparent;
+            outline: none;
+            border: 2px solid transparent;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            padding: 25px 25px;
+            border-left: 2px solid #00c2cb;
+            animation: spin 2s 500ms forwards;
+        }
+
+        button:focus i {
+            animation: check 300ms 2250ms forwards;
+        }
+
+        @keyframes spin {
+            80% {
+                border: 2px solid transparent;
+                border-left: 2px solid #00c2cb;
+            }
+
+            100% {
+                transform: rotate(720deg);
+                border: 2px solid #00c2cb;
+            }
+        }
+
+        @keyframes check {
+            to {
+                color: #00c2cb;
+            }
+        }
     }
 }

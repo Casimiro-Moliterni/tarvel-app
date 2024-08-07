@@ -16,8 +16,8 @@ return new class extends Migration {
             $table->id();
             $table->unsignedBigInteger('id_user');
             $table->string('title');
-            $table->string('thumb');
-            $table->string('description');
+            $table->string('thumb')->nullable();
+            $table->string('description')->nullable();
             $table->double('longitude', 15, 8);
             $table->double('latitude', 15, 8);
             $table->datetime('start_date');

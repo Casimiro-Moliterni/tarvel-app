@@ -20,7 +20,9 @@
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
     <link href="https://cdn.lineicons.com/4.0/lineicons.css" rel="stylesheet" />
     {{-- link font awesome  --}}
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
+        integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
     <!-- Usando Vite -->
     @vite(['resources/js/app.js'])
 </head>
@@ -29,7 +31,15 @@
     <!-- =============== Navigation ================ -->
     <div class="my-container">
         <div class="navigation">
-            <ul >
+            <ul>
+                <li>
+                    <a href="#">
+                        <span class="icon">
+                            <ion-icon name="help-outline"></ion-icon>
+                        </span>
+                        <span class="title">Help</span>
+                    </a>
+                </li>
                 <li>
                     <a href="{{ route('admin.dashboard') }}">
                         <span class="icon">
@@ -40,7 +50,7 @@
                 </li>
 
                 <li>
-                    <a href="{{route('admin.trips.index') }}">
+                    <a href="{{ route('admin.trips.index') }}">
                         <span class="icon">
                             <i class="fa-solid fa-plane"></i>
                         </span>
@@ -51,9 +61,9 @@
                 <li>
                     <a href="#">
                         <span class="icon">
-                            <ion-icon name="help-outline"></ion-icon>
+                            <ion-icon name="add-circle-outline"></ion-icon>
                         </span>
-                        <span class="title">Help</span>
+                        <span class="title">Aggiungi viaggio</span>
                     </a>
                 </li>
 
@@ -66,19 +76,11 @@
                     </a>
                 </li>
 
-                <li>
-                    <a href="#">
-                        <span class="icon">
-                            <ion-icon name="log-out-outline"></ion-icon>
-                        </span>
-                        <span class="title">Sign Out</span>
-                    </a>
-                </li>
             </ul>
         </div>
 
         <!-- ========================= Main ==================== -->
-         <div class="main">{{--questa classe qua --}}
+        <div class="main">{{-- questa classe qua --}}
             <div class="topbar">
                 <div class="toggle">
                     <ion-icon name="menu-outline"></ion-icon>
@@ -99,8 +101,8 @@
                 @yield('content')
             </div>
 
-            </div>
         </div>
+    </div>
     </div>
 
     @extends('layouts.displaytel')
@@ -129,9 +131,9 @@
             main.classList.toggle("active");
         };
     </script>
-      <!-- ====== ionicons ======= -->
-      <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
-      <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+    <!-- ====== ionicons ======= -->
+    <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
 </body>
 
 </html>

@@ -28,7 +28,7 @@
     <!-- =============== Navigation ================ -->
     <div class="my-container">
         <div class="navigation">
-            <ul>
+            <ul class="ps-0">
                 <li>
                     <a href="#">
                         <span class="icon">

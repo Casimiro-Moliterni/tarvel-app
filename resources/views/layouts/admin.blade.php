@@ -121,8 +121,11 @@
                     <img src="assets/imgs/customer01.jpg" alt="">
                 </div>
             </div>
+            <div>
+                @yield('content')
+            </div>
 
-            <!-- ======================= Cards ================== -->
+            {{-- <!-- ======================= Cards ================== -->
             <div class="cardBox">
                 <div class="card">
                     <div>
@@ -245,10 +248,10 @@
                             </tr>
                         </tbody>
                     </table>
-                </div>
+                </div> --}}
 
                 <!-- ================= New Customers ================ -->
-                <div class="recentCustomers">
+                {{-- <div class="recentCustomers">
                     <div class="cardHeader">
                         <h2>Recent Customers</h2>
                     </div>
@@ -326,7 +329,7 @@
                             </td>
                         </tr>
                     </table>
-                </div>
+                </div> --}}
             </div>
         </div>
     </div>

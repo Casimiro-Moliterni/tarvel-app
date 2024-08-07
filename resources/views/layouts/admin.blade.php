@@ -78,7 +78,7 @@
         </div>
 
         <!-- ========================= Main ==================== -->
-        <div class="main">
+         <div class="main">{{--questa classe qua --}}
             <div class="topbar">
                 <div class="toggle">
                     <ion-icon name="menu-outline"></ion-icon>

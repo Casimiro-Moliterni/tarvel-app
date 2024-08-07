@@ -33,6 +33,14 @@
         <div class="navigation">
             <ul>
                 <li>
+                    <a href="#">
+                        <span class="icon">
+                            <ion-icon name="help-outline"></ion-icon>
+                        </span>
+                        <span class="title">Help</span>
+                    </a>
+                </li>
+                <li>
                     <a href="{{ route('admin.dashboard') }}">
                         <span class="icon">
                             <ion-icon name="home-outline"></ion-icon>
@@ -53,9 +61,9 @@
                 <li>
                     <a href="{{ route('admin.dashboard') }}">
                         <span class="icon">
-                            <ion-icon name="home-outline"></ion-icon>
+                            <ion-icon name="add-circle-outline"></ion-icon>
                         </span>
-                        <span class="title">Dashboard</span>
+                        <span class="title">Aggiungi viaggio</span>
                     </a>
                 </li>
 
@@ -68,14 +76,6 @@
                     </a>
                 </li>
 
-                <li>
-                    <a href="#">
-                        <span class="icon">
-                            <ion-icon name="log-out-outline"></ion-icon>
-                        </span>
-                        <span class="title">Sign Out</span>
-                    </a>
-                </li>
             </ul>
         </div>
 

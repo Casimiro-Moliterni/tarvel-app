@@ -1,41 +1,52 @@
-<nav class="amazing-tabs">
+<nav class="amazing-tabs" class="{{ Route::currentRouteName() }}">
     <div class="main-tabs-container">
         <div class="main-tabs-wrapper">
             <ul class="main-tabs">
                 <li>
-                    <button class="round-button" data-translate-value="0" data-color="red">
+                    <a class="round-button" href = "{{ route('profile.edit') }}" data-translate-value="0" data-color="red">
                         <span class="avatar">
-                            <img src="https://sd2.org/app/uploads/2021/04/pexels-pixabay-270348-1120x1032.jpg" alt="user avatar" />
+                            <img src="https://sd2.org/app/uploads/2021/04/pexels-pixabay-270348-1120x1032.jpg"
+                                alt="user avatar" />
                         </span>
-                    </button>
+                    </a>
                 </li>
                 <li>
-                    <button class="round-button gallery active" style="--round-button-active-color: #2962ff" data-translate-value="100%" data-color="blue">
-                        <svg fill="currentColor" viewBox="0 0 16 16">
-                            <path d="M6.002 5.5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0z" />
-                            <path d="M2.002 1a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V3a2 2 0 0 0-2-2h-12zm12 1a1 1 0 0 1 1 1v6.5l-3.777-1.947a.5.5 0 0 0-.577.093l-3.71 3.71-2.66-1.772a.5.5 0 0 0-.63.062L1.002 12V3a1 1 0 0 1 1-1h12z" />
+                    <a class="round-button gallery active" href="{{ route('admin.trips.index') }}"
+                        style="--round-button-active-color: #2962ff" data-translate-value="100%" data-color="blue">
+                        <svg xmlns="http://www.w3.org/2000/svg"
+                            viewBox="0 0 576 512"><!--!Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.-->
+                            <path
+                                d="M482.3 192c34.2 0 93.7 29 93.7 64c0 36-59.5 64-93.7 64l-116.6 0L265.2 495.9c-5.7 10-16.3 16.1-27.8 16.1l-56.2 0c-10.6 0-18.3-10.2-15.4-20.4l49-171.6L112 320 68.8 377.6c-3 4-7.8 6.4-12.8 6.4l-42 0c-7.8 0-14-6.3-14-14c0-1.3 .2-2.6 .5-3.9L32 256 .5 145.9c-.4-1.3-.5-2.6-.5-3.9c0-7.8 6.3-14 14-14l42 0c5 0 9.8 2.4 12.8 6.4L112 192l102.9 0-49-171.6C162.9 10.2 170.6 0 181.2 0l56.2 0c11.5 0 22.1 6.2 27.8 16.1L365.7 192l116.6 0z" />
                         </svg>
-                    </button>
+                    </a>
                 </li>
                 <li>
-                    <button class="round-button" style="--round-button-active-color: #00c853" data-translate-value="200%" data-color="green">
+                    <button class="round-button" style="--round-button-active-color: #00c853"
+                        data-translate-value="200%" data-color="green">
                         <svg fill="currentColor" viewBox="0 0 16 16">
                             <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z" />
-                            <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z" />
+                            <path
+                                d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z" />
                         </svg>
                     </button>
                 </li>
                 <li>
-                    <button class="round-button" style="--round-button-active-color: #aa00ff" data-translate-value="300%" data-color="purple">
-                        <svg fill="currentColor" viewBox="0 0 16 16">
-                            <path d="M8 16a2 2 0 0 0 2-2H6a2 2 0 0 0 2 2zM8 1.918l-.797.161A4.002 4.002 0 0 0 4 6c0 .628-.134 2.197-.459 3.742-.16.767-.376 1.566-.663 2.258h10.244c-.287-.692-.502-1.49-.663-2.258C12.134 8.197 12 6.628 12 6a4.002 4.002 0 0 0-3.203-3.92L8 1.917zM14.22 12c.223.447.481.801.78 1H1c.299-.199.557-.553.78-1C2.68 10.2 3 6.88 3 6c0-2.42 1.72-4.44 4.005-4.901a1 1 0 1 1 1.99 0A5.002 5.002 0 0 1 13 6c0 .88.32 4.2 1.22 6z" />
+                    <a class="round-button" href="{{ route('admin.dashboard') }}"
+                        style="--round-button-active-color: #aa00ff" data-translate-value="300%" data-color="purple">
+                        <svg xmlns="http://www.w3.org/2000/svg"
+                            viewBox="0 0 576 512"><!--!Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.-->
+                            <path
+                                d="M575.8 255.5c0 18-15 32.1-32 32.1l-32 0 .7 160.2c0 2.7-.2 5.4-.5 8.1l0 16.2c0 22.1-17.9 40-40 40l-16 0c-1.1 0-2.2 0-3.3-.1c-1.4 .1-2.8 .1-4.2 .1L416 512l-24 0c-22.1 0-40-17.9-40-40l0-24 0-64c0-17.7-14.3-32-32-32l-64 0c-17.7 0-32 14.3-32 32l0 64 0 24c0 22.1-17.9 40-40 40l-24 0-31.9 0c-1.5 0-3-.1-4.5-.2c-1.2 .1-2.4 .2-3.6 .2l-16 0c-22.1 0-40-17.9-40-40l0-112c0-.9 0-1.9 .1-2.8l0-69.7-32 0c-18 0-32-14-32-32.1c0-9 3-17 10-24L266.4 8c7-7 15-8 22-8s15 2 21 7L564.8 231.5c8 7 12 15 11 24z" />
                         </svg>
-                    </button>
+                    </a>
                 </li>
                 <li>
-                    <button class="round-button" style="--round-button-active-color: #ff6d00" data-translate-value="400%" data-color="orange">
-                        <svg fill="currentColor" viewBox="0 0 16 16">
-                            <path d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .491.592l-1.5 8A.5.5 0 0 1 13 12H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5zM3.102 4l1.313 7h8.17l1.313-7H3.102zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm-7 1a1 1 0 1 1 0 2 1 1 0 0 1 0-2zm7 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2z" />
+                    <button class="round-button" style="--round-button-active-color: #ff6d00"
+                        data-translate-value="400%" data-color="orange">
+                        <svg xmlns="http://www.w3.org/2000/svg"
+                            viewBox="0 0 512 512"><!--!Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.-->
+                            <path
+                                d="M495.9 166.6c3.2 8.7 .5 18.4-6.4 24.6l-43.3 39.4c1.1 8.3 1.7 16.8 1.7 25.4s-.6 17.1-1.7 25.4l43.3 39.4c6.9 6.2 9.6 15.9 6.4 24.6c-4.4 11.9-9.7 23.3-15.8 34.3l-4.7 8.1c-6.6 11-14 21.4-22.1 31.2c-5.9 7.2-15.7 9.6-24.5 6.8l-55.7-17.7c-13.4 10.3-28.2 18.9-44 25.4l-12.5 57.1c-2 9.1-9 16.3-18.2 17.8c-13.8 2.3-28 3.5-42.5 3.5s-28.7-1.2-42.5-3.5c-9.2-1.5-16.2-8.7-18.2-17.8l-12.5-57.1c-15.8-6.5-30.6-15.1-44-25.4L83.1 425.9c-8.8 2.8-18.6 .3-24.5-6.8c-8.1-9.8-15.5-20.2-22.1-31.2l-4.7-8.1c-6.1-11-11.4-22.4-15.8-34.3c-3.2-8.7-.5-18.4 6.4-24.6l43.3-39.4C64.6 273.1 64 264.6 64 256s.6-17.1 1.7-25.4L22.4 191.2c-6.9-6.2-9.6-15.9-6.4-24.6c4.4-11.9 9.7-23.3 15.8-34.3l4.7-8.1c6.6-11 14-21.4 22.1-31.2c5.9-7.2 15.7-9.6 24.5-6.8l55.7 17.7c13.4-10.3 28.2-18.9 44-25.4l12.5-57.1c2-9.1 9-16.3 18.2-17.8C227.3 1.2 241.5 0 256 0s28.7 1.2 42.5 3.5c9.2 1.5 16.2 8.7 18.2 17.8l12.5 57.1c15.8 6.5 30.6 15.1 44 25.4l55.7-17.7c8.8-2.8 18.6-.3 24.5 6.8c8.1 9.8 15.5 20.2 22.1 31.2l4.7 8.1c6.1 11 11.4 22.4 15.8 34.3zM256 336a80 80 0 1 0 0-160 80 80 0 1 0 0 160z" />
                         </svg>
                     </button>
                 </li>
@@ -309,11 +320,11 @@
 </style>
 
 
-<!-- <script>
+<script>
     const mainTabs = document.querySelector(".main-tabs");
     const mainSliderCircle = document.querySelector(".main-slider-circle");
     const roundButtons = document.querySelectorAll(".round-button");
-    
+    const mainElement = document.querySelector(".main"); // Seleziona l'elemento .main
 
     const colors = {
         blue: {
@@ -382,69 +393,6 @@
             void mainSliderCircle.offsetWidth;
             mainSliderCircle.classList.add("animate-jello");
 
-            root.style.setProperty("--translate-main-slider", targetTranslateValue);
-            root.style.setProperty("--main-slider-color", getColor(targetColor, 50));
-            root.style.setProperty("--background-color", getColor(targetColor, 100));
-
-            handleActiveTab(roundButtons, event, "active");
-
-        }
-    });
-</script> -->
-
-<script>
-    const mainTabs = document.querySelector(".main-tabs");
-    const mainSliderCircle = document.querySelector(".main-slider-circle");
-    const roundButtons = document.querySelectorAll(".round-button");
-    const mainElement = document.querySelector(".main"); // Seleziona l'elemento .main
-
-    const colors = {
-        blue: {
-            50: { value: "#e3f2fd" },
-            100: { value: "#bbdefb" }
-        },
-        green: {
-            50: { value: "#e8f5e9" },
-            100: { value: "#c8e6c9" }
-        },
-        purple: {
-            50: { value: "#f3e5f5" },
-            100: { value: "#e1bee7" }
-        },
-        orange: {
-            50: { value: "#ffe0b2" },
-            100: { value: "#ffe0b2" }
-        },
-        red: {
-            50: { value: "#ffebee" },
-            100: { value: "#ffcdd2" }
-        }
-    };
-
-    const getColor = (color, variant) => {
-        return colors[color][variant].value;
-    };
-
-    const handleActiveTab = (tabs, event, className) => {
-        tabs.forEach((tab) => {
-            tab.classList.remove(className);
-        });
-
-        if (!event.target.classList.contains(className)) {
-            event.target.classList.add(className);
-        }
-    };
-
-    mainTabs.addEventListener("click", (event) => {
-        const root = document.documentElement;
-        const targetColor = event.target.dataset.color;
-        const targetTranslateValue = event.target.dataset.translateValue;
-
-        if (event.target.classList.contains("round-button")) {
-            mainSliderCircle.classList.remove("animate-jello");
-            void mainSliderCircle.offsetWidth;
-            mainSliderCircle.classList.add("animate-jello");
-
             // Aggiorna le proprietà CSS
             root.style.setProperty("--translate-main-slider", targetTranslateValue);
             root.style.setProperty("--main-slider-color", getColor(targetColor, 50));
@@ -457,5 +405,10 @@
 
             handleActiveTab(roundButtons, event, "active");
         }
+
+        
+
     });
+
+
 </script>

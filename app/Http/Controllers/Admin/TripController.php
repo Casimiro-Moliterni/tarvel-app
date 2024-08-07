@@ -8,6 +8,10 @@ use App\Models\Trip;
 use Illuminate\Support\Facades\Auth;
 use App\Models\User;
 use App\Models\Day;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Storage;
+use Carbon\Carbon;
+use Illuminate\Validation\Rule;
 class TripController extends Controller
 {
     /**
@@ -31,6 +35,7 @@ class TripController extends Controller
     public function create()
     {
         //
+        return view ('admin.trips.create');
     }
 
     /**
@@ -42,6 +47,20 @@ class TripController extends Controller
     public function store(Request $request)
     {
         //
+        // $validatedData = $this->validation($request->all());
+        // $formData = $validatedData;
+          $formData= $request->all();
+        if ($request->hasFile('thumb')) {
+            $img_path = Storage::disk('public')->put('trips_cover_thumb', $formData['thumb']);
+            $formData['thumb'] = $img_path;
+        }
+
+        $newTrip = new Trip();
+        $newTrip->fill($formData);
+        $newTrip->id_user = Auth::id();
+        dd($formData);
+        $newTrip->save();
+        return redirect()->route('admin.trips.show',['trip'=>$newTrip->id]);
     }
 
     /**

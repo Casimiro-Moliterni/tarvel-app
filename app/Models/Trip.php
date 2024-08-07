@@ -8,7 +8,8 @@ use App\Models\User;
 class Trip extends Model
 {
     use HasFactory;
-
+    
+     protected $fillable=['title','description','start_date','end_date','thumb','longitude','latitude'];
     public function days(){
         return $this->hasMany(day::class);
     }

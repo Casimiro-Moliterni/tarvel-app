@@ -1,5 +1,7 @@
 @use './partials/dashboard';
 @use './partials/auth/login';
+@use './partials/trips/index';
+@use './partials/trips/show';
 @import '~bootstrap/scss/bootstrap'
 
 

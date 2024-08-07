@@ -4,7 +4,10 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-
+use App\Models\Trip;
+use Illuminate\Support\Facades\Auth;
+use App\Models\User;
+use App\Models\Day;
 class TripController extends Controller
 {
     /**
@@ -15,6 +18,9 @@ class TripController extends Controller
     public function index()
     {
         //
+        $user = Auth::Id();
+        $trips = Trip::where('id_user', $user)->get();
+        return view ('admin.trips.index',compact('trips','user'));
     }
 
     /**
@@ -44,9 +50,10 @@ class TripController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Trip $trip)
     {
         //
+        return view('admin.trips.show',compact('trip'));
     }
 
     /**

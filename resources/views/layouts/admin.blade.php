@@ -59,7 +59,7 @@
                 </li>
 
                 <li>
-                    <a href="#">
+                    <a href="{{ route('admin.dashboard') }}">
                         <span class="icon">
                             <ion-icon name="add-circle-outline"></ion-icon>
                         </span>

@@ -32,8 +32,12 @@ body {
   position: fixed;
   width: 300px;
   height: 100%;
-  background: var(--blue);
-  border-left: 10px solid var(--blue);
+  // background: var(--blue);
+  background-image: url('https://c0.wallpaperflare.com/preview/92/222/407/journey-roadtrip-road-leading-line.jpg');
+  // border-left: 10px solid var(--blue);
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
   transition: 0.5s;
   overflow: hidden;
 }

@@ -29,8 +29,7 @@
     <!-- =============== Navigation ================ -->
     <div class="my-container">
         <div class="navigation">
-            <ul class="ps-0">
-
+            <ul >
                 <li>
                     <a href="{{ route('admin.dashboard') }}">
                         <span class="icon">

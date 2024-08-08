@@ -16,9 +16,7 @@
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                 <label for="title">Titolo*</label>
-                                                <input id="title" type="text" name="title" class="form-control"
-                                                    placeholder="Aggiungi un titolo *" required="required"
-                                                    data-error="Titolo è obbligatorio.">
+                                                <input id="title" type="text" name="title" class="form-control"  placeholder="Aggiungi un titolo *">
                                             </div>
                                         </div>
                                         <div class="col-md-6">
@@ -27,7 +25,6 @@
                                                 <input type="text" class="form-control" id="address" name="address"
                                                     value="{{ old('address') }}" autocomplete="off">
                                                 <div id="addressSuggestions" class="list-group position-absolute fs-3">
-                                                    
                                                 </div>
                                                 <div class="invalid-feedback" id="addressError"></div>
                                             </div>
@@ -37,17 +34,13 @@
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                 <label for="start_date">Data di arrivo*</label>
-                                                <input id="start_date" type="date" name="start_date"
-                                                    class="form-control" placeholder="Aggiungi data di arrivo *"
-                                                    required="required" data-error="Data di arrivo è obbligatoria.">
+                                                <input id="start_date" type="date" name="start_date" class="form-control" placeholder="Aggiungi data di arrivo *">
                                             </div>
                                         </div>
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                 <label for="end_date">Data di ritorno</label>
-                                                <input id="end_date" type="date" name="end_date"
-                                                    class="form-control" placeholder="Aggiungi data di ritorno *"
-                                                    required="required" data-error="Data di ritorno è obbligatoria.">
+                                                <input id="end_date" type="date" name="end_date" class="form-control" placeholder="Aggiungi data di ritorno *">
                                             </div>
                                         </div>
                                     </div>
@@ -55,7 +48,8 @@
                                         <div class="col-md-12">
                                             <div class="form-group">
                                                 <label for="thumb">Immagine *</label>
-                                                <input id="thumb" type="file" name="thumb" class="form-control">
+                                                <input id="thumb" type="file" name="thumb"
+                                                    class="form-control">
                                             </div>
                                         </div>
                                     </div>
@@ -64,7 +58,7 @@
                                             <div class="form-group">
                                                 <label for="description">Descrizione *</label>
                                                 <textarea id="description" name="description" class="form-control" placeholder="Scrivi la tua descrizione qui."
-                                                    rows="4" required="required" data-error="Descrizione è obbligatoria."></textarea>
+                                                    rows="4" data-error="Descrizione è obbligatoria."></textarea>
                                             </div>
                                         </div>
                                         <input type="hidden" id="longitude" name="longitude"
@@ -73,7 +67,7 @@
                                             value="{{ old('latitude') }}">
 
                                         <div class="col-md-12 mt-3 send-btn d-flex justify-content-center">
-                                            <button >
+                                            <button>
                                                 Crea
                                                 <i class="fa-solid fa-check"></i>
                                             </button>

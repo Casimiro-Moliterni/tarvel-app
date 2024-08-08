@@ -12,7 +12,7 @@
                 </li>
                 <li>
                     <a class="round-button gallery active" href="{{ route('admin.trips.index') }}"
-                        style="--round-button-active-color: #2962ff" data-translate-value="100%" data-color="blue">
+                        style="--round-button-active-color: #2962ff " data-translate-value="100%" data-color="blue">
                         <svg xmlns="http://www.w3.org/2000/svg"
                             viewBox="0 0 576 512"><!--!Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.-->
                             <path
@@ -21,18 +21,19 @@
                     </a>
                 </li>
                 <li>
-                    <button class="round-button" style="--round-button-active-color: #00c853"
+                    <a class="round-button" style="--round-button-active-color: #00c853"
                         data-translate-value="200%" data-color="green">
                         <svg fill="currentColor" viewBox="0 0 16 16">
                             <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z" />
                             <path
                                 d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z" />
                         </svg>
-                    </button>
+                    </a>
                 </li>
                 <li>
                     <a class="round-button" href="{{ route('admin.dashboard') }}"
-                        style="--round-button-active-color: #aa00ff" data-translate-value="300%" data-color="purple">
+                        style="--round-button-active-color: #aa00ff "
+                        data-translate-value="300%" data-color="purple">
                         <svg xmlns="http://www.w3.org/2000/svg"
                             viewBox="0 0 576 512"><!--!Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.-->
                             <path
@@ -41,14 +42,14 @@
                     </a>
                 </li>
                 <li>
-                    <button class="round-button" style="--round-button-active-color: #ff6d00"
+                    <a class="round-button" style="--round-button-active-color: #ff6d00"
                         data-translate-value="400%" data-color="orange">
                         <svg xmlns="http://www.w3.org/2000/svg"
                             viewBox="0 0 512 512"><!--!Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.-->
                             <path
                                 d="M495.9 166.6c3.2 8.7 .5 18.4-6.4 24.6l-43.3 39.4c1.1 8.3 1.7 16.8 1.7 25.4s-.6 17.1-1.7 25.4l43.3 39.4c6.9 6.2 9.6 15.9 6.4 24.6c-4.4 11.9-9.7 23.3-15.8 34.3l-4.7 8.1c-6.6 11-14 21.4-22.1 31.2c-5.9 7.2-15.7 9.6-24.5 6.8l-55.7-17.7c-13.4 10.3-28.2 18.9-44 25.4l-12.5 57.1c-2 9.1-9 16.3-18.2 17.8c-13.8 2.3-28 3.5-42.5 3.5s-28.7-1.2-42.5-3.5c-9.2-1.5-16.2-8.7-18.2-17.8l-12.5-57.1c-15.8-6.5-30.6-15.1-44-25.4L83.1 425.9c-8.8 2.8-18.6 .3-24.5-6.8c-8.1-9.8-15.5-20.2-22.1-31.2l-4.7-8.1c-6.1-11-11.4-22.4-15.8-34.3c-3.2-8.7-.5-18.4 6.4-24.6l43.3-39.4C64.6 273.1 64 264.6 64 256s.6-17.1 1.7-25.4L22.4 191.2c-6.9-6.2-9.6-15.9-6.4-24.6c4.4-11.9 9.7-23.3 15.8-34.3l4.7-8.1c6.6-11 14-21.4 22.1-31.2c5.9-7.2 15.7-9.6 24.5-6.8l55.7 17.7c13.4-10.3 28.2-18.9 44-25.4l12.5-57.1c2-9.1 9-16.3 18.2-17.8C227.3 1.2 241.5 0 256 0s28.7 1.2 42.5 3.5c9.2 1.5 16.2 8.7 18.2 17.8l12.5 57.1c15.8 6.5 30.6 15.1 44 25.4l55.7-17.7c8.8-2.8 18.6-.3 24.5 6.8c8.1 9.8 15.5 20.2 22.1 31.2l4.7 8.1c6.1 11 11.4 22.4 15.8 34.3zM256 336a80 80 0 1 0 0-160 80 80 0 1 0 0 160z" />
                         </svg>
-                    </button>
+                    </a>
                 </li>
             </ul>
             <div class="main-slider" aria-hidden="true">
@@ -320,95 +321,204 @@
 </style>
 
 
-<script>
-    const mainTabs = document.querySelector(".main-tabs");
-    const mainSliderCircle = document.querySelector(".main-slider-circle");
-    const roundButtons = document.querySelectorAll(".round-button");
-    const mainElement = document.querySelector(".main"); // Seleziona l'elemento .main
+{{-- <script>
+ // Seleziona l'elemento della lista delle schede principali.
+const mainTabs = document.querySelector(".main-tabs");
 
-    const colors = {
-        blue: {
-            50: {
-                value: "#e3f2fd"
-            },
-            100: {
-                value: "#bbdefb"
-            }
-        },
-        green: {
-            50: {
-                value: "#e8f5e9"
-            },
-            100: {
-                value: "#c8e6c9"
-            }
-        },
-        purple: {
-            50: {
-                value: "#f3e5f5"
-            },
-            100: {
-                value: "#e1bee7"
-            }
-        },
-        orange: {
-            50: {
-                value: "#ffe0b2"
-            },
-            100: {
-                value: "#ffe0b2"
-            }
-        },
-        red: {
-            50: {
-                value: "#ffebee"
-            },
-            100: {
-                value: "#ffcdd2"
-            }
-        }
-    };
+// Seleziona il cerchio del cursore dello slider principale.
+const mainSliderCircle = document.querySelector(".main-slider-circle");
 
-    const getColor = (color, variant) => {
-        return colors[color][variant].value;
-    };
+// Seleziona tutti i pulsanti rotondi all'interno delle schede principali.
+const roundButtons = document.querySelectorAll(".round-button");
 
-    const handleActiveTab = (tabs, event, className) => {
-        tabs.forEach((tab) => {
-            tab.classList.remove(className);
-        });
+// Seleziona l'elemento con la classe .main, che potrebbe essere utilizzato per cambiare lo sfondo.
+const mainElement = document.querySelector(".main");
 
-        if (!event.target.classList.contains(className)) {
-            event.target.classList.add(className);
-        }
-    };
+// Definisce un oggetto contenente diverse palette di colori con varianti.
+const colors = {
+    blue: {
+        50: { value: "#e3f2fd" },
+        100: { value: "#bbdefb" }
+    },
+    green: {
+        50: { value: "#e8f5e9" },
+        100: { value: "#c8e6c9" }
+    },
+    purple: {
+        50: { value: "#f3e5f5" },
+        100: { value: "#e1bee7" }
+    },
+    orange: {
+        50: { value: "#ffe0b2" },
+        100: { value: "#ffe0b2" }
+    },
+    red: {
+        50: { value: "#ffebee" },
+        100: { value: "#ffcdd2" }
+    }
+};
 
-    mainTabs.addEventListener("click", (event) => {
-        const root = document.documentElement;
-        const targetColor = event.target.dataset.color;
-        const targetTranslateValue = event.target.dataset.translateValue;
+// Funzione per ottenere il valore del colore dato un nome e una variante.
+const getColor = (color, variant) => {
+    return colors[color][variant].value;
+};
 
-        if (event.target.classList.contains("round-button")) {
-            mainSliderCircle.classList.remove("animate-jello");
-            void mainSliderCircle.offsetWidth;
-            mainSliderCircle.classList.add("animate-jello");
-
-            // Aggiorna le proprietà CSS
-            root.style.setProperty("--translate-main-slider", targetTranslateValue);
-            root.style.setProperty("--main-slider-color", getColor(targetColor, 50));
-            root.style.setProperty("--background-color", getColor(targetColor, 100));
-
-            // Cambia il colore di background dell'elemento .main
-            if (mainElement) {
-                mainElement.style.backgroundColor = getColor(targetColor, 50);
-            }
-
-            handleActiveTab(roundButtons, event, "active");
-        }
-
-        
-
+// Funzione per gestire l'attivazione di una scheda, rimuovendo la classe "active" da tutte le schede e aggiungendola solo alla scheda selezionata.
+const handleActiveTab = (tabs, event, className) => {
+    tabs.forEach((tab) => {
+        tab.classList.remove(className);
     });
 
+    if (!event.target.classList.contains(className)) {
+        event.target.classList.add(className);
+    }
+};
+
+// Aggiunge un gestore di eventi per il click sulle schede principali.
+mainTabs.addEventListener("click", (event) => {
+    // Seleziona l'elemento radice (root) del documento per modificare le variabili CSS globali.
+    const root = document.documentElement;
+
+    // Ottiene il colore target e il valore di traslazione dal dataset dell'elemento cliccato.
+    const targetColor = event.target.dataset.color;
+    const targetTranslateValue = event.target.dataset.translateValue;
+
+    // Verifica se l'elemento cliccato ha la classe "round-button".
+    if (event.target.classList.contains("round-button")) {
+        // Rimuove temporaneamente l'animazione di jello dal cerchio dello slider.
+        mainSliderCircle.classList.remove("animate-jello");
+        void mainSliderCircle.offsetWidth; // Forza il reflow per resettere l'animazione.
+        mainSliderCircle.classList.add("animate-jello"); // Riapplica l'animazione di jello.
+
+        // Aggiorna le variabili CSS per lo slider principale e il colore di sfondo.
+        root.style.setProperty("--translate-main-slider", targetTranslateValue);
+        root.style.setProperty("--main-slider-color", getColor(targetColor, 50));
+        root.style.setProperty("--background-color", getColor(targetColor, 100));
+
+        // Cambia il colore di sfondo dell'elemento .main, se esiste.
+        if (mainElement) {
+            mainElement.style.backgroundColor = getColor(targetColor, 50);
+        }
+
+        // Gestisce l'attivazione della scheda, rimuovendo la classe "active" da tutte le schede e aggiungendola solo alla scheda cliccata.
+        handleActiveTab(roundButtons, event, "active");
+    }
+});
+
+</script> --}}
+<script>
+    // Seleziona l'elemento della lista delle schede principali.
+const mainTabs = document.querySelector(".main-tabs");
+
+// Seleziona il cerchio del cursore dello slider principale.
+const mainSliderCircle = document.querySelector(".main-slider-circle");
+
+// Seleziona tutti i pulsanti rotondi all'interno delle schede principali.
+const roundButtons = document.querySelectorAll(".round-button");
+
+// Seleziona l'elemento con la classe .main, che potrebbe essere utilizzato per cambiare lo sfondo.
+const mainElement = document.querySelector(".main");
+
+// Definisce un oggetto contenente diverse palette di colori con varianti.
+const colors = {
+    blue: {
+        50: { value: "#e3f2fd" },
+        100: { value: "#bbdefb" }
+    },
+    green: {
+        50: { value: "#e8f5e9" },
+        100: { value: "#c8e6c9" }
+    },
+    purple: {
+        50: { value: "#f3e5f5" },
+        100: { value: "#e1bee7" }
+    },
+    orange: {
+        50: { value: "#ffe0b2" },
+        100: { value: "#ffe0b2" }
+    },
+    red: {
+        50: { value: "#ffebee" },
+        100: { value: "#ffcdd2" }
+    }
+};
+
+// Funzione per ottenere il valore del colore dato un nome e una variante.
+const getColor = (color, variant) => {
+    return colors[color][variant].value;
+};
+
+// Funzione per gestire l'attivazione di una scheda, rimuovendo la classe "active" da tutte le schede e aggiungendola solo alla scheda selezionata.
+const handleActiveTab = (tabs, event, className) => {
+    tabs.forEach((tab) => {
+        tab.classList.remove(className);
+    });
+
+    if (!event.target.classList.contains(className)) {
+        event.target.classList.add(className);
+    }
+};
+
+// Recupera il colore e la traslazione salvati nel localStorage e applica questi valori al caricamento della pagina.
+const applySavedSettings = () => {
+    const savedColor = localStorage.getItem('selectedColor');
+    const savedTranslateValue = localStorage.getItem('translateValue');
+    
+    if (savedColor && savedTranslateValue) {
+        const root = document.documentElement;
+        root.style.setProperty("--translate-main-slider", savedTranslateValue);
+        root.style.setProperty("--main-slider-color", getColor(savedColor, 50));
+        root.style.setProperty("--background-color", getColor(savedColor, 100));
+        
+        if (mainElement) {
+            mainElement.style.backgroundColor = getColor(savedColor, 50);
+        }
+        
+        // Attiva il pulsante corrispondente
+        roundButtons.forEach(button => {
+            if (button.dataset.color === savedColor) {
+                handleActiveTab(roundButtons, { target: button }, "active");
+            }
+        });
+    }
+};
+
+// Aggiunge un gestore di eventi per il click sulle schede principali.
+mainTabs.addEventListener("click", (event) => {
+    // Seleziona l'elemento radice (root) del documento per modificare le variabili CSS globali.
+    const root = document.documentElement;
+
+    // Ottiene il colore target e il valore di traslazione dal dataset dell'elemento cliccato.
+    const targetColor = event.target.dataset.color;
+    const targetTranslateValue = event.target.dataset.translateValue;
+
+    // Verifica se l'elemento cliccato ha la classe "round-button".
+    if (event.target.classList.contains("round-button")) {
+        // Rimuove temporaneamente l'animazione di jello dal cerchio dello slider.
+        mainSliderCircle.classList.remove("animate-jello");
+        void mainSliderCircle.offsetWidth; // Forza il reflow per resettere l'animazione.
+        mainSliderCircle.classList.add("animate-jello"); // Riapplica l'animazione di jello.
+
+        // Aggiorna le variabili CSS per lo slider principale e il colore di sfondo.
+        root.style.setProperty("--translate-main-slider", targetTranslateValue);
+        root.style.setProperty("--main-slider-color", getColor(targetColor, 50));
+        root.style.setProperty("--background-color", getColor(targetColor, 100));
+
+        // Cambia il colore di sfondo dell'elemento .main, se esiste.
+        if (mainElement) {
+            mainElement.style.backgroundColor = getColor(targetColor, 50);
+        }
+
+        // Salva le preferenze dell'utente nel localStorage.
+        localStorage.setItem('selectedColor', targetColor);
+        localStorage.setItem('translateValue', targetTranslateValue);
+
+        // Gestisce l'attivazione della scheda, rimuovendo la classe "active" da tutte le schede e aggiungendola solo alla scheda cliccata.
+        handleActiveTab(roundButtons, event, "active");
+    }
+});
+
+// Applica le impostazioni salvate quando la pagina viene caricata.
+applySavedSettings();
 
 </script>

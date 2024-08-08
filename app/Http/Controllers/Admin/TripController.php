@@ -47,16 +47,20 @@ class TripController extends Controller
      */
     public function store(Request $request)
     {
-        
-        $validatedData = $this->validation($request->all());
-        $formData = $validatedData;
+        // form data prende i dati degli input 
         $formData = $request->all();
-
+        // validazione dei dati 
+        $validatedData = $this->validation($request->all());
+        // forma data diventa positvo 
+        $formData = $validatedData;
+       
+        // creimao una nuova cartella public per passare l'immagine di copertina 
         if ($request->hasFile('thumb')) {
             $img_path = Storage::disk('public')->put('trips_cover_thumb', $formData['thumb']);
             $formData['thumb'] = $img_path;
         }
 
+        // istanza di un nuovo model 
         $newTrip = new Trip();
         $newTrip->fill($formData);
         $newTrip->id_user = Auth::id();
@@ -136,20 +140,29 @@ class TripController extends Controller
 
 
     // validatore 
-private function validation($data)
+    private function validation($data)
 {
     return Validator::make($data, [
-        'title' => 'required|string|max:255',
+        'title' => 'required|min:3|string|max:255',
         'description' => 'nullable|min:5|string',
         'thumb' => 'nullable|image|max:1700',
         'address' => 'required|string',
         'longitude' => 'required|numeric|between:-180,180',
         'latitude' => 'required|numeric|between:-90,90',
-        'start_date' =>'required',
-        'end_date' =>'required',
+        'end_date' => 'required|date|after_or_equal:start_date',  // Modificato
+        'start_date' => [
+            'required', 
+            'date',
+            'after_or_equal:today',  // Già modificato
+        ],
     ], 
     [
         'title.required' => 'Il campo titolo è obbligatorio',
+        'end_date.required' => 'Il campo Data di Ritorno è obbligatorio',
+        'end_date.after_or_equal' => 'Il campo Data di Ritorno non può essere inferiore alla Data di Inizio',  // Modificato
+        'start_date.required' => 'Il campo Data di Inizio è obbligatorio',
+        'start_date.after_or_equal' => 'Il campo Data di Inizio non può essere inferiore ad oggi',
+        'title.min' => 'Il campo titolo deve essere almeno di 3 caratteri',
         'description.min' => 'Il campo descrizione deve essere almeno di 5 caratteri',
         'thumb.image' => 'Il file deve essere un\'immagine',
         'thumb.max' => 'L\'immagine non può superare i 1700KB',
@@ -160,5 +173,6 @@ private function validation($data)
         'latitude.between' => 'Il campo latitudine deve essere compreso tra -90 e 90',
     ])->validate();
 }
-}
+
+}    
 

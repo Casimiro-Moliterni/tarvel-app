@@ -20,7 +20,6 @@ return new class extends Migration
             $table->datetime('start_date');
             $table->datetime('end_date');
             $table->timestamps();
-
             $table->foreign('id_trip')->references('id')->on('trips')->onDelete('cascade');
         });
     }

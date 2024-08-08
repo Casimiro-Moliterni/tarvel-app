@@ -8,7 +8,9 @@
                 <div class="my-card mt-2 mx-auto p-4 ">
                     <div class="card-body ">
                         <div class = "container">
-                            <form action="{{ route('admin.trips.store') }}" method="POST" id="contact-form"
+                            {{-- messaggi di errore  --}}
+
+                            <form id="form" action="{{ route('admin.trips.store') }}" method="POST" id="contact-form"
                                 role="form" enctype="multipart/form-data">
                                 @csrf
                                 <div class="controls">
@@ -16,18 +18,29 @@
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                 <label for="title">Titolo*</label>
-                                                <input id="title" type="text" name="title" class="form-control"
-                                                    placeholder="Aggiungi un titolo *" required="required"
-                                                    data-error="Titolo è obbligatorio.">
+                                                <input id="title" value="{{ old('title') }}" type="text"
+                                                    @error('title') is-invalid @enderror name="title"
+                                                    class="form-control"placeholder="Aggiungi un titolo *">
+                                                @error('title')
+                                                    <div class="d-flex  justify-content-center">
+                                                        <div class="my_alert">{{ $message }}</div>
+                                                    </div>
+                                                @enderror
                                             </div>
                                         </div>
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                 <label for="address"><strong>Aggiungi Destinazione *</strong></label>
                                                 <input type="text" class="form-control" id="address" name="address"
-                                                    value="{{ old('address') }}" autocomplete="off">
+                                                    value="{{ old('address') }}" autocomplete="off"
+                                                    @error('address') is-invalid @enderror>
+                                                @error('address')
+                                                    <div class="d-flex  justify-content-center">
+                                                        <div class="my_alert">{{ $message }}</div>
+                                                    </div>
+                                                @enderror
                                                 <div id="addressSuggestions" class="list-group position-absolute fs-3">
-                                                    
+
                                                 </div>
                                                 <div class="invalid-feedback" id="addressError"></div>
                                             </div>
@@ -37,17 +50,28 @@
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                 <label for="start_date">Data di arrivo*</label>
-                                                <input id="start_date" type="date" name="start_date"
-                                                    class="form-control" placeholder="Aggiungi data di arrivo *"
-                                                    required="required" data-error="Data di arrivo è obbligatoria.">
+                                                <input id="start_date" type="date"
+                                                    name="start_date"class="form-control"
+                                                    value="{{ old('start_date') }}"
+                                                    placeholder="Aggiungi data di arrivo *">
+                                                @error('start_date')
+                                                    <div class="d-flex  justify-content-center">
+                                                        <div class="my_alert">{{ $message }}</div>
+                                                    </div>
+                                                @enderror
                                             </div>
                                         </div>
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                 <label for="end_date">Data di ritorno</label>
-                                                <input id="end_date" type="date" name="end_date"
-                                                    class="form-control" placeholder="Aggiungi data di ritorno *"
-                                                    required="required" data-error="Data di ritorno è obbligatoria.">
+                                                <input id="end_date" type="date" name="end_date"class="form-control"
+                                                    value="{{ old('end_date') }}"
+                                                    placeholder="Aggiungi data di ritorno *">
+                                                @error('end_date')
+                                                    <div class="d-flex  justify-content-center">
+                                                        <div class="my_alert">{{ $message }}</div>
+                                                    </div>
+                                                @enderror
                                             </div>
                                         </div>
                                     </div>
@@ -55,7 +79,13 @@
                                         <div class="col-md-12">
                                             <div class="form-group">
                                                 <label for="thumb">Immagine *</label>
-                                                <input id="thumb" type="file" name="thumb" class="form-control">
+                                                <input id="thumb" type="file" name="thumb"
+                                                    class="form-control">
+                                                @error('thumb')
+                                                    <div class="d-flex  justify-content-center">
+                                                        <div class="my_alert">{{ $message }}</div>
+                                                    </div>
+                                                @enderror
                                             </div>
                                         </div>
                                     </div>
@@ -63,8 +93,13 @@
                                         <div class="col-md-12">
                                             <div class="form-group">
                                                 <label for="description">Descrizione *</label>
-                                                <textarea id="description" name="description" class="form-control" placeholder="Scrivi la tua descrizione qui."
-                                                    rows="4" required="required" data-error="Descrizione è obbligatoria."></textarea>
+                                                <textarea id="description" name="description" class="form-control" placeholder="Scrivi la tua descrizione qui."s
+                                                    rows="4"></textarea>
+                                                @error('description')
+                                                    <div class="d-flex  justify-content-center">
+                                                        <div class="my_alert">{{ $message }}</div>
+                                                    </div>
+                                                @enderror
                                             </div>
                                         </div>
                                         <input type="hidden" id="longitude" name="longitude"
@@ -72,8 +107,8 @@
                                         <input type="hidden" id="latitude" name="latitude"
                                             value="{{ old('latitude') }}">
 
-                                        <div class="col-md-12 mt-3 send-btn d-flex justify-content-center">
-                                            <button >
+                                        <div class="col-md-12 mt-3 d-flex justify-content-center">
+                                            <button type="submit" >
                                                 Crea
                                                 <i class="fa-solid fa-check"></i>
                                             </button>
@@ -100,3 +135,21 @@
 <script src="https://api.tomtom.com/maps-sdk-for-web/cdn/6.x/6.21.0/services/services-web.min.js"></script>
 {{-- axios cdn --}}
 <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    const form = document.querySelector('#form');
+    const title = document.querySelector('#title');
+    const address = document.querySelector('#address');
+    const start_date = document.querySelector('#start_date');
+    const end_date = document.querySelector('#end_date');
+    const description = document.querySelector('#description');
+    const longitude = document.querySelector('#longitude');
+    const latitude = document.querySelector('#latitude');
+    const thumb = document.querySelector('#thumb');
+    
+    form.addEventListener('submit', function (event) {
+    });
+});
+
+</script>

@@ -8,6 +8,11 @@ use App\Models\Trip;
 use Illuminate\Support\Facades\Auth;
 use App\Models\User;
 use App\Models\Day;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Storage;
+use Carbon\Carbon;
+use Illuminate\Validation\Rule;
+
 class TripController extends Controller
 {
     /**
@@ -20,7 +25,7 @@ class TripController extends Controller
         //
         $user = Auth::Id();
         $trips = Trip::where('id_user', $user)->get();
-        return view ('admin.trips.index',compact('trips','user'));
+        return view('admin.trips.index', compact('trips', 'user'));
     }
 
     /**
@@ -31,6 +36,7 @@ class TripController extends Controller
     public function create()
     {
         //
+        return view('admin.trips.create');
     }
 
     /**
@@ -42,6 +48,24 @@ class TripController extends Controller
     public function store(Request $request)
     {
         //
+        // $validatedData = $this->validation($request->all());
+        // $formData = $validatedData;
+        $formData = $request->all();
+
+        if ($request->hasFile('thumb')) {
+            $img_path = Storage::disk('public')->put('trips_cover_thumb', $formData['thumb']);
+            $formData['thumb'] = $img_path;
+        }
+
+        $newTrip = new Trip();
+        $newTrip->fill($formData);
+        $newTrip->id_user = Auth::id();
+
+        // Salva il nuovo Trip nel database
+        $newTrip->save();
+
+        // Effettua il redirect utilizzando l'ID del nuovo Trip
+        return redirect()->route('admin.trips.show', ['trip' => $newTrip->id]);
     }
 
     /**
@@ -53,7 +77,27 @@ class TripController extends Controller
     public function show(Trip $trip)
     {
         //
-        return view('admin.trips.show',compact('trip'));
+    
+         
+ 
+         // Crea istanze Carbon dalle date
+         $start = Carbon::parse($trip->start_date);
+         $end = Carbon::parse($trip->end_date);
+  
+         // Calcola la differenza in giorni
+         $differenceInDays = $start->diffInDays($end);
+ 
+         // Calcola la differenza in ore
+         $differenceInHours = $start->diffInHours($end);
+ 
+         // Calcola la differenza in minuti
+         $differenceInMinutes = $start->diffInMinutes($end);
+ 
+         // Calcola la differenza totale come oggetto CarbonInterval
+         $difference = $start->diff($end);
+    
+         $days  = $differenceInDays;
+        return view('admin.trips.show', compact('trip','days'));
     }
 
     /**

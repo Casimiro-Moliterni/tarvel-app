@@ -28,18 +28,18 @@
                                         </h4>
                                         <small class="d-block d-flex align-items-center gap-1 fs-3 mt-4 fw-semibold"><i
                                                 class="far fa-clock"></i>partenza {{ $trip->start_date }}</small>
-                                        <small class="d-block d-flex align-items-center gap-1 fs-3  fw-semibold"><i
+                                        <small class="d-block d-flex align-items-center gap-1 fs-3 fw-semibold"><i
                                                 class="far fa-clock"></i>fine {{ $trip->end_date }}</small>
                                     </div>
                                     <div class="card-footer">
                                         <div class="media">
                                             <div class="media-body">
-
+                                                <a class="btn btn-primary ms-index" href="{{ route('admin.trips.edit', ['trip' => $trip->id]) }}">Modifica</a>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                        </div>
+                            </div>
                     </div>
                 @endforeach
             </div>

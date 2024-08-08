@@ -26,7 +26,9 @@
                                                 <label for="address"><strong>Aggiungi Destinazione *</strong></label>
                                                 <input type="text" class="form-control" id="address" name="address"
                                                     value="{{ old('address') }}" autocomplete="off">
-                                                <div id="addressSuggestions" class="list-group position-absolute"></div>
+                                                <div id="addressSuggestions" class="list-group position-absolute fs-3">
+                                                    
+                                                </div>
                                                 <div class="invalid-feedback" id="addressError"></div>
                                             </div>
                                         </div>
@@ -35,7 +37,7 @@
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                 <label for="start_date">Data di arrivo*</label>
-                                                <input id="start_date" type="text" name="start_date"
+                                                <input id="start_date" type="date" name="start_date"
                                                     class="form-control" placeholder="Aggiungi data di arrivo *"
                                                     required="required" data-error="Data di arrivo è obbligatoria.">
                                             </div>
@@ -43,7 +45,7 @@
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                 <label for="end_date">Data di ritorno</label>
-                                                <input id="end_date" type="text" name="end_date"
+                                                <input id="end_date" type="date" name="end_date"
                                                     class="form-control" placeholder="Aggiungi data di ritorno *"
                                                     required="required" data-error="Data di ritorno è obbligatoria.">
                                             </div>

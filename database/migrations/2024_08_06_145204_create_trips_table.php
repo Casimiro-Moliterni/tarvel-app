@@ -20,8 +20,8 @@ return new class extends Migration {
             $table->string('description')->nullable();
             $table->double('longitude', 15, 8);
             $table->double('latitude', 15, 8);
-            $table->datetime('start_date');
-            $table->datetime('end_date');
+            $table->date('start_date');
+            $table->date('end_date');
             $table->timestamps();
 
             $table->foreign('id_user')->references('id')->on('users')->onDelete('cascade');

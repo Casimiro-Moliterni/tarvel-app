@@ -3,7 +3,7 @@
     <div class="container">
         @component('admin.component.btnAdd')
         @endcomponent
-        @component('admin.trips.create')
+        @component('admin.component.formCard')
         @endcomponent
  
         <h2 class="fs-4 text-secondary my-4">

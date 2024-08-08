@@ -80,10 +80,6 @@ class TripController extends Controller
      */
     public function show(Trip $trip)
     {
-        //
-
-
-
         // Crea istanze Carbon dalle date
         $start = Carbon::parse($trip->start_date);
         $end = Carbon::parse($trip->end_date);
@@ -110,9 +106,11 @@ class TripController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Trip $trip)
     {
         //
+        // $trip = Trip::where($id);
+        return view('admin.trips.edit', compact('trip'));
     }
 
     /**
@@ -122,9 +120,58 @@ class TripController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Trip $trip)
     {
         //
+        // $validatedData = $request->validate(
+        //     [
+        //         'title' => 'required|min:3|string|max:255',
+        //         'description' => 'nullable|min:5|string',
+        //         'thumb' => 'nullable|image|max:1700',
+        //         'address' => 'required|string',
+        //         'longitude' => 'required|numeric|between:-180,180',
+        //         'latitude' => 'required|numeric|between:-90,90',
+        //         'end_date' => 'required|date|after_or_equal:start_date',
+        //         'start_date' => [
+        //         'required', 
+        //         'date',
+        //         'after_or_equal:today',
+        //         ]
+        //     ],
+        //     [
+        //         'title.required' => 'Il campo titolo è obbligatorio',
+        //         'end_date.required' => 'Il campo Data di Ritorno è obbligatorio',
+        //         'end_date.after_or_equal' => 'Il campo Data di Ritorno non può essere inferiore alla Data di Inizio',  // Modificato
+        //         'start_date.required' => 'Il campo Data di Inizio è obbligatorio',
+        //         'start_date.after_or_equal' => 'Il campo Data di Inizio non può essere inferiore ad oggi',
+        //         'title.min' => 'Il campo titolo deve essere almeno di 3 caratteri',
+        //         'description.min' => 'Il campo descrizione deve essere almeno di 5 caratteri',
+        //         'thumb.image' => 'Il file deve essere un\'immagine',
+        //         'thumb.max' => 'L\'immagine non può superare i 1700KB',
+        //         'address.required' => 'Il campo indirizzo è obbligatorio',
+        //         'longitude.required' => 'Il campo longitudine è obbligatorio',
+        //         'longitude.between' => 'Il campo longitudine deve essere compreso tra -180 e 180',
+        //         'latitude.required' => 'Il campo latitudine è obbligatorio',
+        //         'latitude.between' => 'Il campo latitudine deve essere compreso tra -90 e 90',
+        //     ]
+        // );
+
+        $formData = $request->all();
+
+        // validazione dei dati 
+        $validatedData = $this->validation($request->all());
+        // forma data diventa positvo 
+        $formData = $validatedData;
+
+        if ($request->hasFile('thumb')) {
+            if ($trip->thumb) {
+                Storage::disk('public')->delete($trip->thumb);
+            }
+            $imgPath = Storage::disk('public')->put('trips_cover_thumb', $request->file('thumb'));
+            $formData['thumb'] = $imgPath;
+        }
+
+        return redirect()->route('admin.trips.index');
     }
 
     /**

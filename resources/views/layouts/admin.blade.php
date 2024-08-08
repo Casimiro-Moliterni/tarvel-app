@@ -40,7 +40,7 @@
                         <span class="title">Help</span>
                     </a>
                 </li>
-                <li>
+                <li class="{{ Route::currentRouteName() == 'admin.dashboard' ? 'hovered' : '' }}">
                     <a href="{{ route('admin.dashboard') }}">
                         <span class="icon">
                             <ion-icon name="home-outline"></ion-icon>
@@ -49,7 +49,7 @@
                     </a>
                 </li>
 
-                <li>
+                <li class="{{ Route::currentRouteName() == 'admin.trips.index' ? 'hovered' : '' }}">
                     <a href="{{ route('admin.trips.index') }}">
                         <span class="icon">
                             <i class="fa-solid fa-plane"></i>
@@ -109,25 +109,34 @@
 
 
     <script>
-        // add hovered class to selected list item
+        // Seleziona tutti gli elementi <li> all'interno dell'elemento con la classe .navigation e li memorizza in una variabile.
         let list = document.querySelectorAll(".navigation li");
 
+        // Funzione per gestire l'aggiunta della classe "hovered" all'elemento <li> attualmente sotto il mouse.
         function activeLink() {
+            // Rimuove la classe "hovered" da tutti gli elementi della lista.
             list.forEach((item) => {
                 item.classList.remove("hovered");
             });
+            // Aggiunge la classe "hovered" all'elemento <li> che ha attivato l'evento mouseover (quello su cui si trova il mouse).
             this.classList.add("hovered");
         }
 
+        // Aggiunge un gestore di eventi "mouseover" a ciascun elemento della lista, che chiama la funzione activeLink.
         list.forEach((item) => item.addEventListener("mouseover", activeLink));
 
-        // Menu Toggle
+        // Seleziona l'elemento con la classe .toggle, che presumibilmente è un pulsante o un controllo per attivare/disattivare il menu.
         let toggle = document.querySelector(".toggle");
+        // Seleziona l'elemento con la classe .navigation, che è probabilmente un menu di navigazione.
         let navigation = document.querySelector(".navigation");
+        // Seleziona l'elemento con la classe .main, che potrebbe essere il contenuto principale della pagina o una sezione collegata al menu.
         let main = document.querySelector(".main");
 
+        // Aggiunge un gestore di eventi di clic all'elemento .toggle.
         toggle.onclick = function() {
+            // Alterna la classe "active" sull'elemento .navigation, mostrando o nascondendo il menu di navigazione.
             navigation.classList.toggle("active");
+            // Alterna la classe "active" sull'elemento .main, che potrebbe cambiare l'aspetto del contenuto principale o del layout quando il menu viene mostrato/nascosto.
             main.classList.toggle("active");
         };
     </script>

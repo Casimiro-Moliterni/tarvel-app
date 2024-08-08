@@ -5,20 +5,20 @@
             <h1 class="text-center">{{ $trip->title }}</h1>
             @component('admin.component.btnAdd')
             @endcomponent
-            <!-- Mappa -->
-            <div id="map" class="rounded mb-4 mt-3 map" style="height: 400px; width: 100%;"></div>
             <div class="accordion" id="accordionExample">
                 @for ($i = 1; $i <= $days; $i++)
-                    <details class="accordion">
-                        <summary class="accordion-btn fs-2 fw-bold">Girono {{ $i }}</summary>
-                        <div class="accordion-content">
-                            <p>
-                                tappe cose da fare
-                            </p>
-                        </div>
-                    </details>
+                <details class="accordion">
+                    <summary class="accordion-btn fs-2 fw-bold">Girono {{ $i }}</summary>
+                    <div class="accordion-content">
+                        <p>
+                            tappe cose da fare
+                        </p>
+                    </div>
+                </details>
                 @endfor
             </div>
+            <!-- Mappa -->
+            <div id="map" class="rounded mb-4 mt-3 map" style="height: 400px; width: 100%;"></div>
         </div>
     </section>
 @endsection

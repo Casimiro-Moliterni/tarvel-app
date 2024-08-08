@@ -42,7 +42,7 @@
                     </a>
                 </li>
                 <li>
-                    <a class="round-button" style="--round-button-active-color: #ff6d00"
+                    <a class="round-button" style="--round-button-active-color: #ff6d00 "
                         data-translate-value="400%" data-color="orange">
                         <svg xmlns="http://www.w3.org/2000/svg"
                             viewBox="0 0 512 512"><!--!Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.-->

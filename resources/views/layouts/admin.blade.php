@@ -32,50 +32,27 @@
     <div class="my-container">
         <div class="navigation">
             <ul>
-                <li>
-                    <a href="#">
-                        <span class="icon">
-                            <ion-icon name="help-outline"></ion-icon>
-                        </span>
-                        <span class="title">Help</span>
-                    </a>
+                {{-- logo della sidebar --}}
+                <li class="h-10 my-5">
+                    <img id="logo" src="{{ 'navigation' == 'active' ? asset('img/logo-black-small.png') : asset('img/logo-black.png') }}" class="icon-image" alt="">
                 </li>
+                {{-- /logo della sidebar --}}
+
                 <li class="{{ Route::currentRouteName() == 'admin.dashboard' ? 'hovered' : '' }}">
-                    <a href="{{ route('admin.dashboard') }}">
-                        <span class="icon">
-                            <ion-icon name="home-outline"></ion-icon>
-                        </span>
-                        <span class="title">Dashboard</span>
+                    <a href="{{ route('admin.dashboard') }}" class="icon fs-5">
+                        <i class="fa-solid fa-house-user"></i><span class="ms-span">Dashboard</span>
                     </a>
                 </li>
-
                 <li class="{{ Route::currentRouteName() == 'admin.trips.index' ? 'hovered' : '' }}">
-                    <a href="{{ route('admin.trips.index') }}">
-                        <span class="icon">
-                            <i class="fa-solid fa-plane"></i>
-                        </span>
-                        <span class="title">Viaggi</span>
+                    <a href="{{ route('admin.trips.index') }}" class="icon fs-5">
+                        <i class="fa-solid fa-plane"></i><span class="ms-span">Viaggi</span>
                     </a>
                 </li>
-
-                <li>
-                    <a href="{{ route('admin.dashboard') }}">
-                        <span class="icon">
-                            <ion-icon name="add-circle-outline"></ion-icon>
-                        </span>
-                        <span class="title">Aggiungi viaggio</span>
+                <li class="{{ Route::currentRouteName() == 'admin.trips.create' ? 'hovered' : '' }}">
+                    <a href="{{ route('admin.trips.create') }}" class="icon fs-5">
+                        <i class="fa-solid fa-circle-plus"></i><span class="ms-span">Aggiungi viaggio</span>
                     </a>
                 </li>
-
-                <li>
-                    <a href="#">
-                        <span class="icon">
-                            <ion-icon name="settings-outline"></ion-icon>
-                        </span>
-                        <span class="title">Settings</span>
-                    </a>
-                </li>
-
             </ul>
         </div>
 
@@ -94,10 +71,10 @@
                 </div>
 
                 <div class="user">
-                    <img src="assets/imgs/customer01.jpg" alt="">
+                    <img src="{{ asset('img/logo-black.png') }}" alt="">
                 </div>
             </div>
-            <div>
+            <div class="px-4">
                 @yield('content')
             </div>
 
@@ -111,6 +88,7 @@
     <script>
         // Seleziona tutti gli elementi <li> all'interno dell'elemento con la classe .navigation e li memorizza in una variabile.
         let list = document.querySelectorAll(".navigation li");
+        let logo = document.getElementById("logo");
 
         // Funzione per gestire l'aggiunta della classe "hovered" all'elemento <li> attualmente sotto il mouse.
         function activeLink() {
@@ -138,6 +116,15 @@
             navigation.classList.toggle("active");
             // Alterna la classe "active" sull'elemento .main, che potrebbe cambiare l'aspetto del contenuto principale o del layout quando il menu viene mostrato/nascosto.
             main.classList.toggle("active");
+
+            // Cambia l'immagine del logo in base alla presenza della classe 'active'
+            if (navigation.classList.contains("active")) {
+                logo.src = "{{ asset('img/logo-black-small.png') }}"; // Nuova immagine quando attivo
+                logo.classList.add('logo-small');
+            } else {
+                logo.src = "{{ asset('img/logo-black.png') }}"; // Immagine originale quando inattivo
+                logo.classList.remove('logo-small');
+            }
         };
     </script>
     <!-- ====== ionicons ======= -->

@@ -1,6 +1,7 @@
 import './bootstrap';
 import '~resources/scss/app.scss';
 import * as bootstrap from 'bootstrap';
+import { toUpper } from 'lodash';
 import.meta.glob([
     '../img/**'
 ])
@@ -63,4 +64,4 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     });
 });
-//  ///funzione che da risultati all'input del created.blade.php----------------------------------------
+

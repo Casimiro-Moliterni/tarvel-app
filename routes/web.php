@@ -27,7 +27,6 @@ Route::middleware(['auth', 'verified'])
     ->group(function () {
         Route::get('dashboard', [DashboardController::class, 'index'])->name('dashboard');
         Route::resource('trips', TripController::class)->parameters(['trips' => 'trip:id']);
-        Route::post('trips', [TripController::class, 'edit'])->name('trips.edit');
         // // route dei pagamenti
         // Route::get('/payment', [PaymentController::class, 'index'])->name('payment');
         // Route::group(['prefix' => 'payment'], function () {

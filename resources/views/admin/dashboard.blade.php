@@ -34,13 +34,5 @@
         </div>
     </div>
 
-    <script>
-        const form = document.querySelector("#create-form");
-        const addForm = document.querySelector("#btn-add");
-        form.classList.add('disabled');
-        addForm.addEventListener('click', function() {
-            form.classList.toggle("disabled");
-        })
-
-    </script>
 @endsection
+

@@ -83,20 +83,22 @@ class TripController extends Controller
         // Crea istanze Carbon dalle date
         $start = Carbon::parse($trip->start_date);
         $end = Carbon::parse($trip->end_date);
-
+    
         // Calcola la differenza in giorni
         $differenceInDays = $start->diffInDays($end);
-
+    
         // Calcola la differenza in ore
         $differenceInHours = $start->diffInHours($end);
-
+    
         // Calcola la differenza in minuti
         $differenceInMinutes = $start->diffInMinutes($end);
-
+    
         // Calcola la differenza totale come oggetto CarbonInterval
         $difference = $start->diff($end);
-
-        $days  = $differenceInDays;
+    
+        // Aggiungi 1 per includere il giorno corrente nella differenza
+        $days = $differenceInDays + 1;
+    
         return view('admin.trips.show', compact('trip', 'days'));
     }
 

@@ -123,25 +123,34 @@ class TripController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, Trip $trip)
-    {
-      
-        $formData = $request->all();
+{
+    // Raccogli i dati dal form
+    $formData = $request->all();
 
-        // validazione dei dati 
-        $validatedData = $this->validation($request->all());
-        // forma data diventa positvo 
-        $formData = $validatedData;
+    // Validazione dei dati
+    $validatedData = $this->validation($request->all());
+    $formData = $validatedData;
 
-        if ($request->hasFile('thumb')) {
-            if ($trip->thumb) {
-                Storage::disk('public')->delete($trip->thumb);
-            }
-            $imgPath = Storage::disk('public')->put('trips_cover_thumb', $request->file('thumb'));
-            $formData['thumb'] = $imgPath;
+    // Controlla se è stata caricata una nuova immagine
+    if ($request->hasFile('thumb')) {
+        // Elimina l'immagine precedente, se esiste
+        if ($trip->thumb) {
+            Storage::disk('public')->delete($trip->thumb);
         }
-
-        return redirect()->route('admin.trips.index');
+        // Salva la nuova immagine
+        $imgPath = Storage::disk('public')->put('trips_cover_thumb', $request->file('thumb'));
+        $formData['thumb'] = $imgPath;
     }
+
+    // Aggiorna i campi del modello Trip con i dati validati
+    $trip->fill($formData);
+    // Salva le modifiche nel database
+    $trip->save();
+
+    // Redirect all'index o dove preferisci dopo l'aggiornamento
+    return redirect()->route('admin.trips.index')->with('success', 'Trip updated successfully');
+}
+
 
     /**
      * Remove the specified resource from storage.

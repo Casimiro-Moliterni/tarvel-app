@@ -33,6 +33,15 @@
             </div>
         </div>
     </div>
-
 @endsection
 
+<script>
+    // questa funzione al click del button btn-add mi mostra il form del create per la card trip 
+// -toggle aggiunge e rimuove la classe disabled (display.none) 
+// const form = document.querySelector("#create-form");
+// const addForm = document.querySelector("#btn-add");
+// form.classList.add('disabled');
+// addForm.addEventListener('click', function() {
+//     form.classList.toggle("disabled");
+// })
+</script>

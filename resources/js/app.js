@@ -6,14 +6,7 @@ import.meta.glob([
     '../img/**'
 ])
 
-// questa funzione al click del button btn-add mi mostra il form del create per la card trip 
-// -toggle aggiunge e rimuove la classe disabled (display.none) 
-const form = document.querySelector("#create-form");
-const addForm = document.querySelector("#btn-add");
-form.classList.add('disabled');
-addForm.addEventListener('click', function() {
-    form.classList.toggle("disabled");
-})
+
 
 //  funzione che da risultati all'input del created.blade.php----------------------------------------
 // aggiungiamo un listener per l'evento 'DOMContentLoaded', che viene eseguito quando il documento HTML è stato completamente caricato e analizzato.

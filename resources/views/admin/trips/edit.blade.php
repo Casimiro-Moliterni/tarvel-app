@@ -26,11 +26,7 @@
                                                     <input id="title" value="{{ $trip->title }}" type="text"
                                                         @error('title') is-invalid @enderror name="title"
                                                         class="form-control" placeholder="Aggiungi un titolo *">
-                                                    @error('title')
-                                                        <div class="d-flex  justify-content-center">
-                                                            <div class="my_alert">{{ $message }}</div>
-                                                        </div>
-                                                    @enderror
+                                                    <div class="error bg-ligth fs-3 text-danger "></div>
                                                 </div>
                                             </div>
 
@@ -40,11 +36,8 @@
                                                     <input type="text" class="form-control" id="address" name="address"
                                                         value="{{ $trip->address }}" autocomplete="off"
                                                         @error('address') is-invalid @enderror>
-                                                    @error('address')
-                                                        <div class="d-flex  justify-content-center">
-                                                            <div class="my_alert">{{ $message }}</div>
-                                                        </div>
-                                                    @enderror
+                                                    <div class="error bg-ligth fs-3 text-danger "></div>
+
                                                     <div id="addressSuggestions" class="list-group position-absolute fs-3">
 
                                                     </div>
@@ -61,11 +54,8 @@
                                                         name="start_date"class="form-control"
                                                         value="{{ $trip->start_date }}"
                                                         placeholder="Aggiungi data di arrivo *">
-                                                    @error('start_date')
-                                                        <div class="d-flex  justify-content-center">
-                                                            <div class="my_alert">{{ $message }}</div>
-                                                        </div>
-                                                    @enderror
+                                                    <div class="error bg-ligth fs-3 text-danger "></div>
+
                                                 </div>
                                             </div>
                                             <div class="col-md-6">
@@ -74,11 +64,8 @@
                                                     <input id="end_date" type="date" name="end_date"class="form-control"
                                                         value="{{ $trip->end_date }}"
                                                         placeholder="Aggiungi data di ritorno *">
-                                                    @error('end_date')
-                                                        <div class="d-flex  justify-content-center">
-                                                            <div class="my_alert">{{ $message }}</div>
-                                                        </div>
-                                                    @enderror
+                                                    <div class="error bg-ligth fs-3 text-danger "></div>
+
                                                 </div>
                                             </div>
                                         </div>
@@ -88,6 +75,7 @@
                                                     <label for="thumb">Immagine *</label>
                                                     <input id="thumb" type="file" name="thumb"
                                                         class="form-control">
+                                                    <div class="error bg-ligth fs-3 text-danger "></div>
 
                                                     {{-- logica per la cancellazione di thumb precedenti --}}
                                                     @if ($trip->thumb && file_exists(public_path('storage/' . $trip->thumb)))
@@ -102,12 +90,6 @@
                                                                 alt="{{ $trip->title }}" class="img-fluid rounded-4">
                                                         </div>
                                                     @endif
-
-                                                    @error('thumb')
-                                                        <div class="d-flex  justify-content-center">
-                                                            <div class="my_alert">{{ $message }}</div>
-                                                        </div>
-                                                    @enderror
                                                 </div>
                                             </div>
                                         </div>
@@ -117,11 +99,7 @@
                                                     <label for="description">Descrizione *</label>
                                                     <textarea id="description" name="description" class="form-control" placeholder="Scrivi la tua descrizione qui..."
                                                         rows="4">{{ $trip->description }}</textarea>
-                                                    @error('description')
-                                                        <div class="d-flex  justify-content-center">
-                                                            <div class="my_alert">{{ $message }}</div>
-                                                        </div>
-                                                    @enderror
+                                                    <div class="error bg-ligth fs-3 text-danger "></div>
                                                 </div>
                                             </div>
                                             <input type="hidden" id="longitude" name="longitude"
@@ -153,126 +131,123 @@
         </div>
     </section>
 @endsection
-<script>
-    < link rel = "stylesheet"
-    type = "text/css"
-    href = "https://api.tomtom.com/maps-sdk-for-web/cdn/6.x/6.21.0/maps/maps.css" / >
-        <
-        script src = "https://api.tomtom.com/maps-sdk-for-web/cdn/6.x/6.21.0/maps/maps-web.min.js" >
-</script>
+<link rel="stylesheet" type="text/css" href="https://api.tomtom.com/maps-sdk-for-web/cdn/6.x/6.21.0/maps/maps.css" />
+<script src="https://api.tomtom.com/maps-sdk-for-web/cdn/6.x/6.21.0/maps/maps-web.min.js"></script>
 <script src="https://api.tomtom.com/maps-sdk-for-web/cdn/6.x/6.21.0/services/services-web.min.js"></script>
 {{-- axios cdn --}}
 <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 <script>
-    const form = document.querySelector('#form');
-    const title = document.querySelector('#title');
-    const address = document.querySelector('#address');
-    const start_date = document.querySelector('#start_date');
-    const end_date = document.querySelector('#end_date');
-    const description = document.querySelector('#description');
-    const thumb = document.querySelector('#thumb');
+    document.addEventListener('DOMContentLoaded', function() {
+        const form = document.querySelector('#form');
+        const title = document.querySelector('#title');
+        const address = document.querySelector('#address');
+        const start_date = document.querySelector('#start_date');
+        const end_date = document.querySelector('#end_date');
+        const description = document.querySelector('#description');
+        const thumb = document.querySelector('#thumb');
 
-    form.addEventListener('submit', e => {
-        e.preventDefault(); // Previene l'invio predefinito del modulo
+        form.addEventListener('submit', function(e) {
+            e.preventDefault(); // Previene l'invio predefinito del form
 
-        const isValid = ValidateInputs(); // Ritorna true o false
+            const isValid = validateInputs(); // Chiama la funzione di validazione
 
-        if (isValid) {
-            form.submit(); // Invia il modulo se è valido
+            if (isValid) {
+                form.submit(); // Invia il form se tutti i campi sono validi
+            }
+        });
+
+        // Funzione per impostare lo stato di successo del campo
+        function setSuccess(element) {
+            const inputControl = element.parentElement;
+            const errorDisplay = inputControl.querySelector('.error');
+            if (errorDisplay) {
+                errorDisplay.innerText = '';
+            }
+            inputControl.classList.add('success');
+            inputControl.classList.remove('error');
+        }
+
+        // Funzione per impostare lo stato di errore del campo
+        function setError(element, message) {
+            const inputControl = element.parentElement;
+            let errorDisplay = inputControl.querySelector('.error');
+            if (!errorDisplay) {
+                errorDisplay = document.createElement('div');
+                errorDisplay.classList.add('error');
+                inputControl.appendChild(errorDisplay);
+            }
+            errorDisplay.innerText = message;
+            inputControl.classList.add('error');
+            inputControl.classList.remove('success');
+        }
+
+        // Funzione di validazione degli input
+        function validateInputs() {
+            let isValid = true;
+            const titleValue = title.value.trim();
+            const addressValue = address.value.trim();
+            const descriptionValue = description.value.trim();
+            const startDateValue = new Date(start_date.value);
+            const endDateValue = new Date(end_date.value);
+            const thumbFile = thumb.files[0];
+            const today = new Date();
+            today.setHours(0, 0, 0, 0); // Imposta le ore a zero per il confronto delle date
+
+            // Validazione titolo
+            if (titleValue === '') {
+                setError(title, 'Il titolo è obbligatorio');
+                isValid = false;
+            } else if (titleValue.length < 3) {
+                setError(title, 'Il titolo deve essere di almeno 3 caratteri');
+                isValid = false;
+            } else {
+                setSuccess(title);
+            }
+
+            // Validazione descrizione
+            if (descriptionValue !== '' && descriptionValue.length < 5) {
+                setError(description, 'La descrizione deve essere di almeno 5 caratteri se fornita');
+                isValid = false;
+            } else {
+                setSuccess(description);
+            }
+
+            // Validazione indirizzo
+            if (addressValue === '') {
+                setError(address, 'La destinazione è obbligatoria');
+                isValid = false;
+            } else {
+                setSuccess(address);
+            }
+
+            // Validazione data di arrivo
+            if (isNaN(startDateValue.getTime())) {
+                setError(start_date, 'La data di arrivo è obbligatoria');
+                isValid = false;
+            } else if (startDateValue < today) {
+                setError(start_date, 'La data di arrivo non può essere nel passato');
+                isValid = false;
+            } else {
+                setSuccess(start_date);
+            }
+
+            // Validazione data di ritorno
+            if (!isNaN(endDateValue.getTime()) && endDateValue < startDateValue) {
+                setError(end_date, 'La data di ritorno non può essere prima della data di arrivo');
+                isValid = false;
+            } else {
+                setSuccess(end_date);
+            }
+
+            // Validazione file immagine
+            if (thumbFile && !['image/jpeg', 'image/png', 'image/gif', 'image/webp'].includes(thumbFile.type)) {
+                setError(thumb, 'Se fornito, il file deve essere un\'immagine (JPEG, PNG, GIF, WEBP)');
+                isValid = false;
+            } else {
+                setSuccess(thumb);
+            }
+
+            return isValid;
         }
     });
-
-
-    const setSuccess = element => {
-        const inputControl = element.parentElement;
-        const errorDisplay = inputControl.querySelector('.error');
-        if (errorDisplay) {
-            errorDisplay.innerText = ''; // Pulisci il messaggio di errore
-        }
-        inputControl.classList.add('success');
-        inputControl.classList.remove('error');
-    };
-
-    const setError = (element, message) => {
-        const inputControl = element.parentElement;
-        const errorDisplay = inputControl.querySelector('.error');
-
-        if (errorDisplay) {
-            errorDisplay.innerText = message; // Mostra il messaggio di errore
-        }
-        inputControl.classList.add('error');
-        inputControl.classList.remove('success');
-    };
-
-    const ValidateInputs = () => {
-        let isValid = true;
-
-        const titleValue = title.value.trim();
-        const addressValue = address.value.trim();
-        const descriptionValue = description.value.trim();
-        const startDateValue = new Date(start_date.value);
-        const endDateValue = new Date(end_date.value);
-        const thumbFile = thumb.files[0]; // Ottieni il file immagine selezionato
-        const today = new Date();
-        today.setHours(0, 0, 0, 0); // Rimuove l'ora per confrontare solo le date
-
-        // Validazione titolo
-        if (titleValue === '') {
-            setError(title, 'Il titolo è obbligatorio');
-            isValid = false;
-        } else if (titleValue.length < 3) {
-            setError(title, 'Il campo titolo deve essere almeno di 3 caratteri');
-            isValid = false;
-        } else {
-            setSuccess(title);
-        }
-
-        // Validazione descrizione (non obbligatoria, ma almeno 5 caratteri se presente)
-        if (descriptionValue !== '' && descriptionValue.length < 5) {
-            setError(description, 'La descrizione deve essere di almeno 5 caratteri se fornita');
-            isValid = false;
-        } else {
-            setSuccess(description);
-        }
-
-        // Validazione indirizzo
-        if (addressValue === '') {
-            setError(address, 'La destinazione è obbligatoria');
-            isValid = false;
-        } else {
-            setSuccess(address);
-        }
-
-        // Validazione data di inizio
-        if (isNaN(startDateValue.getTime())) {
-            setError(start_date, 'La data di inizio è obbligatoria');
-            isValid = false;
-        } else if (startDateValue < today) {
-            setError(start_date, 'La data di inizio non può essere inferiore ad oggi');
-            isValid = false;
-        } else {
-            setSuccess(start_date);
-        }
-
-        // Validazione file immagine
-        if (thumbFile && !['image/jpeg', 'image/png', 'image/gif', 'image/webp'].includes(thumbFile.type)) {
-            setError(thumb, 'Se fornito, il file deve essere un\'immagine (JPEG, PNG, GIF, WEBP)');
-            isValid = false;
-        } else {
-            setSuccess(thumb);
-        }
-
-        // Validazione data di fine
-        if (isNaN(endDateValue.getTime())) {
-            setError(end_date, 'La data di fine è obbligatoria');
-            isValid = false;
-        } else if (endDateValue < startDateValue) {
-            setError(end_date, 'La data di fine non può essere inferiore alla data di inizio');
-            isValid = false;
-        } else {
-            setSuccess(end_date);
-        }
-
-        return isValid; // Restituisce true se tutto è valido
-    };
 </script>

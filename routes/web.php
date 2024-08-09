@@ -35,11 +35,10 @@ Route::middleware(['auth', 'verified'])
         // route del garbage
         Route::get('/garbage', [TripController::class, 'indexDeleted'])->name('garbage');
         Route::group(['prefix' => 'garbage'], function () {
-        Route::post('/{trip}/restore', [TripController::class, 'restore'])->name('garbages.restore');
-        //     // Route::delete('/{apartment}/force', [ApartmentController::class, 'forceDelete'])->name('garbages.forcedelete');
-        Route::post('/restore-all', [TripController::class, 'restoreAll'])->name('garbages.restoreall');
+            Route::post('/{trip}/restore', [TripController::class, 'restore'])->name('garbages.restore');
+            Route::post('/restore-all', [TripController::class, 'restoreAll'])->name('garbages.restoreall');
+            //     // Route::delete('/{apartment}/force', [ApartmentController::class, 'forceDelete'])->name('garbages.forcedelete');
         });
-
     });
 
 Route::middleware('auth')->group(function () {
@@ -48,4 +47,4 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';

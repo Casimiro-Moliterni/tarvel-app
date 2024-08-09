@@ -34,8 +34,12 @@
                                     <div class="card-footer">
                                         <div class="media">
                                             <div class="media-body d-flex gap-3">
-                                                <a class="btn btn-primary ms-index" href="{{ route('admin.trips.edit', ['trip' => $trip->id]) }}">Modifica</a>
-                                                <a class="btn btn-danger ms-index" href="{{ route('admin.trips.destroy', ['trip' => $trip->id]) }}">Elimina</a>
+                                                <a type="button" class="btn btn-primary ms-index" href="{{ route('admin.trips.edit', ['trip' => $trip->id]) }}"><i class="fa-solid fa-pen"></i></a>
+                                                <a type="button" class="btn btn-danger ms-index js-confirm-delete" 
+                                                data-trip-id="{{ $trip->id }}"
+                                                data-trip-title="{{ $trip->title }}">
+                                                <i class="fas fa-trash"></i>
+                                            </a>
                                             </div>
                                         </div>
                                     </div>
@@ -47,4 +51,28 @@
 
         </div>
     </section>
+
+    <!-- Modale per cestinare -->
+    <div class="modal fade p-0 mt-3" id="confirmDeleteModal" tabindex="-1" aria-labelledby="confirmDeleteModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="confirmDeleteModalLabel">Conferma per cestinare</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    Sei sicuro di cestinare questo viaggio: <strong id="trip-title"></strong>?
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annulla</button>
+                    <form id="delete-form" action="" method="POST">
+                        @csrf
+                        @method('DELETE')
+                        <button type="submit" id="modal-confirm-deletion" class="btn btn-danger">Cestina</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
 @endsection

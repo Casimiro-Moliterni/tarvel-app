@@ -148,7 +148,7 @@ class TripController extends Controller
     $trip->save();
 
     // Redirect all'index o dove preferisci dopo l'aggiornamento
-    return redirect()->route('admin.trips.index')->with('success', 'Trip updated successfully');
+    return redirect()->route('admin.trips.index');
 }
 
 

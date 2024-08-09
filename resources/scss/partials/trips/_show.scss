@@ -1,4 +1,15 @@
 .trip-show {
+  .disabled{
+    display: none;
+  }
+
+  .img-cover{
+    height: 200px;
+    width: 100%;
+    object-fit: cover;
+    border-radius: 20px;
+    border: 2px solid rgb(0, 0, 0);
+  }
     .accordion {
         margin-bottom: 10px;
     

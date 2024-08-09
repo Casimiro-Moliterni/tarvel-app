@@ -1,7 +1,7 @@
 <section class="trip-create" id="create-form">
     <div class="container">
         <div class=" text-center mt-5 ">
-            <h1>Bootstrap Contact Form</h1>
+            <h1>Crea il tuo Viaggio!</h1>
         </div>
         <div class="row ">
             <div class="col-lg-10 mx-auto">

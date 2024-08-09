@@ -1,10 +1,23 @@
 import './bootstrap';
 import '~resources/scss/app.scss';
 import * as bootstrap from 'bootstrap';
-import { toUpper } from 'lodash';
+import { result, toUpper } from 'lodash';
 import.meta.glob([
     '../img/**'
 ])
+
+
+function getBtnToggle(btn, element){
+    // variabili per mostare in pagina la mappa al click di add 
+    element.classList.add('d-none');
+    btn.addEventListener('click', function () {
+        element.classList.toggle("d-none");
+    })
+
+}
+
+// Esporta la funzione come parte di un oggetto globale
+window.getBtnToggle = getBtnToggle;
 
 
 
@@ -23,7 +36,7 @@ document.addEventListener('DOMContentLoaded', function () {
     addressInput.addEventListener('input', function () {
         // ottenuto il valore corrente dell'input addressInput e lo assegna alla variabile query.
         const query = addressInput.value;
-
+        const ApiUrlMeteo = '3f1c1b28da8749d3806205654240808';
         // controloo se la lunghezza del valore di input è maggiore di 0.
         if (query.length > 0) {
             // Esegue una richiesta fetch per ottenere suggerimenti di indirizzi dall'API di TomTom.chiave ***NON TOCCARE LA CHIAVE*****
@@ -53,6 +66,13 @@ document.addEventListener('DOMContentLoaded', function () {
                             longitudeInput.value = result.position.lon;
                             // pulisce i suggerimenti dopo la selezione.
                             addressSuggestions.innerHTML = '';
+
+                            fetch(` https://api.weatherapi.com/v1/current.json?key=3f1c1b28da8749d3806205654240808q=London`)
+                                .then(response => response.json()) // Converte la risposta in formato JSON.
+                                .then(data => {
+                                    data
+                                    console.log(data)
+                                })
                         });
                         // aggiungiamo l'elemento 'a' ai suggerimenti.
                         addressSuggestions.appendChild(suggestion);
@@ -60,6 +80,8 @@ document.addEventListener('DOMContentLoaded', function () {
                 })
                 // Gestisce eventuali errori nella richiesta fetch.
                 .catch(error => console.error('Error fetching address suggestions:', error));
+
+
         } else {
             // Se il valore di input è inferiore a 3 caratteri, pulisce i suggerimenti.
             addressSuggestions.innerHTML = '';

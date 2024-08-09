@@ -2,11 +2,65 @@
 @section('content')
     <section class="trip-show">
         <div class="container">
-            <h1 class="text-center">{{ $trip->title }}</h1>
-            @component('admin.component.btnAdd')
-            @endcomponent
-            <div class="accordion" id="accordionExample">
-                @for ($i = 1; $i <= $days; $i++)
+            <h1 class="text-center" style="font-size:5rem">{{ $trip->title }}</h1>
+            <div class="d-flex mb-3">
+                <div class="pt-3 ps-3">
+                    <button class="btn btn-success mb-4 fs-2" type="button" data-bs-toggle="offcanvas"
+                        data-bs-target="#offcanvasScrolling" aria-controls="offcanvasScrolling">Scopri maggiori
+                        dettagli</button>
+                </div>
+            </div>
+            <div class="offcanvas end-0 top-0 " data-bs-scroll="true" data-bs-backdrop="false" tabindex="-1"
+                id="offcanvasScrolling" aria-labelledby="offcanvasScrollingLabel">
+                <button type="button" class="btn-close p-3 fs-2 fw-bold" data-bs-dismiss="offcanvas"
+                    aria-label="Close"></button>
+                <div class="offcanvas-header justify-content-center">
+                    <h2 class="r" id="offcanvasScrollingLabel">{{ $trip->title }}</h2>
+                </div>
+                <div class="offcanvas-body">
+                    <div class="d-flex align-items-center gap-3">
+                        <a id="btn-map"
+                            class="btn fs-1 d-flex justify-content-center align-content-center border border-2 rounded-pill border-black"><i
+                                class="fa-solid fa-plus "></i></a>
+                        <h3>Visualizza la mappa</h3>
+                    </div>
+                    <div id="map" class="rounded mb-4 mt-3 map " style="height: 400px; width: 100%;"></div>
+                    <div class="d-flex align-items-center gap-3 mt-2">
+                        <a id="btn-img-cover"
+                            class="btn fs-1 d-flex justify-content-center align-content-center border border-2 rounded-pill border-black"><i
+                                class="fa-solid fa-plus "></i></a>
+                        <h3>Visualizza la cover</h3>
+                    </div>
+                    <img id="img-cover" class="img-cover d-none my-2" src="{{ asset('storage/' . $trip->thumb) }}" alt="">
+                    <div class="d-flex align-items-center gap-3 mt-2">
+                        <a id="btn-description"
+                            class="btn fs-1 d-flex justify-content-center align-content-center border border-2 rounded-pill border-black"><i
+                                class="fa-solid fa-plus "></i></a>
+                        <h3>Visualizza la descrizione</h3>
+                    </div>
+                    <div  id="show-description"  class="card my-2 d-none overflow-y-auto" style="max-height: 200px">
+                        <div class="card-body fs-3 fw-semibold">
+                          {{$trip->description}}
+                        </div>
+                    </div>
+                    <div class="d-flex align-items-center gap-3 mt-2">
+                        <a id="btn-date"
+                            class="btn fs-1 d-flex justify-content-center align-content-center border border-2 rounded-pill border-black"><i
+                                class="fa-solid fa-plus "></i></a>
+                        <h3>Visualizza le date</h3>
+                    </div>
+                    <div  id="show-date"  class="card my-2 d-none overflow-y-auto" style="max-height: 200px">
+                        <div class="card-body fs-3 fw-semibold">
+                        <div>  Giorno di partenza: {{$trip->start_date}}</div>
+                        <div>  Giorno di ritorno: {{$trip->end_date}}</div>
+                        <div>Totale: {{ $days }}giorni</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="accordion" id="accordionExample">
+            @for ($i = 1; $i <= $days; $i++)
                 <details class="accordion">
                     <summary class="accordion-btn fs-2 fw-bold">Girono {{ $i }}</summary>
                     <div class="accordion-content">
@@ -15,10 +69,8 @@
                         </p>
                     </div>
                 </details>
-                @endfor
-            </div>
-            <!-- Mappa -->
-            <div id="map" class="rounded mb-4 mt-3 map" style="height: 400px; width: 100%;"></div>
+            @endfor
+        </div>
         </div>
     </section>
 @endsection
@@ -30,8 +82,25 @@
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script src="https://api.tomtom.com/maps-sdk-for-web/cdn/6.x/6.25.0/maps/maps-web.min.js"></script>
 <link rel="stylesheet" href="https://api.tomtom.com/maps-sdk-for-web/cdn/6.x/6.25.0/maps/maps.css">
+
 <script>
     document.addEventListener('DOMContentLoaded', function() {
+
+        const btnMap = document.getElementById('btn-map');
+        const showMap = document.getElementById("map");
+        const btnCover = document.getElementById('btn-img-cover');
+        const showCover = document.getElementById("img-cover");
+        const btnDescription = document.getElementById('btn-description');
+        const showDescription = document.getElementById("show-description");
+        const btnDate = document.getElementById('btn-date');
+        const showDate = document.getElementById("show-date");
+
+        // Usa la funzione globale
+        getBtnToggle(btnMap, showMap);
+        getBtnToggle(btnCover, showCover);
+        getBtnToggle(btnDescription, showDescription);
+        getBtnToggle(btnDate, showDate);
+       
         tt.setProductInfo('Your App Name', 'Your App Version');
         let map = tt.map({
             key: 'tNdeH4PSEGzxLQ1CKK0HdCagLd1BsXSc',
@@ -80,12 +149,4 @@
             }
         });
     });
-     // variabili per mostare in pagina la mappa al click di add 
-     const myMap = document.querySelector("#map");
-        const myBtnAdd = document.querySelector("#btn-add");
-        // myMap.classList.add('disabled');
-        // myBtnAdd.addEventListener('click', function() {
-        //     myMap.classList.toggle("disabled");
-        // })
-        console.log('testsss')
 </script>

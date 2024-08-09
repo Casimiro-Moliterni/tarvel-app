@@ -1,7 +1,7 @@
 @extends('layouts.admin')
 @section('content')
     <section class="trip-create" id="create-form">
-        <div class="container">
+        <div class="container pb-5">
             <div class=" text-center mt-5 ">
                 <h1>Modifica la card del tuo viaggio</h1>
             </div>
@@ -76,13 +76,12 @@
                                                     <input id="thumb" type="file" name="thumb"
                                                         class="form-control">
                                                     <div class="error bg-ligth fs-3 text-danger "></div>
-
                                                     {{-- logica per la cancellazione di thumb precedenti --}}
                                                     @if ($trip->thumb && file_exists(public_path('storage/' . $trip->thumb)))
                                                         <div class="col-12 mb-4 d-block">
                                                             <img src="{{ asset('storage/' . $trip->thumb) }}"
                                                                 alt="{{ $trip->title }}" class="img-fluid rounded-4"
-                                                                style='width: 100px; height: 100px;'>
+                                                                style='width: 400px; height: 200px;object-fit:cover'>
                                                         </div>
                                                     @else
                                                         <div class="mb-4 card" style='width: 100px; height: 100px;'>
@@ -107,7 +106,7 @@
                                             <input type="hidden" id="latitude" name="latitude"
                                                 value="{{ $trip->latitudine }}">
 
-                                            <div class="col-md-12 mt-3 d-flex justify-content-center">
+                                            <div class="col-md-12 mt-3 send-btn d-flex justify-content-center">
                                                 <button type="submit">
                                                     Crea
                                                     <i class="fa-solid fa-check"></i>

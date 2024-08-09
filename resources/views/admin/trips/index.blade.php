@@ -33,8 +33,9 @@
                                     </div>
                                     <div class="card-footer">
                                         <div class="media">
-                                            <div class="media-body">
+                                            <div class="media-body d-flex gap-3">
                                                 <a class="btn btn-primary ms-index" href="{{ route('admin.trips.edit', ['trip' => $trip->id]) }}">Modifica</a>
+                                                <a class="btn btn-danger ms-index" href="{{ route('admin.trips.destroy', ['trip' => $trip->id]) }}">Elimina</a>
                                             </div>
                                         </div>
                                     </div>

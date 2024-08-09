@@ -5,7 +5,7 @@
         @endcomponent
         @component('admin.component.formCard')
         @endcomponent
- 
+
         <h2 class="fs-4 text-secondary my-4">
             {{ __('Dashboard') }}
         </h2>
@@ -34,14 +34,13 @@
         </div>
     </div>
 @endsection
-
+@push('scripts')
+    @vite(['resources/js/app.js'])
+@endpush
 <script>
-    // questa funzione al click del button btn-add mi mostra il form del create per la card trip 
-// -toggle aggiunge e rimuove la classe disabled (display.none) 
-// const form = document.querySelector("#create-form");
-// const addForm = document.querySelector("#btn-add");
-// form.classList.add('disabled');
-// addForm.addEventListener('click', function() {
-//     form.classList.toggle("disabled");
-// })
+    document.addEventListener('DOMContentLoaded', function() {
+        const btnForm = document.getElementById('btn-form');
+        const showForm = document.getElementById("create-form");
+        getBtnToggle(btnForm, showForm);
+    })
 </script>

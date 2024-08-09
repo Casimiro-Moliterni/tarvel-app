@@ -27,17 +27,12 @@ Route::middleware(['auth', 'verified'])
     ->group(function () {
         Route::get('dashboard', [DashboardController::class, 'index'])->name('dashboard');
         Route::resource('trips', TripController::class)->parameters(['trips' => 'trip:id']);
-        // // route dei pagamenti
-        // Route::get('/payment', [PaymentController::class, 'index'])->name('payment');
-        // Route::group(['prefix' => 'payment'], function () {
-        //     Route::post('/checkoutSucceeded', [PaymentController::class, 'process'])->name('payment.checkoutSucceeded');
-        // });
         // route del garbage
         Route::get('/garbage', [TripController::class, 'indexDeleted'])->name('garbage');
         Route::group(['prefix' => 'garbage'], function () {
             Route::post('/{trip}/restore', [TripController::class, 'restore'])->name('garbages.restore');
             Route::post('/restore-all', [TripController::class, 'restoreAll'])->name('garbages.restoreall');
-            //     // Route::delete('/{apartment}/force', [ApartmentController::class, 'forceDelete'])->name('garbages.forcedelete');
+            // Route::delete('/{trip}/force', [TripController::class, 'forceDelete'])->name('garbages.forcedelete');
         });
     });
 

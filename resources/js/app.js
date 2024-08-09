@@ -1,19 +1,17 @@
 import './bootstrap';
 import '~resources/scss/app.scss';
 import * as bootstrap from 'bootstrap';
-import { result, toUpper } from 'lodash';
+import { constant, result, toUpper } from 'lodash';
 import.meta.glob([
     '../img/**'
 ])
 
-
-function getBtnToggle(btn, element){
+function getBtnToggle(btn, element) {
     // variabili per mostare in pagina la mappa al click di add 
     element.classList.add('d-none');
     btn.addEventListener('click', function () {
         element.classList.toggle("d-none");
     })
-
 }
 
 // Esporta la funzione come parte di un oggetto globale
@@ -33,10 +31,11 @@ document.addEventListener('DOMContentLoaded', function () {
     // selezioniamo l'elemento input hidden con id 'longitude' dal DOM e lo assegna alla costante longitudeInput.
     const longitudeInput = document.getElementById('longitude');
     // aggiungiamo un listener per l'evento 'input' sull'elemento addressInput.
+
+
     addressInput.addEventListener('input', function () {
         // ottenuto il valore corrente dell'input addressInput e lo assegna alla variabile query.
         const query = addressInput.value;
-        const ApiUrlMeteo = '3f1c1b28da8749d3806205654240808';
         // controloo se la lunghezza del valore di input è maggiore di 0.
         if (query.length > 0) {
             // Esegue una richiesta fetch per ottenere suggerimenti di indirizzi dall'API di TomTom.chiave ***NON TOCCARE LA CHIAVE*****
@@ -67,12 +66,16 @@ document.addEventListener('DOMContentLoaded', function () {
                             // pulisce i suggerimenti dopo la selezione.
                             addressSuggestions.innerHTML = '';
 
-                            fetch(` https://api.weatherapi.com/v1/current.json?key=3f1c1b28da8749d3806205654240808q=London`)
-                                .then(response => response.json()) // Converte la risposta in formato JSON.
+                            // Ora che latitudine e longitudine sono impostate, effettua la chiamata all'API meteo
+                            fetch(`https://api.openweathermap.org/data/2.5/weather?lat=${latitudeInput.value}&lon=${longitudeInput.value}&lang=it&units=metric&appid=461c50c5aad0a7a4b9f77424415c5924`)
+                                .then(response => response.json())
                                 .then(data => {
-                                    data
-                                    console.log(data)
-                                })
+                                    console.log(data);
+                                    // constant tempo celsius per il meteo 
+                                    const tempElement = document.querySelector('.temp');
+                                    // Aggiorna il contenuto dell'elemento HTML con la temperatura ricevuta
+                                    tempElement.innerHTML = `${data.main.temp} °C`;
+                                }).catch(error => console.error('Errore:', error)); // Gestione errori.
                         });
                         // aggiungiamo l'elemento 'a' ai suggerimenti.
                         addressSuggestions.appendChild(suggestion);
@@ -87,4 +90,5 @@ document.addEventListener('DOMContentLoaded', function () {
             addressSuggestions.innerHTML = '';
         }
     });
+   
 });

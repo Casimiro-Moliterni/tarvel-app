@@ -76,7 +76,10 @@ class TripController extends Controller
 
         for ($date = $start; $date->lte($end); $date->addDay()) {
             $newTrip->days()->create([
-                'date' => $date->format('Y-m-d'),
+                'id_trip' => $newTrip->id,  // Usa 'id_trip' invece di 'trip_id'
+                'description' => '',       // Aggiungi altri campi se necessario
+                'start_date' => $date->format('Y-m-d'),
+                'end_date' => $date->format('Y-m-d'),
             ]);
         }
         // ---------------

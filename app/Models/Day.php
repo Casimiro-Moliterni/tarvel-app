@@ -9,7 +9,15 @@ class Day extends Model
 {
     use HasFactory;
 
-    public function stops(){
+    protected $fillable = [
+        'id_trip',
+        'description',
+        'start_date',
+        'end_date',
+    ];
+
+    public function stops()
+    {
         return $this->hasMany(stop::class);
     }
 

@@ -19,7 +19,7 @@ window.getBtnToggle = getBtnToggle;
 
 
 
-//  funzione che da risultati all'input del created.blade.php----------------------------------------
+//  funzione che da risultati all'input del created.blade.php ----------------------------------------
 // aggiungiamo un listener per l'evento 'DOMContentLoaded', che viene eseguito quando il documento HTML è stato completamente caricato e analizzato.
 document.addEventListener('DOMContentLoaded', function () {
     // selezioniamo l'elemento input con id 'address' dal DOM e lo assegna alla costante addressInput.
@@ -91,4 +91,25 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     });
    
+});
+
+
+// funzione della modale per cestinare una card trip
+document.addEventListener('DOMContentLoaded', function () {
+    const deleteButtons = document.querySelectorAll('.js-confirm-delete');
+    const confirmDeleteModal = new bootstrap.Modal(document.getElementById('confirmDeleteModal'));
+    const tripTitleElement = document.getElementById('trip-title');
+    const deleteForm = document.getElementById('delete-form');
+
+    deleteButtons.forEach(function (button) {
+        button.addEventListener('click', function () {
+            const tripId = this.getAttribute('data-trip-id');
+            const tripTitle = this.getAttribute('data-trip-title');
+
+            tripTitleElement.textContent = tripTitle;
+            deleteForm.action = `/admin/trips/${tripId}`;
+
+            confirmDeleteModal.show();
+        });
+    });
 });

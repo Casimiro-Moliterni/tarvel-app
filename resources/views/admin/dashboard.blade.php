@@ -6,13 +6,13 @@
         @component('admin.component.formCard')
         @endcomponent
 
-        <h2 class="fs-4 text-secondary my-4">
+        <h2 class="display-4 text-center font-weight-bolder text-black my-5">
             {{ __('Dashboard') }}
         </h2>
         <div class="row justify-content-center">
             <div class="col">
                 <div class="card">
-                    <div class="card-header">{{ __('User Dashboard') }}</div>
+                    <div class="card-header"><strong>{{ __('La mia dashboard') }}</strong></div>
 
                     <div class="card-body">
                         @if (session('status'))
@@ -20,13 +20,13 @@
                                 {{ session('status') }}
                             </div>
                         @endif
-                        {{ __('You are logged in!') }}
+                        {{ __('Finalmente sei qui!') }}
 
                         <div>
-                            Benvenuto {{ $user->name }}
+                            <strong>Benvenuto {{ $user->name }}</strong>
                         </div>
                         <div>
-                            Ti sei loggato con la mail :{{ $user->email }}
+                            Ti sei loggato con la mail: {{ $user->email }}
                         </div>
                     </div>
                 </div>

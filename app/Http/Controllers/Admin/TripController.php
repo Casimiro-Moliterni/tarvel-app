@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Storage;
 use Carbon\Carbon;
 use Illuminate\Validation\Rule;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class TripController extends Controller
 {
@@ -160,17 +161,14 @@ class TripController extends Controller
      */
     public function destroy(Trip $trip)
     {
-        //
-
         $trip->delete();
         session()->flash('trip_deleted', true);
         return redirect()->route('admin.trips.index');
     }
 
-    // softdeletee
+    // logica del softdeletes
     public function indexDeleted(Trip $trips)
     {
-
         $trips = Trip::onlyTrashed()->get();
         return view('admin.garbage.index', compact('trips'));
     }
@@ -183,13 +181,13 @@ class TripController extends Controller
         return redirect()->route('admin.trips.index')->with('status', 'User restored successfully.');
     }
 
-    public function forceDelete($id)
-    {
-        $trip = Trip::withTrashed()->find($id);
-        $trip->forceDelete();
-        session()->flash('apartments_forceDelete', true);
-        return redirect()->back();
-    }
+    // public function forceDelete($id)
+    // {
+    //     $trip = Trip::withTrashed()->find($id);
+    //     $trip->forceDelete();
+    //     session()->flash('apartments_forceDelete', true);
+    //     return redirect()->back();
+    // }
 
     public function restoreAll()
     {

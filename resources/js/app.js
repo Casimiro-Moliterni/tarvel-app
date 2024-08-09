@@ -31,8 +31,6 @@ document.addEventListener('DOMContentLoaded', function () {
     // selezioniamo l'elemento input hidden con id 'longitude' dal DOM e lo assegna alla costante longitudeInput.
     const longitudeInput = document.getElementById('longitude');
     // aggiungiamo un listener per l'evento 'input' sull'elemento addressInput.
-    const tempElement = document.querySelector('.temp');
-    console.log()
     addressInput.addEventListener('input', function () {
         // ottenuto il valore corrente dell'input addressInput e lo assegna alla variabile query.
         const query = addressInput.value;
@@ -66,16 +64,6 @@ document.addEventListener('DOMContentLoaded', function () {
                             // pulisce i suggerimenti dopo la selezione.
                             addressSuggestions.innerHTML = '';
 
-                            // Ora che latitudine e longitudine sono impostate, effettua la chiamata all'API meteo
-                            fetch(`https://api.openweathermap.org/data/2.5/weather?lat=${latitudeInput.value}&lon=${longitudeInput.value}&lang=it&units=metric&appid=461c50c5aad0a7a4b9f77424415c5924`)
-                                .then(response => response.json())
-                                .then(data => {
-                                    console.log(data);
-                                    // constant tempo celsius per il meteo 
-                                    const tempElement = document.querySelector('.temp');
-                                    // Aggiorna il contenuto dell'elemento HTML con la temperatura ricevuta
-                                    tempElement.innerHTML = `${data.main.temp} °C`;
-                                }).catch(error => console.error('Errore:', error)); // Gestione errori.
                         });
                         // aggiungiamo l'elemento 'a' ai suggerimenti.
                         addressSuggestions.appendChild(suggestion);

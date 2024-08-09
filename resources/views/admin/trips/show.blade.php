@@ -3,8 +3,10 @@
     <section class="trip-show">
         <div class="container">
             <div id="wrapper-meteo">
-                <img src="" alt="">
-                <div class="tempo"></div>
+
+                <img class="weather-icon" src="" alt="Weather icon">
+                <div class="temp"></div>
+                <div class="city"></div>
             </div>
             <h1 class="text-center" style="font-size:5rem">{{ $trip->title }}</h1>
             <div class="d-flex mb-3">
@@ -88,8 +90,40 @@
 <script src="https://api.tomtom.com/maps-sdk-for-web/cdn/6.x/6.25.0/maps/maps-web.min.js"></script>
 <link rel="stylesheet" href="https://api.tomtom.com/maps-sdk-for-web/cdn/6.x/6.25.0/maps/maps.css">
 <script>
-    var tripTitle = @json($trip->title);
     document.addEventListener('DOMContentLoaded', function() {
+        const tempElement = document.querySelector('.temp');
+        const cityElement = document.querySelector('.city');
+        const weatherIconElement = document.querySelector('.weather-icon');
+        const lon = @json($trip->longitude);
+        const lat = @json($trip->latitude);
+
+        fetch(
+                `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&lang=it&units=metric&appid=461c50c5aad0a7a4b9f77424415c5924`
+            )
+            .then(response => response.json())
+            .then(data => {
+                console.log(data);
+                tempElement.innerHTML = `${data.main.temp} °C`;
+                cityElement.innerHTML = `${data.name}`;
+
+                if(data.weather[0].main == "Clouds" ){
+                    weatherIconElement.src= console.log('clouds')
+                } else if(data.weather[0].main == "Clear"){
+                    weatherIconElement.src= console.log('clouds')
+                } else if(data.weather[0].main == "Rain"){
+                    weatherIconElement.src= console.log('rain')
+                } else if(data.weather[0].main == "Drizzle"){
+                    weatherIconElement.src= console.log('drizzle')
+                }else if(data.weather[0].main == "Mist"){
+                    weatherIconElement.src= console.log('mist')
+                } else if(data.weather[0].main == "Snow"){
+                    weatherIconElement.src= console.log('snow')
+                }
+                // Imposta l'icona nel tuo elemento HTML
+                weatherIconElement.src = iconUrl;
+                weatherIconElement.alt = data.weather[0].description; // Descrizione dell'icona
+            })
+            .catch(error => console.error('Errore:', error)); // Gestione errori.
 
         const btnMap = document.getElementById('btn-map');
         const showMap = document.getElementById("map");

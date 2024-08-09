@@ -31,8 +31,8 @@ document.addEventListener('DOMContentLoaded', function () {
     // selezioniamo l'elemento input hidden con id 'longitude' dal DOM e lo assegna alla costante longitudeInput.
     const longitudeInput = document.getElementById('longitude');
     // aggiungiamo un listener per l'evento 'input' sull'elemento addressInput.
-
-
+    const tempElement = document.querySelector('.temp');
+    console.log()
     addressInput.addEventListener('input', function () {
         // ottenuto il valore corrente dell'input addressInput e lo assegna alla variabile query.
         const query = addressInput.value;

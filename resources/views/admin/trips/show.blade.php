@@ -2,6 +2,10 @@
 @section('content')
     <section class="trip-show">
         <div class="container">
+            <div id="wrapper-meteo">
+                <img src="" alt="">
+                <div class="tempo"></div>
+            </div>
             <h1 class="text-center" style="font-size:5rem">{{ $trip->title }}</h1>
             <div class="d-flex mb-3">
                 <div class="pt-3 ps-3">
@@ -31,16 +35,17 @@
                                 class="fa-solid fa-plus "></i></a>
                         <h3>Visualizza la cover</h3>
                     </div>
-                    <img id="img-cover" class="img-cover d-none my-2" src="{{ asset('storage/' . $trip->thumb) }}" alt="">
+                    <img id="img-cover" class="img-cover d-none my-2" src="{{ asset('storage/' . $trip->thumb) }}"
+                        alt="">
                     <div class="d-flex align-items-center gap-3 mt-2">
                         <a id="btn-description"
                             class="btn fs-1 d-flex justify-content-center align-content-center border border-2 rounded-pill border-black"><i
                                 class="fa-solid fa-plus "></i></a>
                         <h3>Visualizza la descrizione</h3>
                     </div>
-                    <div  id="show-description"  class="card my-2 d-none overflow-y-auto" style="max-height: 200px">
+                    <div id="show-description" class="card my-2 d-none overflow-y-auto" style="max-height: 200px">
                         <div class="card-body fs-3 fw-semibold">
-                          {{$trip->description}}
+                            {{ $trip->description }}
                         </div>
                     </div>
                     <div class="d-flex align-items-center gap-3 mt-2">
@@ -49,11 +54,11 @@
                                 class="fa-solid fa-plus "></i></a>
                         <h3>Visualizza le date</h3>
                     </div>
-                    <div  id="show-date"  class="card my-2 d-none overflow-y-auto" style="max-height: 200px">
+                    <div id="show-date" class="card my-2 d-none overflow-y-auto" style="max-height: 200px">
                         <div class="card-body fs-3 fw-semibold">
-                        <div>  Giorno di partenza: {{$trip->start_date}}</div>
-                        <div>  Giorno di ritorno: {{$trip->end_date}}</div>
-                        <div>Totale: {{ $days }}giorni</div>
+                            <div> Giorno di partenza: {{ $trip->start_date }}</div>
+                            <div> Giorno di ritorno: {{ $trip->end_date }}</div>
+                            <div>Totale: {{ $days }}giorni</div>
                         </div>
                     </div>
                 </div>
@@ -82,7 +87,6 @@
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script src="https://api.tomtom.com/maps-sdk-for-web/cdn/6.x/6.25.0/maps/maps-web.min.js"></script>
 <link rel="stylesheet" href="https://api.tomtom.com/maps-sdk-for-web/cdn/6.x/6.25.0/maps/maps.css">
-
 <script>
     document.addEventListener('DOMContentLoaded', function() {
 
@@ -100,7 +104,7 @@
         getBtnToggle(btnCover, showCover);
         getBtnToggle(btnDescription, showDescription);
         getBtnToggle(btnDate, showDate);
-       
+
         tt.setProductInfo('Your App Name', 'Your App Version');
         let map = tt.map({
             key: 'tNdeH4PSEGzxLQ1CKK0HdCagLd1BsXSc',

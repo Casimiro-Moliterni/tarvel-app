@@ -13,6 +13,23 @@
                     <h2>Non ci sono viaggi nel cestino</h2>
                 @endif
                 @if (!$trips->isEmpty())
+
+                <div class="mb-5">
+                    @if ($trips->count() > 1)
+                    <div class="d-flex justify-content-end">
+                        <form action="{{ route('admin.garbages.restoreall') }}" method="POST">
+                            @csrf
+                            @method('POST')
+                            <button type="submit" class="btn btn-success rounded-pill">
+                                <i class="fa-solid fa-recycle"></i>
+                                 Ripristina tutte le card
+                            </button>
+                        </form>
+                    </div>
+                    @endif
+                </div>
+
+
                     @foreach ($trips as $trip)
                         <div class="col-sm-12 col-md-6 col-lg-4 mb-4">
                             <div class="card  card-has-bg click-col">
@@ -42,9 +59,9 @@
                                                     <form action="{{ route('admin.garbages.restore', $trip->id) }}"
                                                         method="POST">
                                                         @csrf
-                                                        <button type="submit" class="btn btn-success ms-index">
-                                                            <i class="fa-solid fa-recycle"></i>
-                                                            Ripristina
+                                                        <button type="submit" class="btn btn-success ms-index rounded-pill">
+                                                            <i class="fa-regular fa-hand-point-up"></i>
+                                                             Ripristina
                                                         </button>
                                                     </form>
                                                 @endif

@@ -26,7 +26,7 @@
                             <strong>Benvenuto {{ $user->name }}</strong>
                         </div>
                         <div>
-                            Ti sei loggato con la mail :{{ $user->email }}
+                            Ti sei loggato con la mail: {{ $user->email }}
                         </div>
                     </div>
                 </div>

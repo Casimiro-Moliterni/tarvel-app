@@ -72,9 +72,10 @@ document.addEventListener('DOMContentLoaded', function () {
                                 .then(data => {
                                     console.log(data);
                                     // constant tempo celsius per il meteo 
-                                    const tempElement = document.querySelector('.temp');
+                                    const tempElement = document.querySelector('.temp');//questo
+                                    // console.log(tempElement);
                                     // Aggiorna il contenuto dell'elemento HTML con la temperatura ricevuta
-                                    tempElement.innerHTML = `${data.main.temp} °C`;
+                                    tempElement.innerHTML = `${data.main.temp} °C`;//questo
                                 }).catch(error => console.error('Errore:', error)); // Gestione errori.
                         });
                         // aggiungiamo l'elemento 'a' ai suggerimenti.

@@ -69,6 +69,18 @@ class TripController extends Controller
         // Salva il nuovo Trip nel database
         $newTrip->save();
 
+        // ---------------
+        // Calcola il numero di giorni e inserisci i record nella tabella days
+        $start = Carbon::parse($newTrip->start_date);
+        $end = Carbon::parse($newTrip->end_date);
+
+        for ($date = $start; $date->lte($end); $date->addDay()) {
+            $newTrip->days()->create([
+                'date' => $date->format('Y-m-d'),
+            ]);
+        }
+        // ---------------
+
         // Effettua il redirect utilizzando l'ID del nuovo Trip
         return redirect()->route('admin.trips.show', ['trip' => $newTrip->id]);
     }
@@ -147,6 +159,20 @@ class TripController extends Controller
         $trip->fill($formData);
         // Salva le modifiche nel database
         $trip->save();
+
+        // --------------------
+        // Elimina i giorni esistenti e ricrea i nuovi giorni
+        $trip->days()->delete();
+
+        $start = Carbon::parse($trip->start_date);
+        $end = Carbon::parse($trip->end_date);
+
+        for ($date = $start; $date->lte($end); $date->addDay()) {
+            $trip->days()->create([
+                'date' => $date->format('Y-m-d'),
+            ]);
+        }
+        // --------------------
 
         // Redirect all'index o dove preferisci dopo l'aggiornamento
         return redirect()->route('admin.trips.index');

@@ -4,8 +4,9 @@
         <div class="container">
             <div id="wrapper-meteo">
                 <img src="" alt="">
-                <div class="tempo"></div>
+                <div class="temp"></div> <!-- Questo è il tuo elemento di destinazione -->
             </div>
+            
             <h1 class="text-center" style="font-size:5rem">{{ $trip->title }}</h1>
             <div class="d-flex mb-3">
                 <div class="pt-3 ps-3">

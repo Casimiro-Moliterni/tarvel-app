@@ -64,7 +64,7 @@ document.addEventListener('DOMContentLoaded', function () {
                             longitudeInput.value = result.position.lon;
                             // pulisce i suggerimenti dopo la selezione.
                             addressSuggestions.innerHTML = '';
-
+                            console.log(result)
                         });
                         // aggiungiamo l'elemento 'a' ai suggerimenti.
                         addressSuggestions.appendChild(suggestion);

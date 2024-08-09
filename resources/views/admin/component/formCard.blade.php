@@ -11,7 +11,7 @@
                             {{-- messaggi di errore  --}}
 
                             <form id="form" action="{{ route('admin.trips.store') }}" method="POST"
-                                id="contact-form" role="form" enctype="multipart/form-data">
+                                role="form" enctype="multipart/form-data">
                                 @csrf
                                 <div class="controls">
                                     <div class="row">

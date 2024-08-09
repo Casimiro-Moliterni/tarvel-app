@@ -3,17 +3,39 @@
     <section class="trip-show">
         <div class="container">
             <h1 class="text-center" style="font-size:5rem">{{ $trip->title }}</h1>
-            <div class="d-flex mb-3">
-                <div id="wrapper-meteo" class="col-2 text-center">
-                    <img class="weather-icon" src="" alt="Weather icon" style="height: 100px;object-fit:cover">
-                    <div class="temp mt-4 mb-2 fs-3 fw-bold"></div>
-                    <div class="city fs-3 fw-bold"></div>
+            <section id="card-show" class="row mb-5">
+                <div class="col-md-4 mb-4">
+                    <div   class="meteo-card my-card h-100 d-flex flex-column align-items-center justify-content-center">
+                        <img class="weather-icon" src="" alt="Weather icon">
+                        <div class="temp mt-4 mb-2 fw-bold"></div>
+                        <div class="city fw-bold"></div>
+                    </div>
                 </div>
-                <div class="pt-3 ps-3">
-                    <button class="btn btn-success mb-4 fs-2" type="button" data-bs-toggle="offcanvas"
-                        data-bs-target="#offcanvasScrolling" aria-controls="offcanvasScrolling">Scopri maggiori
-                        dettagli</button>
+                <div class="col-md-4 mb-4">
+                    <div class="details-card my-card h-100 " >
+                        <div class="fw-bold d-flex align-items-center gap-3 text-date w-100 justify-content-center">
+                            <i class="fa-solid fa-plane-departure"></i>
+                            <span>Partenza:</span>
+                             {{ $trip->start_date }}
+                        </div>
+                        <div class="fw-bold d-flex align-items-center gap-3 text-date mt-2 w-100 justify-content-center">
+                            <i class="fa-solid fa-plane-arrival"></i>
+                            <span>Ritorno:</span>
+                            {{ $trip->end_date }}
+                        </div>
+                    </div>
                 </div>
+                <div class="col-md-4 mb-4">
+                    <div class="cover-card my-card h-100 d-flex flex-column align-items-center justify-content-center" >
+                        <img class="cover" src="{{ asset('storage/' . $trip->thumb) }}" >  
+                        <div class="city fw-bold"></div>
+                    </div>
+                </div>
+            </section>            
+            <div class="pt-3 ps-3">
+                <button class="btn btn-success mb-4 fs-2" type="button" data-bs-toggle="offcanvas"
+                    data-bs-target="#offcanvasScrolling" aria-controls="offcanvasScrolling">Scopri maggiori
+                    dettagli</button>
             </div>
             <div class="offcanvas end-0 top-0 " data-bs-scroll="true" data-bs-backdrop="false" tabindex="-1"
                 id="offcanvasScrolling" aria-labelledby="offcanvasScrollingLabel">
@@ -66,27 +88,18 @@
             </div>
         </div>
         <div class="accordion" id="accordionExample">
-            {{-- @for ($i = 1; $i <= $days; $i++)
+            @foreach ($trip->days as $day)
                 <details class="accordion">
-                    <summary class="accordion-btn fs-2 fw-bold">Girono {{ $i }}</summary>
+                    @dump($day)
+                    <summary class="accordion-btn fs-2 fw-bold">Giorno {{ $loop->iteration }}:
+                        {{ $day->start_date->format('d M ') }}</summary>
                     <div class="accordion-content">
                         <p>
-                            tappe cose da fare
+                            {{ 'Tappe e cose da fare' }}
                         </p>
                     </div>
                 </details>
-            @endfor --}}
-            @foreach ($trip->days as $day)
-            <details class="accordion">
-                @dump($day)
-                <summary class="accordion-btn fs-2 fw-bold">Giorno {{ $loop->iteration }}: {{ $day->start_date->format('d M ') }}</summary>
-                <div class="accordion-content">
-                    <p>
-                        {{ 'Tappe e cose da fare' }}
-                    </p>
-                </div>
-            </details>
-        @endforeach
+            @endforeach
         </div>
         </div>
     </section>

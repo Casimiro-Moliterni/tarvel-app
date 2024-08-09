@@ -1,0 +1,56 @@
+
+#card-show {
+    .my-card{
+        padding-top: 1rem;
+        margin: 0 auto;
+        overflow: hidden;
+        border: 2px solid white;
+        box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+        padding-top: 1rem;
+        margin: 0 auto;
+        overflow: hidden;
+        max-height: 250px;
+        border-radius: 20px;
+    }
+    .meteo-card {
+        color: white;
+        background: linear-gradient(135deg, #00feba, #9287dd);
+        .city {
+            font-size: 2.5rem; /* Adatta la dimensione del font */
+        }
+
+        .temp {
+            font-size: 4rem; /* Adatta la dimensione del font */
+        }
+
+        img {
+            min-height: 60px;
+            max-height: 100px;
+            max-width: 100%;
+            object-fit: cover;
+        }
+    }
+    .cover-card{
+        color: white;
+       position: relative;
+       background-color: rgba(0, 0, 0, 0.75);
+       z-index: 2;
+        .cover{
+            max-width: 100%;
+           object-fit: cover;
+           position: absolute;
+           opacity: 0.8;
+           z-index: 1;
+        }
+    }
+    .details-card{
+        background-image: url('https://i.pinimg.com/originals/cc/a5/02/cca5022c86f67861746d7cf2eb486de8.gif');
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-position: center;
+
+        .text-date{
+            font-size: 2.5rem;
+        }
+    }
+}

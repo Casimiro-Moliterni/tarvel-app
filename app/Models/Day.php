@@ -15,6 +15,11 @@ class Day extends Model
         'start_date',
         'end_date',
     ];
+    // formato in show
+    protected $casts = [
+        'start_date' => 'datetime',
+        'end_date' => 'datetime',
+    ];
 
     public function stops()
     {

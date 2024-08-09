@@ -61,14 +61,14 @@
                         <div class="card-body fs-3 fw-semibold">
                             <div> Giorno di partenza: {{ $trip->start_date }}</div>
                             <div> Giorno di ritorno: {{ $trip->end_date }}</div>
-                            <div>Totale: {{ $days }}giorni</div>
+                            {{-- <div>Totale: {{ $days }}giorni</div> --}}
                         </div>
                     </div>
                 </div>
             </div>
         </div>
         <div class="accordion" id="accordionExample">
-            @for ($i = 1; $i <= $days; $i++)
+            {{-- @for ($i = 1; $i <= $days; $i++)
                 <details class="accordion">
                     <summary class="accordion-btn fs-2 fw-bold">Girono {{ $i }}</summary>
                     <div class="accordion-content">
@@ -77,7 +77,18 @@
                         </p>
                     </div>
                 </details>
-            @endfor
+            @endfor --}}
+            @foreach ($trip->days as $day)
+            <details class="accordion">
+                @dump($day)
+                <summary class="accordion-btn fs-2 fw-bold">Giorno {{ $loop->iteration }}: {{ $day->start_date->format('d M ') }}</summary>
+                <div class="accordion-content">
+                    <p>
+                        {{ 'Tappe e cose da fare' }}
+                    </p>
+                </div>
+            </details>
+        @endforeach
         </div>
         </div>
     </section>

@@ -34,10 +34,9 @@
                                     <div class="card-footer">
                                         <div class="media">
                                             <div class="media-body d-flex gap-3">
-                                                <a type="button" class="btn btn-primary ms-index" href="{{ route('admin.trips.edit', ['trip' => $trip->id]) }}"><i class="fa-solid fa-pen"></i></a>
-                                                
-                                                
-                                                <a type="button" class="btn btn-danger ms-index js-confirm-delete" 
+                                                <a type="button" class="btn btn-primary ms-index rounded-pill" href="{{ route('admin.trips.edit', ['trip' => $trip->id]) }}"><i class="fa-solid fa-pen"></i></a>
+                                                                                                
+                                                <a type="button" class="btn btn-danger ms-index js-confirm-delete rounded-pill" 
                                                 data-trip-id="{{ $trip->id }}"
                                                 data-trip-title="{{ $trip->title }}">
                                                 <i class="fas fa-trash"></i>

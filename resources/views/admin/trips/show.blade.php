@@ -88,6 +88,7 @@
 <script src="https://api.tomtom.com/maps-sdk-for-web/cdn/6.x/6.25.0/maps/maps-web.min.js"></script>
 <link rel="stylesheet" href="https://api.tomtom.com/maps-sdk-for-web/cdn/6.x/6.25.0/maps/maps.css">
 <script>
+    var tripTitle = @json($trip->title);
     document.addEventListener('DOMContentLoaded', function() {
 
         const btnMap = document.getElementById('btn-map');

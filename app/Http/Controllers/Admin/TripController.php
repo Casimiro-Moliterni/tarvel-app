@@ -162,7 +162,7 @@ class TripController extends Controller
     public function destroy(Trip $trip)
     {
         $trip->delete();
-        session()->flash('trip_deleted', true);
+        session()->flash('trips_deleted', true);
         return redirect()->route('admin.trips.index');
     }
 

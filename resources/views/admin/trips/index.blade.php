@@ -14,29 +14,31 @@
                     <div class="col-sm-12 col-md-6 col-lg-4 col-xl-3 mb-4 position-relative">
                         <article class="card">
                             @if($trip->thumb)
-                            <img class="card__background" src="{{ asset('storage/' . $trip->thumb) }}" >  
+                                <img class="card__background" src="{{ asset('storage/' . $trip->thumb) }}" >  
                             @else
-                            <img class=" card__background" style="object-position: center" src="{{ asset('img/default.png') }}">
+                                <img class=" card__background" style="object-position: center" src="{{ asset('img/default.png') }}">
                             @endif
                             <div class="card__content w-100">
                                 <div class="card__content--container">
-                                    <h2 class="card__title">{{ $trip->title }}</h2>
+                                    <h2 class="card__title pt-3">
+                                        <a class="link-warning link-underline-opacity-0" href="{{ route('admin.trips.show', ['trip' => $trip->id]) }}">
+                                            {{ $trip->title }}
+                                        </a>
+                                    </h2>
                                     <p class="card__description ">
                                         {{ $trip->description }}
                                     </p>
                                 </div>
-                                <div class="d-flex">
-                                    <a href="{{ route('admin.trips.show', ['trip' => $trip->id]) }}"
-                                        class="card__button btnView">View</a>
-                                    <a type="button" class="btn btnEdit card__button"
-                                        href="{{ route('admin.trips.edit', ['trip' => $trip->id]) }}"><i
-                                            class="fa-solid fa-pen"></i></a>
-
-                                    <a type="button" class="btn btnDelete js-confirm-delete  card__button"
+                                <div class="d-flex gap-2">
+                                    <a type="button" class="btn btnEdit card__button rounded-pill ms-index"
+                                        href="{{ route('admin.trips.edit', ['trip' => $trip->id]) }}">
+                                        <i class="fa-solid fa-pen"></i>
+                                    </a>
+                                    <a type="button" class="btn btnDelete js-confirm-delete card__button rounded-pill ms-index"
                                         data-trip-id="{{ $trip->id }}" data-trip-title="{{ $trip->title }}">
                                         <i class="fas fa-trash"></i>
                                     </a>
-                                </div class="d-flex">
+                                </div>
                             </div>
                         </article>
                     </div>
@@ -59,11 +61,11 @@
                     Sei sicuro di cestinare questo viaggio: <strong id="trip-title"></strong>?
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annulla</button>
+                    <button type="button" class="btn btn-secondary rounded-pill" data-bs-dismiss="modal">Annulla</button>
                     <form id="delete-form" action="" method="POST">
                         @csrf
                         @method('DELETE')
-                        <button type="submit" id="modal-confirm-deletion" class="btn btn-danger">Cestina</button>
+                        <button type="submit" id="modal-confirm-deletion" class="btn btn-danger rounded-pill">Cestina</button>
                     </form>
                 </div>
             </div>

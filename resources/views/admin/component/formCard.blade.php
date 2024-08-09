@@ -1,8 +1,8 @@
 <section class="trip-create" id="create-form">
     <div class="container">
-        <div class=" text-center mt-5 ">
-            <h1>Crea il tuo Viaggio!</h1>
-        </div>
+        <div class="text-center my-5">
+            <h1 class="display-4 font-weight-bolder text-black">Crea la tua card di viaggio</h1>
+            <p class="lead">Compila il form per aggiungere una card trip ai tuoi viaggi!</p>
         <div class="row ">
             <div class="col-lg-10 mx-auto">
                 <div class="my-card mt-2 mx-auto p-4 ">

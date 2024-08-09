@@ -19,7 +19,7 @@ window.getBtnToggle = getBtnToggle;
 
 
 
-//  funzione che da risultati all'input del created.blade.php----------------------------------------
+//  funzione che da risultati all'input del created.blade.php ----------------------------------------
 // aggiungiamo un listener per l'evento 'DOMContentLoaded', che viene eseguito quando il documento HTML è stato completamente caricato e analizzato.
 document.addEventListener('DOMContentLoaded', function () {
     // selezioniamo l'elemento input con id 'address' dal DOM e lo assegna alla costante addressInput.
@@ -31,8 +31,6 @@ document.addEventListener('DOMContentLoaded', function () {
     // selezioniamo l'elemento input hidden con id 'longitude' dal DOM e lo assegna alla costante longitudeInput.
     const longitudeInput = document.getElementById('longitude');
     // aggiungiamo un listener per l'evento 'input' sull'elemento addressInput.
-
-
     addressInput.addEventListener('input', function () {
         // ottenuto il valore corrente dell'input addressInput e lo assegna alla variabile query.
         const query = addressInput.value;
@@ -66,17 +64,6 @@ document.addEventListener('DOMContentLoaded', function () {
                             // pulisce i suggerimenti dopo la selezione.
                             addressSuggestions.innerHTML = '';
 
-                            // Ora che latitudine e longitudine sono impostate, effettua la chiamata all'API meteo
-                            fetch(`https://api.openweathermap.org/data/2.5/weather?lat=${latitudeInput.value}&lon=${longitudeInput.value}&lang=it&units=metric&appid=461c50c5aad0a7a4b9f77424415c5924`)
-                                .then(response => response.json())
-                                .then(data => {
-                                    console.log(data);
-                                    // constant tempo celsius per il meteo 
-                                    const tempElement = document.querySelector('.temp');//questo
-                                    // console.log(tempElement);
-                                    // Aggiorna il contenuto dell'elemento HTML con la temperatura ricevuta
-                                    tempElement.innerHTML = `${data.main.temp} °C`;//questo
-                                }).catch(error => console.error('Errore:', error)); // Gestione errori.
                         });
                         // aggiungiamo l'elemento 'a' ai suggerimenti.
                         addressSuggestions.appendChild(suggestion);
@@ -92,4 +79,25 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     });
    
+});
+
+
+// funzione della modale per cestinare una card trip
+document.addEventListener('DOMContentLoaded', function () {
+    const deleteButtons = document.querySelectorAll('.js-confirm-delete');
+    const confirmDeleteModal = new bootstrap.Modal(document.getElementById('confirmDeleteModal'));
+    const tripTitleElement = document.getElementById('trip-title');
+    const deleteForm = document.getElementById('delete-form');
+
+    deleteButtons.forEach(function (button) {
+        button.addEventListener('click', function () {
+            const tripId = this.getAttribute('data-trip-id');
+            const tripTitle = this.getAttribute('data-trip-title');
+
+            tripTitleElement.textContent = tripTitle;
+            deleteForm.action = `/admin/trips/${tripId}`;
+
+            confirmDeleteModal.show();
+        });
+    });
 });

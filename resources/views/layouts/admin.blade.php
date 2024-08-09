@@ -53,6 +53,11 @@
                         <i class="fa-solid fa-circle-plus"></i><span class="ms-span">Aggiungi viaggio</span>
                     </a>
                 </li>
+                <li class="{{ Route::currentRouteName() == 'admin.garbage' ? 'hovered' : '' }}">
+                    <a href="{{ route('admin.garbage') }}" class="icon fs-5">
+                        <i class="fa-solid fa-trash-can"></i><span class="ms-span">Cestino</span>
+                    </a>
+                </li>
             </ul>
         </div>
 

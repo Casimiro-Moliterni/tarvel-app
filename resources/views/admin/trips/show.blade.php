@@ -2,15 +2,13 @@
 @section('content')
     <section class="trip-show">
         <div class="container">
-            <div id="wrapper-meteo">
-
-                <img class="weather-icon" src="" alt="Weather icon">
-                <div class="temp"></div>
-                <div class="city"></div>
-            </div>
-            
             <h1 class="text-center" style="font-size:5rem">{{ $trip->title }}</h1>
             <div class="d-flex mb-3">
+                <div id="wrapper-meteo" class="col-2 text-center">
+                    <img class="weather-icon" src="" alt="Weather icon" style="height: 100px;object-fit:cover">
+                    <div class="temp mt-4 mb-2 fs-3 fw-bold"></div>
+                    <div class="city fs-3 fw-bold"></div>
+                </div>
                 <div class="pt-3 ps-3">
                     <button class="btn btn-success mb-4 fs-2" type="button" data-bs-toggle="offcanvas"
                         data-bs-target="#offcanvasScrolling" aria-controls="offcanvasScrolling">Scopri maggiori
@@ -107,19 +105,22 @@
                 tempElement.innerHTML = `${data.main.temp} °C`;
                 cityElement.innerHTML = `${data.name}`;
 
-                if(data.weather[0].main == "Clouds" ){
-                    weatherIconElement.src= console.log('clouds')
-                } else if(data.weather[0].main == "Clear"){
-                    weatherIconElement.src= console.log('clouds')
-                } else if(data.weather[0].main == "Rain"){
-                    weatherIconElement.src= console.log('rain')
-                } else if(data.weather[0].main == "Drizzle"){
-                    weatherIconElement.src= console.log('drizzle')
-                }else if(data.weather[0].main == "Mist"){
-                    weatherIconElement.src= console.log('mist')
-                } else if(data.weather[0].main == "Snow"){
-                    weatherIconElement.src= console.log('snow')
+                if (data.weather[0].main == "Clouds") {
+                    weatherIconElement.src = `{{ asset('img/wheater/clouds.png') }}`;
+                } else if (data.weather[0].main == "Clear") {
+                    weatherIconElement.src = `{{ asset('img/wheater/clear.png') }}`;
+                } else if (data.weather[0].main == "Rain") {
+                    weatherIconElement.src = `{{ asset('img/wheater/rain.png') }}`;
+                } else if (data.weather[0].main == "Drizzle") {
+                    weatherIconElement.src = `{{ asset('img/wheater/drizzle.png') }}`;
+                } else if (data.weather[0].main == "Mist") {
+                    weatherIconElement.src = `{{ asset('img/wheater/mist.png') }}`;
+                } else if (data.weather[0].main == "Snow") {
+                    weatherIconElement.src = `{{ asset('img/wheater/snow.png') }}`;
+                } else if (data.weather[0].main == "Thunderstorm") {
+                    weatherIconElement.src = `{{ asset('img/wheater/storm.png') }}`;
                 }
+
                 // Imposta l'icona nel tuo elemento HTML
                 weatherIconElement.src = iconUrl;
                 weatherIconElement.alt = data.weather[0].description; // Descrizione dell'icona

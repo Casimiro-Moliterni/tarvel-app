@@ -53,7 +53,7 @@ class TripController extends Controller
         $validatedData = $this->validation($request->all());
         // forma data diventa positvo 
         $formData = $validatedData;
-       
+
         // creimao una nuova cartella public per passare l'immagine di copertina 
         if ($request->hasFile('thumb')) {
             $img_path = Storage::disk('public')->put('trips_cover_thumb', $formData['thumb']);
@@ -83,22 +83,22 @@ class TripController extends Controller
         // Crea istanze Carbon dalle date
         $start = Carbon::parse($trip->start_date);
         $end = Carbon::parse($trip->end_date);
-    
+
         // Calcola la differenza in giorni
         $differenceInDays = $start->diffInDays($end);
-    
+
         // Calcola la differenza in ore
         $differenceInHours = $start->diffInHours($end);
-    
+
         // Calcola la differenza in minuti
         $differenceInMinutes = $start->diffInMinutes($end);
-    
+
         // Calcola la differenza totale come oggetto CarbonInterval
         $difference = $start->diff($end);
-    
+
         // Aggiungi 1 per includere il giorno corrente nella differenza
         $days = $differenceInDays + 1;
-    
+
         return view('admin.trips.show', compact('trip', 'days'));
     }
 
@@ -123,33 +123,33 @@ class TripController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, Trip $trip)
-{
-    // Raccogli i dati dal form
-    $formData = $request->all();
+    {
+        // Raccogli i dati dal form
+        $formData = $request->all();
 
-    // Validazione dei dati
-    $validatedData = $this->validation($request->all());
-    $formData = $validatedData;
+        // Validazione dei dati
+        $validatedData = $this->validation($request->all());
+        $formData = $validatedData;
 
-    // Controlla se è stata caricata una nuova immagine
-    if ($request->hasFile('thumb')) {
-        // Elimina l'immagine precedente, se esiste
-        if ($trip->thumb) {
-            Storage::disk('public')->delete($trip->thumb);
+        // Controlla se è stata caricata una nuova immagine
+        if ($request->hasFile('thumb')) {
+            // Elimina l'immagine precedente, se esiste
+            if ($trip->thumb) {
+                Storage::disk('public')->delete($trip->thumb);
+            }
+            // Salva la nuova immagine
+            $imgPath = Storage::disk('public')->put('trips_cover_thumb', $request->file('thumb'));
+            $formData['thumb'] = $imgPath;
         }
-        // Salva la nuova immagine
-        $imgPath = Storage::disk('public')->put('trips_cover_thumb', $request->file('thumb'));
-        $formData['thumb'] = $imgPath;
+
+        // Aggiorna i campi del modello Trip con i dati validati
+        $trip->fill($formData);
+        // Salva le modifiche nel database
+        $trip->save();
+
+        // Redirect all'index o dove preferisci dopo l'aggiornamento
+        return redirect()->route('admin.trips.index');
     }
-
-    // Aggiorna i campi del modello Trip con i dati validati
-    $trip->fill($formData);
-    // Salva le modifiche nel database
-    $trip->save();
-
-    // Redirect all'index o dove preferisci dopo l'aggiornamento
-    return redirect()->route('admin.trips.index');
-}
 
 
     /**
@@ -158,46 +158,82 @@ class TripController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Trip $trip)
     {
         //
+
+        $trip->delete();
+        session()->flash('trip_deleted', true);
+        return redirect()->route('admin.trips.index');
+    }
+
+    // softdeletee
+    public function indexDeleted(Trip $trips)
+    {
+
+        $trips = Trip::onlyTrashed()->get();
+        return view('admin.garbage.index', compact('trips'));
+    }
+
+    public function restore($id)
+    {
+        $trip = Trip::withTrashed()->findOrFail($id);
+        $trip->restore();
+        session()->flash('trips_restore', true);
+        return redirect()->route('admin.trips.index')->with('status', 'User restored successfully.');
+    }
+
+    public function forceDelete($id)
+    {
+        $trip = Trip::withTrashed()->find($id);
+        $trip->forceDelete();
+        session()->flash('apartments_forceDelete', true);
+        return redirect()->back();
+    }
+
+    public function restoreAll()
+    {
+        Trip::onlyTrashed()->restore();
+        session()->flash('trips_restoreAll', true);
+        return redirect()->route('admin.trips.index')->withSuccess(__('All users restored successfully.'));
     }
 
 
     // validatore 
     private function validation($data)
-{
-    return Validator::make($data, [
-        'title' => 'required|min:3|string|max:255',
-        'description' => 'nullable|min:5|string',
-        'thumb' => 'nullable|image|max:1700',
-        'address' => 'required|string',
-        'longitude' => 'required|numeric|between:-180,180',
-        'latitude' => 'required|numeric|between:-90,90',
-        'end_date' => 'required|date|after_or_equal:start_date',  // Modificato
-        'start_date' => [
-            'required', 
-            'date',
-            'after_or_equal:today',  // Già modificato
-        ],
-    ], 
-    [
-        'title.required' => 'Il campo titolo è obbligatorio',
-        'end_date.required' => 'Il campo Data di Ritorno è obbligatorio',
-        'end_date.after_or_equal' => 'Il campo Data di Ritorno non può essere inferiore alla Data di Inizio',  // Modificato
-        'start_date.required' => 'Il campo Data di Inizio è obbligatorio',
-        'start_date.after_or_equal' => 'Il campo Data di Inizio non può essere inferiore ad oggi',
-        'title.min' => 'Il campo titolo deve essere almeno di 3 caratteri',
-        'description.min' => 'Il campo descrizione deve essere almeno di 5 caratteri',
-        'thumb.image' => 'Il file deve essere un\'immagine',
-        'thumb.max' => 'L\'immagine non può superare i 1700KB',
-        'address.required' => 'Il campo indirizzo è obbligatorio',
-        'longitude.required' => 'Il campo longitudine è obbligatorio',
-        'longitude.between' => 'Il campo longitudine deve essere compreso tra -180 e 180',
-        'latitude.required' => 'Il campo latitudine è obbligatorio',
-        'latitude.between' => 'Il campo latitudine deve essere compreso tra -90 e 90',
-    ])->validate();
+    {
+        return Validator::make(
+            $data,
+            [
+                'title' => 'required|min:3|string|max:255',
+                'description' => 'nullable|min:5|string',
+                'thumb' => 'nullable|image|max:1700',
+                'address' => 'required|string',
+                'longitude' => 'required|numeric|between:-180,180',
+                'latitude' => 'required|numeric|between:-90,90',
+                'end_date' => 'required|date|after_or_equal:start_date',  // Modificato
+                'start_date' => [
+                    'required',
+                    'date',
+                    'after_or_equal:today',  // Già modificato
+                ],
+            ],
+            [
+                'title.required' => 'Il campo titolo è obbligatorio',
+                'end_date.required' => 'Il campo Data di Ritorno è obbligatorio',
+                'end_date.after_or_equal' => 'Il campo Data di Ritorno non può essere inferiore alla Data di Inizio',  // Modificato
+                'start_date.required' => 'Il campo Data di Inizio è obbligatorio',
+                'start_date.after_or_equal' => 'Il campo Data di Inizio non può essere inferiore ad oggi',
+                'title.min' => 'Il campo titolo deve essere almeno di 3 caratteri',
+                'description.min' => 'Il campo descrizione deve essere almeno di 5 caratteri',
+                'thumb.image' => 'Il file deve essere un\'immagine',
+                'thumb.max' => 'L\'immagine non può superare i 1700KB',
+                'address.required' => 'Il campo indirizzo è obbligatorio',
+                'longitude.required' => 'Il campo longitudine è obbligatorio',
+                'longitude.between' => 'Il campo longitudine deve essere compreso tra -180 e 180',
+                'latitude.required' => 'Il campo latitudine è obbligatorio',
+                'latitude.between' => 'Il campo latitudine deve essere compreso tra -90 e 90',
+            ]
+        )->validate();
+    }
 }
-
-}    
-

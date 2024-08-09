@@ -32,13 +32,13 @@ Route::middleware(['auth', 'verified'])
         // Route::group(['prefix' => 'payment'], function () {
         //     Route::post('/checkoutSucceeded', [PaymentController::class, 'process'])->name('payment.checkoutSucceeded');
         // });
-        // // route del garbage
-        // Route::get('/garbage', [ApartmentController::class, 'indexDeleted'])->name('garbage');
-        // Route::group(['prefix' => 'garbage'], function () {
-        //     Route::post('/{apartment}/restore', [ApartmentController::class, 'restore'])->name('garbages.restore');
+        // route del garbage
+        Route::get('/garbage', [TripController::class, 'indexDeleted'])->name('garbage');
+        Route::group(['prefix' => 'garbage'], function () {
+        Route::post('/{trip}/restore', [TripController::class, 'restore'])->name('garbages.restore');
         //     // Route::delete('/{apartment}/force', [ApartmentController::class, 'forceDelete'])->name('garbages.forcedelete');
-        //     Route::post('/restore-all', [ApartmentController::class, 'restoreAll'])->name('garbages.restoreall');
-        // });
+        Route::post('/restore-all', [TripController::class, 'restoreAll'])->name('garbages.restoreall');
+        });
 
     });
 

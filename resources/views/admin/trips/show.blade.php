@@ -117,6 +117,7 @@
 @endpush
 <script>
     document.addEventListener('DOMContentLoaded', function() {
+
         const tempElement = document.querySelector('.temp');
         const cityElement = document.querySelector('.city');
         const weatherIconElement = document.querySelector('.weather-icon');
@@ -155,7 +156,6 @@
                 }
 
                 // Imposta l'icona nel tuo elemento HTML
-                weatherIconElement.src = iconUrl;
                 weatherIconElement.alt = data.weather[0].description; // Descrizione dell'icona
             })
             .catch(error => console.error('Errore:', error)); // Gestione errori.

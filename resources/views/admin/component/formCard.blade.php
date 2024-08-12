@@ -91,6 +91,7 @@
                                                         rows="4"></textarea>
                                                     <div class="error bg-ligth fs-3 text-danger "></div>
                                                 </div>
+                                                <input type="hidden" id="tripId" value="{{ $trip->id }}">
                                             </div>
                                             <div class="col-md-12 mt-3 send-btn d-flex justify-content-center">
                                                 <button type="submit">

@@ -28,11 +28,10 @@ document.addEventListener('DOMContentLoaded', function () {
     const citySuggestions = document.getElementById('citySuggestions');
 
     // Recupero dei dati salvati nel Local Storage
-    let savedCountry = localStorage.getItem('selectedCountry');
-    let savedCountryLat = localStorage.getItem('countryLat');
-    let savedCountryLon = localStorage.getItem('countryLon');
-    let savedCountryCode = localStorage.getItem('selectedCountryCode');
-
+    let savedCountry = localStorage.getItem(selectedCountryKey);
+    let savedCountryLat = localStorage.getItem(countryLatKey);
+    let savedCountryLon = localStorage.getItem(countryLonKey);
+    let savedCountryCode = localStorage.getItem(selectedCountryCodeKey);
 
     let savedCity = localStorage.getItem('selectedCity');
     let savedCityLat = localStorage.getItem('CityLat');
@@ -93,15 +92,24 @@ document.addEventListener('DOMContentLoaded', function () {
                                 e.preventDefault();
                                 countryInput.value = suggestion.country;
 
-                                localStorage.setItem('countryLat', suggestion.lat);
-                                localStorage.setItem('countryLon', suggestion.lon);
-                                localStorage.setItem('selectedCountry', suggestion.country);
-                                localStorage.setItem('selectedCountryCode', suggestion.countryCode);
+                                localStorage.setItem(countryLatKey, suggestion.lat);
+                                localStorage.setItem(countryLonKey, suggestion.lon);
+                                localStorage.setItem(selectedCountryKey, suggestion.country);
+                                localStorage.setItem(selectedCountryCodeKey, suggestion.countryCode);
 
                                 savedCountry = suggestion.country;
                                 savedCountryLat = suggestion.lat;
                                 savedCountryLon = suggestion.lon;
                                 savedCountryCode = suggestion.countryCode;
+
+
+                                // Log dei dati salvati per il paese
+                                console.log(`Dati salvati per il Paese: 
+                                               ID Viaggio: ${tripId}
+                                               Paese: ${savedCountry}
+                                               Latitudine: ${savedCountryLat}
+                                               Longitudine: ${savedCountryLon}
+                                               Codice Paese: ${savedCountryCode}`);
 
                                 // Svuota gli input di regione e città se il paese cambia
                                 cityInput.value = "";
@@ -123,17 +131,16 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     });
 
-
     // Aggiusta l'input delle Città
     cityInput.addEventListener('input', function () {
         const query = cityInput.value.trim().toLowerCase();
         let cityCountryCode = savedCountryCode || null;
 
         if (query.length === 0) {
-            localStorage.removeItem('selectedCity');
-            localStorage.removeItem('CityLat');
-            localStorage.removeItem('CityLon');
-            localStorage.removeItem('savedCityCountryCode');
+            localStorage.removeItem(selectedCityKey);
+            localStorage.removeItem(cityLatKey);
+            localStorage.removeItem(cityLonKey);
+            localStorage.removeItem(savedCityCountryCodeKey);
             savedCity = null;
             savedCityLat = null;
             savedCityLon = null;
@@ -186,19 +193,26 @@ document.addEventListener('DOMContentLoaded', function () {
                                 e.preventDefault();
                                 cityInput.value = suggestion.freeformAddress;
 
-                                localStorage.setItem('selectedCity', suggestion.freeformAddress);
-                                localStorage.setItem('CityLat', suggestion.lat);
-                                localStorage.setItem('CityLon', suggestion.lon);
-                                localStorage.setItem('savedCityCountryCode', suggestion.countryCode);
+                                localStorage.setItem(selectedCityKey, suggestion.freeformAddress);
+                                localStorage.setItem(cityLatKey, suggestion.lat);
+                                localStorage.setItem(cityLonKey, suggestion.lon);
+                                localStorage.setItem(savedCityCountryCodeKey, suggestion.countryCode);
 
                                 savedCity = suggestion.freeformAddress;
                                 savedCityLat = suggestion.lat;
                                 savedCityLon = suggestion.lon;
                                 savedCityCountryCode = suggestion.countryCode;
 
+                                console.log(`Dati salvati per la Città: 
+                                    ID Viaggio: ${tripId}
+                                    Città: ${savedCity}
+                                    Latitudine: ${savedCityLat}
+                                    Longitudine: ${savedCityLon}
+                                    Codice Paese: ${savedCityCountryCode}`);
+
                                 if (!countryInput.value) {
-                                    localStorage.setItem('selectedCountry', suggestion.country);
-                                    localStorage.setItem('selectedCountryCode', suggestion.countryCode);
+                                    localStorage.setItem(selectedCountryKey, suggestion.country);
+                                    localStorage.setItem(selectedCountryCodeKey, suggestion.countryCode);
                                     countryInput.value = suggestion.country;
                                     savedCountry = suggestion.country;
                                     savedCountryCode = suggestion.countryCode;
@@ -238,3 +252,4 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     });
 });
+

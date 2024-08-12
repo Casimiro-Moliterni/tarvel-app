@@ -19,6 +19,6 @@ class Stop extends Model
 
     public function days()
     {
-        return $this->belongsTo(Trip::class, 'id_trip');
+        return $this->belongsTo(Trip::class);
     }
 }

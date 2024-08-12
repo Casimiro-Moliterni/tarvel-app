@@ -25,6 +25,9 @@ class StopsController extends Controller
      */
     public function create(Request $request)
     {
+
+        // $day = $request->route('day');
+        // dd($day);
         return view('admin.stops.create');
     }
 

@@ -126,6 +126,7 @@
                 <details class="accordion">
                     <summary class="accordion-btn fs-2 fw-bold">
                         Giorno {{ $loop->iteration }}: {{ $date->format('d M Y') }}
+                        @dump($date->format('d M Y'))
                     </summary>
                     <div class="accordion-content">
                         <p>

@@ -15,39 +15,38 @@
                                     @csrf
                                     <div class="controls">
                                         <div class="row">
-                                            <div class="col-md-12">
+                                            <div class="col-md-12 ">
                                                 <div class="form-group">
                                                     <label for="title">Titolo*</label>
                                                     <input id="title" value="{{ old('title') }}"
                                                         type="text"name="title"
-                                                        class="form-control"placeholder="Aggiungi un titolo *">
+                                                        class="form-control non-clickable"placeholder="Aggiungi un titolo *">
                                                     <div class="error bg-ligth fs-3 text-danger "></div>
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="row">
                                             <div class="col-md-6">
-                                                <div class="form-group">
+                                                <div class="form-group position-relative">
+                                                    <label for="city"><strong>Citta </strong></label>
+                                                    <input type="text" class="form-control" id="city"
+                                                        name="city" value="{{ old('city') }}" autocomplete="off">
+                                                    <div class="error bg-ligth fs-3 text-danger "></div>
+                                                    <div id="citySuggestions" class="list-group position-absolute fs-3 w-100 bg-secondary">
+                                                    </div>
+                                                    <div class="invalid-feedback" id="cityError"></div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="form-group position-relative">
                                                     <label for="country"><strong>Paese *</strong></label>
                                                     <input type="text" class="form-control" id="country"
                                                         name="country" value="{{ old('country') }}" autocomplete="off">
                                                     <div class="error bg-ligth fs-3 text-danger "></div>
                                                     <div id="countrySuggestions"
-                                                        class="list-group position-absolute fs-3">
+                                                        class="list-group position-absolute fs-3 w-100 bg-secondary">
                                                     </div>
                                                     <div class="invalid-feedback" id="countryError"></div>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <div class="form-group">
-                                                    <label for="city"><strong>Citta </strong></label>
-                                                    <input type="text" class="form-control" id="city"
-                                                        name="city" value="{{ old('city') }}" autocomplete="off">
-                                                    <div class="error bg-ligth fs-3 text-danger "></div>
-                                                    <div id="citySuggestions"
-                                                        class="list-group position-absolute fs-3">
-                                                    </div>
-                                                    <div class="invalid-feedback" id="cityError"></div>
                                                 </div>
                                             </div>
                                         </div>
@@ -100,6 +99,15 @@
                                             </div>
                                         </div>
                                     </div>
+                                    {{-- input invisibili che assumuno i valori delle latitidini e longitutidini di country e city  --}}
+                                    <input type="hidden" id="lonCountry" name="lonCountry"
+                                        value="{{ old('lonCountry') }}">
+                                    <input type="hidden" id="latCountry" name="latCountry"
+                                        value="{{ old('latCountry') }}">
+                                    <input type="hidden" id="lonCity" name="lonCity"
+                                        value="{{ old('lonCity') }}">
+                                    <input type="hidden" id="latCity" name="latCity"
+                                        value="{{ old('latCity') }}">
                                 </form>
 
                             </div>
@@ -120,7 +128,7 @@
 <script src="https://api.tomtom.com/maps-sdk-for-web/cdn/6.x/6.21.0/services/services-web.min.js"></script>
 {{-- axios cdn --}}
 <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-<script >
+<script>
     const form = document.querySelector('#form');
     const title = document.querySelector('#title');
     const country = document.querySelector('#country');
@@ -155,7 +163,11 @@
         inputControl.classList.add('error');
         inputControl.classList.remove('success');
     };
-
+  function getEventListener (element){
+    element.addEventListener('input', function () {
+        element.classList.add('color-input','text-warning');
+    })
+  }
     const ValidateInputs = () => {
         let isValid = true;
 
@@ -182,6 +194,7 @@
         // Validazione description (non obbligatoria, ma almeno 5 caratteri se presente)
         if (descriptionValue !== '' && descriptionValue.length < 5) {
             setError(description, 'La descrizione deve essere di almeno 5 caratteri se fornita');
+            description.classList.remove('color-input','text-warning');
             isValid = false;
         } else {
             setSuccess(description);
@@ -212,6 +225,7 @@
             isValid = false;
         } else {
             setSuccess(thumb);
+            getEventListener(thumb)
         }
 
         // Validazione end_date

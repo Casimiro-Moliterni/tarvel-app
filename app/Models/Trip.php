@@ -13,10 +13,10 @@ class Trip extends Model
 
     use SoftDeletes;
     
-    protected $fillable=['title','description','start_date','end_date','thumb','country','region','city'];
+    protected $fillable=['title','description','start_date','end_date','thumb','lonCountry','latCountry','latCity','lonCity','country','city'];
 
     public function days(){
-        return $this->hasMany(day::class, 'id_trip');
+        return $this->hasMany(Stop::class, 'id_trip');
     }
     public function user(){
         return $this->belongsTo(User::class,'id_user');

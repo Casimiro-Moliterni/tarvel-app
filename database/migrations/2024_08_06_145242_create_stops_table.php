@@ -15,7 +15,8 @@ return new class extends Migration
     {
         Schema::create('stops', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('id_day');
+            $table->unsignedBigInteger('id_trip');
+            $table->date('day');
             $table->string('name');
             $table->string('image')->nullable();
             $table->string('description')->nullable();
@@ -28,8 +29,9 @@ return new class extends Migration
             $table->string('rating');
             $table->timestamps();
 
-            $table->foreign('id_day')->references('id')->on('days')->onDelete('cascade');
+            $table->foreign('id_trip')->references('id')->on('trips')->onDelete('cascade');
         });
+        
     }
 
     /**

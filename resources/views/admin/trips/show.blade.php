@@ -122,14 +122,15 @@
         </div>
 
         <div class="accordion" id="accordionExample">
-            @foreach ($trip->days as $day)
+            @foreach ($daysRange as $date)
                 <details class="accordion">
-                    @dump($day)
-                    <summary class="accordion-btn fs-2 fw-bold">Giorno {{ $loop->iteration }}:
-                        {{ $day->start_date->format('d M ') }}</summary>
+                    <summary class="accordion-btn fs-2 fw-bold">
+                        Giorno {{ $loop->iteration }}: {{ $date->format('d M Y') }}
+                    </summary>
                     <div class="accordion-content">
                         <p>
-                            {{ 'Tappe e cose da fare' }}
+                            <strong>Data:</strong> {{ $date->format('d M Y') }}<br>
+                            <strong>Dettagli:</strong> Nessun dettaglio disponibile per questo giorno.
                         </p>
                     </div>
                 </details>
@@ -151,9 +152,10 @@
 @endpush
 <script>
     document.addEventListener('DOMContentLoaded', function() {
-        const tempElement = document.querySelector('.temp');
-        const cityElement = document.querySelector('.city');
-        const weatherIconElement = document.querySelector('.weather-icon');
+
+        // const tempElement = document.querySelector('.temp');
+        // const cityElement = document.querySelector('.city');
+        // const weatherIconElement = document.querySelector('.weather-icon');
 
         const countryLat = localStorage.getItem('countryLat');
         const countryLon = localStorage.getItem('countryLon');
@@ -165,34 +167,33 @@
         //  alert('test')
         // }
 
-        fetch(
-                `https://api.openweathermap.org/data/2.5/weather?lat=${cityLat}&lon=${cityLon}&lang=it&units=metric&appid=461c50c5aad0a7a4b9f77424415c5924`
-            )
-            .then(response => response.json())
-            .then(data => {
-                tempElement.innerHTML = `${data.main.temp} °C`;
-                cityElement.innerHTML = `${data.name}`;
-                if (data.weather[0].main == "Clouds") {
-                    weatherIconElement.src = `{{ asset('img/wheater/clouds.png') }}`;
-                } else if (data.weather[0].main == "Clear") {
-                    weatherIconElement.src = `{{ asset('img/wheater/clear.png') }}`;
-                } else if (data.weather[0].main == "Rain") {
-                    weatherIconElement.src = `{{ asset('img/wheater/rain.png') }}`;
-                } else if (data.weather[0].main == "Drizzle") {
-                    weatherIconElement.src = `{{ asset('img/wheater/drizzle.png') }}`;
-                } else if (data.weather[0].main == "Mist") {
-                    weatherIconElement.src = `{{ asset('img/wheater/mist.png') }}`;
-                } else if (data.weather[0].main == "Snow") {
-                    weatherIconElement.src = `{{ asset('img/wheater/snow.png') }}`;
-                } else if (data.weather[0].main == "Thunderstorm") {
-                    weatherIconElement.src = `{{ asset('img/wheater/storm.png') }}`;
-                }
+        // fetch(
+        //         `https://api.openweathermap.org/data/2.5/weather?lat=${cityLat}&lon=${cityLon}&lang=it&units=metric&appid=461c50c5aad0a7a4b9f77424415c5924`
+        //     )
+        //     .then(response => response.json())
+        //     .then(data => {
+        //         tempElement.innerHTML = `${data.main.temp} °C`;
+        //         cityElement.innerHTML = `${data.name}`;
+        //         if (data.weather[0].main == "Clouds") {
+        //             weatherIconElement.src = `{{ asset('img/wheater/clouds.png') }}`;
+        //         } else if (data.weather[0].main == "Clear") {
+        //             weatherIconElement.src = `{{ asset('img/wheater/clear.png') }}`;
+        //         } else if (data.weather[0].main == "Rain") {
+        //             weatherIconElement.src = `{{ asset('img/wheater/rain.png') }}`;
+        //         } else if (data.weather[0].main == "Drizzle") {
+        //             weatherIconElement.src = `{{ asset('img/wheater/drizzle.png') }}`;
+        //         } else if (data.weather[0].main == "Mist") {
+        //             weatherIconElement.src = `{{ asset('img/wheater/mist.png') }}`;
+        //         } else if (data.weather[0].main == "Snow") {
+        //             weatherIconElement.src = `{{ asset('img/wheater/snow.png') }}`;
+        //         } else if (data.weather[0].main == "Thunderstorm") {
+        //             weatherIconElement.src = `{{ asset('img/wheater/storm.png') }}`;
+        //         }
 
-                // Imposta l'icona nel tuo elemento HTML
-                weatherIconElement.src = iconUrl;
-                weatherIconElement.alt = data.weather[0].description; // Descrizione dell'icona
-            })
-            .catch(error => console.error('Errore:', error)); // Gestione errori.
+        //         // Imposta l'icona nel tuo elemento HTML
+        //         weatherIconElement.alt = data.weather[0].description; // Descrizione dell'icona
+        //     })
+        //     .catch(error => console.error('Errore:', error)); // Gestione errori.
 
         const btnMap = document.getElementById('btn-map');
         const showMap = document.getElementById("map");

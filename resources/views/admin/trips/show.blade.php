@@ -88,14 +88,15 @@
             </div>
         </div>
         <div class="accordion" id="accordionExample">
-            @foreach ($trip->days as $day)
+            @foreach ($daysRange as $date)
                 <details class="accordion">
-                    @dump($day)
-                    <summary class="accordion-btn fs-2 fw-bold">Giorno {{ $loop->iteration }}:
-                        {{ $day->start_date->format('d M ') }}</summary>
+                    <summary class="accordion-btn fs-2 fw-bold">
+                        Giorno {{ $loop->iteration }}: {{ $date->format('d M Y') }}
+                    </summary>
                     <div class="accordion-content">
                         <p>
-                            {{ 'Tappe e cose da fare' }}
+                            <strong>Data:</strong> {{ $date->format('d M Y') }}<br>
+                            <strong>Dettagli:</strong> Nessun dettaglio disponibile per questo giorno.
                         </p>
                     </div>
                 </details>
@@ -126,10 +127,10 @@
         const countryLon = localStorage.getItem('countryLon');
         const cityLat = localStorage.getItem('CityLat');
         const cityLon = localStorage.getItem('CityLon');
-        const latMeteo=null;
-        const lonMeteo=null;
-        if(countryLat && cityLat){
-           alert('test')
+        const latMeteo = null;
+        const lonMeteo = null;
+        if (countryLat && cityLat) {
+            alert('test')
         }
 
         fetch(

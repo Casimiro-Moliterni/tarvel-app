@@ -24,31 +24,30 @@ function getMatchScore(query, name) {
 document.addEventListener('DOMContentLoaded', function () {
     const countryInput = document.getElementById('country');
     const cityInput = document.getElementById('city');
+    const titleInput = document.getElementById('title');
+
     const countrySuggestions = document.getElementById('countrySuggestions');
     const citySuggestions = document.getElementById('citySuggestions');
 
-    // Recupero dei dati salvati nel Local Storage
-    let savedCountry = localStorage.getItem(selectedCountryKey);
-    let savedCountryLat = localStorage.getItem(countryLatKey);
-    let savedCountryLon = localStorage.getItem(countryLonKey);
-    let savedCountryCode = localStorage.getItem(selectedCountryCodeKey);
+    const latCountryInput = document.getElementById('latCountry');
+    const lonCountryInput = document.getElementById('lonCountry');
+    const latCityInput = document.getElementById('latCity');
+    const lonCityInput = document.getElementById('lonCity');
 
-    let savedCity = localStorage.getItem('selectedCity');
-    let savedCityLat = localStorage.getItem('CityLat');
-    let savedCityLon = localStorage.getItem('CityLon');
-    let savedCityCountryCode = localStorage.getItem('savedCityCountryCode');
+    let latCountryInputValue = null;
+    let lonCountryInputValue = null;
+    let countryCodeValue = null;
+    let cityCodeValue = null;
+    titleInput.value = 'Viaggio in:'
+    // titleInput.disabled = true;
 
     // Aggiusta l'input dei Paesi
     countryInput.addEventListener('input', function () {
         const query = countryInput.value.trim().toLowerCase();
 
-        if (query.length === 0) {
-            localStorage.removeItem('selectedCountry');
-            localStorage.removeItem('selectedCountryCode');
-            savedCountry = null;
-            savedCountryCode = null;
+
+        if (cityInput.value && countryCodeValue !== cityCodeValue) {
             cityInput.value = '';
-            citySuggestions.innerHTML = '';
         }
 
         if (query.length > 0) {
@@ -66,9 +65,9 @@ document.addEventListener('DOMContentLoaded', function () {
                         if (country && !countries.has(country) && country.toLowerCase().includes(query)) {
                             countries.add(country);
                             suggestions.push({
-                                country: country,
-                                lat: result.position.lat,
+                                country: result.address.country,
                                 countryCode: result.address.countryCode,
+                                lat: result.position.lat,
                                 lon: result.position.lon,
                                 score: getMatchScore(query, country)
                             });
@@ -81,44 +80,49 @@ document.addEventListener('DOMContentLoaded', function () {
                         suggestions.forEach(suggestion => {
                             const suggestionElem = document.createElement('a');
                             suggestionElem.href = "#";
-                            suggestionElem.classList.add('list-group-item', 'list-group-item-action', 'd-flex', 'align-items-center');
+                            suggestionElem.classList.add('list-group-item', 'list-group-item-action', 'd-flex', 'align-items-center','my-suggestion');
 
                             const countryText = document.createElement('span');
-                            countryText.textContent = suggestion.country;
-                            countryText.classList.add('ms-2');
+                            countryText.innerHTML= `
+                            <i class="fa-solid fa-earth-americas"></i>
+                            ${suggestion.country}
+                            `;
+                            countryText.classList.add('d-flex','align-items-center','gap-2');
                             suggestionElem.appendChild(countryText);
 
                             suggestionElem.addEventListener('click', function (e) {
                                 e.preventDefault();
                                 countryInput.value = suggestion.country;
-
-                                localStorage.setItem(countryLatKey, suggestion.lat);
-                                localStorage.setItem(countryLonKey, suggestion.lon);
-                                localStorage.setItem(selectedCountryKey, suggestion.country);
-                                localStorage.setItem(selectedCountryCodeKey, suggestion.countryCode);
-
-                                savedCountry = suggestion.country;
-                                savedCountryLat = suggestion.lat;
-                                savedCountryLon = suggestion.lon;
-                                savedCountryCode = suggestion.countryCode;
-
-
-                                // Log dei dati salvati per il paese
-                                console.log(`Dati salvati per il Paese: 
-                                               ID Viaggio: ${tripId}
-                                               Paese: ${savedCountry}
-                                               Latitudine: ${savedCountryLat}
-                                               Longitudine: ${savedCountryLon}
-                                               Codice Paese: ${savedCountryCode}`);
-
-                                // Svuota gli input di regione e città se il paese cambia
+                                latCountryInput.value = suggestion.lat;
+                                lonCountryInput.value = suggestion.lon;
+                                latCountryInputValue = suggestion.lat;
+                                lonCountryInputValue = suggestion.lon;
+                                countryCodeValue = suggestion.countryCode;
                                 cityInput.value = "";
                                 citySuggestions.innerHTML = '';
                                 countrySuggestions.innerHTML = '';
+                                let resultTitle = null;
+                                countryInput.classList.add('color-input', 'text-warning');
+                                if (cityInput.value === '') {
+                                    // Crea la stringa del titolo risultato
+                                    let resultTitle = 'Viaggio in: ' + countryInput.value;
+
+                                    // Imposta il valore dell'input titleInput con la stringa creata
+                                    titleInput.value = resultTitle;
+
+                                    // Aggiungi la classe di avviso al titleInput per evidenziarlo
+                                    titleInput.classList.add('text-warning', 'color-input');
+                                } else {
+                                    titleInput.value = 'Viaggio in: ' + cityInput.value + ' ,' + countryInput.value;
+                                }
+
                             });
                             countrySuggestions.appendChild(suggestionElem);
                         });
                     } else {
+                        countryInput.classList.remove('color-input', 'text-warning');
+                        if (cityCodeValue) { cityInput.classList.remove('color-input', 'text-warning') };
+                        titleInput.classList.remove('color-input', 'text-warning');
                         const noResults = document.createElement('div');
                         noResults.textContent = 'Nessun paese trovato.';
                         noResults.classList.add('list-group-item', 'list-group-item-action');
@@ -134,17 +138,12 @@ document.addEventListener('DOMContentLoaded', function () {
     // Aggiusta l'input delle Città
     cityInput.addEventListener('input', function () {
         const query = cityInput.value.trim().toLowerCase();
-        let cityCountryCode = savedCountryCode || null;
+        let cityCountryCode = countryCodeValue || null;
 
         if (query.length === 0) {
-            localStorage.removeItem(selectedCityKey);
-            localStorage.removeItem(cityLatKey);
-            localStorage.removeItem(cityLonKey);
-            localStorage.removeItem(savedCityCountryCodeKey);
-            savedCity = null;
-            savedCityLat = null;
-            savedCityLon = null;
-            savedCityCountryCode = null;
+            cityInput.value = "";
+            lonCityInput.value = "";
+            latCityInput.value = "";
         }
 
         if (query.length > 0) {
@@ -153,7 +152,6 @@ document.addEventListener('DOMContentLoaded', function () {
             if (cityCountryCode) {
                 fetchUrl += `&countrySet=${cityCountryCode}`;
             }
-
             fetch(fetchUrl)
                 .then(response => response.json())
                 .then(data => {
@@ -182,40 +180,56 @@ document.addEventListener('DOMContentLoaded', function () {
                         suggestions.forEach(suggestion => {
                             const suggestionElem = document.createElement('a');
                             suggestionElem.href = "#";
-                            suggestionElem.classList.add('list-group-item', 'list-group-item-action', 'd-flex', 'align-items-center');
+                            suggestionElem.classList.add('list-group-item', 'list-group-item-action', 'd-flex', 'align-items-center','my-suggestion');
 
                             const cityText = document.createElement('span');
-                            cityText.textContent = suggestion.freeformAddress;
-                            cityText.classList.add('ms-2');
+                            cityText.innerHTML = `
+                            <i class="fa-solid fa-location-dot"></i>
+                            ${suggestion.freeformAddress}`;
+                            cityText.classList.add('d-flex','align-items-center','gap-3');
                             suggestionElem.appendChild(cityText);
 
                             suggestionElem.addEventListener('click', function (e) {
                                 e.preventDefault();
+
                                 cityInput.value = suggestion.freeformAddress;
+                                latCityInput.value = suggestion.lat;
+                                lonCityInput.value = suggestion.lon;
+                                cityCodeValue = suggestion.countryCode;
+                                // chiamata api per salvare la latitudine e longitudine del country 
+                                if (!cityCountryCode) {
+                                    fetch(`https://api.tomtom.com/search/2/search/${cityCodeValue}.json?key=gL9ZtbIAAG015MVGDPOpgKihr8t9e4n0&countrySet=${cityCodeValue}&limit=1&language=it-IT`)
+                                        .then(response => response.json())
+                                        .then(data => {
+                                            data.results.forEach(result => {
 
-                                localStorage.setItem(selectedCityKey, suggestion.freeformAddress);
-                                localStorage.setItem(cityLatKey, suggestion.lat);
-                                localStorage.setItem(cityLonKey, suggestion.lon);
-                                localStorage.setItem(savedCityCountryCodeKey, suggestion.countryCode);
+                                                latCountryInputValue = result.position.lat;
+                                                lonCountryInputValue = result.position.lon;
+                                                // Aggiorna il paese se non è già impostato
+                                                if (countryInput.value === '' || countryCodeValue !== cityCodeValue) {
+                                                    countryInput.value = suggestion.country;
+                                                    latCountryInput.value = result.position.lat;
+                                                    lonCountryInput.value = result.position.lon;
+                                                    latCountryInputValue = result.position.lat;
+                                                    lonCountryInputValue = result.position.lon;
+                                                    countryCodeValue = result.address.countryCode;
+                                                }
+                                                console.log('info country:     ' + latCountryInputValue, lonCountryInputValue, countryCodeValue)
+                                                console.log('city:             ' + latCityInput.value, lonCityInput.value, cityCodeValue)
+                                            });
 
-                                savedCity = suggestion.freeformAddress;
-                                savedCityLat = suggestion.lat;
-                                savedCityLon = suggestion.lon;
-                                savedCityCountryCode = suggestion.countryCode;
+                                        })
+                                        .catch(error => console.error('Errore nella ricerca del paese:', error));
+                                };
+                                    
+                                cityInput.classList.add('color-input', 'text-warning');
+                                countryInput.classList.add('color-input', 'text-warning');
+                                titleInput.classList.add('color-input', 'text-warning');
+                                if (query.length === 0) {
+                                    titleInput.value = 'Viaggio in: ' + suggestion.country;
+                                } else {
+                                    titleInput.value = 'Viaggio in: ' + cityInput.value + ' , ' + suggestion.country;
 
-                                console.log(`Dati salvati per la Città: 
-                                    ID Viaggio: ${tripId}
-                                    Città: ${savedCity}
-                                    Latitudine: ${savedCityLat}
-                                    Longitudine: ${savedCityLon}
-                                    Codice Paese: ${savedCityCountryCode}`);
-
-                                if (!countryInput.value) {
-                                    localStorage.setItem(selectedCountryKey, suggestion.country);
-                                    localStorage.setItem(selectedCountryCodeKey, suggestion.countryCode);
-                                    countryInput.value = suggestion.country;
-                                    savedCountry = suggestion.country;
-                                    savedCountryCode = suggestion.countryCode;
                                 }
                                 citySuggestions.innerHTML = '';
                             });
@@ -223,6 +237,7 @@ document.addEventListener('DOMContentLoaded', function () {
                             citySuggestions.appendChild(suggestionElem);
                         });
                     } else {
+                        cityInput.classList.remove('color-input', 'text-warning');
                         const noResults = document.createElement('div');
                         noResults.textContent = 'Nessuna città trovata.';
                         noResults.classList.add('list-group-item', 'list-group-item-action');
@@ -251,5 +266,6 @@ document.addEventListener('DOMContentLoaded', function () {
             confirmDeleteModal.show();
         });
     });
-});
 
+
+});

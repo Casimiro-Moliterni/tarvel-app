@@ -21,7 +21,7 @@ class TripController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()//-----------------------------------------------------------------------------------------------------------------
+    public function index() //-----------------------------------------------------------------------------------------------------------------
     {
         //
         $user = Auth::Id();
@@ -34,7 +34,7 @@ class TripController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()//----------------------------------------------------------------------------------------------------------------
+    public function create() //----------------------------------------------------------------------------------------------------------------
     {
         //
         return view('admin.trips.create');
@@ -46,7 +46,7 @@ class TripController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)//-------------------------------------------------------------------------------------------------
+    public function store(Request $request) //-------------------------------------------------------------------------------------------------
     {
         // form data prende i dati degli input 
         $formData = $request->all();
@@ -71,17 +71,10 @@ class TripController extends Controller
 
         // ---------------
         // Calcola il numero di giorni e inserisci i record nella tabella days
-        $start = Carbon::parse($newTrip->start_date);
-        $end = Carbon::parse($newTrip->end_date);
+        // $start = Carbon::parse($newTrip->start_date);
+        // $end = Carbon::parse($newTrip->end_date);
 
-        for ($date = $start; $date->lte($end); $date->addDay()) {
-            $newTrip->days()->create([
-                'id_trip' => $newTrip->id,  
-                'description' => '',       
-                'start_date' => $date->format('Y-m-d'),
-                'end_date' => $date->format('Y-m-d'),
-            ]);
-        }
+
         // ---------------
 
         // Effettua il redirect utilizzando l'ID del nuovo Trip
@@ -94,15 +87,23 @@ class TripController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)//-------------------------------------------------------------------------------------------------
+    public function show($id)//---------------------------------------------------------------------------------------------------------------
     {
-        $trip = Trip::with('days')->find($id);
+        // Recupera il viaggio con l'ID specificato
+        $trip = Trip::find($id);
+    
+        // Verifica se il viaggio esiste
         if (!$trip) {
-            // Se il viaggio non esiste, ritorna un errore 404
             abort(404, 'Trip not found');
         }
-
-        return view('admin.trips.show', compact('trip'));
+    
+        // Calcola tutti i giorni tra start_date e end_date
+        $startDate = Carbon::parse($trip->start_date);
+        $endDate = Carbon::parse($trip->end_date);
+        $daysRange = $startDate->toPeriod($endDate);
+    
+        // Passa i dati alla vista
+        return view('admin.trips.show', compact('trip', 'daysRange'));
     }
 
     /**
@@ -111,7 +112,7 @@ class TripController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(Trip $trip)//-------------------------------------------------------------------------------------------------
+    public function edit(Trip $trip) //-------------------------------------------------------------------------------------------------
     {
         //
         // $trip = Trip::where($id);
@@ -125,7 +126,7 @@ class TripController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Trip $trip)//-------------------------------------------------------------------------------------
+    public function update(Request $request, Trip $trip) //-------------------------------------------------------------------------------------
     {
         // Raccogli i dati dal form
         $formData = $request->all();
@@ -145,23 +146,6 @@ class TripController extends Controller
             $formData['thumb'] = $imgPath;
         }
 
-        // Aggiorna i campi del modello Trip con i dati validati
-        $trip->fill($formData);
-        // Salva le modifiche nel database
-        $trip->save();
-
-        // --------------------
-        // Elimina i giorni esistenti e ricrea i nuovi giorni
-        $trip->days()->delete();
-
-        $start = Carbon::parse($trip->start_date);
-        $end = Carbon::parse($trip->end_date);
-
-        for ($date = $start; $date->lte($end); $date->addDay()) {
-            $trip->days()->create([
-                'date' => $date->format('Y-m-d'),
-            ]);
-        }
         // --------------------
 
         // Redirect all'index o dove preferisci dopo l'aggiornamento
@@ -175,7 +159,7 @@ class TripController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Trip $trip)//-------------------------------------------------------------------------------------------------
+    public function destroy(Trip $trip) //-------------------------------------------------------------------------------------------------
     {
         $trip->delete();
         session()->flash('trips_deleted', true);
@@ -183,13 +167,13 @@ class TripController extends Controller
     }
 
     // logica del softdeletes
-    public function indexDeleted(Trip $trips)//---------------------------------------------------------------------------------------------
+    public function indexDeleted(Trip $trips) //---------------------------------------------------------------------------------------------
     {
         $trips = Trip::onlyTrashed()->get();
         return view('admin.garbage.index', compact('trips'));
     }
 
-    public function restore($id)//----------------------------------------------------------------------------------------------------------
+    public function restore($id) //----------------------------------------------------------------------------------------------------------
     {
         $trip = Trip::withTrashed()->findOrFail($id);
         $trip->restore();
@@ -205,7 +189,7 @@ class TripController extends Controller
     //     return redirect()->back();
     // }
 
-    public function restoreAll()//--------------------------------------------------------------------------------------------------------
+    public function restoreAll() //--------------------------------------------------------------------------------------------------------
     {
         Trip::onlyTrashed()->restore();
         session()->flash('trips_restoreAll', true);
@@ -214,7 +198,7 @@ class TripController extends Controller
 
 
     // validatore 
-    private function validation($data)//----------------------------------------------------------------------------------------------------
+    private function validation($data) //----------------------------------------------------------------------------------------------------
     {
         return Validator::make(
             $data,

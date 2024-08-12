@@ -9,6 +9,10 @@ class Stop extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        'day', 'name', 'image', 'description', 'country', 'region', 'city', 'street', 'foods', 'curiosities', 'rating'
+    ];
+
     public function notes(){
         return $this->hasMany(note::class);
     }

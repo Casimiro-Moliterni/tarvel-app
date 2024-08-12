@@ -3,7 +3,9 @@
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\DashboardController;
+use App\Http\Controllers\Admin\StopsController;
 use App\Http\Controllers\Admin\TripController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -34,6 +36,9 @@ Route::middleware(['auth', 'verified'])
             Route::post('/restore-all', [TripController::class, 'restoreAll'])->name('garbages.restoreall');
             // Route::delete('/{trip}/force', [TripController::class, 'forceDelete'])->name('garbages.forcedelete');
         });
+
+        Route::get('/stops/create', [StopsController::class, 'create'])->name('stops.create');
+        Route::post('/stops', [StopsController::class, 'store'])->name('stops.store');
     });
 
 Route::middleware('auth')->group(function () {

@@ -4,7 +4,9 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Stop;
+use App\Models\Trip;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class StopsController extends Controller
 {
@@ -67,7 +69,13 @@ class StopsController extends Controller
         }
 
         // Crea una nuova istanza di Stop e salva nel database
-        Stop::create($data);
+        // istanza di un nuovo model 
+        $newStop = new Stop();
+        $newStop->fill($data);
+        $newStop->id_trip = Trip::id();
+
+        // Salva il nuovo Trip nel database
+        $newStop->save();
 
         // Redirect con messaggio di successo
         return redirect()->route('admin.stops.create')->with('success', 'Tappa aggiunta con successo!');

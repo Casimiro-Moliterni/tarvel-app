@@ -1,38 +1,72 @@
 @extends('layouts.admin')
 @section('content')
     <section class="trip-show">
-        <div class="container">
+
+        <div class="row">
             <h1 class="text-center" style="font-size:5rem">{{ $trip->title }}</h1>
             <section id="card-show" class="row mb-5">
-                <div class="col-md-4 mb-4">
-                    <div class="meteo-card my-card h-100 d-flex flex-column align-items-center justify-content-center">
-                        <img class="weather-icon" src="" alt="Weather icon">
-                        <div class="temp mt-4 mb-2 fw-bold"></div>
-                        <div class="city fw-bold"></div>
-                    </div>
-                </div>
-                <div class="col-md-4 mb-4">
-                    <div class="details-card my-card h-100 ">
-                        <div class="fw-bold d-flex align-items-center gap-3 text-date w-100 justify-content-center">
-                            <i class="fa-solid fa-plane-departure"></i>
-                            <span>Partenza:</span>
-                            {{ $trip->start_date }}
-                        </div>
-                        <div class="fw-bold d-flex align-items-center gap-3 text-date mt-2 w-100 justify-content-center">
-                            <i class="fa-solid fa-plane-arrival"></i>
-                            <span>Ritorno:</span>
-                            {{ $trip->end_date }}
+
+                <div class="col-sm-12 col-md-6 mb-4">
+                    <div class="card meteo-card text-dark card-has-bg click-col">
+                        <div class="card-img-overlay d-flex flex-column">
+                            <div class="card-body text-center">
+                                <img class="weather-icon" src="" alt="Weather icon">
+                            </div>
+                            <div class="card-footer">
+                                <div class="media">
+                                    <div class="media-body text-center">
+                                        <div class="temp mt-4 mb-2 fw-bold"></div>
+                                        <div class="city fw-bold"></div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
-                <div class="col-md-4 mb-4">
-                    <div class="cover-card my-card h-100 d-flex flex-column align-items-center justify-content-center">
-                        <img class="cover" src="{{ asset('storage/' . $trip->thumb) }}">
-                        <div class="city fw-bold"></div>
+
+                <div class="col-sm-12 col-md-6 mb-4">
+                    <div class="card text-dark card-has-bg click-col">
+                        <div class="card-img-overlay d-flex flex-column details-card">
+                            <div class="card-body">
+                                <small class="card-meta mb-2">Date di viaggio</small>
+                                <h4 class="card-title mt-0 ">
+                                    <i class="fa-solid fa-plane-departure"></i>
+                                    <span>Partenza:</span>
+                                    {{ $trip->start_date }}
+                                </h4>
+                            </div>
+                            <div class="card-footer">
+                                <div class="media d-flex justify-content-end">
+                                    <div class="media-body">
+                                        <h4 class="card-title mt-0 ">
+                                            <i class="fa-solid fa-plane-arrival"></i>
+                                            <span>Ritorno:</span>
+                                            {{ $trip->end_date }}
+                                        </h4>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
+
+
             </section>
-            <div class="pt-3 ps-3">
+
+            
+            {{-- <button class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#collapseWidthExample" aria-expanded="false" aria-controls="collapseWidthExample">
+                Toggle width collapse
+            </button>
+            </p>
+            <div style="min-height: 120px;">
+                <div class="collapse collapse-horizontal" id="collapseWidthExample">
+                    <div class="" style="width: 300px;">
+                        This is some placeholder content for a horizontal collapse. It's hidden by default and shown when
+                        triggered.
+                    </div>
+                </div>
+            </div> --}}
+            {{-- <div class="pt-3 ps-3">
                 <button class="btn btn-success mb-4 fs-2" type="button" data-bs-toggle="offcanvas"
                     data-bs-target="#offcanvasScrolling" aria-controls="offcanvasScrolling">Scopri maggiori
                     dettagli</button>
@@ -47,14 +81,14 @@
                 <div class="offcanvas-body">
                     <div class="d-flex align-items-center gap-3">
                         <a id="btn-map"
-                            class="btn fs-1 d-flex justify-content-center align-content-center border border-2 rounded-pill border-black"><i
+                            class="btn fs-1 d-flex justify-content-center align-content-center border-2 rounded-pill border-black"><i
                                 class="fa-solid fa-plus "></i></a>
                         <h3>Visualizza la mappa</h3>
                     </div>
                     <div id="map" class="rounded mb-4 mt-3 map " style="height: 400px; width: 100%;"></div>
                     <div class="d-flex align-items-center gap-3 mt-2">
                         <a id="btn-img-cover"
-                            class="btn fs-1 d-flex justify-content-center align-content-center border border-2 rounded-pill border-black"><i
+                            class="btn fs-1 d-flex justify-content-center align-content-center border-2 rounded-pill border-black"><i
                                 class="fa-solid fa-plus "></i></a>
                         <h3>Visualizza la cover</h3>
                     </div>
@@ -62,7 +96,7 @@
                         alt="">
                     <div class="d-flex align-items-center gap-3 mt-2">
                         <a id="btn-description"
-                            class="btn fs-1 d-flex justify-content-center align-content-center border border-2 rounded-pill border-black"><i
+                            class="btn fs-1 d-flex justify-content-center align-content-center border-2 rounded-pill border-black"><i
                                 class="fa-solid fa-plus "></i></a>
                         <h3>Visualizza la descrizione</h3>
                     </div>
@@ -73,7 +107,7 @@
                     </div>
                     <div class="d-flex align-items-center gap-3 mt-2">
                         <a id="btn-date"
-                            class="btn fs-1 d-flex justify-content-center align-content-center border border-2 rounded-pill border-black"><i
+                            class="btn fs-1 d-flex justify-content-center align-content-center border-2 rounded-pill border-black"><i
                                 class="fa-solid fa-plus "></i></a>
                         <h3>Visualizza le date</h3>
                     </div>
@@ -81,12 +115,12 @@
                         <div class="card-body fs-3 fw-semibold">
                             <div> Giorno di partenza: {{ $trip->start_date }}</div>
                             <div> Giorno di ritorno: {{ $trip->end_date }}</div>
-                            {{-- <div>Totale: {{ $days }}giorni</div> --}}
                         </div>
                     </div>
                 </div>
-            </div>
+            </div> --}}
         </div>
+
         <div class="accordion" id="accordionExample">
             @foreach ($daysRange as $date)
                 <details class="accordion">
@@ -121,9 +155,10 @@
 @endpush
 <script>
     document.addEventListener('DOMContentLoaded', function() {
-        const tempElement = document.querySelector('.temp');
-        const cityElement = document.querySelector('.city');
-        const weatherIconElement = document.querySelector('.weather-icon');
+
+        // const tempElement = document.querySelector('.temp');
+        // const cityElement = document.querySelector('.city');
+        // const weatherIconElement = document.querySelector('.weather-icon');
 
         const countryLat = localStorage.getItem('countryLat');
         const countryLon = localStorage.getItem('countryLon');
@@ -131,38 +166,37 @@
         const cityLon = localStorage.getItem('CityLon');
         const latMeteo = null;
         const lonMeteo = null;
-        if (countryLat && cityLat) {
-            alert('test')
-        }
+        // if(countryLat && cityLat){
+        //  alert('test')
+        // }
 
-        fetch(
-                `https://api.openweathermap.org/data/2.5/weather?lat=${cityLat}&lon=${cityLon}&lang=it&units=metric&appid=461c50c5aad0a7a4b9f77424415c5924`
-            )
-            .then(response => response.json())
-            .then(data => {
-                tempElement.innerHTML = `${data.main.temp} °C`;
-                cityElement.innerHTML = `${data.name}`;
-                if (data.weather[0].main == "Clouds") {
-                    weatherIconElement.src = `{{ asset('img/wheater/clouds.png') }}`;
-                } else if (data.weather[0].main == "Clear") {
-                    weatherIconElement.src = `{{ asset('img/wheater/clear.png') }}`;
-                } else if (data.weather[0].main == "Rain") {
-                    weatherIconElement.src = `{{ asset('img/wheater/rain.png') }}`;
-                } else if (data.weather[0].main == "Drizzle") {
-                    weatherIconElement.src = `{{ asset('img/wheater/drizzle.png') }}`;
-                } else if (data.weather[0].main == "Mist") {
-                    weatherIconElement.src = `{{ asset('img/wheater/mist.png') }}`;
-                } else if (data.weather[0].main == "Snow") {
-                    weatherIconElement.src = `{{ asset('img/wheater/snow.png') }}`;
-                } else if (data.weather[0].main == "Thunderstorm") {
-                    weatherIconElement.src = `{{ asset('img/wheater/storm.png') }}`;
-                }
+        // fetch(
+        //         `https://api.openweathermap.org/data/2.5/weather?lat=${cityLat}&lon=${cityLon}&lang=it&units=metric&appid=461c50c5aad0a7a4b9f77424415c5924`
+        //     )
+        //     .then(response => response.json())
+        //     .then(data => {
+        //         tempElement.innerHTML = `${data.main.temp} °C`;
+        //         cityElement.innerHTML = `${data.name}`;
+        //         if (data.weather[0].main == "Clouds") {
+        //             weatherIconElement.src = `{{ asset('img/wheater/clouds.png') }}`;
+        //         } else if (data.weather[0].main == "Clear") {
+        //             weatherIconElement.src = `{{ asset('img/wheater/clear.png') }}`;
+        //         } else if (data.weather[0].main == "Rain") {
+        //             weatherIconElement.src = `{{ asset('img/wheater/rain.png') }}`;
+        //         } else if (data.weather[0].main == "Drizzle") {
+        //             weatherIconElement.src = `{{ asset('img/wheater/drizzle.png') }}`;
+        //         } else if (data.weather[0].main == "Mist") {
+        //             weatherIconElement.src = `{{ asset('img/wheater/mist.png') }}`;
+        //         } else if (data.weather[0].main == "Snow") {
+        //             weatherIconElement.src = `{{ asset('img/wheater/snow.png') }}`;
+        //         } else if (data.weather[0].main == "Thunderstorm") {
+        //             weatherIconElement.src = `{{ asset('img/wheater/storm.png') }}`;
+        //         }
 
-                // Imposta l'icona nel tuo elemento HTML
-                weatherIconElement.src = iconUrl;
-                weatherIconElement.alt = data.weather[0].description; // Descrizione dell'icona
-            })
-            .catch(error => console.error('Errore:', error)); // Gestione errori.
+        //         // Imposta l'icona nel tuo elemento HTML
+        //         weatherIconElement.alt = data.weather[0].description; // Descrizione dell'icona
+        //     })
+        //     .catch(error => console.error('Errore:', error)); // Gestione errori.
 
         const btnMap = document.getElementById('btn-map');
         const showMap = document.getElementById("map");

@@ -207,8 +207,11 @@ class TripController extends Controller
                 'description' => 'nullable|min:5|string',
                 'thumb' => 'nullable|image|max:1700',
                 'country' => 'required|string',
-                'region' => 'nullable|string',
                 'city' => 'nullable|string',
+                'lonCountry' => 'required|numeric|between:-180,180',
+                'latCountry' => 'required|numeric|between:-90,90',
+                'lonCity' => 'nullable|numeric|between:-180,180',
+                'latCity' => 'nullable|numeric|between:-90,90',
                 'end_date' => 'required|date|after_or_equal:start_date',  // Modificato
                 'start_date' => [
                     'required',

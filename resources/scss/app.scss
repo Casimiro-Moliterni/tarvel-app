@@ -12,3 +12,18 @@ body{
     overflow-x:hidden ;
     overflow-y: scroll;
 }
+.non-clickable {
+    pointer-events: none; /* Disabilita l'interazione del mouse */
+    cursor: not-allowed; /* Cambia il cursore per indicare che l'elemento non è interattivo */
+}
+.color-input{
+    background-color: #2f97ff; 
+}
+.my-suggestion{
+    background-color:#6C757D ;
+    color: white;
+}
+.my-suggestion:hover{
+    background-color: white;
+    color: black;
+}

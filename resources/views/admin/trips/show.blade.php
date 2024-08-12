@@ -125,12 +125,16 @@
                 <details class="accordion">
                     <summary class="accordion-btn fs-2 fw-bold">
                         Giorno {{ $loop->iteration }}: {{ $date->format('d M Y') }}
+                        @dump($date->format('d M Y'))
                     </summary>
                     <div class="accordion-content">
                         <p>
                             <strong>Data:</strong> {{ $date->format('d M Y') }}<br>
                             <strong>Dettagli:</strong> Nessun dettaglio disponibile per questo giorno.
                         </p>
+                        <a href="{{ route('admin.stops.create') }}" class="btn btn-primary">
+                            Aggiungi Tappa
+                        </a>
                     </div>
                 </details>
             @endforeach

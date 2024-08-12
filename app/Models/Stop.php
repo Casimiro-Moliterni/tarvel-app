@@ -9,12 +9,16 @@ class Stop extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        'day','id_trip', 'name', 'image', 'description', 'country', 'region', 'city', 'street', 'foods', 'curiosities', 'rating'
+    ];
+
     public function notes(){
         return $this->hasMany(note::class);
     }
 
     public function days()
     {
-        return $this->belongsTo(Trip::class, 'id_trip');
+        return $this->belongsTo(Trip::class);
     }
 }

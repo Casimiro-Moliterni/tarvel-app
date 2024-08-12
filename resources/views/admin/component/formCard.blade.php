@@ -163,11 +163,9 @@
         inputControl.classList.add('error');
         inputControl.classList.remove('success');
     };
-  function getEventListener (element){
-    element.addEventListener('input', function () {
-        element.classList.add('color-input','text-warning');
-    })
-  }
+    
+
+
     const ValidateInputs = () => {
         let isValid = true;
 
@@ -225,7 +223,6 @@
             isValid = false;
         } else {
             setSuccess(thumb);
-            getEventListener(thumb)
         }
 
         // Validazione end_date

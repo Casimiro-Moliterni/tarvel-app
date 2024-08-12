@@ -5,18 +5,18 @@
             <h1 class="text-center" style="font-size:5rem">{{ $trip->title }}</h1>
             <section id="card-show" class="row mb-5">
                 <div class="col-md-4 mb-4">
-                    <div   class="meteo-card my-card h-100 d-flex flex-column align-items-center justify-content-center">
+                    <div class="meteo-card my-card h-100 d-flex flex-column align-items-center justify-content-center">
                         <img class="weather-icon" src="" alt="Weather icon">
                         <div class="temp mt-4 mb-2 fw-bold"></div>
                         <div class="city fw-bold"></div>
                     </div>
                 </div>
                 <div class="col-md-4 mb-4">
-                    <div class="details-card my-card h-100 " >
+                    <div class="details-card my-card h-100 ">
                         <div class="fw-bold d-flex align-items-center gap-3 text-date w-100 justify-content-center">
                             <i class="fa-solid fa-plane-departure"></i>
                             <span>Partenza:</span>
-                             {{ $trip->start_date }}
+                            {{ $trip->start_date }}
                         </div>
                         <div class="fw-bold d-flex align-items-center gap-3 text-date mt-2 w-100 justify-content-center">
                             <i class="fa-solid fa-plane-arrival"></i>
@@ -26,12 +26,12 @@
                     </div>
                 </div>
                 <div class="col-md-4 mb-4">
-                    <div class="cover-card my-card h-100 d-flex flex-column align-items-center justify-content-center" >
-                        <img class="cover" src="{{ asset('storage/' . $trip->thumb) }}" >  
+                    <div class="cover-card my-card h-100 d-flex flex-column align-items-center justify-content-center">
+                        <img class="cover" src="{{ asset('storage/' . $trip->thumb) }}">
                         <div class="city fw-bold"></div>
                     </div>
                 </div>
-            </section>            
+            </section>
             <div class="pt-3 ps-3">
                 <button class="btn btn-success mb-4 fs-2" type="button" data-bs-toggle="offcanvas"
                     data-bs-target="#offcanvasScrolling" aria-controls="offcanvasScrolling">Scopri maggiori
@@ -112,23 +112,32 @@
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script src="https://api.tomtom.com/maps-sdk-for-web/cdn/6.x/6.25.0/maps/maps-web.min.js"></script>
 <link rel="stylesheet" href="https://api.tomtom.com/maps-sdk-for-web/cdn/6.x/6.25.0/maps/maps.css">
+@push('scripts')
+    @vite(['resources/js/app.js'])
+@endpush
 <script>
     document.addEventListener('DOMContentLoaded', function() {
         const tempElement = document.querySelector('.temp');
         const cityElement = document.querySelector('.city');
         const weatherIconElement = document.querySelector('.weather-icon');
-        const lon = @json($trip->longitude);
-        const lat = @json($trip->latitude);
+
+        const countryLat = localStorage.getItem('countryLat');
+        const countryLon = localStorage.getItem('countryLon');
+        const cityLat = localStorage.getItem('CityLat');
+        const cityLon = localStorage.getItem('CityLon');
+        const latMeteo=null;
+        const lonMeteo=null;
+        if(countryLat && cityLat){
+           alert('test')
+        }
 
         fetch(
-                `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&lang=it&units=metric&appid=461c50c5aad0a7a4b9f77424415c5924`
+                `https://api.openweathermap.org/data/2.5/weather?lat=${cityLat}&lon=${cityLon}&lang=it&units=metric&appid=461c50c5aad0a7a4b9f77424415c5924`
             )
             .then(response => response.json())
             .then(data => {
-                console.log(data);
                 tempElement.innerHTML = `${data.main.temp} °C`;
                 cityElement.innerHTML = `${data.name}`;
-
                 if (data.weather[0].main == "Clouds") {
                     weatherIconElement.src = `{{ asset('img/wheater/clouds.png') }}`;
                 } else if (data.weather[0].main == "Clear") {
@@ -170,11 +179,11 @@
         let map = tt.map({
             key: 'tNdeH4PSEGzxLQ1CKK0HdCagLd1BsXSc',
             container: 'map',
-            center: [{{ $trip->longitude }}, {{ $trip->latitude }}],
+            center: [countryLon, countryLat],
             zoom: 15
         });
         let marker = new tt.Marker()
-            .setLngLat([{{ $trip->longitude }}, {{ $trip->latitude }}])
+            .setLngLat([countryLon, countryLat])
             .addTo(map);
 
         // Inizializzazione del grafico

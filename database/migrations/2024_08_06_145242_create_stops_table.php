@@ -19,8 +19,10 @@ return new class extends Migration
             $table->string('name');
             $table->string('image')->nullable();
             $table->string('description')->nullable();
-            $table->double('longitude', 15, 8);
-            $table->double('latitude', 15, 8);
+            $table->string('country')->nullable();
+            $table->string('region')->nullable();
+            $table->string('city');
+            $table->string('street')->nullable();
             $table->string('foods')->nullable();
             $table->string('curiosities')->nullable();
             $table->string('rating');

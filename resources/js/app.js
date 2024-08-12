@@ -4,87 +4,223 @@ import * as bootstrap from 'bootstrap';
 import { constant, result, toUpper } from 'lodash';
 import.meta.glob([
     '../img/**'
-])
+]);
 
 function getBtnToggle(btn, element) {
-    // variabili per mostare in pagina la mappa al click di add 
     element.classList.add('d-none');
     btn.addEventListener('click', function () {
         element.classList.toggle("d-none");
-    })
+    });
 }
 
-// Esporta la funzione come parte di un oggetto globale
 window.getBtnToggle = getBtnToggle;
 
+function getMatchScore(query, name) {
+    const lowerQuery = query.toLowerCase();
+    const lowerName = name.toLowerCase();
+    return lowerName.indexOf(lowerQuery);
+}
 
-
-//  funzione che da risultati all'input del created.blade.php ----------------------------------------
-// aggiungiamo un listener per l'evento 'DOMContentLoaded', che viene eseguito quando il documento HTML è stato completamente caricato e analizzato.
 document.addEventListener('DOMContentLoaded', function () {
-    // selezioniamo l'elemento input con id 'address' dal DOM e lo assegna alla costante addressInput.
-    const addressInput = document.getElementById('address');
-    // selezioniamo l'elemento div con id 'addressSuggestions' dal DOM e lo assegna alla costante addressSuggestions.
-    const addressSuggestions = document.getElementById('addressSuggestions');
-    // selezioniamo l'elemento input hidden con id 'latitude' dal DOM e lo assegna alla costante latitudeInput.
-    const latitudeInput = document.getElementById('latitude');
-    // selezioniamo l'elemento input hidden con id 'longitude' dal DOM e lo assegna alla costante longitudeInput.
-    const longitudeInput = document.getElementById('longitude');
-    // aggiungiamo un listener per l'evento 'input' sull'elemento addressInput.
+    const countryInput = document.getElementById('country');
+    const cityInput = document.getElementById('city');
+    const countrySuggestions = document.getElementById('countrySuggestions');
+    const citySuggestions = document.getElementById('citySuggestions');
 
-    addressInput.addEventListener('input', function () {
-        // ottenuto il valore corrente dell'input addressInput e lo assegna alla variabile query.
-        const query = addressInput.value;
-        // controloo se la lunghezza del valore di input è maggiore di 0.
+    // Recupero dei dati salvati nel Local Storage
+    let savedCountry = localStorage.getItem('selectedCountry');
+    let savedCountryLat = localStorage.getItem('countryLat');
+    let savedCountryLon = localStorage.getItem('countryLon');
+    let savedCountryCode = localStorage.getItem('selectedCountryCode');
+
+
+    let savedCity = localStorage.getItem('selectedCity');
+    let savedCityLat = localStorage.getItem('CityLat');
+    let savedCityLon = localStorage.getItem('CityLon');
+    let savedCityCountryCode = localStorage.getItem('savedCityCountryCode');
+
+    // Aggiusta l'input dei Paesi
+    countryInput.addEventListener('input', function () {
+        const query = countryInput.value.trim().toLowerCase();
+
+        if (query.length === 0) {
+            localStorage.removeItem('selectedCountry');
+            localStorage.removeItem('selectedCountryCode');
+            savedCountry = null;
+            savedCountryCode = null;
+            cityInput.value = '';
+            citySuggestions.innerHTML = '';
+        }
+
         if (query.length > 0) {
-            // Esegue una richiesta fetch per ottenere suggerimenti di indirizzi dall'API di TomTom.chiave ***NON TOCCARE LA CHIAVE*****
-            fetch(`https://api.tomtom.com/search/2/search/${query}.json?key=tNdeH4PSEGzxLQ1CKK0HdCagLd1BsXSc`)
-                .then(response => response.json()) // Converte la risposta in formato JSON.
+            fetch(`https://api.tomtom.com/search/2/search/${query}.json?key=gL9ZtbIAAG015MVGDPOpgKihr8t9e4n0&language=it-IT&typeahead=true&idxSet=Geo`)
+                .then(response => response.json())
                 .then(data => {
-                    // pulisce i suggerimenti precedenti nell'elemento addressSuggestions.
-                    addressSuggestions.innerHTML = '';
-                    // Itera sui risultati dell'API.
+                    countrySuggestions.innerHTML = '';
+                    citySuggestions.innerHTML = '';
+
+                    const countries = new Set();
+                    const suggestions = [];
+
                     data.results.forEach(result => {
-                        // crea un nuovo elemento 'a' per ogni risultato.
-                        const suggestion = document.createElement('a');
-                        // impostiamo l'attributo href dell'elemento 'a' su '#'.
-                        suggestion.href = "#";
-                        // aggiungiamo le classi 'list-group-item' e 'list-group-item-action' all'elemento 'a'.
-                        suggestion.classList.add('list-group-item', 'list-group-item-action');
-                        // impostiamo il testo dell'elemento 'a' sull'indirizzo suggerito.
-                        suggestion.textContent = result.address.freeformAddress;
-                        // aggiungiamo un listener per l'evento 'click' sull'elemento 'a'.
-                        suggestion.addEventListener('click', function (e) {
-                            e.preventDefault(); // Previene il comportamento predefinito del link.
-                            // impostiamo il valore dell'input addressInput sull'indirizzo suggerito.
-                            addressInput.value = result.address.freeformAddress;
-                            // impostiamo il valore dell'input hidden latitudeInput sulla latitudine del risultato.
-                            latitudeInput.value = result.position.lat;
-                            // impostiamo il valore dell'input hidden longitudeInput sulla longitudine del risultato.
-                            longitudeInput.value = result.position.lon;
-                            // pulisce i suggerimenti dopo la selezione.
-                            addressSuggestions.innerHTML = '';
-                            console.log(result)
-                        });
-                        // aggiungiamo l'elemento 'a' ai suggerimenti.
-                        addressSuggestions.appendChild(suggestion);
+                        const country = result.address.country;
+                        if (country && !countries.has(country) && country.toLowerCase().includes(query)) {
+                            countries.add(country);
+                            suggestions.push({
+                                country: country,
+                                lat: result.position.lat,
+                                countryCode: result.address.countryCode,
+                                lon: result.position.lon,
+                                score: getMatchScore(query, country)
+                            });
+                        }
                     });
+
+                    suggestions.sort((a, b) => a.score - b.score);
+
+                    if (suggestions.length > 0) {
+                        suggestions.forEach(suggestion => {
+                            const suggestionElem = document.createElement('a');
+                            suggestionElem.href = "#";
+                            suggestionElem.classList.add('list-group-item', 'list-group-item-action', 'd-flex', 'align-items-center');
+
+                            const countryText = document.createElement('span');
+                            countryText.textContent = suggestion.country;
+                            countryText.classList.add('ms-2');
+                            suggestionElem.appendChild(countryText);
+
+                            suggestionElem.addEventListener('click', function (e) {
+                                e.preventDefault();
+                                countryInput.value = suggestion.country;
+
+                                localStorage.setItem('countryLat', suggestion.lat);
+                                localStorage.setItem('countryLon', suggestion.lon);
+                                localStorage.setItem('selectedCountry', suggestion.country);
+                                localStorage.setItem('selectedCountryCode', suggestion.countryCode);
+
+                                savedCountry = suggestion.country;
+                                savedCountryLat = suggestion.lat;
+                                savedCountryLon = suggestion.lon;
+                                savedCountryCode = suggestion.countryCode;
+
+                                // Svuota gli input di regione e città se il paese cambia
+                                cityInput.value = "";
+                                citySuggestions.innerHTML = '';
+                                countrySuggestions.innerHTML = '';
+                            });
+                            countrySuggestions.appendChild(suggestionElem);
+                        });
+                    } else {
+                        const noResults = document.createElement('div');
+                        noResults.textContent = 'Nessun paese trovato.';
+                        noResults.classList.add('list-group-item', 'list-group-item-action');
+                        countrySuggestions.appendChild(noResults);
+                    }
                 })
-                // Gestisce eventuali errori nella richiesta fetch.
-                .catch(error => console.error('Error fetching address suggestions:', error));
-
-
+                .catch(error => console.error('Errore nel recupero dei suggerimenti di paesi:', error));
         } else {
-            // Se il valore di input è inferiore a 3 caratteri, pulisce i suggerimenti.
-            addressSuggestions.innerHTML = '';
+            countrySuggestions.innerHTML = '';
         }
     });
-   
-});
 
 
-// funzione della modale per cestinare una card trip
-document.addEventListener('DOMContentLoaded', function () {
+    // Aggiusta l'input delle Città
+    cityInput.addEventListener('input', function () {
+        const query = cityInput.value.trim().toLowerCase();
+        let cityCountryCode = savedCountryCode || null;
+
+        if (query.length === 0) {
+            localStorage.removeItem('selectedCity');
+            localStorage.removeItem('CityLat');
+            localStorage.removeItem('CityLon');
+            localStorage.removeItem('savedCityCountryCode');
+            savedCity = null;
+            savedCityLat = null;
+            savedCityLon = null;
+            savedCityCountryCode = null;
+        }
+
+        if (query.length > 0) {
+            let fetchUrl = `https://api.tomtom.com/search/2/search/${query}.json?key=gL9ZtbIAAG015MVGDPOpgKihr8t9e4n0&language=it-IT`;
+
+            if (cityCountryCode) {
+                fetchUrl += `&countrySet=${cityCountryCode}`;
+            }
+
+            fetch(fetchUrl)
+                .then(response => response.json())
+                .then(data => {
+                    citySuggestions.innerHTML = '';
+                    const cities = new Set();
+                    const suggestions = [];
+
+                    data.results.forEach(result => {
+                        const city = result.address.municipality;
+                        if (city && !cities.has(city) && city.toLowerCase().includes(query)) {
+                            cities.add(city);
+                            suggestions.push({
+                                freeformAddress: result.address.freeformAddress,
+                                country: result.address.country,
+                                countryCode: result.address.countryCode,
+                                lat: result.position.lat,
+                                lon: result.position.lon,
+                                score: getMatchScore(query, city)
+                            });
+                        }
+                    });
+
+                    suggestions.sort((a, b) => a.score - b.score);
+
+                    if (suggestions.length > 0) {
+                        suggestions.forEach(suggestion => {
+                            const suggestionElem = document.createElement('a');
+                            suggestionElem.href = "#";
+                            suggestionElem.classList.add('list-group-item', 'list-group-item-action', 'd-flex', 'align-items-center');
+
+                            const cityText = document.createElement('span');
+                            cityText.textContent = suggestion.freeformAddress;
+                            cityText.classList.add('ms-2');
+                            suggestionElem.appendChild(cityText);
+
+                            suggestionElem.addEventListener('click', function (e) {
+                                e.preventDefault();
+                                cityInput.value = suggestion.freeformAddress;
+
+                                localStorage.setItem('selectedCity', suggestion.freeformAddress);
+                                localStorage.setItem('CityLat', suggestion.lat);
+                                localStorage.setItem('CityLon', suggestion.lon);
+                                localStorage.setItem('savedCityCountryCode', suggestion.countryCode);
+
+                                savedCity = suggestion.freeformAddress;
+                                savedCityLat = suggestion.lat;
+                                savedCityLon = suggestion.lon;
+                                savedCityCountryCode = suggestion.countryCode;
+
+                                if (!countryInput.value) {
+                                    localStorage.setItem('selectedCountry', suggestion.country);
+                                    localStorage.setItem('selectedCountryCode', suggestion.countryCode);
+                                    countryInput.value = suggestion.country;
+                                    savedCountry = suggestion.country;
+                                    savedCountryCode = suggestion.countryCode;
+                                }
+                                citySuggestions.innerHTML = '';
+                            });
+
+                            citySuggestions.appendChild(suggestionElem);
+                        });
+                    } else {
+                        const noResults = document.createElement('div');
+                        noResults.textContent = 'Nessuna città trovata.';
+                        noResults.classList.add('list-group-item', 'list-group-item-action');
+                        citySuggestions.appendChild(noResults);
+                    }
+                })
+                .catch(error => console.error('Errore nel recupero dei suggerimenti di città:', error));
+        } else {
+            citySuggestions.innerHTML = '';
+        }
+    });
+
     const deleteButtons = document.querySelectorAll('.js-confirm-delete');
     const confirmDeleteModal = new bootstrap.Modal(document.getElementById('confirmDeleteModal'));
     const tripTitleElement = document.getElementById('trip-title');

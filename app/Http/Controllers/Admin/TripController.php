@@ -222,9 +222,9 @@ class TripController extends Controller
                 'title' => 'required|min:3|string|max:255',
                 'description' => 'nullable|min:5|string',
                 'thumb' => 'nullable|image|max:1700',
-                'address' => 'required|string',
-                'longitude' => 'required|numeric|between:-180,180',
-                'latitude' => 'required|numeric|between:-90,90',
+                'country' => 'required|string',
+                'region' => 'nullable|string',
+                'city' => 'nullable|string',
                 'end_date' => 'required|date|after_or_equal:start_date',  // Modificato
                 'start_date' => [
                     'required',
@@ -242,11 +242,7 @@ class TripController extends Controller
                 'description.min' => 'Il campo descrizione deve essere almeno di 5 caratteri',
                 'thumb.image' => 'Il file deve essere un\'immagine',
                 'thumb.max' => 'L\'immagine non può superare i 1700KB',
-                'address.required' => 'Il campo indirizzo è obbligatorio',
-                'longitude.required' => 'Il campo longitudine è obbligatorio',
-                'longitude.between' => 'Il campo longitudine deve essere compreso tra -180 e 180',
-                'latitude.required' => 'Il campo latitudine è obbligatorio',
-                'latitude.between' => 'Il campo latitudine deve essere compreso tra -90 e 90',
+                'country.required' => 'Il campo Paese è obbligatorio',
             ]
         )->validate();
     }

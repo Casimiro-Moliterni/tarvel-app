@@ -16,10 +16,10 @@ return new class extends Migration {
             $table->id();
             $table->unsignedBigInteger('id_user');
             $table->string('title');
+            $table->string('country');
+            $table->string('city')->nullable();
             $table->string('thumb')->nullable();
             $table->string('description')->nullable();
-            $table->double('longitude', 15, 8);
-            $table->double('latitude', 15, 8);
             $table->date('start_date');
             $table->date('end_date');
             $table->timestamps();

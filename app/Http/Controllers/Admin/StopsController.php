@@ -57,28 +57,53 @@ class StopsController extends Controller
      */
     public function store(Request $request)
     {
+        // Estrai i dati dalla richiesta
+        $data = $request->all();
+
+        // Ottieni l'id_trip dai dati della richiesta
+        $trip_id = $data['id_trip'];
 
         // Validazione dei dati
-        $validatedData = $this->validation($request->all());
-        $data = $validatedData;
-        // $data = $request->all();
+        $validatedData = $this->validation($data, $trip_id);
 
         // Gestione del file immagine se presente
         if ($request->hasFile('image')) {
             $imagePath = $request->file('image')->store('images', 'public');
-            $data['image'] = $imagePath;
+            $validatedData['image'] = $imagePath;
         }
 
+        // Converti gli orari in oggetti Carbon per facilitare il confronto
+        $newStart = Carbon::createFromFormat('H:i', $data['time_start']);
+        $newEnd = Carbon::createFromFormat('H:i', $data['time_end']);
+
+
+        // Recupera tutte le tappe esistenti per il giorno e viaggio specificato
+        $existingStops = Stop::where('id_trip', $trip_id)->where('day', $data['day'])->get();
+
+        // Verifica sovrapposizioni di orario
+        foreach ($existingStops as $stop) {
+            $existingStart = Carbon::createFromFormat('H:i', $stop->time_start);
+            $existingEnd = Carbon::createFromFormat('H:i', $stop->time_end);
+            // Esegui il dump degli orari di inizio e fine
+            dd($existingStart->format('H:i'), $existingEnd->format('H:i'));
+
+            // Verifica se c'è sovrapposizione
+            if (($newStart->notEqualTo($existingStart)) && ($newEnd->notEqualTo($existingEnd))) {
+                // Sovrapposizione trovata
+                dd('Errore: Orario sovrapposto', $newStart->format('H:i'), $newEnd->format('H:i'));
+            }
+        }
         // Crea una nuova istanza di Stop e salva nel database
-        // istanza di un nuovo model 
         $newStop = new Stop();
-        $newStop->fill($data);
-        // Salva il nuovo Trip nel database
+        $newStop->fill($validatedData);
         $newStop->save();
 
         // Redirect con messaggio di successo
         return redirect()->route('admin.trips.show', ['trip' => $newStop->id_trip])->with('success', 'Tappa aggiunta con successo!');
     }
+
+
+
 
 
 
@@ -128,7 +153,8 @@ class StopsController extends Controller
     }
     private function validation($data)
     {
-        return Validator::make(
+        // Prima validazione base
+        $validator = Validator::make(
             $data,
             [
                 'day' => 'required|date',
@@ -141,24 +167,31 @@ class StopsController extends Controller
                 'street' => 'nullable|string',
                 'curiosities' => 'nullable|string',
                 'rating' => 'required|string|max:255',
-                'id_trip' => 'required|integer|exists:trips,id', // Validazione per id_trip
+                'id_trip' => 'required|integer|exists:trips,id',
                 'lonCountry' => 'nullable|numeric|between:-180,180',
                 'latCountry' => 'nullable|numeric|between:-90,90',
                 'lonStreet' => 'nullable|numeric|between:-180,180',
                 'latStreet' => 'nullable|numeric|between:-90,90',
                 'lonCity' => 'nullable|numeric|between:-180,180',
                 'latCity' => 'nullable|numeric|between:-90,90',
-                'time_start' => 'nullable|date_format:H:i',
-                'time_end' => 'nullable|date_format:H:i'
+                'time_start' => 'required|date_format:H:i',
+                'time_end' => 'required|date_format:H:i|after:time_start'
             ],
             [
-                // Messaggi di errore personalizzati, se necessario
                 'id_trip.required' => 'Il campo id_trip è obbligatorio.',
                 'id_trip.integer' => 'Il campo id_trip deve essere un numero intero.',
                 'id_trip.exists' => 'Il viaggio selezionato non esiste.',
+                'time_start.required' => 'L\'orario di inizio è obbligatorio.',
+                'time_end.required' => 'L\'orario di fine è obbligatorio.',
                 'time_start.date_format' => 'Il formato dell\'ora di inizio non è valido.',
-                'time_end.date_format' => 'Il formato dell\'ora di fine non è valido.'
+                'time_end.date_format' => 'Il formato dell\'ora di fine non è valido.',
+                'time_end.after' => 'L\'orario di fine deve essere successivo all\'orario di inizio.',
             ]
-        )->validate();
+        );
+
+        return $validator->validate();
     }
+
+
+
 }

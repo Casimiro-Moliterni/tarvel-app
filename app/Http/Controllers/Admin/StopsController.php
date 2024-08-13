@@ -45,7 +45,7 @@ class StopsController extends Controller
             abort(400, 'Data non valida.');
         }
 
-        return view('admin.stops.create', [ 'tripId' => $trip_id, 'date' => $date ]);
+        return view('admin.stops.create', ['tripId' => $trip_id, 'date' => $date]);
     }
 
 
@@ -61,6 +61,7 @@ class StopsController extends Controller
         // Validazione dei dati
         $validatedData = $this->validation($request->all());
         $data = $validatedData;
+        // $data = $request->all();
 
         // Gestione del file immagine se presente
         if ($request->hasFile('image')) {
@@ -72,7 +73,6 @@ class StopsController extends Controller
         // istanza di un nuovo model 
         $newStop = new Stop();
         $newStop->fill($data);
-        dd($newStop);
         // Salva il nuovo Trip nel database
         $newStop->save();
 
@@ -126,7 +126,7 @@ class StopsController extends Controller
     {
         //
     }
-    private function validation($data) //----------------------------------------------------------------------------------------------------
+    private function validation($data)
     {
         return Validator::make(
             $data,
@@ -136,19 +136,28 @@ class StopsController extends Controller
                 'image' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
                 'description' => 'nullable|string',
                 'foods' => 'nullable|string',
+                'country' => 'nullable|string',
+                'city' => 'nullable|string',
+                'street' => 'nullable|string',
                 'curiosities' => 'nullable|string',
                 'rating' => 'required|string|max:255',
+                'id_trip' => 'required|integer|exists:trips,id', // Validazione per id_trip
                 'lonCountry' => 'nullable|numeric|between:-180,180',
                 'latCountry' => 'nullable|numeric|between:-90,90',
                 'lonStreet' => 'nullable|numeric|between:-180,180',
                 'latStreet' => 'nullable|numeric|between:-90,90',
                 'lonCity' => 'nullable|numeric|between:-180,180',
                 'latCity' => 'nullable|numeric|between:-90,90',
-                'time_start' => 'nullable',
-                'time_end' => 'nullable'
+                'time_start' => 'nullable|date_format:H:i',
+                'time_end' => 'nullable|date_format:H:i'
             ],
             [
-
+                // Messaggi di errore personalizzati, se necessario
+                'id_trip.required' => 'Il campo id_trip è obbligatorio.',
+                'id_trip.integer' => 'Il campo id_trip deve essere un numero intero.',
+                'id_trip.exists' => 'Il viaggio selezionato non esiste.',
+                'time_start.date_format' => 'Il formato dell\'ora di inizio non è valido.',
+                'time_end.date_format' => 'Il formato dell\'ora di fine non è valido.'
             ]
         )->validate();
     }

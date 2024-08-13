@@ -20,6 +20,9 @@ return new class extends Migration
             $table->time('time_start');
             $table->time('time_end');
             $table->string('name');
+            $table->string('country')->nullable();
+            $table->string('city')->nullable();
+            $table->string('street');
             $table->string('image')->nullable();
             $table->string('description')->nullable();
             $table->double('lonCountry', 15, 8);

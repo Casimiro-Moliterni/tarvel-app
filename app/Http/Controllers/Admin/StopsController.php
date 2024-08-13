@@ -45,10 +45,7 @@ class StopsController extends Controller
             abort(400, 'Data non valida.');
         }
 
-        return view('admin.stops.create', [
-            'tripId' => $trip_id,
-            'date' => $date
-        ]);
+        return view('admin.stops.create', [ 'tripId' => $trip_id, 'date' => $date ]);
     }
 
 
@@ -60,10 +57,10 @@ class StopsController extends Controller
      */
     public function store(Request $request)
     {
-       
+
         // Validazione dei dati
         $validatedData = $this->validation($request->all());
-        $formData = $validatedData;
+        $data = $validatedData;
 
         // Gestione del file immagine se presente
         if ($request->hasFile('image')) {
@@ -75,7 +72,7 @@ class StopsController extends Controller
         // istanza di un nuovo model 
         $newStop = new Stop();
         $newStop->fill($data);
-        // dd($newStop);
+        dd($newStop);
         // Salva il nuovo Trip nel database
         $newStop->save();
 
@@ -141,9 +138,6 @@ class StopsController extends Controller
                 'foods' => 'nullable|string',
                 'curiosities' => 'nullable|string',
                 'rating' => 'required|string|max:255',
-                'country' => 'nullable|string',
-                'city' => 'nullable|string',
-                'street' => 'nullable|string',
                 'lonCountry' => 'nullable|numeric|between:-180,180',
                 'latCountry' => 'nullable|numeric|between:-90,90',
                 'lonStreet' => 'nullable|numeric|between:-180,180',

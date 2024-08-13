@@ -37,7 +37,7 @@ Route::middleware(['auth', 'verified'])
             // Route::delete('/{trip}/force', [TripController::class, 'forceDelete'])->name('garbages.forcedelete');
         });
 
-        Route::get('/stops/create', [StopsController::class, 'create'])->name('stops.create');
+        Route::get('/stops/create/{trip_id}', [StopsController::class, 'create'])->name('stops.create');
         Route::post('/stops', [StopsController::class, 'store'])->name('stops.store');
     });
 

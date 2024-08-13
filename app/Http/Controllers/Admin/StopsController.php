@@ -25,12 +25,17 @@ class StopsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create(Request $request)
-    {
 
-        // $day = $request->route('day');
-        // dd($day);
-        return view('admin.stops.create');
+    public function create($trip_id)
+    {
+        // // $day = $request->route('day');
+        // // dd($day);
+        // Verifica che l'ID del viaggio non sia nullo
+        if (is_null($trip_id)) {
+            abort(404, 'ID del viaggio non trovato.');
+        }
+
+        return view('admin.stops.create', ['tripId' => $trip_id]);
     }
 
 
@@ -72,7 +77,8 @@ class StopsController extends Controller
         // istanza di un nuovo model 
         $newStop = new Stop();
         $newStop->fill($data);
-        $newStop->id_trip = Trip::id();
+        dd($data);
+        // $newStop->id_trip = Trip::id();
 
         // Salva il nuovo Trip nel database
         $newStop->save();

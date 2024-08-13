@@ -17,8 +17,8 @@ class Stop extends Model
         return $this->hasMany(note::class);
     }
 
-    public function days()
+    public function trip()
     {
-        return $this->belongsTo(Trip::class);
+        return $this->belongsTo(Trip::class,'id_trip');
     }
 }

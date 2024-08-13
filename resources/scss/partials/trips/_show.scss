@@ -1,4 +1,14 @@
 .trip-show {
+  h1{
+    font-size:5rem;
+     @media (max-width: 768px) {
+         font-size: 30px;
+     }
+ 
+     @media (max-width: 420px) {
+         font-size: 30px;
+     }
+ }
   .disabled{
     display: none;
   }

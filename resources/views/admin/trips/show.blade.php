@@ -2,11 +2,11 @@
 @section('content')
     <section class="trip-show">
 
-        <div class="row">
-            <h1 class="text-center" style="font-size:5rem">{{ $trip->title }}</h1>
-            <section id="card-show" class="row mb-5">
+        <div class="row mt-3">
+            <h1 class="text-center mt-3">{{ $trip->title }}</h1>
+            <section id="card-show" class="row row-cols-2 mb-5 mt-5">
 
-                <div class="col-sm-12 col-md-6 mb-4">
+                <div class="col mb-4">
                     <div class="card meteo-card text-dark card-has-bg click-col">
                         <div class="card-img-overlay d-flex flex-column">
                             <div class="card-body text-center">
@@ -24,7 +24,7 @@
                     </div>
                 </div>
 
-                <div class="col-sm-12 col-md-6 mb-4">
+                <div class="col mb-4">
                     <div class="card text-dark card-has-bg click-col">
                         <div class="card-img-overlay d-flex flex-column details-card">
                             <div class="card-body">
@@ -49,8 +49,7 @@
                         </div>
                     </div>
                 </div>
-
-
+    
             </section>
 
             
@@ -157,47 +156,46 @@
 <script>
     document.addEventListener('DOMContentLoaded', function() {
 
-        // const tempElement = document.querySelector('.temp');
-        // const cityElement = document.querySelector('.city');
-        // const weatherIconElement = document.querySelector('.weather-icon');
+        const tempElement = document.querySelector('.temp');
+        const cityElement = document.querySelector('.city');
+        const weatherIconElement = document.querySelector('.weather-icon');
+        const lonCountry = @json($trip->lonCountry);
+        const latCountry = @json($trip->latCountry);
+        const lonCity= @json($trip->lonCity);
+        const latCity = @json($trip->latCity);
+        const City= @json($trip->city);
+        const Country = @json($trip->country);
+        let selectedLat = City && Country ? latCity : latCountry;
+        let selectedLon = City && Country ? lonCity : lonCountry;
+     
 
-        const countryLat = localStorage.getItem('countryLat');
-        const countryLon = localStorage.getItem('countryLon');
-        const cityLat = localStorage.getItem('CityLat');
-        const cityLon = localStorage.getItem('CityLon');
-        const latMeteo = null;
-        const lonMeteo = null;
-        // if(countryLat && cityLat){
-        //  alert('test')
-        // }
+        fetch(
+                `https://api.openweathermap.org/data/2.5/weather?lat=${selectedLat}&lon=${selectedLon}&lang=it&units=metric&appid=461c50c5aad0a7a4b9f77424415c5924`
+            )
+            .then(response => response.json())
+            .then(data => {
+                tempElement.innerHTML = `${data.main.temp} °C`;
+                cityElement.innerHTML = `${data.name}`;
+                if (data.weather[0].main == "Clouds") {
+                    weatherIconElement.src = `{{ asset('img/wheater/clouds.png') }}`;
+                } else if (data.weather[0].main == "Clear") {
+                    weatherIconElement.src = `{{ asset('img/wheater/clear.png') }}`;
+                } else if (data.weather[0].main == "Rain") {
+                    weatherIconElement.src = `{{ asset('img/wheater/rain.png') }}`;
+                } else if (data.weather[0].main == "Drizzle") {
+                    weatherIconElement.src = `{{ asset('img/wheater/drizzle.png') }}`;
+                } else if (data.weather[0].main == "Mist") {
+                    weatherIconElement.src = `{{ asset('img/wheater/mist.png') }}`;
+                } else if (data.weather[0].main == "Snow") {
+                    weatherIconElement.src = `{{ asset('img/wheater/snow.png') }}`;
+                } else if (data.weather[0].main == "Thunderstorm") {
+                    weatherIconElement.src = `{{ asset('img/wheater/storm.png') }}`;
+                }
 
-        // fetch(
-        //         `https://api.openweathermap.org/data/2.5/weather?lat=${cityLat}&lon=${cityLon}&lang=it&units=metric&appid=461c50c5aad0a7a4b9f77424415c5924`
-        //     )
-        //     .then(response => response.json())
-        //     .then(data => {
-        //         tempElement.innerHTML = `${data.main.temp} °C`;
-        //         cityElement.innerHTML = `${data.name}`;
-        //         if (data.weather[0].main == "Clouds") {
-        //             weatherIconElement.src = `{{ asset('img/wheater/clouds.png') }}`;
-        //         } else if (data.weather[0].main == "Clear") {
-        //             weatherIconElement.src = `{{ asset('img/wheater/clear.png') }}`;
-        //         } else if (data.weather[0].main == "Rain") {
-        //             weatherIconElement.src = `{{ asset('img/wheater/rain.png') }}`;
-        //         } else if (data.weather[0].main == "Drizzle") {
-        //             weatherIconElement.src = `{{ asset('img/wheater/drizzle.png') }}`;
-        //         } else if (data.weather[0].main == "Mist") {
-        //             weatherIconElement.src = `{{ asset('img/wheater/mist.png') }}`;
-        //         } else if (data.weather[0].main == "Snow") {
-        //             weatherIconElement.src = `{{ asset('img/wheater/snow.png') }}`;
-        //         } else if (data.weather[0].main == "Thunderstorm") {
-        //             weatherIconElement.src = `{{ asset('img/wheater/storm.png') }}`;
-        //         }
-
-        //         // Imposta l'icona nel tuo elemento HTML
-        //         weatherIconElement.alt = data.weather[0].description; // Descrizione dell'icona
-        //     })
-        //     .catch(error => console.error('Errore:', error)); // Gestione errori.
+                // Imposta l'icona nel tuo elemento HTML
+                weatherIconElement.alt = data.weather[0].description; // Descrizione dell'icona
+            })
+            .catch(error => console.error('Errore:', error)); // Gestione errori.
 
         const btnMap = document.getElementById('btn-map');
         const showMap = document.getElementById("map");
@@ -218,11 +216,11 @@
         let map = tt.map({
             key: 'tNdeH4PSEGzxLQ1CKK0HdCagLd1BsXSc',
             container: 'map',
-            center: [countryLon, countryLat],
+            center: [selectedLon, selectedLat],
             zoom: 15
         });
         let marker = new tt.Marker()
-            .setLngLat([countryLon, countryLat])
+            .setLngLat([selectedLon, selectedLat])
             .addTo(map);
 
         // Inizializzazione del grafico

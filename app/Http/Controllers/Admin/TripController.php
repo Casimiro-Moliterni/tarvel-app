@@ -96,7 +96,7 @@ class TripController extends Controller
         if (!$trip) {
             abort(404, 'Trip not found');
         }
-    
+    //  dd($trip);
         // Calcola tutti i giorni tra start_date e end_date
         $startDate = Carbon::parse($trip->start_date);
         $endDate = Carbon::parse($trip->end_date);

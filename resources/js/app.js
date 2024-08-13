@@ -102,7 +102,7 @@ document.addEventListener('DOMContentLoaded', function () {
                                 citySuggestions.innerHTML = '';
                                 countrySuggestions.innerHTML = '';
                                 let resultTitle = null;
-                                countryInput.classList.add('color-input', 'text-warning');
+                                // countryInput.classList.add('color-input', 'text-warning');
                                 if (cityInput.value === '') {
                                     // Crea la stringa del titolo risultato
                                     let resultTitle = 'Viaggio in: ' + countryInput.value;
@@ -111,7 +111,7 @@ document.addEventListener('DOMContentLoaded', function () {
                                     titleInput.value = resultTitle;
 
                                     // Aggiungi la classe di avviso al titleInput per evidenziarlo
-                                    titleInput.classList.add('text-warning', 'color-input');
+                                    // titleInput.classList.add('text-warning', 'color-input');
                                 } else {
                                     titleInput.value = 'Viaggio in: ' + cityInput.value + ' ,' + countryInput.value;
                                 }
@@ -120,9 +120,9 @@ document.addEventListener('DOMContentLoaded', function () {
                             countrySuggestions.appendChild(suggestionElem);
                         });
                     } else {
-                        countryInput.classList.remove('color-input', 'text-warning');
-                        if (cityCodeValue) { cityInput.classList.remove('color-input', 'text-warning') };
-                        titleInput.classList.remove('color-input', 'text-warning');
+                        // countryInput.classList.remove('color-input', 'text-warning');
+                        // if (cityCodeValue) { cityInput.classList.remove('color-input', 'text-warning') };
+                        // titleInput.classList.remove('color-input', 'text-warning');
                         const noResults = document.createElement('div');
                         noResults.textContent = 'Nessun paese trovato.';
                         noResults.classList.add('list-group-item', 'list-group-item-action');
@@ -222,9 +222,9 @@ document.addEventListener('DOMContentLoaded', function () {
                                         .catch(error => console.error('Errore nella ricerca del paese:', error));
                                 };
                                     
-                                cityInput.classList.add('color-input', 'text-warning');
-                                countryInput.classList.add('color-input', 'text-warning');
-                                titleInput.classList.add('color-input', 'text-warning');
+                                // cityInput.classList.add('color-input', 'text-warning');
+                                // countryInput.classList.add('color-input', 'text-warning');
+                                // titleInput.classList.add('color-input', 'text-warning');
                                 if (query.length === 0) {
                                     titleInput.value = 'Viaggio in: ' + suggestion.country;
                                 } else {

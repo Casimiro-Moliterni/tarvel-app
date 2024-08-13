@@ -62,3 +62,8 @@
     </form>
 </div>
 @endsection
+
+
+@push('scripts')
+<script src="{{ asset('js/createStop.js') }}"></script>
+@endpush

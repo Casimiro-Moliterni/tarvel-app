@@ -10,9 +10,8 @@ class Stop extends Model
     use HasFactory;
 
     protected $fillable = [
-        'day','id_trip', 'name', 'image', 'description',  'street', 'foods', 'curiosities', 'rating',
+        'day','id_trip', 'name', 'image', 'description','country','city'  ,'street', 'foods', 'curiosities', 'rating',
         'time_start','time_end','lonCountry','latCountry','lonCity','latCity','lonStreet','latStreet',
-        'country','city','streeet'
     ];
 
     public function notes(){

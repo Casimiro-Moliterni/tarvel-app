@@ -7,6 +7,7 @@ use App\Models\Stop;
 use App\Models\Trip;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Validator;
 
 class StopsController extends Controller
 {
@@ -47,25 +48,10 @@ class StopsController extends Controller
      */
     public function store(Request $request)
     {
+       
         // Validazione dei dati
-        // dd($request->all());
-        // $request->validate([
-        //     'day' => 'required|date',
-        //     'name' => 'required|string|max:255',
-        //     'image' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
-        //     'description' => 'nullable|string',
-        //     'country' => 'nullable|string',
-        //     'region' => 'nullable|string',
-        //     'city' => 'required|string|max:255',
-        //     'street' => 'nullable|string',
-        //     'foods' => 'nullable|string',
-        //     'curiosities' => 'nullable|string',
-        //     'rating' => 'required|string|max:255',
-        // ]);
-
-        // Prepara i dati per l'inserimento
-        $data = $request->all();
-        // dd($data);
+        $validatedData = $this->validation($request->all());
+        $formData = $validatedData;
 
         // Gestione del file immagine se presente
         if ($request->hasFile('image')) {
@@ -77,7 +63,6 @@ class StopsController extends Controller
         // istanza di un nuovo model 
         $newStop = new Stop();
         $newStop->fill($data);
-        dd($data);
         // $newStop->id_trip = Trip::id();
 
         // Salva il nuovo Trip nel database
@@ -132,5 +117,34 @@ class StopsController extends Controller
     public function destroy($id)
     {
         //
+    }
+    private function validation($data) //----------------------------------------------------------------------------------------------------
+    {
+        return Validator::make(
+            $data,
+            [
+                'day' => 'required|date',
+                'name' => 'required|string|max:255',
+                'image' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
+                'description' => 'nullable|string',
+                'foods' => 'nullable|string',
+                'curiosities' => 'nullable|string',
+                'rating' => 'required|string|max:255',
+                'country' => 'nullable|string',
+                'city' => 'nullable|string',
+                'street' => 'nullable|string',
+                'lonCountry' => 'nullable|numeric|between:-180,180',
+                'latCountry' => 'nullable|numeric|between:-90,90',
+                'lonStreet' => 'nullable|numeric|between:-180,180',
+                'latStreet' => 'nullable|numeric|between:-90,90',
+                'lonCity' => 'nullable|numeric|between:-180,180',
+                'latCity' => 'nullable|numeric|between:-90,90',
+                'time_start' => 'nullable',
+                'time_end' => 'nullable'
+            ],
+            [
+
+            ]
+        )->validate();
     }
 }

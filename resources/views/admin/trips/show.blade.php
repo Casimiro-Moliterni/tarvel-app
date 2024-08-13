@@ -174,6 +174,8 @@
             )
             .then(response => response.json())
             .then(data => {
+
+                console.log(data)
                 tempElement.innerHTML = `${data.main.temp} °C`;
                 cityElement.innerHTML = `${data.name}`;
                 if (data.weather[0].main == "Clouds") {

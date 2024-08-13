@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Stop;
 use App\Models\Trip;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
@@ -27,16 +28,27 @@ class StopsController extends Controller
      * @return \Illuminate\Http\Response
      */
 
-    public function create($trip_id)
+    public function create(Request $request, $trip_id)
     {
-        // // $day = $request->route('day');
-        // // dd($day);
+        // Recupera la data dalla query string
+        $dateString = $request->query('date');
+
         // Verifica che l'ID del viaggio non sia nullo
         if (is_null($trip_id)) {
             abort(404, 'ID del viaggio non trovato.');
         }
 
-        return view('admin.stops.create', ['tripId' => $trip_id]);
+        // Converti la data in formato Y-m-d
+        try {
+            $date = Carbon::createFromFormat('d M Y', $dateString)->format('Y-m-d');
+        } catch (\Exception $e) {
+            abort(400, 'Data non valida.');
+        }
+
+        return view('admin.stops.create', [
+            'tripId' => $trip_id,
+            'date' => $date
+        ]);
     }
 
 
@@ -63,13 +75,12 @@ class StopsController extends Controller
         // istanza di un nuovo model 
         $newStop = new Stop();
         $newStop->fill($data);
-        // $newStop->id_trip = Trip::id();
-
+        // dd($newStop);
         // Salva il nuovo Trip nel database
         $newStop->save();
 
         // Redirect con messaggio di successo
-        return redirect()->route('admin.stops.create')->with('success', 'Tappa aggiunta con successo!');
+        return redirect()->route('admin.trips.show', ['trip' => $newStop->id_trip])->with('success', 'Tappa aggiunta con successo!');
     }
 
 

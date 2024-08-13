@@ -132,7 +132,7 @@
                             <strong>Data:</strong> {{ $date->format('d M Y') }}<br>
                             <strong>Dettagli:</strong> Nessun dettaglio disponibile per questo giorno.
                         </p>
-                        <a href="{{ route('admin.stops.create', ['trip_id' => $trip->id]) }}" class="btn btn-primary">
+                        <a href="{{ route('admin.stops.create', ['trip_id' => $trip->id,'date' => $date->format('d M Y')]) }}" class="btn btn-primary">
                             Aggiungi Tappa
                         </a>
                     </div>

@@ -49,10 +49,10 @@
                         </div>
                     </div>
                 </div>
-    
+
             </section>
 
-            
+
             {{-- <button class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#collapseWidthExample" aria-expanded="false" aria-controls="collapseWidthExample">
                 Toggle width collapse
             </button>
@@ -125,17 +125,25 @@
                 <details class="accordion">
                     <summary class="accordion-btn fs-2 fw-bold">
                         Giorno {{ $loop->iteration }}: {{ $date->format('d M Y') }}
-                        @dump($events)
+                        
                     </summary>
                     <div class="accordion-content">
-                        <p class="bg-success bg-gradient">
-                            <strong>Nome evento</strong> ||
-                            <strong>Ora inizio:</strong> ||
-                            <strong>Ora fine:</strong> ||
-                            <strong>Città</strong>||
-                            <strong>Via</strong>||
-                        </p>
-                        <a href="{{ route('admin.stops.create', ['trip_id' => $trip->id,'date' => $date->format('d M Y')]) }}" class="btn btn-primary">
+                        
+                        @if (isset($events[$date->format('d M Y')]))
+                            @foreach ($events[$date->format('d M Y')] as $event)
+                                <p class="bg-success bg-gradient">
+                                    <strong>Nome evento:</strong> {{ $event->name }} ||
+                                    <strong>Ora inizio:</strong> {{ $event->time_start }} ||
+                                    <strong>Ora fine:</strong> {{ $event->time_end }} ||
+                                    <strong>Città:</strong> {{ $event->city }} ||
+                                    <strong>Via:</strong> {{ $event->street }}
+                                </p>
+                            @endforeach
+                        @else
+                            <p>Nessun evento per questa data.</p>
+                        @endif
+                        <a href="{{ route('admin.stops.create', ['trip_id' => $trip->id, 'date' => $date->format('d M Y')]) }}"
+                            class="btn btn-primary">
                             Aggiungi Tappa
                         </a>
                     </div>
@@ -164,13 +172,13 @@
         const weatherIconElement = document.querySelector('.weather-icon');
         const lonCountry = @json($trip->lonCountry);
         const latCountry = @json($trip->latCountry);
-        const lonCity= @json($trip->lonCity);
+        const lonCity = @json($trip->lonCity);
         const latCity = @json($trip->latCity);
-        const City= @json($trip->city);
+        const City = @json($trip->city);
         const Country = @json($trip->country);
         let selectedLat = City && Country ? latCity : latCountry;
         let selectedLon = City && Country ? lonCity : lonCountry;
-     
+
 
         fetch(
                 `https://api.openweathermap.org/data/2.5/weather?lat=${selectedLat}&lon=${selectedLon}&lang=it&units=metric&appid=461c50c5aad0a7a4b9f77424415c5924`

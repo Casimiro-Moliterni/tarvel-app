@@ -9,7 +9,7 @@
             <input type="hidden" name="id_trip" value="{{ $tripId }}">
             <div class="row">
                 <div class="form-group col col">
-                    <label for="name">Nome:</label>
+                    <label for="name">Nome evento:</label>
                     <input type="text" id="name" name="name" class="form-control" required>
                 </div>
 

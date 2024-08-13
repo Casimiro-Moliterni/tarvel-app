@@ -5,9 +5,8 @@
     <h1>Aggiungi una nuova tappa</h1>
     <form action="{{ route('admin.stops.store') }}" method="POST" enctype="multipart/form-data">
         @csrf
-        <input type="hidden" name="day" value="2024-09-1"> 
+        <input type="hidden" name="day" value="{{ $date }}"> 
         <input type="hidden" name="id_trip" value="{{ $tripId }}"> 
-        @dump($tripId)
 
         <div class="form-group">
             <label for="name">Nome:</label>

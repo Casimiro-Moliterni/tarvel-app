@@ -1,11 +1,8 @@
 @extends('layouts.admin')
 @section('content')
     <div class="container">
-        @component('admin.component.btnAdd')
-        @endcomponent
-        @component('admin.component.formCard')
-        @endcomponent
-
+     <x-btnAdd  />
+     <x-formCard  />
         <div class="row">
             <div class="col text-center mb-5">
                 <h2 class="display-4 text-center font-weight-bolder text-black">

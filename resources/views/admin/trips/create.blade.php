@@ -1,6 +1,5 @@
 @extends('layouts.admin')
 @section ('content')
-    @component('admin.component.formCard')
-    @endcomponent
+    <x-formCard />
 @endsection
 

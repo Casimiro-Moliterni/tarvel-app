@@ -4,55 +4,8 @@
 
         <div class="row mt-3">
             <h1 class="text-center mt-3">{{ $trip->title }}</h1>
-            <section id="card-show" class="row row-cols-2 mb-5 mt-5">
-
-                <div class="col mb-4">
-                    <div class="card meteo-card text-dark card-has-bg click-col">
-                        <div class="card-img-overlay d-flex flex-column">
-                            <div class="card-body text-center">
-                                <img class="weather-icon" src="" alt="Weather icon">
-                            </div>
-                            <div class="card-footer">
-                                <div class="media">
-                                    <div class="media-body text-center">
-                                        <div class="temp mt-4 mb-2 fw-bold"></div>
-                                        <div class="city fw-bold"></div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col mb-4">
-                    <div class="card text-dark card-has-bg click-col">
-                        <div class="card-img-overlay d-flex flex-column details-card">
-                            <div class="card-body">
-                                <small class="card-meta mb-2">Date di viaggio</small>
-                                <h4 class="card-title mt-0 ">
-                                    <i class="fa-solid fa-plane-departure"></i>
-                                    <span>Partenza:</span>
-                                    {{ $trip->start_date }}
-                                </h4>
-                            </div>
-                            <div class="card-footer">
-                                <div class="media d-flex justify-content-end">
-                                    <div class="media-body">
-                                        <h4 class="card-title mt-0 ">
-                                            <i class="fa-solid fa-plane-arrival"></i>
-                                            <span>Ritorno:</span>
-                                            {{ $trip->end_date }}
-                                        </h4>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-            </section>
-
-
+            <x-cardShow :trip="$trip" />
+            {{-- ---------------------------------OFFCANVAS------------------------- --}}
             {{-- <button class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#collapseWidthExample" aria-expanded="false" aria-controls="collapseWidthExample">
                 Toggle width collapse
             </button>
@@ -118,38 +71,33 @@
                     </div>
                 </div>
             </div> --}}
-        </div>
-
-        <div class="accordion" id="accordionExample">
-            @foreach ($daysRange as $date)
-                <details class="accordion">
-                    <summary class="accordion-btn fs-2 fw-bold">
-                        Giorno {{ $loop->iteration }}: {{ $date->format('d M Y') }}
-                        
-                    </summary>
-                    <div class="accordion-content">
-                        
-                        @if (isset($events[$date->format('d M Y')]))
-                            @foreach ($events[$date->format('d M Y')] as $event)
-                                <p class="bg-success bg-gradient">
-                                    <strong>Nome evento:</strong> {{ $event->name }} ||
-                                    <strong>Ora inizio:</strong> {{ $event->time_start }} ||
-                                    <strong>Ora fine:</strong> {{ $event->time_end }} ||
-                                    <strong>Città:</strong> {{ $event->city }} ||
-                                    <strong>Via:</strong> {{ $event->street }}
-                                </p>
-                            @endforeach
-                        @else
-                            <p>Nessun evento per questa data.</p>
-                        @endif
-                        <a href="{{ route('admin.stops.create', ['trip_id' => $trip->id, 'date' => $date->format('d M Y')]) }}"
-                            class="btn btn-primary">
-                            Aggiungi Tappa
-                        </a>
-                    </div>
-                </details>
-            @endforeach
-        </div>
+            {{-- </div> --}}
+            {{-- ---------------------------------CHIUSURA OFFCANVAS-------------------------  --}}
+            <div class="accordion " id="accordionExample">
+                @foreach ($daysRange as $date)
+                    <details class="accordion mb-2">
+                        <summary id="activeAccordion" class="accordion-btn color-blue fs-2 fw-bold" >
+                            Giorno {{ $loop->iteration }}: {{ $date->format('d M Y') }}
+                        </summary>
+                        <div class="accordion-content p-2 px-3 pt-3">
+                            <div class="d-flex align-items-center">
+                                <a id="btn-formStop">
+                                    <i class="fa-solid fa-circle-plus mb-2"></i>
+                                </a>
+                                <span class="ms-3 fs-3 fw-bold">AGGIUNGI TAPPA</span>
+                            </div>
+                            <x-formAddStop :date="$date->format('d M Y')" :tripId="$trip->id" />
+                            @if (isset($events[$date->format('d M Y')]))
+                                @foreach ($events[$date->format('d M Y')] as $event)
+                                    <x-accordionStops :event="$event"> </x-accordionStops>
+                                @endforeach
+                            @else
+                                <p>Nessun evento per questa data.</p>
+                            @endif
+                        </div>
+                    </details>
+                @endforeach
+            </div>
         </div>
     </section>
 @endsection
@@ -167,6 +115,9 @@
 <script>
     document.addEventListener('DOMContentLoaded', function() {
 
+
+        const btnFormStop = document.querySelector('#btn-formStop');
+        const formStop = document.querySelector('#formStop');
         const tempElement = document.querySelector('.temp');
         const cityElement = document.querySelector('.city');
         const weatherIconElement = document.querySelector('.weather-icon');
@@ -179,7 +130,7 @@
         let selectedLat = City && Country ? latCity : latCountry;
         let selectedLon = City && Country ? lonCity : lonCountry;
 
-
+        getBtnToggle(btnFormStop, formStop)
         fetch(
                 `https://api.openweathermap.org/data/2.5/weather?lat=${selectedLat}&lon=${selectedLon}&lang=it&units=metric&appid=461c50c5aad0a7a4b9f77424415c5924`
             )
@@ -210,67 +161,67 @@
             })
             .catch(error => console.error('Errore:', error)); // Gestione errori.
 
-        const btnMap = document.getElementById('btn-map');
-        const showMap = document.getElementById("map");
-        const btnCover = document.getElementById('btn-img-cover');
-        const showCover = document.getElementById("img-cover");
-        const btnDescription = document.getElementById('btn-description');
-        const showDescription = document.getElementById("show-description");
-        const btnDate = document.getElementById('btn-date');
-        const showDate = document.getElementById("show-date");
+        // const btnMap = document.getElementById('btn-map');
+        // const showMap = document.getElementById("map");
+        // const btnCover = document.getElementById('btn-img-cover');
+        // const showCover = document.getElementById("img-cover");
+        // const btnDescription = document.getElementById('btn-description');
+        // const showDescription = document.getElementById("show-description");
+        // const btnDate = document.getElementById('btn-date');
+        // const showDate = document.getElementById("show-date");
 
         // Usa la funzione globale
-        getBtnToggle(btnMap, showMap);
-        getBtnToggle(btnCover, showCover);
-        getBtnToggle(btnDescription, showDescription);
-        getBtnToggle(btnDate, showDate);
+        // getBtnToggle(btnMap, showMap);
+        // getBtnToggle(btnCover, showCover);
+        // getBtnToggle(btnDescription, showDescription);
+        // getBtnToggle(btnDate, showDate);
 
-        tt.setProductInfo('Your App Name', 'Your App Version');
-        let map = tt.map({
-            key: 'tNdeH4PSEGzxLQ1CKK0HdCagLd1BsXSc',
-            container: 'map',
-            center: [selectedLon, selectedLat],
-            zoom: 15
-        });
-        let marker = new tt.Marker()
-            .setLngLat([selectedLon, selectedLat])
-            .addTo(map);
+        // tt.setProductInfo('Your App Name', 'Your App Version');
+        // let map = tt.map({
+        //     key: 'tNdeH4PSEGzxLQ1CKK0HdCagLd1BsXSc',
+        //     container: 'map',
+        //     center: [selectedLon, selectedLat],
+        //     zoom: 15
+        // });
+        // let marker = new tt.Marker()
+        //     .setLngLat([selectedLon, selectedLat])
+        //     .addTo(map);
 
-        // Inizializzazione del grafico
-        var ctx = document.getElementById('myChart').getContext('2d');
-        var myChart = new Chart(ctx, {
-            type: 'bar',
-            data: {
-                labels: ['Marzo', 'Aprile', 'Maggio', 'Giugno', 'Luglio'],
-                datasets: [{
-                    label: 'Messaggi',
-                    data: [12, 15, 20, 16, 25],
-                    backgroundColor: 'rgba(101, 159, 230, 0.5)', // Azzurro
-                    borderColor: 'rgba(101, 159, 230, 1)',
-                    borderWidth: 1
-                }, {
-                    label: 'Visualizzazioni',
-                    data: [100, 110, 100, 150, 180],
-                    backgroundColor: 'rgba(255, 99, 132, 0.5)', // Rosso
-                    borderColor: 'rgba(255, 99, 132, 1)',
-                    borderWidth: 1
-                }]
-            },
-            options: {
-                scales: {
-                    y: {
-                        grid: {
-                            display: false // Imposta display: false per rimuovere la griglia dell'asse y
-                        },
-                        beginAtZero: true,
-                    },
-                    x: {
-                        grid: {
-                            display: false // Imposta display: false per rimuovere la griglia dell'asse x
-                        }
-                    }
-                }
-            }
-        });
+        // // Inizializzazione del grafico
+        // var ctx = document.getElementById('myChart').getContext('2d');
+        // var myChart = new Chart(ctx, {
+        //     type: 'bar',
+        //     data: {
+        //         labels: ['Marzo', 'Aprile', 'Maggio', 'Giugno', 'Luglio'],
+        //         datasets: [{
+        //             label: 'Messaggi',
+        //             data: [12, 15, 20, 16, 25],
+        //             backgroundColor: 'rgba(101, 159, 230, 0.5)', // Azzurro
+        //             borderColor: 'rgba(101, 159, 230, 1)',
+        //             borderWidth: 1
+        //         }, {
+        //             label: 'Visualizzazioni',
+        //             data: [100, 110, 100, 150, 180],
+        //             backgroundColor: 'rgba(255, 99, 132, 0.5)', // Rosso
+        //             borderColor: 'rgba(255, 99, 132, 1)',
+        //             borderWidth: 1
+        //         }]
+        //     },
+        //     options: {
+        //         scales: {
+        //             y: {
+        //                 grid: {
+        //                     display: false // Imposta display: false per rimuovere la griglia dell'asse y
+        //                 },
+        //                 beginAtZero: true,
+        //             },
+        //             x: {
+        //                 grid: {
+        //                     display: false // Imposta display: false per rimuovere la griglia dell'asse x
+        //                 }
+        //             }
+        //         }
+        //     }
+        // });
     });
 </script>

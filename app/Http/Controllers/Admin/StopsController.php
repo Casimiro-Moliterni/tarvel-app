@@ -45,7 +45,7 @@ class StopsController extends Controller
             abort(400, 'Data non valida.');
         }
 
-        return view('admin.stops.create', ['tripId' => $trip_id, 'date' => $date]);
+        return view('admin.stops.create');
     }
 
 
@@ -57,41 +57,15 @@ class StopsController extends Controller
      */
     public function store(Request $request)
     {
+        // dd($request);
         // Estrai i dati dalla richiesta
-        $data = $request->all();
-
-        // Ottieni l'id_trip dai dati della richiesta
-        $trip_id = $data['id_trip'];
-
+        $validatedData = $this->validation($request->all());
         // Validazione dei dati
-        $validatedData = $this->validation($data, $trip_id);
 
         // Gestione del file immagine se presente
         if ($request->hasFile('image')) {
             $imagePath = $request->file('image')->store('images', 'public');
             $validatedData['image'] = $imagePath;
-        }
-
-        // Converti gli orari in oggetti Carbon per facilitare il confronto
-        $newStart = Carbon::createFromFormat('H:i', $data['time_start']);
-        $newEnd = Carbon::createFromFormat('H:i', $data['time_end']);
-
-
-        // Recupera tutte le tappe esistenti per il giorno e viaggio specificato
-        $existingStops = Stop::where('id_trip', $trip_id)->where('day', $data['day'])->get();
-
-        // Verifica sovrapposizioni di orario
-        foreach ($existingStops as $stop) {
-            $existingStart = Carbon::createFromFormat('H:i', $stop->time_start);
-            $existingEnd = Carbon::createFromFormat('H:i', $stop->time_end);
-            // Esegui il dump degli orari di inizio e fine
-            dd($existingStart->format('H:i'), $existingEnd->format('H:i'));
-
-            // Verifica se c'è sovrapposizione
-            if (($newStart->notEqualTo($existingStart)) && ($newEnd->notEqualTo($existingEnd))) {
-                // Sovrapposizione trovata
-                dd('Errore: Orario sovrapposto', $newStart->format('H:i'), $newEnd->format('H:i'));
-            }
         }
         // Crea una nuova istanza di Stop e salva nel database
         $newStop = new Stop();

@@ -125,12 +125,15 @@
                 <details class="accordion">
                     <summary class="accordion-btn fs-2 fw-bold">
                         Giorno {{ $loop->iteration }}: {{ $date->format('d M Y') }}
-                        @dump($date->format('d M Y'))
+                        @dump($events)
                     </summary>
                     <div class="accordion-content">
-                        <p>
-                            <strong>Data:</strong> {{ $date->format('d M Y') }}<br>
-                            <strong>Dettagli:</strong> Nessun dettaglio disponibile per questo giorno.
+                        <p class="bg-success bg-gradient">
+                            <strong>Nome evento</strong> ||
+                            <strong>Ora inizio:</strong> ||
+                            <strong>Ora fine:</strong> ||
+                            <strong>Città</strong>||
+                            <strong>Via</strong>||
                         </p>
                         <a href="{{ route('admin.stops.create', ['trip_id' => $trip->id,'date' => $date->format('d M Y')]) }}" class="btn btn-primary">
                             Aggiungi Tappa

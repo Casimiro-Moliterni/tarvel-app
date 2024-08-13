@@ -40,7 +40,7 @@ class StopsController extends Controller
 
         // Converti la data in formato Y-m-d
         try {
-            $date = Carbon::createFromFormat('d M Y', $dateString)->format('Y-m-d');
+            $date = Carbon::createFromFormat('d M Y', $dateString);
         } catch (\Exception $e) {
             abort(400, 'Data non valida.');
         }
@@ -62,8 +62,8 @@ class StopsController extends Controller
     {
        
         // Validazione dei dati
-        $validatedData = $this->validation($request->all());
-        $formData = $validatedData;
+        // $validatedData = $this->validation($request->all());
+        $data = $request->all();
 
         // Gestione del file immagine se presente
         if ($request->hasFile('image')) {

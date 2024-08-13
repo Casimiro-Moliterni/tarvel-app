@@ -8,6 +8,7 @@ use App\Models\Trip;
 use Illuminate\Support\Facades\Auth;
 use App\Models\User;
 use App\Models\Day;
+use App\Models\Stop;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Storage;
 use Carbon\Carbon;
@@ -87,23 +88,32 @@ class TripController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)//---------------------------------------------------------------------------------------------------------------
+    public function show($id) //---------------------------------------------------------------------------------------------------------------
     {
         // Recupera il viaggio con l'ID specificato
         $trip = Trip::find($id);
-    
+
         // Verifica se il viaggio esiste
         if (!$trip) {
             abort(404, 'Trip not found');
         }
-    //  dd($trip);
+        //  dd($trip);
         // Calcola tutti i giorni tra start_date e end_date
         $startDate = Carbon::parse($trip->start_date);
         $endDate = Carbon::parse($trip->end_date);
         $daysRange = $startDate->toPeriod($endDate);
-    
+
+        $events = [];
+
+        // foreach ($daysRange as $date) {
+        //     $formattedDate = $date->format('Y-m-d');
+        //     $events[$formattedDate] = Stop::where('trip_id', $trip)
+        //         ->whereDate('day', $formattedDate)
+        //         ->get();
+        // }
+
         // Passa i dati alla vista
-        return view('admin.trips.show', compact('trip', 'daysRange'));
+        return view('admin.trips.show', compact('trip', 'daysRange','events'));
     }
 
     /**

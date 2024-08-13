@@ -48,7 +48,7 @@
                 <div class="collapse navbar-collapse  " id="navbarSupportedContent">
                     <!-- Left Side Of Navbar -->
                     <ul class="navbar-nav me-auto d-flex justify-content-evenly align-items-center ms-5 ">
-        
+
                         <li class="btn btn-outline-danger">
                             <a class="dropdown-item  " href="{{ route('logout') }}"
                                 onclick="event.preventDefault();
@@ -102,5 +102,6 @@
         </main>
     </div>
 </body>
+@stack('scripts')
 
 </html>

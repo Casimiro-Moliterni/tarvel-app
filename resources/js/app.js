@@ -12,13 +12,24 @@ function getBtnToggle(btn, element) {
         element.classList.toggle("d-none");
     });
 }
-function getShowElement(btns, elements, className) {
+function getShowElement(btns, elements, className, icons) {
     btns.forEach((btn, btnIndex) => {
         btn.addEventListener('click', function () {
+            icons.forEach((icon, iconIndex) => {
+                if (btnIndex === iconIndex) {
+                    if(icon.classList.contains('fa-circle-plus')){
+                      icon.classList.remove('fa-circle-plus')
+                      icon.classList.add('fa-circle-minus')
+                    }else{
+                        icon.classList.remove('fa-circle-minus')
+                        icon.classList.add('fa-circle-plus')
+                    }
+                }
+            });
             elements.forEach((element, elementIndex) => {
                 if (btnIndex === elementIndex) {
                     element.classList.toggle(className);
-                } 
+                }
             });
         });
     });
@@ -34,9 +45,11 @@ function getMatchScore(query, name) {
 }
 
 document.addEventListener('DOMContentLoaded', function () {
+
     const btnFormStop = document.querySelectorAll('#btnFormStop');
+    const iconBtnFormStop = document.querySelectorAll('#icon-btn-form-stop');
     const formStop = document.querySelectorAll('#formStop');
-    getShowElement(btnFormStop, formStop,'d-none')
+    getShowElement(btnFormStop, formStop, 'd-none', iconBtnFormStop)
     const countryInput = document.getElementById('country');
     const cityInput = document.getElementById('city');
     const titleInput = document.getElementById('title');

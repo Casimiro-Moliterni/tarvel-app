@@ -42,6 +42,15 @@
     font-size: 40px;
     color: rgb(182, 197, 182);
   }
+  .fa-circle-minus{
+    font-size: 40px;
+    color: rgb(182, 197, 182);
+  }
+  .fa-circle-minus:hover{
+    transform: scale(1.05);
+    transition: 0.5s;
+    color: rgb(210, 217, 12);
+  }
   .fa-circle-plus:hover{
     transform: scale(1.05);
     transition: 0.5s;

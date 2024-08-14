@@ -8,8 +8,8 @@
                 <strong>Città:</strong> {{ $event->city }} ||
                 <strong>Via:</strong> {{ $event->street }}
         </summary>
-        <div class="accordion-content">
-            {{-- {{ $slot }} --}}
+        <div class="accordion-content p-2">
+            <x-ContentStopShow :event="$event" />
         </div>
     </details>
 </div>

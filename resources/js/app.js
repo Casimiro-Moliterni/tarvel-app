@@ -12,8 +12,15 @@ function getBtnToggle(btn, element) {
         element.classList.toggle("d-none");
     });
 }
+function getShowElement(btn, element) {
+    element.classList.add('d-none');
+    btn.addEventListener('click', function () {
+        element.classList.toggle("d-none");
+    });
+}
 
 window.getBtnToggle = getBtnToggle;
+window.getShowElement = getShowElement;
 
 function getMatchScore(query, name) {
     const lowerQuery = query.toLowerCase();
@@ -22,6 +29,9 @@ function getMatchScore(query, name) {
 }
 
 document.addEventListener('DOMContentLoaded', function () {
+    const btnFormStop = document.querySelector('#btn-formStop');
+    const formStop = document.querySelector('#formStop');
+    getShowElement(btnFormStop,formStop)
     const countryInput = document.getElementById('country');
     const cityInput = document.getElementById('city');
     const titleInput = document.getElementById('title');
@@ -80,14 +90,14 @@ document.addEventListener('DOMContentLoaded', function () {
                         suggestions.forEach(suggestion => {
                             const suggestionElem = document.createElement('a');
                             suggestionElem.href = "#";
-                            suggestionElem.classList.add('list-group-item', 'list-group-item-action', 'd-flex', 'align-items-center','my-suggestion');
+                            suggestionElem.classList.add('list-group-item', 'list-group-item-action', 'd-flex', 'align-items-center', 'my-suggestion');
 
                             const countryText = document.createElement('span');
-                            countryText.innerHTML= `
+                            countryText.innerHTML = `
                             <i class="fa-solid fa-earth-americas"></i>
                             ${suggestion.country}
                             `;
-                            countryText.classList.add('d-flex','align-items-center','gap-2');
+                            countryText.classList.add('d-flex', 'align-items-center', 'gap-2');
                             suggestionElem.appendChild(countryText);
 
                             suggestionElem.addEventListener('click', function (e) {
@@ -180,13 +190,13 @@ document.addEventListener('DOMContentLoaded', function () {
                         suggestions.forEach(suggestion => {
                             const suggestionElem = document.createElement('a');
                             suggestionElem.href = "#";
-                            suggestionElem.classList.add('list-group-item', 'list-group-item-action', 'd-flex', 'align-items-center','my-suggestion');
+                            suggestionElem.classList.add('list-group-item', 'list-group-item-action', 'd-flex', 'align-items-center', 'my-suggestion');
 
                             const cityText = document.createElement('span');
                             cityText.innerHTML = `
                             <i class="fa-solid fa-location-dot"></i>
                             ${suggestion.freeformAddress}`;
-                            cityText.classList.add('d-flex','align-items-center','gap-3');
+                            cityText.classList.add('d-flex', 'align-items-center', 'gap-3');
                             suggestionElem.appendChild(cityText);
 
                             suggestionElem.addEventListener('click', function (e) {
@@ -221,7 +231,7 @@ document.addEventListener('DOMContentLoaded', function () {
                                         })
                                         .catch(error => console.error('Errore nella ricerca del paese:', error));
                                 };
-                                    
+
                                 // cityInput.classList.add('color-input', 'text-warning');
                                 // countryInput.classList.add('color-input', 'text-warning');
                                 // titleInput.classList.add('color-input', 'text-warning');

@@ -108,7 +108,6 @@ class TripController extends Controller
             return Carbon::parse($event->day)->format('d M Y'); 
         });
         
-
         
 
 

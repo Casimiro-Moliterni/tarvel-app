@@ -89,7 +89,9 @@
                             <x-formAddStop :date="$date->format('d M Y')" :tripId="$trip->id" />
                             @if (isset($events[$date->format('d M Y')]))
                                 @foreach ($events[$date->format('d M Y')] as $event)
-                                    <x-accordionStops :event="$event"> </x-accordionStops>
+                                    <x-accordionStops :event="$event"> 
+                           
+                                    </x-accordionStops>
                                 @endforeach
                             @else
                                 <p>Nessun evento per questa data.</p>
@@ -114,8 +116,6 @@
 @endpush
 <script>
     document.addEventListener('DOMContentLoaded', function() {
-
-
         const btnFormStop = document.querySelector('#btn-formStop');
         const formStop = document.querySelector('#formStop');
         const tempElement = document.querySelector('.temp');
@@ -130,7 +130,7 @@
         let selectedLat = City && Country ? latCity : latCountry;
         let selectedLon = City && Country ? lonCity : lonCountry;
 
-        getBtnToggle(btnFormStop, formStop)
+        // getBtnToggle(btnFormStop, formStop)
         fetch(
                 `https://api.openweathermap.org/data/2.5/weather?lat=${selectedLat}&lon=${selectedLon}&lang=it&units=metric&appid=461c50c5aad0a7a4b9f77424415c5924`
             )

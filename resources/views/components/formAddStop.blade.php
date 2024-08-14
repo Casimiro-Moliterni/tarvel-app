@@ -1,5 +1,5 @@
 @props(['date','tripId'])
-    <div class="container my-form-create ">
+    <div class="container my-form-create " id="formStop">
         <h1 class="mb-3">Aggiungi una nuova tappa</h1>
         <form class="form-stops" action="{{ route('admin.stops.store') }}" method="POST" enctype="multipart/form-data">
             @csrf

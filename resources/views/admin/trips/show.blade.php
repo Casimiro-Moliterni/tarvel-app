@@ -81,7 +81,7 @@
                         </summary>
                         <div class="accordion-content p-2 px-3 pt-3" id="my-accordion-create">
                             <div class="d-flex align-items-center">
-                                <a id="btn-formStop ">
+                                <a id="btnFormStop">
                                     <i class="fa-solid fa-circle-plus mb-2"></i>
                                 </a>
                                 <span class="ms-3 fs-3 fw-bold">AGGIUNGI TAPPA</span>
@@ -117,7 +117,7 @@
 @endpush
 <script>
     document.addEventListener('DOMContentLoaded', function() {
-        const btnFormStop = document.querySelector('#btn-formStop');
+        const btnFormStop = document.querySelector('#btnFormStop');
         const formStop = document.querySelector('#formStop');
         const tempElement = document.querySelector('.temp');
         const cityElement = document.querySelector('.city');

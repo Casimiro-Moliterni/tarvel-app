@@ -12,10 +12,15 @@ function getBtnToggle(btn, element) {
         element.classList.toggle("d-none");
     });
 }
-function getShowElement(btn, element) {
-    element.classList.add('d-none');
-    btn.addEventListener('click', function () {
-        element.classList.toggle("d-none");
+function getShowElement(btns, elements, className) {
+    btns.forEach((btn, btnIndex) => {
+        btn.addEventListener('click', function () {
+            elements.forEach((element, elementIndex) => {
+                if (btnIndex === elementIndex) {
+                    element.classList.toggle(className);
+                } 
+            });
+        });
     });
 }
 
@@ -29,9 +34,9 @@ function getMatchScore(query, name) {
 }
 
 document.addEventListener('DOMContentLoaded', function () {
-    const btnFormStop = document.querySelector('#btn-formStop');
-    const formStop = document.querySelector('#formStop');
-    getShowElement(btnFormStop,formStop)
+    const btnFormStop = document.querySelectorAll('#btnFormStop');
+    const formStop = document.querySelectorAll('#formStop');
+    getShowElement(btnFormStop, formStop,'d-none')
     const countryInput = document.getElementById('country');
     const cityInput = document.getElementById('city');
     const titleInput = document.getElementById('title');

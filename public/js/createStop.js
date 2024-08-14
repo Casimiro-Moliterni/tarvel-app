@@ -1,5 +1,6 @@
 document.addEventListener('DOMContentLoaded', function () {
     // input 
+
     const cityInput = document.getElementById('city');
     const countryInput = document.getElementById('country');
     const streetInput = document.getElementById('street');

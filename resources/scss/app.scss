@@ -5,6 +5,8 @@
 @use './partials/trips/show';
 @use './partials/trips/create';
 @use './partials/trips/cardShow';
+@use './partials/stops/_formstopscreate';
+@use './partials/stops/stop';
 
 @import '~bootstrap/scss/bootstrap';
 

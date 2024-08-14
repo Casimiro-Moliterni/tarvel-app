@@ -73,10 +73,10 @@
             </div> --}}
             {{-- </div> --}}
             {{-- ---------------------------------CHIUSURA OFFCANVAS-------------------------  --}}
-            <div class="accordion " id="accordionExample">
+            <div class="accordion " id="accordionExample" style="padding-bottom: 126px;">
                 @foreach ($daysRange as $date)
                     <details class="accordion mb-2">
-                        <summary id="activeAccordion" class="accordion-btn color-blue fs-2 fw-bold" >
+                        <summary id="activeAccordion" class="accordion-btn color-blue fs-2 fw-bold">
                             Giorno {{ $loop->iteration }}: {{ $date->format('d M Y') }}
                         </summary>
                         <div class="accordion-content p-2 px-3 pt-3" id="my-accordion-create">
@@ -87,7 +87,7 @@
                                 <span class="ms-3 fs-3 fw-bold">AGGIUNGI TAPPA</span>
                             </div>
                             {{-- <x-formAddStop :date="$date->format('d M Y')" :tripId="$trip->id" /> --}}
-                                <x-formAddStop :date="$date->format('Y-m-d')" :tripId="$trip->id" />
+                            <x-formAddStop :date="$date->format('Y-m-d')" :tripId="$trip->id" />
                             @if (isset($events[$date->format('d M Y')]))
                                 @foreach ($events[$date->format('d M Y')] as $event)
                                     <x-accordionStops :event="$event"> </x-accordionStops>
@@ -133,7 +133,7 @@
 
 
         getBtnToggle(btnFormStop, formStop)
-        
+
         fetch(
                 `https://api.openweathermap.org/data/2.5/weather?lat=${selectedLat}&lon=${selectedLon}&lang=it&units=metric&appid=461c50c5aad0a7a4b9f77424415c5924`
             )

@@ -30,20 +30,20 @@ class StopsController extends Controller
 
     public function create(Request $request, $trip_id)
     {
-        // Recupera la data dalla query string
-        $dateString = $request->query('date');
+        // // Recupera la data dalla query string
+        // $dateString = $request->query('date');
 
-        // Verifica che l'ID del viaggio non sia nullo
-        if (is_null($trip_id)) {
-            abort(404, 'ID del viaggio non trovato.');
-        }
+        // // Verifica che l'ID del viaggio non sia nullo
+        // if (is_null($trip_id)) {
+        //     abort(404, 'ID del viaggio non trovato.');
+        // }
 
-        // Converti la data in formato Y-m-d
-        try {
-            $date = Carbon::createFromFormat('d M Y', $dateString);
-        } catch (\Exception $e) {
-            abort(400, 'Data non valida.');
-        }
+        // // Converti la data in formato Y-m-d
+        // try {
+        //     $date = Carbon::createFromFormat('d M Y', $dateString);
+        // } catch (\Exception $e) {
+        //     abort(400, 'Data non valida.');
+        // }
 
         return view('admin.stops.create');
     }
@@ -57,11 +57,11 @@ class StopsController extends Controller
      */
     public function store(Request $request)
     {
-        // dd($request);
         // Estrai i dati dalla richiesta
+        // dd($request);
         $validatedData = $this->validation($request->all());
         // Validazione dei dati
-
+        
         // Gestione del file immagine se presente
         if ($request->hasFile('image')) {
             $imagePath = $request->file('image')->store('images', 'public');

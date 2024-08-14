@@ -1,5 +1,5 @@
 @props(['event'])
-<div class="accordion p-0 mb-2 color-green" id="accordionExample">
+<div class="accordion p-0 mb-2 my-accordion" id="accordionExample">
     <details class="accordion">
         <summary class="accordion-btn fs-2 fw-bold"> 
                 <strong>Nome evento:</strong> {{ $event->name }} ||

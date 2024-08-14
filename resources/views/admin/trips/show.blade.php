@@ -73,20 +73,21 @@
             </div> --}}
             {{-- </div> --}}
             {{-- ---------------------------------CHIUSURA OFFCANVAS-------------------------  --}}
-            <div class="accordion " id="accordionExample">
+            <div class="accordion " id="accordionExample" style="padding-bottom: 126px;">
                 @foreach ($daysRange as $date)
                     <details class="accordion mb-2">
-                        <summary id="activeAccordion" class="accordion-btn color-blue fs-2 fw-bold" >
+                        <summary id="activeAccordion" class="accordion-btn color-blue fs-2 fw-bold">
                             Giorno {{ $loop->iteration }}: {{ $date->format('d M Y') }}
                         </summary>
-                        <div class="accordion-content p-2 px-3 pt-3">
+                        <div class="accordion-content p-2 px-3 pt-3" id="my-accordion-create">
                             <div class="d-flex align-items-center">
-                                <a id="btn-formStop">
+                                <a id="btn-formStop ">
                                     <i class="fa-solid fa-circle-plus mb-2"></i>
                                 </a>
                                 <span class="ms-3 fs-3 fw-bold">AGGIUNGI TAPPA</span>
                             </div>
-                            <x-formAddStop :date="$date->format('d M Y')" :tripId="$trip->id" />
+                            {{-- <x-formAddStop :date="$date->format('d M Y')" :tripId="$trip->id" /> --}}
+                            <x-formAddStop :date="$date->format('Y-m-d')" :tripId="$trip->id" />
                             @if (isset($events[$date->format('d M Y')]))
                                 @foreach ($events[$date->format('d M Y')] as $event)
                                     <x-accordionStops :event="$event"> 
@@ -103,7 +104,7 @@
         </div>
     </section>
 @endsection
-
+@stack('scripts')
 <!-- Librerie di TomTom -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
     integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous">
@@ -129,6 +130,7 @@
         const Country = @json($trip->country);
         let selectedLat = City && Country ? latCity : latCountry;
         let selectedLon = City && Country ? lonCity : lonCountry;
+
 
         // getBtnToggle(btnFormStop, formStop)
         fetch(

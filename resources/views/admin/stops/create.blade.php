@@ -1,12 +1,13 @@
 @extends('layouts.app')
 
 @section('content')
-    <div class="container">
+    <div class="container " >
         <h1>Aggiungi una nuova tappa</h1>
         <form action="{{ route('admin.stops.store') }}" method="POST" enctype="multipart/form-data">
             @csrf
             <input type="hidden" name="day" value="{{ $date }}">
             <input type="hidden" name="id_trip" value="{{ $tripId }}">
+            @dump($tripId)
             <div class="row">
                 <div class="form-group col col">
                     <label for="name">Nome evento:</label>

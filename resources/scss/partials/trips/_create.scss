@@ -1,9 +1,9 @@
 .trip-create {
 
     .my-card {
-        border-radius: 10px;
-        border: 4px solid sienna;
-        background: linear-gradient(0deg, rgba(20, 22, 21, 0.08) 0%, rgba(0, 0, 0, 0.105) 100%);
+        box-shadow:0rem 0rem 2rem 0.5rem rgba(0, 0, 0, 0.402);
+        border-radius: 40px;
+        background: linear-gradient(0deg, rgba(33, 153, 223, 0.222) 0%,rgba(34, 187, 195, 0.262) 40%, rgba(63, 236, 216, 0.411) 100%);
     }
 
     h1 {
@@ -19,14 +19,15 @@
     input {
         font-size: 2.5rem;
         font-weight: 400;
-        padding: 1.5rem;
-        border-radius: 10px;
+        padding: 1rem;
+        border-radius: 10px;    
     }
   textarea{
     font-size: 2.5rem;
     font-weight: 400;
     padding: 1.5rem;
     border-radius: 10px;
+    height: 100px;
   }
     .btn-send {
         font-weight: 300;
@@ -61,51 +62,17 @@
             align-items: center;
             font-size: 1.5rem;
             border-radius: 15px;
-            border: 2px solid #00c2cb;
             background: none;
-            color: #00c2cb;
+            color: #000;
+            font-weight: 700;
+            font-size: large;
+            background-color: aliceblue;
             cursor: pointer;
             outline: none;
             transition: 200ms;
-        }
-
-        i {
-            position: absolute;
-            color: transparent;
-            transition: 200ms;
-        }
-
-        button:focus {
-            color: transparent;
-            outline: none;
-            border: 2px solid transparent;
-            border-radius: 50%;
-            width: 50px;
-            height: 50px;
-            padding: 25px 25px;
-            border-left: 2px solid #00c2cb;
-            animation: spin 2s 500ms forwards;
-        }
-
-        button:focus i {
-            animation: check 300ms 2250ms forwards;
-        }
-
-        @keyframes spin {
-            80% {
-                border: 2px solid transparent;
-                border-left: 2px solid #00c2cb;
-            }
-
-            100% {
-                transform: rotate(720deg);
-                border: 2px solid #00c2cb;
-            }
-        }
-
-        @keyframes check {
-            to {
-                color: #00c2cb;
+            &:hover{
+                background-color:rgb(114, 180, 237) ;
+               color: white;
             }
         }
     }

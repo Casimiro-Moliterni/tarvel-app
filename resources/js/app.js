@@ -20,11 +20,11 @@ function getShowElement(btns, elements, className, icons) {
             icons.forEach((icon, iconIndex) => {
                 if (btnIndex === iconIndex) {
                     if (icon.classList.contains('fa-circle-plus')) {
-                        icon.classList.remove('fa-circle-plus')
-                        icon.classList.add('fa-circle-minus')
+                        icon.classList.remove('fa-circle-plus','my-fa-circle-plus')
+                        icon.classList.add('fa-circle-minus','my-fa-circle-minus')
                     } else {
-                        icon.classList.remove('fa-circle-minus')
-                        icon.classList.add('fa-circle-plus')
+                        icon.classList.remove('fa-circle-minus','my-fa-circle-minus')
+                        icon.classList.add('fa-circle-plus','my-fa-circle-plus')
                     }
                 }
             });

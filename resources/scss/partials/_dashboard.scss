@@ -63,7 +63,8 @@ body {
 
 .navigation ul li:hover,
 .navigation ul li.hovered {
-  background-color: var(--white);
+  // background-color: var(--white);
+  background-color: #E3F2FD;
 }
 
 .navigation ul li:nth-child(1) {
@@ -140,7 +141,8 @@ body {
   height: 50px;
   background-color: transparent;
   border-radius: 50%;
-  box-shadow: 35px 35px 0 10px var(--white);
+  // box-shadow: 35px 35px 0 10px var(--white);
+  box-shadow: 35px 35px 0 10px #E3F2FD;
   pointer-events: none;
 }
 
@@ -154,7 +156,8 @@ body {
   height: 50px;
   background-color: transparent;
   border-radius: 50%;
-  box-shadow: 35px -35px 0 10px var(--white);
+  // box-shadow: 35px -35px 0 10px var(--white);
+  box-shadow: 35px -35px 0 10px #E3F2FD;
   pointer-events: none;
 }
 
@@ -466,7 +469,30 @@ body {
 .recentCustomers table tr:hover td h4 span {
   color: var(--white);
 }
-
+.my-fa-circle-plus{
+  font-size: 40px;
+  color: rgb(0, 0, 0);
+}
+.my-fa-circle-minus{
+  font-size: 40px;
+  color: rgb(0, 0, 0);
+}
+.my-fa-circle-minus:hover{
+  transform: scale(1.005);
+  transition: 0.5s;
+  color: rgba(59, 59, 57, 0.663);
+}
+.my-fa-circle-plus:hover{
+  transform: scale(1.005);
+  transition: 0.5s;
+  color: green;
+}
+.my-fa-circle-plus:hover .content-btn{
+  color: green;
+}
+.my-fa-circle-minus:hover .content-btn{
+  color: rgba(59, 59, 57, 0.663);
+}
 /* ====================== Responsive Design ========================== */
 @media (max-width: 991px) {
   .navigation {

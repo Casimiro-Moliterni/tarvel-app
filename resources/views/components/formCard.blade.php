@@ -1,6 +1,6 @@
 <section class="trip-create" id="create-form">
     <div class="container">
-        <div class="text-center my-5">
+        <div class="text-center my-2">
             <h1 class="display-4 font-weight-bolder text-black">Pianifica il tuo viaggio</h1>
             <p class="lead">Compila il form per aggiungere una card trip ai tuoi viaggi!</p>
             <div class="row ">
@@ -94,7 +94,6 @@
                                             <div class="col-md-12 mt-3 send-btn d-flex justify-content-center">
                                                 <button type="submit">
                                                     Crea
-                                                    <i class="fa-solid fa-check"></i>
                                                 </button>
                                             </div>
                                         </div>

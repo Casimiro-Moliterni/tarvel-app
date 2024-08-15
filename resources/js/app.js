@@ -6,6 +6,9 @@ import.meta.glob([
     '../img/**'
 ]);
 
+
+
+
 function getBtnToggle(btn, element) {
     element.classList.add('d-none');
     btn.addEventListener('click', function () {
@@ -17,10 +20,10 @@ function getShowElement(btns, elements, className, icons) {
         btn.addEventListener('click', function () {
             icons.forEach((icon, iconIndex) => {
                 if (btnIndex === iconIndex) {
-                    if(icon.classList.contains('fa-circle-plus')){
-                      icon.classList.remove('fa-circle-plus')
-                      icon.classList.add('fa-circle-minus')
-                    }else{
+                    if (icon.classList.contains('fa-circle-plus')) {
+                        icon.classList.remove('fa-circle-plus')
+                        icon.classList.add('fa-circle-minus')
+                    } else {
                         icon.classList.remove('fa-circle-minus')
                         icon.classList.add('fa-circle-plus')
                     }
@@ -34,6 +37,8 @@ function getShowElement(btns, elements, className, icons) {
         });
     });
 }
+
+
 
 window.getBtnToggle = getBtnToggle;
 window.getShowElement = getShowElement;

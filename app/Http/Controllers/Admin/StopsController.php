@@ -127,6 +127,9 @@ class StopsController extends Controller
     {
         //
     }
+
+
+
     private function validation($data)
     {
         // Prima validazione base
@@ -136,7 +139,7 @@ class StopsController extends Controller
                 'day' => 'required|date',
                 'name' => 'required|string|max:255',
                 'image' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
-                'description' => 'nullable|string',
+                'description' => 'nullable|string|min:5',
                 'foods' => 'nullable|string',
                 'country' => 'nullable|string',
                 'city' => 'nullable|string',

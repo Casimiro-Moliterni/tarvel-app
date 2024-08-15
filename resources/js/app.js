@@ -6,12 +6,17 @@ import.meta.glob([
     '../img/**'
 ]);
 
+
+
+
 function getBtnToggle(btn, element) {
     element.classList.add('d-none');
     btn.addEventListener('click', function () {
         element.classList.toggle("d-none");
     });
 }
+
+
 
 window.getBtnToggle = getBtnToggle;
 

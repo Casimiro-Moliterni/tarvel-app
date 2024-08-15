@@ -12,6 +12,7 @@ document.addEventListener('DOMContentLoaded', function () {
     const latStreetInput = document.getElementById('latStreet');
     const lonStreetInput = document.getElementById('lonStreet');
 
+
     countryInput.addEventListener('input', function () {
         const query = countryInput.value.trim().toLowerCase();
         if (query.length > 0) {

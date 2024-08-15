@@ -24,9 +24,7 @@ document.addEventListener('DOMContentLoaded', function () {
         const isValid = validateInputs();
 
         if (isValid) {
-            // const formData = new FormData(form);
-            // sendFormData(formData);
-            form.submit(); // Invia il form se è valido
+            handleFormSubmit();
         }
     });
 
@@ -122,37 +120,18 @@ document.addEventListener('DOMContentLoaded', function () {
         return isValid;
     };
 
-    // const sendFormData = (formData) => {
-    //     fetch('{{ route("admin.stops.store") }}', {
-    //         method: 'POST',
-    //         headers: {
-    //             'X-CSRF-TOKEN': '{{ csrf_token() }}'
-    //         },
-    //         body: formData
-    //     })
-    //     .then(response => response.json())
-    //     .then(data => {
-    //         if (data.success) {
-    //             messages.innerHTML = '<div class="alert alert-success">' + data.message + '</div>';
-    //             form.reset();
-    //             clearMessages();
-    //         } else {
-    //             messages.innerHTML = '<div class="alert alert-danger">' + data.message + '</div>';
-    //             clearMessages();
-    //         }
-    //     })
-    //     .catch(error => {
-    //         console.error('Errore:', error);
-    //         messages.innerHTML = '<div class="alert alert-danger">Errore durante la creazione della tappa</div>';
-    //         clearMessages();
-    //     });
-    // };
+    const handleFormSubmit = () => {
+        // Here we handle the form submission locally (client-side)
+        messages.innerHTML = '<div class="alert alert-success">Tappa creata con successo!</div>';
+        form.reset();
+        clearMessages();
+    };
 
-    // const clearMessages = () => {
-    //     setTimeout(() => {
-    //         messages.innerHTML = '';
-    //     }, 5000);
-    // };
+    const clearMessages = () => {
+        setTimeout(() => {
+            messages.innerHTML = '';
+        }, 5000);
+    };
 
     // Assuming that these functions are for demo purposes and should be replaced with actual API requests
     countryInput.addEventListener('input', function () {

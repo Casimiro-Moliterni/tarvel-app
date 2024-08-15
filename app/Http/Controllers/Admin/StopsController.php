@@ -90,6 +90,8 @@ class StopsController extends Controller
     public function show($id)
     {
         //
+        $stop = Stop::find($id);
+        return view('components.ContentStopShow', compact('stop'));
     }
 
     /**

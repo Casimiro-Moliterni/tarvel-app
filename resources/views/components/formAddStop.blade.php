@@ -1,17 +1,17 @@
 @props(['date','tripId'])
-    <div id="my-form-stops" class="container my-form-create d-none">
+    <div class="container my-form-create d-none card mb-5 rounded-4" id="formStop">
         <h1 class="mb-3">Aggiungi una nuova tappa</h1>
-        <form class="form-stops" action="{{ route('admin.stops.store') }}" method="POST" enctype="multipart/form-data">
+        <form class="form-stops position-relative col-10 ms-auto me-auto pb-5" action="{{ route('admin.stops.store') }}" method="POST" enctype="multipart/form-data">
             @csrf
             <input type="hidden" name="day" value="{{ $date }}">
             <input type="hidden" name="id_trip" value="{{ $tripId }}">
             <div class="row media991px">
-                <div class="form-group col col">
+                <div class="form-group col ">
                     <label for="name">Nome evento:*</label>
                     <input type="text" id="name" name="name" class="form-control" required>
                 </div>
 
-                <div class="form-group col col">
+                <div class="form-group col ">
                     <label for="image">Immagine:</label>
                     <input type="file" id="image" name="image" class="form-control">
                 </div>

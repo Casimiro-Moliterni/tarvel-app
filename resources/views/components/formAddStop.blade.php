@@ -1,7 +1,10 @@
 @props(['date', 'tripId'])
 <div class="container my-form-create d-none card mb-5 rounded-4" id="formStop">
     <h1 class="mb-3">Aggiungi una nuova tappa</h1>
-    <form id="form" class="form-stops position-relative col-10 ms-auto me-auto pb-5"
+    <div id="messages">
+
+    </div>
+    <form id="form-stop" class="form-stops position-relative col-10 ms-auto me-auto pb-5"
         action="{{ route('admin.stops.store') }}" method="POST" enctype="multipart/form-data">
         @csrf
         <input type="hidden" name="day" value="{{ $date }}">
@@ -16,8 +19,8 @@
                 <label for="country">Paese:</label>
                 <input type="text" id="country" name="country" class="form-control" value="{{ old('country') }}">
                 <div class="error fs-3 text-danger "></div>
-                <input type="hidden" id="latCountry" name="latCountry" class="form-control">
-                <input type="hidden" id="lonCountry" name="lonCountry" class="form-control">
+                <input type="hidden" id="latCountry" name="latCountry" class="form-control" >
+                <input type="hidden" id="lonCountry" name="lonCountry" class="form-control" >
             </div>
         </div>
         <div class="row media991px">
@@ -91,6 +94,6 @@
 </div>
 
 
-@push('scripts')
+{{-- @push('scripts')
     <script src="{{ asset('js/createStop.js') }}"></script>
-@endpush
+@endpush --}}

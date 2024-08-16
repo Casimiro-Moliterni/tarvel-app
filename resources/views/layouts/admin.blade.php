@@ -33,63 +33,66 @@
 
 <body>
     <!-- =============== Navigation ================ -->
-    <div class="my-container">
-        <div class="navigation">
-            <ul>
-                {{-- logo della sidebar --}}
-                <li class="h-10 my-5">
-                    <img id="logo" src="{{ 'navigation' == 'active' ? asset('img/logo-black-small.png') : asset('img/logo-black.png') }}" class="icon-image" alt="">
-                </li>
-                {{-- /logo della sidebar --}}
+    {{-- QUA AGGIUNTO ID CONTENT-CONTAINER PER VISUALIZARE API DEL CLICK --}}
+        <div class="my-container" >
+            <div class="navigation">
+                <ul>
+                    {{-- logo della sidebar --}}
+                    <li class="h-10 my-5">
+                        <img id="logo"
+                            src="{{ 'navigation' == 'active' ? asset('img/logo-black-small.png') : asset('img/logo-black.png') }}"
+                            class="icon-image" alt="">
+                    </li>
+                    {{-- /logo della sidebar --}}
 
-                <li class="{{ Route::currentRouteName() == 'admin.dashboard' ? 'hovered' : '' }}">
-                    <a href="{{ route('admin.dashboard') }}" class="icon fs-5">
-                        <i class="fa-solid fa-house-user"></i><span class="ms-span">Dashboard</span>
-                    </a>
-                </li>
-                <li class="{{ Route::currentRouteName() == 'admin.trips.index' ? 'hovered' : '' }}">
-                    <a href="{{ route('admin.trips.index') }}" class="icon fs-5">
-                        <i class="fa-solid fa-plane"></i><span class="ms-span">Viaggi</span>
-                    </a>
-                </li>
-                <li class="{{ Route::currentRouteName() == 'admin.trips.create' ? 'hovered' : '' }}">
-                    <a href="{{ route('admin.trips.create') }}" class="icon fs-5">
-                        <i class="fa-solid fa-circle-plus"></i><span class="ms-span">Aggiungi viaggio</span>
-                    </a>
-                </li>
-                <li class="{{ Route::currentRouteName() == 'admin.garbage' ? 'hovered' : '' }}">
-                    <a href="{{ route('admin.garbage') }}" class="icon fs-5">
-                        <i class="fa-solid fa-trash-can"></i><span class="ms-span">Cestino</span>
-                    </a>
-                </li>
-            </ul>
-        </div>
-
-        <!-- ========================= Main ==================== -->
-        <div class="main">{{-- questa classe qua --}}
-            <div class="topbar">
-                <div class="toggle">
-                    <ion-icon name="menu-outline"></ion-icon>
-                </div>
-
-                <div class="search">
-                    <label>
-                        <input type="text" placeholder="Search here">
-                        <ion-icon name="search-outline"></ion-icon>
-                    </label>
-                </div>
-
-                <div class="user">
-                    <img src="{{ asset('img/logo-black.png') }}" alt="">
-                </div>
-            </div>
-            <div class="px-4">
-                @yield('content')
+                    <li class="{{ Route::currentRouteName() == 'admin.dashboard' ? 'hovered' : '' }}" >
+                        <a href="{{ route('admin.dashboard') }}" class="icon fs-5">
+                            <i class="fa-solid fa-house-user"></i><span class="ms-span">Dashboard</span>
+                        </a>
+                    </li>
+                    <li class="{{ Route::currentRouteName() == 'admin.trips.index' ? 'hovered' : '' }}"  >
+                        <a href="{{ route('admin.trips.index') }}" class="icon fs-5">
+                            <i class="fa-solid fa-plane"></i><span class="ms-span">Viaggi</span>
+                        </a>
+                    </li>
+                    <li class="{{ Route::currentRouteName() == 'admin.trips.create' ? 'hovered' : '' }}">
+                        <a href="{{ route('admin.trips.create') }}" class="icon fs-5">
+                            <i class="fa-solid fa-circle-plus"></i><span class="ms-span">Aggiungi viaggio</span>
+                        </a>
+                    </li>
+                    <li class="{{ Route::currentRouteName() == 'admin.garbage' ? 'hovered' : '' }}">
+                        <a href="{{ route('admin.garbage') }}" class="icon fs-5">
+                            <i class="fa-solid fa-trash-can"></i><span class="ms-span">Cestino</span>
+                        </a>
+                    </li>
+                </ul>
             </div>
 
+            <!-- ========================= Main ==================== -->
+            <div class="main">{{-- questa classe qua --}}
+                <div class="topbar">
+                    <div class="toggle">
+                        <ion-icon name="menu-outline"></ion-icon>
+                    </div>
+
+                    <div class="search">
+                        <label>
+                            <input type="text" placeholder="Search here">
+                            <ion-icon name="search-outline"></ion-icon>
+                        </label>
+                    </div>
+
+                    <div class="user">
+                        <img src="{{ asset('img/logo-black.png') }}" alt="">
+                    </div>
+                </div>
+                <div class="px-4" >
+                    @yield('content')
+                </div>
+
+            </div>
         </div>
-    </div>
-    </div>
+        </div>
 
     @extends('layouts.displaytel')
 
@@ -135,6 +138,8 @@
                 logo.classList.remove('logo-small');
             }
         };
+
+        
     </script>
     <!-- ====== ionicons ======= -->
     <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>

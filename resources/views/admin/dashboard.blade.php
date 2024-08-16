@@ -2,9 +2,10 @@
 @section('content')
     <div class="container">
         <a id="btnFormStop">
-            <i id="icon-btn-form-stop" class="fs-1 fa-solid fa-circle-plus mb-2 d-flex align-items-center my-fa-circle-plus"> <span class="btn border-0 ms-3 fs-3 fw-bold content-btn">AGGIUNGI UN VIAGGIO</span></i>
+            <i id="icon-btn-form-stop" class="fs-1 fa-solid fa-circle-plus mb-2 d-flex align-items-center my-fa-circle-plus">
+                <span class="btn border-0 ms-3 fs-3 fw-bold content-btn">AGGIUNGI UN VIAGGIO</span></i>
         </a>
-     <x-formCard  />
+        <x-formCard />
         <div class="row">
             <div class="col text-center mb-5">
                 <h2 class="display-4 text-center font-weight-bolder text-black">
@@ -13,7 +14,7 @@
                 <p class="lead">Eccoti qui nella tua dashboard</p>
             </div>
         </div>
-  
+
         <div class="row justify-content-center">
             <div class="col">
                 <div class="card">

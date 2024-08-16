@@ -36,6 +36,8 @@ function getShowElement(btns, elements, className, icons,scrollElements) {
                     } else {
                         icon.classList.remove('fa-circle-minus', 'my-fa-circle-minus')
                         icon.classList.add('fa-circle-plus', 'my-fa-circle-plus')
+                        icon.classList.remove('fa-circle-minus', 'my-fa-circle-minus')
+                        icon.classList.add('fa-circle-plus', 'my-fa-circle-plus')
                     }
                 }
             });
@@ -70,8 +72,10 @@ document.addEventListener('DOMContentLoaded', function () {
     const cityInput = document.getElementById('city');
     const titleInput = document.getElementById('title');
 
+
     const countrySuggestions = document.getElementById('countrySuggestions');
     const citySuggestions = document.getElementById('citySuggestions');
+
 
     const latCountryInput = document.getElementById('latCountry');
     const lonCountryInput = document.getElementById('lonCountry');
@@ -313,3 +317,6 @@ document.addEventListener('DOMContentLoaded', function () {
 
 
 });
+
+
+

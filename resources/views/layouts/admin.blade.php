@@ -46,7 +46,7 @@
                             <i class="fa-solid fa-house-user"></i><span class="ms-span">Dashboard</span>
                         </a>
                     </li>
-                    <li class="{{ Route::currentRouteName() == 'admin.trips.index' ? 'hovered' : '' }}"  id="trip-index-link" >
+                    <li class="{{ Route::currentRouteName() == 'admin.trips.index' ? 'hovered' : '' }}"  >
                         <a href="{{ route('admin.trips.index') }}" class="icon fs-5">
                             <i class="fa-solid fa-plane"></i><span class="ms-span">Viaggi</span>
                         </a>

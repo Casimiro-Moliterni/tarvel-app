@@ -4,8 +4,8 @@
     <div id="messages">
 
     </div>
-    <form id="form-stop" class="form-stops position-relative col-10 ms-auto me-auto pb-5"
-        action="{{ route('admin.stops.store') }}" method="POST" enctype="multipart/form-data">
+    <form id="form-stop" class="form-stops position-relative col-10 ms-auto me-auto pb-5" data-url="{{ route('admin.stops.store') }}"
+       enctype="multipart/form-data">
         @csrf
         <input type="hidden" name="day" value="{{ $date }}">
         <input type="hidden" name="id_trip" value="{{ $tripId }}">
@@ -91,9 +91,12 @@
 
         <button type="submit" class="btn  mt-5">Salva Tappa</button>
     </form>
+    <div id="stops-list"></div>
 </div>
-
-
-{{-- @push('scripts')
-    <script src="{{ asset('js/createStop.js') }}"></script>
-@endpush --}}
+@push('scripts')
+    @vite(['resources/js/app.js'])
+@endpush
+<script>
+    window.apiValidateStopUrl = '{{ route('api.validate.stop') }}';
+    window.adminValidateStopUrl = '{{ route('admin.stops.store') }}';
+</script>

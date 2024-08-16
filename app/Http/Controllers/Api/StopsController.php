@@ -1,15 +1,11 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
-use App\Models\Stop;
-use App\Models\Trip;
-use Carbon\Carbon;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
-
+use Carbon\Carbon;
 class StopsController extends Controller
 {
     /**
@@ -18,39 +14,19 @@ class StopsController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index()
-{
-    $stops = Stop::all(); // O una query filtrata se necessario
-    return response()->json(['stops' => $stops]);
-
-    // Passa i dati alla vista
-}
+    {
+        //
+    }
 
     /**
      * Show the form for creating a new resource.
      *
      * @return \Illuminate\Http\Response
      */
-
-    public function create(Request $request, $trip_id)
+    public function create()
     {
-        // // Recupera la data dalla query string
-        // $dateString = $request->query('date');
-
-        // // Verifica che l'ID del viaggio non sia nullo
-        // if (is_null($trip_id)) {
-        //     abort(404, 'ID del viaggio non trovato.');
-        // }
-
-        // // Converti la data in formato Y-m-d
-        // try {
-        //     $date = Carbon::createFromFormat('d M Y', $dateString);
-        // } catch (\Exception $e) {
-        //     abort(400, 'Data non valida.');
-        // }
-
-        return view('admin.stops.create');
+        //
     }
-
 
     /**
      * Store a newly created resource in storage.
@@ -60,39 +36,17 @@ class StopsController extends Controller
      */
     public function store(Request $request)
     {
+        //
+    }
+    public function validateStop(Request $request)
+    {
         try {
-            $validatedData = $this->validation($request->all());
-    
-            // Handle image file if present
-            if ($request->hasFile('image')) {
-                $imagePath = $request->file('image')->store('images', 'public');
-                $validatedData['image'] = $imagePath;
-            }
-    
-            // Create a new Stop instance and save to the database
-            $newStop = new Stop();
-            $newStop->fill($validatedData);
-            $newStop->save();
-    
-            // Render the Blade component to a string
-            // elemento accordion per la singola tappa 
-            $renderedView = view('components.accordionStops', ['event' => $newStop])->render();
-    
-            // Return a JSON success response with the rendered view
-            return response()->json(['status' => 'success', 'html' => $renderedView, 'message' => 'Tappa aggiunta con successo!']);
-    
-        } catch (\Exception $e) {
-            // Return a JSON error response
-            return response()->json(['status' => 'error', 'message' => $e->getMessage()], 500);
+            $this->validation($request->all());
+            return response()->json(['message' => 'Validation passed'], 200);
+        } catch (\Illuminate\Validation\ValidationException $e) {
+            return response()->json(['errors' => $e->errors()], 422);
         }
     }
-    
-
-
-
-
-
-
     /**
      * Display the specified resource.
      *
@@ -102,8 +56,6 @@ class StopsController extends Controller
     public function show($id)
     {
         //
-        $stop = Stop::find($id);
-        return view('components.ContentStopShow', compact('stop'));
     }
 
     /**
@@ -139,9 +91,6 @@ class StopsController extends Controller
     {
         //
     }
-
-
-
     private function validation($data)
     {
         // Prima validazione base
@@ -182,7 +131,4 @@ class StopsController extends Controller
 
         return $validator->validate();
     }
-
-
-
 }

@@ -82,7 +82,8 @@
                         <div class="accordion-content p-2 px-3 pt-3" id="my-accordion-create">
                             <div class="d-flex align-items-center">
                                 <a id="btnFormStop">
-                                    <i id="icon-btn-form-stop" class="fa-solid fa-circle-plus mb-2 d-flex align-items-center my-fa-circle-plus"> 
+                                    <i id="icon-btn-form-stop"
+                                        class="fa-solid fa-circle-plus mb-2 d-flex align-items-center my-fa-circle-plus">
                                         <span class="btn border-0 ms-3 fs-3 fw-bold content-btn">AGGIUNGI TAPPA</span>
                                     </i>
                                 </a>
@@ -91,9 +92,11 @@
                             <x-formAddStop :date="$date->format('Y-m-d')" :tripId="$trip->id" />
                             @if (isset($events[$date->format('d M Y')]))
                                 @foreach ($events[$date->format('d M Y')] as $event)
-                                    <x-accordionStops :event="$event"> 
-                           
-                                    </x-accordionStops>
+                                    <div id="stops-container">
+                                        <x-accordionStops :event="$event">
+                                            <!-- Existing stops are rendered here -->
+                                        </x-accordionStops>
+                                    </div>
                                 @endforeach
                             @else
                                 <p>Nessun evento per questa data.</p>

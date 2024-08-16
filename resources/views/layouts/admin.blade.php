@@ -30,7 +30,7 @@
 <body>
     <!-- =============== Navigation ================ -->
     {{-- QUA AGGIUNTO ID CONTENT-CONTAINER PER VISUALIZARE API DEL CLICK --}}
-        <div class="my-container" id="content-container">
+        <div class="my-container" >
             <div class="navigation">
                 <ul>
                     {{-- logo della sidebar --}}

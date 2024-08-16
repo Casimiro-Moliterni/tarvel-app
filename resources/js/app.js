@@ -20,11 +20,11 @@ function getShowElement(btns, elements, className, icons) {
             icons.forEach((icon, iconIndex) => {
                 if (btnIndex === iconIndex) {
                     if (icon.classList.contains('fa-circle-plus')) {
-                        icon.classList.remove('fa-circle-plus','my-fa-circle-plus')
-                        icon.classList.add('fa-circle-minus','my-fa-circle-minus')
+                        icon.classList.remove('fa-circle-plus', 'my-fa-circle-plus')
+                        icon.classList.add('fa-circle-minus', 'my-fa-circle-minus')
                     } else {
-                        icon.classList.remove('fa-circle-minus','my-fa-circle-minus')
-                        icon.classList.add('fa-circle-plus','my-fa-circle-plus')
+                        icon.classList.remove('fa-circle-minus', 'my-fa-circle-minus')
+                        icon.classList.add('fa-circle-plus', 'my-fa-circle-plus')
                     }
                 }
             });
@@ -48,7 +48,7 @@ function getMatchScore(query, name) {
     return lowerName.indexOf(lowerQuery);
 }
 
-document.addEventListener('DOMContentLoaded', function () {    
+document.addEventListener('DOMContentLoaded', function () {
     const btnFormStop = document.querySelectorAll('#btnFormStop');
     const iconBtnFormStop = document.querySelectorAll('#icon-btn-form-stop');
     const formStop = document.querySelectorAll('#formStop');
@@ -56,10 +56,10 @@ document.addEventListener('DOMContentLoaded', function () {
     const countryInput = document.getElementById('country');
     const cityInput = document.getElementById('city');
     const titleInput = document.getElementById('title');
-    
+
     const countrySuggestions = document.getElementById('countrySuggestions');
     const citySuggestions = document.getElementById('citySuggestions');
-    
+
     const latCountryInput = document.getElementById('latCountry');
     const lonCountryInput = document.getElementById('lonCountry');
     const latCityInput = document.getElementById('latCity');
@@ -302,131 +302,66 @@ document.addEventListener('DOMContentLoaded', function () {
 });
 
 
-// //  PROVA CHIAMATA API DASHBOARD
 
-
-
-// document.getElementById('dashboard-link').addEventListener('click', function(event) {
-//     event.preventDefault(); // Impedisce l'azione predefinita del link
-    
-//     // Fetch il contenuto della dashboard
-//     fetch('http://127.0.0.1:8000/admin/dashboard')
-//     .then(response => {
-//         if (!response.ok) {
-//             throw new Error('Network response was not ok');
-//         }
-//         return response.text();
-//     })
-//     .then(html => {
-//             // Inserisci il contenuto nella tua pagina
-//             document.getElementById('content-container').innerHTML = html;
-            
-//             // Esegui gli script presenti nel contenuto HTML
-//             const scriptTags = document.querySelectorAll('#content-container script');
-//             scriptTags.forEach(script => {
-//                 const newScript = document.createElement('script');
-//                 newScript.src = script.src;
-//                 newScript.innerHTML = script.innerHTML;
-//                 document.body.appendChild(newScript);
-//             });
-            
-//             // Opzionale: Aggiorna il percorso del browser senza ricaricare la pagina
-//             history.pushState(null, '', '/admin/dashboard');
-//         })
-//         .catch(error => {
-//             console.error('There was a problem with the fetch operation:', error);
-//         });
-//     });
-    
-//     // /PROVA CHIAMATA API DASHBOARD
-// //  PROVA CHIAMATA API DASHBOARD
-
-
-
-// document.getElementById('trip-index-link').addEventListener('click', function(event) {
-//     event.preventDefault(); // Impedisce l'azione predefinita del link
-    
-//     // Fetch il contenuto della dashboard
-//     fetch('http://127.0.0.1:8000/admin/trips')
-//     .then(response => {
-//         if (!response.ok) {
-//             throw new Error('Network response was not ok');
-//         }
-//         return response.text();
-//     })
-//     .then(html => {
-//             // Inserisci il contenuto nella tua pagina
-//             document.getElementById('content-container').innerHTML = html;
-            
-//             // Esegui gli script presenti nel contenuto HTML
-//             const scriptTags = document.querySelectorAll('#content-container script');
-//             scriptTags.forEach(script => {
-//                 const newScript = document.createElement('script');
-//                 newScript.src = script.src;
-//                 newScript.innerHTML = script.innerHTML;
-//                 document.body.appendChild(newScript);
-//             });
-            
-//             // Opzionale: Aggiorna il percorso del browser senza ricaricare la pagina
-//             history.pushState(null, '', '/admin/trips');
-//         })
-//         .catch(error => {
-//             console.error('There was a problem with the fetch operation:', error);
-//         });
-//     });
-    
-//     // /PROVA CHIAMATA API DASHBOARD
+//  chiamate api per rotte -------------------------------------------------------------------------------------------------------------------------------------
 // Event delegation per gestire il click su link dinamici
-document.getElementById('content-container').addEventListener('click', function(event) {
+document.getElementById('content-container').addEventListener('click', function (event) {
+    // Controlla se il target dell'evento (l'elemento cliccato) o uno dei suoi antenati ha l'ID 'dashboard-link'
     if (event.target.closest('#dashboard-link')) {
-        event.preventDefault();
-        fetchContent('http://127.0.0.1:8000/admin/dashboard');
-    } else if (event.target.closest('#trip-index-link')) {
-        event.preventDefault();
-        fetchContent('http://127.0.0.1:8000/admin/trips');
+        event.preventDefault(); // Impedisce l'azione predefinita del link, ovvero il comportamento di navigazione
+        fetchContent('http://127.0.0.1:8000/admin/dashboard'); // Chiama la funzione per caricare il contenuto della dashboard
+    }
+    // Controlla se il target dell'evento (l'elemento cliccato) o uno dei suoi antenati ha l'ID 'trip-index-link'
+    else if (event.target.closest('#trip-index-link')) {
+        event.preventDefault(); // Impedisce l'azione predefinita del link, ovvero il comportamento di navigazione
+        fetchContent('http://127.0.0.1:8000/admin/trips'); // Chiama la funzione per caricare il contenuto dei viaggi
     }
 });
 
+// Funzione per caricare contenuti da un URL specificato e aggiornare la pagina
 function fetchContent(url) {
-    fetch(url)
+    fetch(url) // Effettua una richiesta HTTP GET all'URL specificato
         .then(response => {
-            if (!response.ok) {
-                throw new Error('Network response was not ok');
+            if (!response.ok) { // Controlla se la risposta HTTP è andata a buon fine
+                throw new Error('Network response was not ok'); // Genera un errore se la risposta non è OK
             }
-            return response.text();
+            return response.text(); // Restituisce il corpo della risposta come testo
         })
         .then(html => {
-            document.getElementById('content-container').innerHTML = html;
-            
+            document.getElementById('content-container').innerHTML = html; // Aggiorna il contenuto del container con l'HTML ricevuto
+
             // Esegui gli script presenti nel contenuto HTML
-            const scriptTags = document.querySelectorAll('#content-container script');
-            scriptTags.forEach(script => {
-                const newScript = document.createElement('script');
-                newScript.src = script.src;
-                newScript.innerHTML = script.innerHTML;
-                document.body.appendChild(newScript);
+            const scriptTags = document.querySelectorAll('#content-container script'); // Seleziona tutti i tag <script> nel contenuto
+            scriptTags.forEach(script => { // Per ogni tag <script>
+                const newScript = document.createElement('script'); // Crea un nuovo elemento <script>
+                newScript.src = script.src; // Copia l'attributo src del tag script esistente
+                newScript.innerHTML = script.innerHTML; // Copia il contenuto interno del tag script esistente
+                document.body.appendChild(newScript); // Aggiunge il nuovo script al documento, eseguendolo
             });
-            
+
             // Aggiorna l'URL del browser senza ricaricare la pagina
-            const newPath = url.replace('http://127.0.0.1:8000', '');
-            history.pushState(null, '', newPath);
+            const newPath = url.replace('http://127.0.0.1:8000', ''); // Rimuove il prefisso dell'URL base per ottenere il percorso relativo
+            history.pushState(null, '', newPath); // Aggiorna l'URL visualizzato nel browser senza ricaricare la pagina
         })
         .catch(error => {
-            console.error('There was a problem with the fetch operation:', error);
+            console.error('There was a problem with the fetch operation:', error); // Gestisce e mostra eventuali errori di rete
         });
 }
+
+// Funzione per associare gli event listeners ai link specifici
 function attachEventListeners() {
-    document.getElementById('dashboard-link').addEventListener('click', function(event) {
-        event.preventDefault();
-        fetchContent('http://127.0.0.1:8000/admin/dashboard');
+    document.getElementById('dashboard-link').addEventListener('click', function (event) {
+        event.preventDefault(); // Impedisce l'azione predefinita del link
+        fetchContent('http://127.0.0.1:8000/admin/dashboard'); // Chiama la funzione per caricare il contenuto della dashboard
     });
-    
-    document.getElementById('trip-index-link').addEventListener('click', function(event) {
-        event.preventDefault();
-        fetchContent('http://127.0.0.1:8000/admin/trips');
+
+    document.getElementById('trip-index-link').addEventListener('click', function (event) {
+        event.preventDefault(); // Impedisce l'azione predefinita del link
+        fetchContent('http://127.0.0.1:8000/admin/trips'); // Chiama la funzione per caricare il contenuto dei viaggi
     });
 }
 
 // Chiama questa funzione ogni volta che aggiorni il contenuto della pagina
-attachEventListeners();
+attachEventListeners(); // Associa gli event listeners ai link, per gestire il loro comportamento dopo ogni aggiornamento del contenuto
 
+// /chiamate api per rotte -------------------------------------------------------------------------------------------------------------------------------------

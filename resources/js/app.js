@@ -2,11 +2,10 @@ import './bootstrap';
 import '~resources/scss/app.scss';
 import * as bootstrap from 'bootstrap';
 import { constant, result, toUpper } from 'lodash';
+import './createStop';
 import.meta.glob([
     '../img/**'
 ]);
-
-
 
 
 function getBtnToggle(btn, element) {
@@ -21,11 +20,11 @@ function getShowElement(btns, elements, className, icons) {
             icons.forEach((icon, iconIndex) => {
                 if (btnIndex === iconIndex) {
                     if (icon.classList.contains('fa-circle-plus')) {
-                        icon.classList.remove('fa-circle-plus')
-                        icon.classList.add('fa-circle-minus')
+                        icon.classList.remove('fa-circle-plus','my-fa-circle-plus')
+                        icon.classList.add('fa-circle-minus','my-fa-circle-minus')
                     } else {
-                        icon.classList.remove('fa-circle-minus')
-                        icon.classList.add('fa-circle-plus')
+                        icon.classList.remove('fa-circle-minus','my-fa-circle-minus')
+                        icon.classList.add('fa-circle-plus','my-fa-circle-plus')
                     }
                 }
             });
@@ -49,8 +48,7 @@ function getMatchScore(query, name) {
     return lowerName.indexOf(lowerQuery);
 }
 
-document.addEventListener('DOMContentLoaded', function () {
-
+document.addEventListener('DOMContentLoaded', function () {    
     const btnFormStop = document.querySelectorAll('#btnFormStop');
     const iconBtnFormStop = document.querySelectorAll('#icon-btn-form-stop');
     const formStop = document.querySelectorAll('#formStop');
@@ -58,10 +56,10 @@ document.addEventListener('DOMContentLoaded', function () {
     const countryInput = document.getElementById('country');
     const cityInput = document.getElementById('city');
     const titleInput = document.getElementById('title');
-
+    
     const countrySuggestions = document.getElementById('countrySuggestions');
     const citySuggestions = document.getElementById('citySuggestions');
-
+    
     const latCountryInput = document.getElementById('latCountry');
     const lonCountryInput = document.getElementById('lonCountry');
     const latCityInput = document.getElementById('latCity');

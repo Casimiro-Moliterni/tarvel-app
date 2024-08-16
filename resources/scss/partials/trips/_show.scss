@@ -38,25 +38,31 @@
   .color-green{
     background-color: rgba(17, 192, 17, 0.842);
   }
-  .fa-circle-plus{
+  .my-fa-circle-plus{
     font-size: 40px;
-    color: rgb(182, 197, 182);
+    color: rgb(0, 0, 0);
   }
-  .fa-circle-minus{
+  .my-fa-circle-minus{
     font-size: 40px;
-    color: rgb(182, 197, 182);
+    color: rgb(0, 0, 0);
   }
-  .fa-circle-minus:hover{
+  .my-fa-circle-minus:hover{
     transform: scale(1.05);
     transition: 0.5s;
     color: rgb(210, 217, 12);
   }
-  .fa-circle-plus:hover{
+  .my-fa-circle-plus:hover{
     transform: scale(1.05);
     transition: 0.5s;
     color: green;
   }
+  .my-fa-circle-plus:hover .content-btn{
+    color: green;
+  }
+  .my-fa-circle-minus:hover .content-btn{
+    color: rgb(210, 217, 12);
 
+  }
   .accordion {
     .accordion-btn {
       position: relative;

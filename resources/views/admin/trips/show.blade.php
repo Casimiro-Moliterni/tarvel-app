@@ -82,7 +82,9 @@
                         <div class="accordion-content p-2 px-3 pt-3" id="my-accordion-create">
                             <div class="d-flex align-items-center">
                                 <a id="btnFormStop">
-                                    <i id="icon-btn-form-stop" class="fa-solid fa-circle-plus mb-2 d-flex align-items-center"> <span class="btn border-0 ms-3 fs-3 fw-bold">AGGIUNGI TAPPA</span></i>
+                                    <i id="icon-btn-form-stop" class="fa-solid fa-circle-plus mb-2 d-flex align-items-center my-fa-circle-plus"> 
+                                        <span class="btn border-0 ms-3 fs-3 fw-bold content-btn">AGGIUNGI TAPPA</span>
+                                    </i>
                                 </a>
                             </div>
                             {{-- <x-formAddStop :date="$date->format('d M Y')" :tripId="$trip->id" /> --}}

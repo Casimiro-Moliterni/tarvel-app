@@ -22,14 +22,19 @@ class TripController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index() //-----------------------------------------------------------------------------------------------------------------
+    public function index()
     {
-        //
-        $user = Auth::Id();
-        $trips = Trip::where('id_user', $user)->get();
+        // Ottieni l'ID dell'utente autenticato
+        $user = Auth::id();
+
+        // Recupera i viaggi dell'utente ordinati per data di creazione (dal più recente al più vecchio)
+        $trips = Trip::where('id_user', $user)
+            ->orderBy('created_at', 'desc') // Ordina per data di creazione in ordine decrescente
+            ->get();
+
+        // Restituisce la vista con i viaggi ordinati e l'ID utente
         return view('admin.trips.index', compact('trips', 'user'));
     }
-
     /**
      * Show the form for creating a new resource.
      *
@@ -105,14 +110,14 @@ class TripController extends Controller
 
         // Recupera tutti gli eventi del viaggio per il giorno preciso
         $events = Stop::where('id_trip', $id)->get()->groupBy(function ($event) {
-            return Carbon::parse($event->day)->format('d M Y'); 
+            return Carbon::parse($event->day)->format('d M Y');
         });
-        
-        
+
+
 
 
         // Passa i dati alla vista
-        return view('admin.trips.show', compact('trip', 'daysRange','events'));
+        return view('admin.trips.show', compact('trip', 'daysRange', 'events'));
     }
 
     /**

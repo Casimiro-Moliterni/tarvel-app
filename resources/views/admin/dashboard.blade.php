@@ -1,8 +1,8 @@
 @extends('layouts.admin')
-@section('content')
+@section('content') 
     <div class="container">
-     <x-btnAdd  />
-     <x-formCard  />
+        <x-btnAdd />
+        <x-formCard />
         <div class="row">
             <div class="col text-center mb-5">
                 <h2 class="display-4 text-center font-weight-bolder text-black">
@@ -11,7 +11,7 @@
                 <p class="lead">Eccoti qui nella tua dashboard</p>
             </div>
         </div>
-  
+
         <div class="row justify-content-center">
             <div class="col">
                 <div class="card">

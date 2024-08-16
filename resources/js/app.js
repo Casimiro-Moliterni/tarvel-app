@@ -302,3 +302,133 @@ document.addEventListener('DOMContentLoaded', function () {
 
 
 });
+
+
+// //  PROVA CHIAMATA API DASHBOARD
+
+
+
+// document.getElementById('dashboard-link').addEventListener('click', function(event) {
+//     event.preventDefault(); // Impedisce l'azione predefinita del link
+    
+//     // Fetch il contenuto della dashboard
+//     fetch('http://127.0.0.1:8000/admin/dashboard')
+//     .then(response => {
+//         if (!response.ok) {
+//             throw new Error('Network response was not ok');
+//         }
+//         return response.text();
+//     })
+//     .then(html => {
+//             // Inserisci il contenuto nella tua pagina
+//             document.getElementById('content-container').innerHTML = html;
+            
+//             // Esegui gli script presenti nel contenuto HTML
+//             const scriptTags = document.querySelectorAll('#content-container script');
+//             scriptTags.forEach(script => {
+//                 const newScript = document.createElement('script');
+//                 newScript.src = script.src;
+//                 newScript.innerHTML = script.innerHTML;
+//                 document.body.appendChild(newScript);
+//             });
+            
+//             // Opzionale: Aggiorna il percorso del browser senza ricaricare la pagina
+//             history.pushState(null, '', '/admin/dashboard');
+//         })
+//         .catch(error => {
+//             console.error('There was a problem with the fetch operation:', error);
+//         });
+//     });
+    
+//     // /PROVA CHIAMATA API DASHBOARD
+// //  PROVA CHIAMATA API DASHBOARD
+
+
+
+// document.getElementById('trip-index-link').addEventListener('click', function(event) {
+//     event.preventDefault(); // Impedisce l'azione predefinita del link
+    
+//     // Fetch il contenuto della dashboard
+//     fetch('http://127.0.0.1:8000/admin/trips')
+//     .then(response => {
+//         if (!response.ok) {
+//             throw new Error('Network response was not ok');
+//         }
+//         return response.text();
+//     })
+//     .then(html => {
+//             // Inserisci il contenuto nella tua pagina
+//             document.getElementById('content-container').innerHTML = html;
+            
+//             // Esegui gli script presenti nel contenuto HTML
+//             const scriptTags = document.querySelectorAll('#content-container script');
+//             scriptTags.forEach(script => {
+//                 const newScript = document.createElement('script');
+//                 newScript.src = script.src;
+//                 newScript.innerHTML = script.innerHTML;
+//                 document.body.appendChild(newScript);
+//             });
+            
+//             // Opzionale: Aggiorna il percorso del browser senza ricaricare la pagina
+//             history.pushState(null, '', '/admin/trips');
+//         })
+//         .catch(error => {
+//             console.error('There was a problem with the fetch operation:', error);
+//         });
+//     });
+    
+//     // /PROVA CHIAMATA API DASHBOARD
+// Event delegation per gestire il click su link dinamici
+document.getElementById('content-container').addEventListener('click', function(event) {
+    if (event.target.closest('#dashboard-link')) {
+        event.preventDefault();
+        fetchContent('http://127.0.0.1:8000/admin/dashboard');
+    } else if (event.target.closest('#trip-index-link')) {
+        event.preventDefault();
+        fetchContent('http://127.0.0.1:8000/admin/trips');
+    }
+});
+
+function fetchContent(url) {
+    fetch(url)
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            return response.text();
+        })
+        .then(html => {
+            document.getElementById('content-container').innerHTML = html;
+            
+            // Esegui gli script presenti nel contenuto HTML
+            const scriptTags = document.querySelectorAll('#content-container script');
+            scriptTags.forEach(script => {
+                const newScript = document.createElement('script');
+                newScript.src = script.src;
+                newScript.innerHTML = script.innerHTML;
+                document.body.appendChild(newScript);
+            });
+            
+            // Aggiorna l'URL del browser senza ricaricare la pagina
+            const newPath = url.replace('http://127.0.0.1:8000', '');
+            history.pushState(null, '', newPath);
+        })
+        .catch(error => {
+            console.error('There was a problem with the fetch operation:', error);
+        });
+}
+function attachEventListeners() {
+    document.getElementById('dashboard-link').addEventListener('click', function(event) {
+        event.preventDefault();
+        fetchContent('http://127.0.0.1:8000/admin/dashboard');
+    });
+    
+    document.getElementById('trip-index-link').addEventListener('click', function(event) {
+        event.preventDefault();
+        fetchContent('http://127.0.0.1:8000/admin/trips');
+    });
+}
+
+// Chiama questa funzione ogni volta che aggiorni il contenuto della pagina
+attachEventListeners();
+

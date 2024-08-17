@@ -92,9 +92,12 @@
                             <div id="stops-container" class="stops-container" data-index="{{ $loop->index }}">
                                 @if (isset($events[$date->format('d M Y')]))
                                     @foreach ($events[$date->format('d M Y')] as $event)
-                                        <x-accordionStops :event="$event">
-                                            <!-- Existing stops are rendered here -->
-                                        </x-accordionStops>
+                                          <!-- Assicurati di includere un attributo che permetta l'ordinamento -->
+                                          <div class="event" data-time="{{ $event->time_start }}">
+                                            <x-accordionStops :event="$event">
+                                                <!-- Existing stops are rendered here -->
+                                            </x-accordionStops>
+                                        </div>
                                     @endforeach
                             </div>
                         @else

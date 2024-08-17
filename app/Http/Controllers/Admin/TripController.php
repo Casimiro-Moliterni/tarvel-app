@@ -109,7 +109,7 @@ class TripController extends Controller
         $daysRange = $startDate->toPeriod($endDate);
 
         // Recupera tutti gli eventi del viaggio per il giorno preciso
-        $events = Stop::where('id_trip', $id)->get()->groupBy(function ($event) {
+        $events = Stop::where('id_trip', $id)->orderBy('time_start', 'asc')->get()->groupBy(function ($event) {
             return Carbon::parse($event->day)->format('d M Y');
         });
 

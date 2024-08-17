@@ -14,7 +14,7 @@ function getBtnToggle(btn, element) {
         element.classList.toggle("d-none");
     });
 }
-function getShowElement(btns, elements, className, icons) {
+function getShowElement(btns, elements, className, icons,scrollElements) {
     btns.forEach((btn, btnIndex) => {
         btn.addEventListener('click', function () {
             icons.forEach((icon, iconIndex) => {
@@ -22,7 +22,20 @@ function getShowElement(btns, elements, className, icons) {
                     if (icon.classList.contains('fa-circle-plus')) {
                         icon.classList.remove('fa-circle-plus', 'my-fa-circle-plus')
                         icon.classList.add('fa-circle-minus', 'my-fa-circle-minus')
+                        if (window.location.href.includes('/admin/trips/')) {
+                            scrollElements.forEach((scrollElement,scrollElementIndex)=>{
+                                if(scrollElementIndex === btnIndex){
+                                    var $scrollElement = $(scrollElement);
+                                    $('html, body').animate({
+                                        scrollTop:$scrollElement.offset().top
+
+                                    },10);
+                                }
+                            })
+                        }
                     } else {
+                        icon.classList.remove('fa-circle-minus', 'my-fa-circle-minus')
+                        icon.classList.add('fa-circle-plus', 'my-fa-circle-plus')
                         icon.classList.remove('fa-circle-minus', 'my-fa-circle-minus')
                         icon.classList.add('fa-circle-plus', 'my-fa-circle-plus')
                     }
@@ -49,16 +62,20 @@ function getMatchScore(query, name) {
 }
 
 document.addEventListener('DOMContentLoaded', function () {
+
     const btnFormStop = document.querySelectorAll('#btnFormStop');
     const iconBtnFormStop = document.querySelectorAll('#icon-btn-form-stop');
+    const myAccordionCreate = document.querySelectorAll('#my-accordion-create');
     const formStop = document.querySelectorAll('#formStop');
-    getShowElement(btnFormStop, formStop, 'd-none', iconBtnFormStop)
+    getShowElement(btnFormStop, formStop, 'd-none', iconBtnFormStop,myAccordionCreate)
     const countryInput = document.getElementById('country');
     const cityInput = document.getElementById('city');
     const titleInput = document.getElementById('title');
 
+
     const countrySuggestions = document.getElementById('countrySuggestions');
     const citySuggestions = document.getElementById('citySuggestions');
+
 
     const latCountryInput = document.getElementById('latCountry');
     const lonCountryInput = document.getElementById('lonCountry');

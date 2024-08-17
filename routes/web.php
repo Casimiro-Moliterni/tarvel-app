@@ -40,6 +40,7 @@ Route::middleware(['auth', 'verified'])
         Route::get('/stops/create/{trip_id}', [StopsController::class, 'create'])->name('stops.create');
         Route::post('/stops', [StopsController::class, 'store'])->name('stops.store');
         Route::get('/stops/{id}', [StopsController::class, 'show'])->name('stops.show');
+        Route::get('/stops/{trip_id}', [StopsController::class, 'index'])->name('stops.index');
     });
 
 Route::middleware('auth')->group(function () {

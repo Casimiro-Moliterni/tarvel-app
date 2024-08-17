@@ -304,64 +304,64 @@ document.addEventListener('DOMContentLoaded', function () {
 
 
 //  chiamate api per rotte -------------------------------------------------------------------------------------------------------------------------------------
-// Event delegation per gestire il click su link dinamici
-document.getElementById('content-container').addEventListener('click', function (event) {
-    // Controlla se il target dell'evento (l'elemento cliccato) o uno dei suoi antenati ha l'ID 'dashboard-link'
-    if (event.target.closest('#dashboard-link')) {
-        event.preventDefault(); // Impedisce l'azione predefinita del link, ovvero il comportamento di navigazione
-        fetchContent('http://127.0.0.1:8000/admin/dashboard'); // Chiama la funzione per caricare il contenuto della dashboard
-    }
-    // Controlla se il target dell'evento (l'elemento cliccato) o uno dei suoi antenati ha l'ID 'trip-index-link'
-    else if (event.target.closest('#trip-index-link')) {
-        event.preventDefault(); // Impedisce l'azione predefinita del link, ovvero il comportamento di navigazione
-        fetchContent('http://127.0.0.1:8000/admin/trips'); // Chiama la funzione per caricare il contenuto dei viaggi
-    }
-});
+// // Event delegation per gestire il click su link dinamici
+// document.getElementById('content-container').addEventListener('click', function (event) {
+//     // Controlla se il target dell'evento (l'elemento cliccato) o uno dei suoi antenati ha l'ID 'dashboard-link'
+//     if (event.target.closest('#dashboard-link')) {
+//         event.preventDefault(); // Impedisce l'azione predefinita del link, ovvero il comportamento di navigazione
+//         fetchContent('http://127.0.0.1:8000/admin/dashboard'); // Chiama la funzione per caricare il contenuto della dashboard
+//     }
+//     // Controlla se il target dell'evento (l'elemento cliccato) o uno dei suoi antenati ha l'ID 'trip-index-link'
+//     else if (event.target.closest('#trip-index-link')) {
+//         event.preventDefault(); // Impedisce l'azione predefinita del link, ovvero il comportamento di navigazione
+//         fetchContent('http://127.0.0.1:8000/admin/trips'); // Chiama la funzione per caricare il contenuto dei viaggi
+//     }
+// });
 
-// Funzione per caricare contenuti da un URL specificato e aggiornare la pagina
-function fetchContent(url) {
-    fetch(url) // Effettua una richiesta HTTP GET all'URL specificato
-        .then(response => {
-            if (!response.ok) { // Controlla se la risposta HTTP è andata a buon fine
-                throw new Error('Network response was not ok'); // Genera un errore se la risposta non è OK
-            }
-            return response.text(); // Restituisce il corpo della risposta come testo
-        })
-        .then(html => {
-            document.getElementById('content-container').innerHTML = html; // Aggiorna il contenuto del container con l'HTML ricevuto
+// // Funzione per caricare contenuti da un URL specificato e aggiornare la pagina
+// function fetchContent(url) {
+//     fetch(url) // Effettua una richiesta HTTP GET all'URL specificato
+//         .then(response => {
+//             if (!response.ok) { // Controlla se la risposta HTTP è andata a buon fine
+//                 throw new Error('Network response was not ok'); // Genera un errore se la risposta non è OK
+//             }
+//             return response.text(); // Restituisce il corpo della risposta come testo
+//         })
+//         .then(html => {
+//             document.getElementById('content-container').innerHTML = html; // Aggiorna il contenuto del container con l'HTML ricevuto
 
-            // Esegui gli script presenti nel contenuto HTML
-            const scriptTags = document.querySelectorAll('#content-container script'); // Seleziona tutti i tag <script> nel contenuto
-            scriptTags.forEach(script => { // Per ogni tag <script>
-                const newScript = document.createElement('script'); // Crea un nuovo elemento <script>
-                newScript.src = script.src; // Copia l'attributo src del tag script esistente
-                newScript.innerHTML = script.innerHTML; // Copia il contenuto interno del tag script esistente
-                document.body.appendChild(newScript); // Aggiunge il nuovo script al documento, eseguendolo
-            });
+//             // Esegui gli script presenti nel contenuto HTML
+//             const scriptTags = document.querySelectorAll('#content-container script'); // Seleziona tutti i tag <script> nel contenuto
+//             scriptTags.forEach(script => { // Per ogni tag <script>
+//                 const newScript = document.createElement('script'); // Crea un nuovo elemento <script>
+//                 newScript.src = script.src; // Copia l'attributo src del tag script esistente
+//                 newScript.innerHTML = script.innerHTML; // Copia il contenuto interno del tag script esistente
+//                 document.body.appendChild(newScript); // Aggiunge il nuovo script al documento, eseguendolo
+//             });
 
-            // Aggiorna l'URL del browser senza ricaricare la pagina
-            const newPath = url.replace('http://127.0.0.1:8000', ''); // Rimuove il prefisso dell'URL base per ottenere il percorso relativo
-            history.pushState(null, '', newPath); // Aggiorna l'URL visualizzato nel browser senza ricaricare la pagina
-        })
-        .catch(error => {
-            console.error('There was a problem with the fetch operation:', error); // Gestisce e mostra eventuali errori di rete
-        });
-}
+//             // Aggiorna l'URL del browser senza ricaricare la pagina
+//             const newPath = url.replace('http://127.0.0.1:8000', ''); // Rimuove il prefisso dell'URL base per ottenere il percorso relativo
+//             history.pushState(null, '', newPath); // Aggiorna l'URL visualizzato nel browser senza ricaricare la pagina
+//         })
+//         .catch(error => {
+//             console.error('There was a problem with the fetch operation:', error); // Gestisce e mostra eventuali errori di rete
+//         });
+// }
 
-// Funzione per associare gli event listeners ai link specifici
-function attachEventListeners() {
-    document.getElementById('dashboard-link').addEventListener('click', function (event) {
-        event.preventDefault(); // Impedisce l'azione predefinita del link
-        fetchContent('http://127.0.0.1:8000/admin/dashboard'); // Chiama la funzione per caricare il contenuto della dashboard
-    });
+// // Funzione per associare gli event listeners ai link specifici
+// function attachEventListeners() {
+//     document.getElementById('dashboard-link').addEventListener('click', function (event) {
+//         event.preventDefault(); // Impedisce l'azione predefinita del link
+//         fetchContent('http://127.0.0.1:8000/admin/dashboard'); // Chiama la funzione per caricare il contenuto della dashboard
+//     });
 
-    document.getElementById('trip-index-link').addEventListener('click', function (event) {
-        event.preventDefault(); // Impedisce l'azione predefinita del link
-        fetchContent('http://127.0.0.1:8000/admin/trips'); // Chiama la funzione per caricare il contenuto dei viaggi
-    });
-}
+//     document.getElementById('trip-index-link').addEventListener('click', function (event) {
+//         event.preventDefault(); // Impedisce l'azione predefinita del link
+//         fetchContent('http://127.0.0.1:8000/admin/trips'); // Chiama la funzione per caricare il contenuto dei viaggi
+//     });
+// }
 
-// Chiama questa funzione ogni volta che aggiorni il contenuto della pagina
-attachEventListeners(); // Associa gli event listeners ai link, per gestire il loro comportamento dopo ogni aggiornamento del contenuto
+// // Chiama questa funzione ogni volta che aggiorni il contenuto della pagina
+// attachEventListeners(); // Associa gli event listeners ai link, per gestire il loro comportamento dopo ogni aggiornamento del contenuto
 
 // /chiamate api per rotte -------------------------------------------------------------------------------------------------------------------------------------

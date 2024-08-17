@@ -267,12 +267,14 @@ document.addEventListener('DOMContentLoaded', function () {
                                 $(this).remove(); //rimuove il messagio successo
 
                                 // aapennde all' html newElement che sarebbe l'elemento accordionStops che trovi indirizzato nella funzione store() nel controller
-                                const newElement = $(data.html).appendTo('#stops-container');
-
-                                // scrolla in basso per raggiungere l'elemento appena creato
-                                if (newElement && newElement.length) {
-                                    newElement[0].scrollIntoView({ behavior: 'smooth', block: 'start' });
-                                };
+                                   // Seleziona il contenitore corretto utilizzando l'attributo data-index
+                                   const stopsContainer = form.closest('.accordion-content').querySelector('.stops-container');
+                                   if (stopsContainer) {
+                                       const newElement = $(data.html).appendTo(stopsContainer);
+                                       newElement[0].scrollIntoView({ behavior: 'smooth', block: 'start' });
+                                   } else {
+                                       console.error('stopsContainer non trovato o data.html non valido.');
+                                   }
 
                             });
                         }, 2000);

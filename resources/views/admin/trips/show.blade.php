@@ -88,23 +88,22 @@
                                     </i>
                                 </a>
                             </div>
-                            {{-- <x-formAddStop :date="$date->format('d M Y')" :tripId="$trip->id" /> --}}
-                            <x-formAddStop :date="$date->format('Y-m-d')" :tripId="$trip->id" />
-                            @if (isset($events[$date->format('d M Y')]))
-                                @foreach ($events[$date->format('d M Y')] as $event)
-                                    <div id="stops-container">
+                            <x-formAddStop :date="$date->format('Y-m-d')" :tripId="$trip->id" :index="$loop->index" /> @dump($loop->index)
+                            <div id="stops-container" class="stops-container" data-index="{{ $loop->index }}">
+                                @if (isset($events[$date->format('d M Y')]))
+                                    @foreach ($events[$date->format('d M Y')] as $event)
                                         <x-accordionStops :event="$event">
                                             <!-- Existing stops are rendered here -->
                                         </x-accordionStops>
-                                    </div>
-                                @endforeach
-                            @else
-                                <p>Nessun evento per questa data.</p>
-                            @endif
-                        </div>
-                    </details>
-                @endforeach
+                                    @endforeach
+                            </div>
+                        @else
+                            <p>Nessun evento per questa data.</p>
+                @endif
             </div>
+            </details>
+            @endforeach
+        </div>
         </div>
     </section>
 @endsection

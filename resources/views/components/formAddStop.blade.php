@@ -1,10 +1,10 @@
-@props(['date', 'tripId'])
+@props(['date', 'tripId','index'])
 <div class="container my-form-create d-none card mb-5 rounded-4" id="formStop">
     <h1 class="mb-3">Aggiungi una nuova tappa</h1>
     <div id="messages">
 
     </div>
-    <form id="form-stop" class="form-stops position-relative col-10 ms-auto me-auto pb-5" data-url="{{ route('admin.stops.store') }}"
+    <form id="form-stop" class="form-stops position-relative col-10 ms-auto me-auto pb-5" data-url="{{ route('admin.stops.store') }} " data-index="{{ $index }}"
        enctype="multipart/form-data">
         @csrf
         <input type="hidden" name="day" value="{{ $date }}">

@@ -246,7 +246,7 @@ document.addEventListener('DOMContentLoaded', function () {
                         // Display success message
                         const successMessage = $('<div class="success-message">Tappa creata con successo!</div>');
                         $('body').append(successMessage);
-
+                     
                         successMessage.css({
                             position: 'fixed',
                             top: '20px',
@@ -267,28 +267,12 @@ document.addEventListener('DOMContentLoaded', function () {
                                 $(this).remove(); //rimuove il messagio successo
 
                                 // aapennde all' html newElement che sarebbe l'elemento accordionStops che trovi indirizzato nella funzione store() nel controller
-                                // Seleziona il contenitore corretto utilizzando l'attributo data-index
-                                // Seleziona il contenitore corretto usando l'attributo data-index
-                                const stopsContainer = form.closest('.accordion-content').querySelector('.stops-container');
-                                if (stopsContainer) {
-                                    const newElement = $(data.html).appendTo(stopsContainer);
+                                const newElement = $(data.html).appendTo('#stops-container');
 
-                                    // Converti gli eventi in un array e ordina
-                                    const events = Array.from(stopsContainer.children);
-                                    events.sort((a, b) => {
-                                        const timeA = $(a).data('time');
-                                        const timeB = $(b).data('time');
-                                        // Confronta come Date se i valori sono ISO 8601
-                                        console.log('Time A:', timeA, 'Time B:', timeB);
-                                        return new Date(timeA) - new Date(timeB);
-                                    });
-
-                                    // Riappendi gli eventi ordinati al contenitore
-                                    events.forEach(event => stopsContainer.appendChild(event));
+                                // scrolla in basso per raggiungere l'elemento appena creato
+                                if (newElement && newElement.length) {
                                     newElement[0].scrollIntoView({ behavior: 'smooth', block: 'start' });
-                                } else {
-                                    console.error('stopsContainer non trovato o data.html non valido.');
-                                }
+                                };
 
                             });
                         }, 2000);

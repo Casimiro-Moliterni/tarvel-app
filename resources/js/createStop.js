@@ -162,6 +162,7 @@ forms.forEach((form, formIndex) => {
             axios.post(url, new FormData(form))
                 .then(response => {
                     if (response.data.status === 'success') {
+                        form.reset();
                         console.log('Dati del form validati con successo.');
                         const successMessage = $('<div class="success-message">Tappa creata con successo!</div>');
                         $('body').append(successMessage);
@@ -194,6 +195,7 @@ forms.forEach((form, formIndex) => {
                             } else {
                                 console.error(`Contenitore non trovato con il selettore: ${stopsContainerSelector}`);
                             }
+                              // Svuota il modulo e riabilitalo
                         }, 2000);
                     } else {
                         console.error('Errore durante la validazione dei dati:', response.data.message);

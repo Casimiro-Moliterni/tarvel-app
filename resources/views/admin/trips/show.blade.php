@@ -88,7 +88,7 @@
                                     </i>
                                 </a>
                             </div>
-                            <x-formAddStop :date="$date->format('Y-m-d')" :tripId="$trip->id" :index="$loop->index" /> @dump($loop->index)
+                            <x-formAddStop :date="$date->format('Y-m-d')" :tripId="$trip->id" :index="$loop->index" />
                             <div id="stops-container" class="stops-container" data-index="{{ $loop->index }}">
                                 @if (isset($events[$date->format('d M Y')]))
                                     @foreach ($events[$date->format('d M Y')] as $event)

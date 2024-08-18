@@ -3,6 +3,7 @@ import '~resources/scss/app.scss';
 import * as bootstrap from 'bootstrap';
 import { constant, result, toUpper } from 'lodash';
 import './createStop';
+import './displayTel';
 import.meta.glob([
     '../img/**'
 ]);
@@ -34,8 +35,6 @@ function getShowElement(btns, elements, className, icons,scrollElements) {
                             })
                         }
                     } else {
-                        icon.classList.remove('fa-circle-minus', 'my-fa-circle-minus')
-                        icon.classList.add('fa-circle-plus', 'my-fa-circle-plus')
                         icon.classList.remove('fa-circle-minus', 'my-fa-circle-minus')
                         icon.classList.add('fa-circle-plus', 'my-fa-circle-plus')
                     }

@@ -88,16 +88,16 @@
                                     </i>
                                 </a>
                             </div>
+                            {{-- componenete form  --}}
                             <x-formAddStop :date="$date->format('Y-m-d')" :tripId="$trip->id" :index="$loop->index" />
                             <div id="stops-container" class="stops-container" data-index="{{ $loop->index }}">
                                 @if (isset($events[$date->format('d M Y')]))
                                     @foreach ($events[$date->format('d M Y')] as $event)
-                                          <!-- Assicurati di includere un attributo che permetta l'ordinamento -->
-                                          <div class="event" data-time="{{ $event->time_start }}">
-                                            <x-accordionStops :event="$event">
-                                                <!-- Existing stops are rendered here -->
-                                            </x-accordionStops>
-                                        </div>
+                                        <!-- Assicurati di includere un attributo che permetta l'ordinamento -->
+
+                                        <x-accordionStops :event="$event">
+                                            <!-- Existing stops are rendered here -->
+                                        </x-accordionStops>
                                     @endforeach
                             </div>
                         @else

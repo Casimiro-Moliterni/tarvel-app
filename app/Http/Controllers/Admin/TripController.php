@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\Trip;
 use Illuminate\Support\Facades\Auth;
 use App\Models\User;
-use App\Models\Day;
+use App\Models\Rating;
 use App\Models\Stop;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Storage;
@@ -107,12 +107,13 @@ class TripController extends Controller
         $startDate = Carbon::parse($trip->start_date);
         $endDate = Carbon::parse($trip->end_date);
         $daysRange = $startDate->toPeriod($endDate);
-
+    
         // Recupera tutti gli eventi del viaggio per il giorno preciso
         $events = Stop::where('id_trip', $id)->orderBy('time_start', 'asc')->get()->groupBy(function ($event) {
             return Carbon::parse($event->day)->format('d M Y');
         });
-
+         
+        // dd($trip->rating()->get());
 
 
 

@@ -62,7 +62,33 @@ class StopsController extends Controller
     {
         try {
             $validatedData = $this->validation($request->all());
-    
+
+
+               // Controlla la sovrapposizione degli eventi
+            $tripId = $validatedData['id_trip'];
+            $startTime = $validatedData['time_start'];
+            $endTime = $validatedData['time_end'];
+            $day = $validatedData['day'];
+
+            // Cerca eventi esistenti con lo stesso trip_id e giorno
+            $overlappingEvents = Stop::where('id_trip', $tripId)
+                // Filtra per il giorno specificato
+                ->where('day', $day)
+                // Aggiunge una condizione annidata per verificare la sovrapposizione degli orari
+                ->where(function ($query) use ($startTime, $endTime) {
+                    // Verifica se c'è un evento che inizia prima della fine dell'evento corrente e
+                    // termina dopo l'inizio dell'evento corrente
+                    $query->where('time_start', '<', $endTime)
+                        ->where('time_end', '>', $startTime);
+                })
+                // Controlla se esiste almeno un evento che soddisfa tutte le condizioni sopra
+                ->exists();
+
+            // Se esiste un evento sovrapposto, restituisce un errore in formato JSON
+            if ($overlappingEvents) {
+                return response()->json(['status' => 'error', 'message' => 'L\'evento si sovrappone a un altro evento esistente.'], 422);
+            }
+
             // Handle image file if present
             if ($request->hasFile('image')) {
                 $imagePath = $request->file('image')->store('images', 'public');

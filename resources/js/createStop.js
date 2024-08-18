@@ -10,7 +10,7 @@ forms.forEach((form, formIndex) => {
     const description = document.querySelectorAll('#description')[formIndex];
     const rating = document.querySelectorAll('#rating')[formIndex];
     const image = document.querySelectorAll('#image')[formIndex];
-    
+
     const latCountryInput = document.querySelectorAll('#latCountry')[formIndex];
     const lonCountryInput = document.querySelectorAll('#lonCountry')[formIndex];
     const latCityInput = document.querySelectorAll('#latCity')[formIndex];
@@ -105,6 +105,12 @@ forms.forEach((form, formIndex) => {
         } else {
             setSuccess(timeEnd);
         }
+        if (/* condizione di sovrapposizione */ false) {  // Cambia questa condizione a seconda della logica
+            setError(timeStart, 'L\'evento si sovrappone a un altro evento esistente.');
+            isValid = false;
+        } else {
+            setSuccess(timeStart);
+        }
 
         return isValid;
     };
@@ -115,11 +121,11 @@ forms.forEach((form, formIndex) => {
             // Replace with actual API request to get lat/lon
             latCountryInput.value = 45.96937700;
             lonCountryInput.value = 8.97064700;
-            console.log(
-                'paese:' + query,
-                'lat:' + latCountryInput.value,
-                'lon:' + lonCountryInput.value
-            );
+            // console.log(
+            //     'paese:' + query,
+            //     'lat:' + latCountryInput.value,
+            //     'lon:' + lonCountryInput.value
+            // );
         }
     });
 
@@ -129,11 +135,11 @@ forms.forEach((form, formIndex) => {
             // Replace with actual API request to get lat/lon
             latCityInput.value = 45.96937700;
             lonCityInput.value = 8.97064700;
-            console.log(
-                'city:' + query,
-                'lat:' + latCityInput.value,
-                'lon:' + lonCityInput.value
-            );
+            // console.log(
+            //     'city:' + query,
+            //     'lat:' + latCityInput.value,
+            //     'lon:' + lonCityInput.value
+            // );
         }
     });
 
@@ -143,11 +149,11 @@ forms.forEach((form, formIndex) => {
             // Replace with actual API request to get lat/lon
             latStreetInput.value = 45.96937700;
             lonStreetInput.value = 8.97064700;
-            console.log(
-                'street:' + query,
-                'lat:' + latStreetInput.value,
-                'lon:' + lonStreetInput.value
-            );
+            // console.log(
+            //     'street:' + query,
+            //     'lat:' + latStreetInput.value,
+            //     'lon:' + lonStreetInput.value
+            // );
         }
     });
 
@@ -162,7 +168,7 @@ forms.forEach((form, formIndex) => {
             axios.post(url, new FormData(form))
                 .then(response => {
                     if (response.data.status === 'success') {
-                        form.reset();
+                        form.reset()
                         console.log('Dati del form validati con successo.');
                         const successMessage = $('<div class="success-message">Tappa creata con successo!</div>');
                         $('body').append(successMessage);
@@ -183,7 +189,7 @@ forms.forEach((form, formIndex) => {
                         const stopsContainerSelector = form.getAttribute('data-index');
                         const stopsContainer = document.querySelector(`.stops-container[data-index="${stopsContainerSelector}"]`);
 
-                        setTimeout(()=>{
+                        setTimeout(() => {
                             successMessage.remove()
                             // Scorri fino al nuovo elemento creato
                             if (stopsContainer) {
@@ -195,15 +201,63 @@ forms.forEach((form, formIndex) => {
                             } else {
                                 console.error(`Contenitore non trovato con il selettore: ${stopsContainerSelector}`);
                             }
-                              // Svuota il modulo e riabilitalo
+                            // Svuota il modulo e riabilitalo
                         }, 2000);
                     } else {
                         console.error('Errore durante la validazione dei dati:', response.data.message);
                     }
                 })
                 .catch(error => {
-                    console.error('Errore durante la validazione dei dati:', error);
+                    if (error.response) {
+                        // L'errore ha una risposta dal server
+                        if (error.response.status === 422) {
+                            console.log('Errore 422');
+                
+                            // Verifica se ci sono messaggi di errore specifici nel corpo della risposta
+                            const errorMessage = error.response.data.message;
+                
+                            if (errorMessage === 'L\'evento si sovrappone a un altro evento esistente.') {
+                                // Mostra un messaggio di errore specifico
+                                const errorDisplay = $('<div class="error-message">' + errorMessage + '</div>');
+                                $('body').append(errorDisplay);
+                
+                                errorDisplay.css({
+                                    position: 'fixed',
+                                    top: '20px',
+                                    left: '50%',
+                                    transform: 'translateX(-50%)',
+                                    backgroundColor: '#dc3545',
+                                    color: '#fff',
+                                    padding: '10px 20px',
+                                    borderRadius: '5px',
+                                    zIndex: 1000,
+                                    fontSize: '16px',
+                                    display: 'none'
+                                }).fadeIn();
+                
+                                // Rimuove il messaggio di errore dopo 3 secondi
+                                setTimeout(function () {
+                                    errorDisplay.fadeOut(function () {
+                                        $(this).remove();
+                                    });
+                                }, 3000);
+                            } else {
+                                // Gestione di altri errori
+                                console.log('Altri errori 422:', error.response.data);
+                            }
+                        } else {
+                            // Gestisci altri codici di stato di errore
+                            console.log('Errore HTTP:', error.response.status, error.response.data);
+                        }
+                    } else if (error.request) {
+                        // Il server non ha risposto
+                        console.error('Errore di rete:', error.request);
+                    } else {
+                        // Errore di configurazione della richiesta
+                        console.error('Errore nella richiesta:', error.message);
+                    }
                 });
-        }
+                
+}
     });
 });

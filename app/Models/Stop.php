@@ -4,7 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-
+use App\Models\Rating;
 class Stop extends Model
 {
     use HasFactory;
@@ -21,5 +21,9 @@ class Stop extends Model
     public function trip()
     {
         return $this->belongsTo(Trip::class,'id_trip');
+    }
+    public function rating()
+    {
+        return $this->belongsTo(Rating::class, 'id_trip');
     }
 }

@@ -18,12 +18,12 @@ class StopsController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index()
-{
-    $stops = Stop::all(); // O una query filtrata se necessario
-    return response()->json(['stops' => $stops]);
+    {
+        $stops = Stop::all(); // O una query filtrata se necessario
+        return response()->json(['stops' => $stops]);
 
-    // Passa i dati alla vista
-}
+        // Passa i dati alla vista
+    }
 
     /**
      * Show the form for creating a new resource.
@@ -58,35 +58,61 @@ class StopsController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
+
     public function store(Request $request)
     {
         try {
+            // Valida i dati di input
             $validatedData = $this->validation($request->all());
-    
-            // Handle image file if present
+
+            // Controlla la sovrapposizione degli eventi
+            $tripId = $validatedData['id_trip'];
+            $startTime = $validatedData['time_start'];
+            $endTime = $validatedData['time_end'];
+            $day = $validatedData['day'];
+
+            // Cerca eventi esistenti con lo stesso trip_id e giorno
+            $overlappingEvents = Stop::where('id_trip', $tripId)
+                // Filtra per il giorno specificato
+                ->where('day', $day)
+                // Aggiunge una condizione annidata per verificare la sovrapposizione degli orari
+                ->where(function ($query) use ($startTime, $endTime) {
+                    // Verifica se c'è un evento che inizia prima della fine dell'evento corrente e
+                    // termina dopo l'inizio dell'evento corrente
+                    $query->where('time_start', '<', $endTime)
+                        ->where('time_end', '>', $startTime);
+                })
+                // Controlla se esiste almeno un evento che soddisfa tutte le condizioni sopra
+                ->exists();
+
+            // Se esiste un evento sovrapposto, restituisce un errore in formato JSON
+            if ($overlappingEvents) {
+                return response()->json(['status' => 'error', 'message' => 'L\'evento si sovrappone a un altro evento esistente.'], 422);
+            }
+
+
+            // Gestisci l'immagine se presente
             if ($request->hasFile('image')) {
                 $imagePath = $request->file('image')->store('images', 'public');
                 $validatedData['image'] = $imagePath;
             }
-    
-            // Create a new Stop instance and save to the database
+
+            // Crea una nuova istanza di Stop e salva nel database
             $newStop = new Stop();
             $newStop->fill($validatedData);
             $newStop->save();
-    
-            // Render the Blade component to a string
-            // elemento accordion per la singola tappa 
+
+            // Renderizza il componente Blade come stringa
             $renderedView = view('components.accordionStops', ['event' => $newStop])->render();
-    
-            // Return a JSON success response with the rendered view
+
+            // Restituisce una risposta JSON con la vista renderizzata
             return response()->json(['status' => 'success', 'html' => $renderedView, 'message' => 'Tappa aggiunta con successo!']);
-    
         } catch (\Exception $e) {
-            // Return a JSON error response
+            // Restituisce una risposta JSON in caso di errore
             return response()->json(['status' => 'error', 'message' => $e->getMessage()], 500);
         }
     }
-    
+
 
 
 
@@ -182,7 +208,4 @@ class StopsController extends Controller
 
         return $validator->validate();
     }
-
-
-
 }

@@ -178,6 +178,15 @@ document.addEventListener('DOMContentLoaded', function () {
                 setSuccess(timeEnd);
             }
 
+            if (/* condizione di sovrapposizione */ false) {  // Cambia questa condizione a seconda della logica
+                setError(timeStart, 'L\'evento si sovrappone a un altro evento esistente.');
+                isValid = false;
+            } else {
+                setSuccess(timeStart);
+            }
+
+
+
             return isValid;
         };
 
@@ -294,9 +303,43 @@ document.addEventListener('DOMContentLoaded', function () {
                         }, 2000);
                     },
                     error: function (data) {
-                        console.log("Error:", data);
-                    }
-                });
+                        // console.log("Error:", data);
+                        // Gestione degli errori ricevuti dal server
+                        if (data.responseJSON && data.responseJSON.message) {
+                            const errorMessage = data.responseJSON.message;
+
+                            if (errorMessage === 'L\'evento si sovrappone a un altro evento esistente.') {
+                                // Mostra l'errore specifico di sovrapposizione
+                                const errorDisplay = $('<div class="error-message">' + errorMessage + '</div>');
+                                $('body').append(errorDisplay);
+
+                                errorDisplay.css({
+                                    position: 'fixed',
+                                    top: '20px',
+                                    left: '50%',
+                                    transform: 'translateX(-50%)',
+                                    backgroundColor: '#dc3545',
+                                    color: '#fff',
+                                    padding: '10px 20px',
+                                    borderRadius: '5px',
+                                    zIndex: 1000,
+                                    fontSize: '16px',
+                                    display: 'none'
+                                }).fadeIn();
+
+                                // Rimuove il messaggio di errore dopo 3 secondi
+                                setTimeout(function () {
+                                    errorDisplay.fadeOut(function () {
+                                        $(this).remove();
+                                    });
+                                }, 3000);
+                            } else {
+                                console.log("Error:", data);
+                            }
+                        }
+
+                        }
+                    });
             }
         });
     });

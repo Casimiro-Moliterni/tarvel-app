@@ -65,6 +65,7 @@ class StopsController extends Controller
             // Valida i dati di input
             $validatedData = $this->validation($request->all());
 
+
             // Controlla la sovrapposizione degli eventi
             $tripId = $validatedData['id_trip'];
             $startTime = $validatedData['time_start'];
@@ -90,8 +91,7 @@ class StopsController extends Controller
                 return response()->json(['status' => 'error', 'message' => 'L\'evento si sovrappone a un altro evento esistente.'], 422);
             }
 
-
-            // Gestisci l'immagine se presente
+            // Handle image file if present
             if ($request->hasFile('image')) {
                 $imagePath = $request->file('image')->store('images', 'public');
                 $validatedData['image'] = $imagePath;

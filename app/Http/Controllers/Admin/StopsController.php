@@ -64,6 +64,7 @@ class StopsController extends Controller
     {
         try {
             // Valida i dati di input
+            dd($request);
             $validatedData = $this->validation($request->all());
 
 

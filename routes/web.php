@@ -43,6 +43,8 @@ Route::middleware(['auth', 'verified'])
         Route::post('/stops', [StopsController::class, 'store'])->name('stops.store');
         Route::get('/stops/{id}', [StopsController::class, 'show'])->name('stops.show');
         Route::get('/stops/{trip_id}', [StopsController::class, 'index'])->name('stops.index');
+        Route::get('/stops/{id}/edit', [StopsController::class, 'edit'])->name('stops.edit');
+        Route::put('/stops/{id}', [StopsController::class, 'update'])->name('stops.update');
 
         // rotta rating 
         Route::resource('ratings', RatingController::class)->parameters(['ratings' => 'rating:id']);

@@ -8,6 +8,7 @@ use App\Models\Trip;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 
 class StopsController extends Controller
@@ -140,8 +141,10 @@ class StopsController extends Controller
      */
     public function edit($id)
     {
-        //
+        $stop = Stop::findOrFail($id);
+        return view('admin.stops.edit', compact('stop'))->render(); // Render il form come stringa HTML
     }
+    
 
     /**
      * Update the specified resource in storage.
@@ -152,8 +155,72 @@ class StopsController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        // Definisci le regole di validazione
+        $rules = [
+            'day' => 'required|date',
+            'name' => 'required|string|max:255',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
+            'description' => 'nullable|string|min:5',
+            'foods' => 'nullable|string',
+            'country' => 'nullable|string',
+            'city' => 'nullable|string',
+            'street' => 'nullable|string',
+            'curiosities' => 'nullable|string',
+            'rating' => 'required|string|max:255',
+            'id_trip' => 'required|integer|exists:trips,id',
+            'lonCountry' => 'nullable|numeric|between:-180,180',
+            'latCountry' => 'nullable|numeric|between:-90,90',
+            'lonStreet' => 'nullable|numeric|between:-180,180',
+            'latStreet' => 'nullable|numeric|between:-90,90',
+            'lonCity' => 'nullable|numeric|between:-180,180',
+            'latCity' => 'nullable|numeric|between:-90,90',
+            'time_start' => 'required|',
+            'time_end' => 'required||after:time_start',
+        ];
+
+        // Definisci i messaggi di errore personalizzati
+        $messages = [
+            'id_trip.required' => 'Il campo id_trip è obbligatorio.',
+            'id_trip.integer' => 'Il campo id_trip deve essere un numero intero.',
+            'id_trip.exists' => 'Il viaggio selezionato non esiste.',
+            'time_start.required' => 'L\'orario di inizio è obbligatorio.',
+            'time_end.required' => 'L\'orario di fine è obbligatorio.',
+            'time_start.date_format' => 'Il formato dell\'ora di inizio non è valido.',
+            'time_end.date_format' => 'Il formato dell\'ora di fine non è valido.',
+            'time_end.after' => 'L\'orario di fine deve essere successivo all\'orario di inizio.',
+            'image.image' => 'Il file caricato deve essere un\'immagine.',
+            'image.mimes' => 'L\'immagine deve essere di tipo jpeg, png o jpg.',
+            'image.max' => 'L\'immagine non può essere più grande di 2MB.',
+            'description.min' => 'La descrizione deve contenere almeno 5 caratteri.',
+        ];
+
+        // try {
+        $validatedData = $request->validate($rules, $messages);
+        $stop = Stop::findOrFail($id);
+
+        // Gestisci l'immagine se presente
+        if ($request->hasFile('image')) {
+            // Elimina l'immagine precedente se esiste
+            if ($stop->image) {
+                Storage::disk('public')->delete($stop->image);
+            }
+
+            // Memorizza la nuova immagine
+            $imagePath = $request->file('image')->store('images', 'public');
+            $validatedData['image'] = $imagePath;
+        }
+
+        $stop->update($validatedData);
+
+        // Reindirizza alla pagina di dettaglio del viaggio associato alla tappa modificata
+        return redirect()->route('admin.trips.show', ['trip' => $stop->id_trip])
+            ->with('success', 'Tappa aggiornata con successo!');
+        // } catch (\Exception $e) {
+        //     dd($e->getMessage(), $e->getTrace());
+        // }
     }
+
+
 
     /**
      * Remove the specified resource from storage.

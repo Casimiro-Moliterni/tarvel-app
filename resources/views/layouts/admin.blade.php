@@ -34,7 +34,7 @@
 <body>
     <!-- =============== Navigation ================ -->
     {{-- QUA AGGIUNTO ID CONTENT-CONTAINER PER VISUALIZARE API DEL CLICK --}}
-        <div class="my-container" >
+        <div class="my-container" id="content-container" >
             <div class="navigation">
                 <ul>
                     {{-- logo della sidebar --}}
@@ -45,12 +45,12 @@
                     </li>
                     {{-- /logo della sidebar --}}
 
-                    <li class="{{ Route::currentRouteName() == 'admin.dashboard' ? 'hovered' : '' }}" >
+                    <li class="{{ Route::currentRouteName() == 'admin.dashboard' ? 'hovered' : '' }}" id="dashboard-link" >
                         <a href="{{ route('admin.dashboard') }}" class="icon fs-5">
                             <i class="fa-solid fa-house-user"></i><span class="ms-span">Dashboard</span>
                         </a>
                     </li>
-                    <li class="{{ Route::currentRouteName() == 'admin.trips.index' ? 'hovered' : '' }}"  >
+                    <li class="{{ Route::currentRouteName() == 'admin.trips.index' ? 'hovered' : '' }}"  id="trip-index-link" >
                         <a href="{{ route('admin.trips.index') }}" class="icon fs-5">
                             <i class="fa-solid fa-plane"></i><span class="ms-span">Viaggi</span>
                         </a>

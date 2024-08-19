@@ -2,10 +2,9 @@
 <div class="accordion p-0 mb-2 my-accordion" id="accordionExample">
     <details class="accordion">
         <summary class="accordion-btn fs-2 fw-bold">
-            <strong>Ora inizio:</strong> {{ $event->time_start }} ||
+            <strong>Ora inizio:</strong> {{ \Carbon\Carbon::parse($event->time_start)->format('H:i') }}||
+            <strong>Ora fine:</strong> {{ \Carbon\Carbon::parse($event->time_end)->format('H:i') }} ||
             <strong>Evento:</strong> {{ $event->name }} ||
-            <strong>Ora fine:</strong> {{ $event->time_end }} ||
-            <strong>Città:</strong> {{ $event->city }} ||
             <strong>Via:</strong> {{ $event->street }}
 
             <a href="#" class="btn btn-warning" data-toggle="modal" data-target="#editStopModal-{{ $event->id }}">Modifica</a>

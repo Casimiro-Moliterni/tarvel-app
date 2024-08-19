@@ -3,6 +3,7 @@ import '~resources/scss/app.scss';
 import * as bootstrap from 'bootstrap';
 import { constant, result, toUpper } from 'lodash';
 import './createStop';
+import './editStop';
 import './displayTel';
 import './ratingStar';
 import.meta.glob([
@@ -322,7 +323,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
 
 //  chiamate api per rotte -------------------------------------------------------------------------------------------------------------------------------------
-// // Event delegation per gestire il click su link dinamici
+// Event delegation per gestire il click su link dinamici
 // document.getElementById('content-container').addEventListener('click', function (event) {
 //     // Controlla se il target dell'evento (l'elemento cliccato) o uno dei suoi antenati ha l'ID 'dashboard-link'
 //     if (event.target.closest('#dashboard-link')) {

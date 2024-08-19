@@ -164,7 +164,7 @@ forms.forEach((form, formIndex) => {
 
             // questo url lo trovi nel tag form nella pagina formAddStop.blade.php 
             const url = form.getAttribute('data-url');
-
+            
             axios.post(url, new FormData(form))
                 .then(response => {
                     if (response.data.status === 'success') {

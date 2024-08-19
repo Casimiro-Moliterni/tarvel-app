@@ -97,7 +97,9 @@
 
                                         <x-accordionStops :event="$event">
                                             <!-- Existing stops are rendered here -->
+                                            
                                         </x-accordionStops>
+
                                     @endforeach
                             </div>
                         @else
@@ -108,6 +110,7 @@
             @endforeach
         </div>
         </div>
+
     </section>
 @endsection
 @stack('scripts')

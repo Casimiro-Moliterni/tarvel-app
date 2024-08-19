@@ -93,20 +93,21 @@
             background-size: cover;
             background-position: center;
         }
+        h1{
+            &::after{
+                content: '🚩';
+            }
+            &::before{
+                content: '🚩';
+            }
+         }
     }
 } 
 form,h1,button{
     position: relative;
     z-index: 2;
 }
- h1{
-    &::after{
-        content: '🚩';
-    }
-    &::before{
-        content: '🚩';
-    }
- }
+
 .media991px {
     textarea{
         max-height: 4rem;

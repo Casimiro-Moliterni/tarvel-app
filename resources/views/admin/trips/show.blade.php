@@ -1,7 +1,7 @@
 @extends('layouts.admin')
 @section('content')
     <section class="trip-show">
-
+        <x-ratingComponent :trip="$trip->id" :stop="null"/>
         <div class="row mt-3">
             <h1 class="text-center mt-3">{{ $trip->title }}</h1>
             <x-cardShow :trip="$trip" />

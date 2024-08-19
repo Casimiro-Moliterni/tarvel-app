@@ -15,13 +15,13 @@ return new class extends Migration
     {
         Schema::create('ratings', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('id_trip');
-            $table->unsignedBigInteger('id_stop')->nullable();
+            $table->unsignedBigInteger('stop_id')->nullable();
+            $table->unsignedBigInteger('trip_id');
             $table->tinyInteger('rating')->unsigned();
             $table->text('review')->nullable();
             $table->timestamps();
-            $table->foreign('id_trip')->references('id')->on('trips')->onDelete('cascade');
-            $table->foreign('id_stop')->references('id')->on('stops')->onDelete('cascade');
+            $table->foreign('trip_id')->references('id')->on('trips')->onDelete('cascade');
+            $table->foreign('stop_id')->references('id')->on('stops')->onDelete('cascade');
         });
     }
 

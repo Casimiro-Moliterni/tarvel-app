@@ -1,10 +1,12 @@
 <?php
 
+use App\Http\Controllers\Admin\RatingController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\StopsController;
 use App\Http\Controllers\Admin\TripController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -41,6 +43,9 @@ Route::middleware(['auth', 'verified'])
         Route::post('/stops', [StopsController::class, 'store'])->name('stops.store');
         Route::get('/stops/{id}', [StopsController::class, 'show'])->name('stops.show');
         Route::get('/stops/{trip_id}', [StopsController::class, 'index'])->name('stops.index');
+
+        // rotta rating 
+        Route::resource('ratings', RatingController::class)->parameters(['ratings' => 'rating:id']);
     });
 
 Route::middleware('auth')->group(function () {

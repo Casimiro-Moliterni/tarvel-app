@@ -11,19 +11,19 @@ class Rating extends Model
     use HasFactory;
 
     protected $fillable = [
-        'id_trip',
-        'id_stop',
+        'stop_id',
+        'trip_id',
         'rating',
         'review',
     ];
 
     // Una valutazione può avere più viaggi
-    public function trip()
+    public function trips()
     {
-        return $this->belongsTo(Trip::class, 'id_trip');
+        return $this->hasMan(Trip::class);
     }
     
-    public function stop()
+    public function stops()
     {
         return $this->hasMany(Stop::class);
     }

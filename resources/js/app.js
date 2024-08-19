@@ -4,9 +4,11 @@ import * as bootstrap from 'bootstrap';
 import { constant, result, toUpper } from 'lodash';
 import './createStop';
 import './displayTel';
+import './ratingStar';
 import.meta.glob([
     '../img/**'
 ]);
+
 
 
 function getBtnToggle(btn, element) {

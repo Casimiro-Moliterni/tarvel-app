@@ -97,7 +97,7 @@ class TripController extends Controller
     {
         // Recupera il viaggio con l'ID specificato
         $trip = Trip::find($id);
-
+        
         // Verifica se il viaggio esiste
         if (!$trip) {
             abort(404, 'Trip not found');
@@ -107,15 +107,16 @@ class TripController extends Controller
         $startDate = Carbon::parse($trip->start_date);
         $endDate = Carbon::parse($trip->end_date);
         $daysRange = $startDate->toPeriod($endDate);
-    
+        // dd( $trip->rating);
         // Recupera tutti gli eventi del viaggio per il giorno preciso
         $events = Stop::where('id_trip', $id)->orderBy('time_start', 'asc')->get()->groupBy(function ($event) {
             return Carbon::parse($event->day)->format('d M Y');
         });
          
-        // dd($trip->rating()->get());
+        // dump($trip->rating->rating);
+        // dd($trip->rating->review);
 
-
+   
 
         // Passa i dati alla vista
         return view('admin.trips.show', compact('trip', 'daysRange', 'events'));

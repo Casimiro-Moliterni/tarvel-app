@@ -213,7 +213,7 @@ forms.forEach((form, formIndex) => {
                         if (error.response.status === 422) {
                             console.log('Errore 422');
                 
-                            // Verifica se ci sono messaggi di errore specifici nel corpo della risposta
+                             // Verifica se ci sono messaggi di errore specifici nel corpo della risposta
                             const errorMessage = error.response.data.message;
                 
                             if (errorMessage === 'L\'evento si sovrappone a un altro evento esistente.') {

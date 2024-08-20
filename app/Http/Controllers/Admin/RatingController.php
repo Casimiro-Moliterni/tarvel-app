@@ -37,41 +37,20 @@ class RatingController extends Controller
      */
     public function store(Request $request)
     {
-        // Validazione dei dati
-        $validator = Validator::make($request->all(), [
-            'trip_id' => 'required|integer|exists:trips,id',
-            'stop_id' => 'nullable|integer|exists:stops,id',
-            'rating' => 'required|integer|min:1|max:5', // Assicurati che la valutazione sia tra 1 e 5
-            'review' => 'nullable|string|min:3', // La recensione deve essere di almeno 3 caratteri se fornita
-        ]);
-
-        if ($validator->fails()) {
-            // Restituisci gli errori di validazione
-            return response()->json([
-                'status' => 'error',
-                'message' => 'Errore di validazione dei dati',
-                'errors' => $validator->errors(),
-            ], 422); // 422 Unprocessable Entity
-        }
-
+       
+        // Log dei dati ricevuti
+        \Log::info('Dati ricevuti:', $request->all());
         // Salva i dati se la validazione è superata
         try {
+            $validatedData = $this->validation($request->all());
             $rating = new Rating();
-            $rating->rating = $request->input('rating');
-            $rating->review = $request->input('review');
+            $rating->fill($validatedData);
             $rating->save();
 
-            return response()->json([
-                'status' => 'success',
-                'message' => 'Valutazione salvata con successo',
-            ], 200); // 200 OK
+            return response()->json(['status' => 'success', 'message' => 'Valutazione salvata con successo',], 200); // 200 OK
         } catch (\Exception $e) {
-            // Gestisci gli errori generali
-            return response()->json([
-                'status' => 'error',
-                'message' => 'Errore durante il salvataggio dei dati',
-                'error' => $e->getMessage(),
-            ], 500); // 500 Internal Server Error
+            // Restituisce una risposta JSON in caso di errore
+            return response()->json(['status' => 'error', 'message' => $e->getMessage()], 500);
         }
     }
 
@@ -127,7 +106,7 @@ class RatingController extends Controller
             [
                 'stop_id' => 'nullable|integer|exists:stops,id',
                 'trip_id' => 'required|integer|exists:trips,id',
-                'rating' => 'required|min:0.5|max:5',
+                'rating' => 'required|numeric|between:0.5,5',
                 'review' => 'nullable|string'
             ]
         )->validate();

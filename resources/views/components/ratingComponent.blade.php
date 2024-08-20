@@ -8,24 +8,14 @@
                 <fieldset class="rating ms-auto me-auto">
                     <input type="radio" id="star5" name="rating" value="5" class="star-input"/><label for="star5"
                         class="full" title="Awesome"></label>
-                    <input type="radio" id="star4.5" name="rating" value="4.5" class="star-input"/><label for="star4.5"
-                        class="half"></label>
                     <input type="radio" id="star4" name="rating" value="4" class="star-input"/><label for="star4"
                         class="full"></label>
-                    <input type="radio" id="star3.5" name="rating" value="3.5" class="star-input" /><label for="star3.5"
-                        class="half"></label>
                     <input type="radio" id="star3" name="rating" value="3" class="star-input"/><label for="star3"
                         class="full"></label>
-                    <input type="radio" id="star2.5" name="rating" value="2.5" class="star-input"/><label for="star2.5"
-                        class="half"></label>
                     <input type="radio" id="star2" name="rating" value="2" class="star-input"/><label for="star2"
                         class="full"></label>
-                    <input type="radio" id="star1.5" name="rating" value="1.5" class="star-input"/><label for="star1.5"
-                        class="half"></label>
                     <input type="radio" id="star1" name="rating" value="1" class="star-input" /><label for="star1"
                         class="full"></label>
-                    <input type="radio" id="star0.5" name="rating" value="0.5" class="star-input"/><label for="star0.5"
-                        class="half"></label>
                     <input type="hidden" name="trip_id" value="{{ $trip}}">
                     <input type="hidden" name="stop_id" value="{{ $stop}}">
                     <div class="error"></div>
@@ -36,7 +26,7 @@
                 <div class="textarea">
                     <textarea name="review" id="review" class="review" cols="30"></textarea>
                 </div>
-                <h4 id="rating-value" class="my-3"></h4>
+                <h4 id="rating-value" class="rating-value" class="my-3"></h4>
                 <div class="my-btn">
                     <button type="submit" id="submit-btn" class="btn btn-primary">Invia</button>
                 </div>
@@ -58,7 +48,7 @@
     }
 
     .center {
-        width: 162px;
+        /* width: 162px; */
         margin: auto;
     }
 
@@ -79,6 +69,7 @@
     }
 
     .rating>input {
+        
         display: none;
     }
 
@@ -86,7 +77,7 @@
         content: '\f005';
         font-family: FontAwesome;
         margin: 5px;
-        font-size: 1.5rem;
+        font-size: 5rem;
         display: inline-block;
         cursor: pointer;
     }

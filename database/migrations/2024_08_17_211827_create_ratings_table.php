@@ -17,7 +17,7 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('stop_id')->nullable();
             $table->unsignedBigInteger('trip_id');
-            $table->tinyInteger('rating')->unsigned();
+            $table->decimal('rating', 2, 1);
             $table->text('review')->nullable();
             $table->timestamps();
             $table->foreign('trip_id')->references('id')->on('trips')->onDelete('cascade');

@@ -108,7 +108,7 @@ class StopsController extends Controller
             $renderedView = view('components.accordionStops', ['event' => $newStop])->render();
 
             // Restituisce una risposta JSON con la vista renderizzata
-            return response()->json(['status' => 'success', 'html' => $renderedView, 'message' => 'Tappa aggiunta con successo!']);
+            return response()->json(['status' => 'success', 'html' => $renderedView , 'message' => 'Tappa aggiunta con successo!']);
         } catch (\Exception $e) {
             // Restituisce una risposta JSON in caso di errore
             return response()->json(['status' => 'error', 'message' => $e->getMessage()], 500);

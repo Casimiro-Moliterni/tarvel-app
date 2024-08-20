@@ -1,20 +1,13 @@
 @props(['event'])
 <h2>show sstop</h2>
 
-@foreach ($event->ratings as $rating)
-    @if (empty($rating->rating))
-        <div class="d-inline-block">
-            <x-ratingComponent :trip="$event->id_trip" :stop="$event->id" />
-        </div>
-    @else{
-        <div class="d-inline-block">
-            {{-- <x-ratingCard :event="$event" /> --}}
-        </div>
+<div class="d-inline-block">
+    <x-ratingComponent :trip="$event->id_trip" :stop="$event->id" />
+</div>
+<div class="d-inline-block" class="container-rating-star">
 
-        }
-    @endif
-@endforeach
-
+    <x-ratingCard :event="$event" />
+</div>
 
 
 @push('scripts')

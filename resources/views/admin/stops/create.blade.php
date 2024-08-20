@@ -69,14 +69,6 @@
                         value="{{ old('curiosities') }}">
                 </div>
             </div>
-            <div class="row">
-                <div class="form-group col">
-                    <label for="rating">Valutazione:</label>
-                    <input type="text" id="rating" name="rating" class="form-control "
-                        value="{{ old('rating') }}">
-                </div>
-            </div>
-
             <button type="submit" class="btn btn-primary mt-5">Salva Tappa</button>
         </form>
     </div>

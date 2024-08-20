@@ -24,6 +24,6 @@ class Trip extends Model
     }
     public function rating()
     {
-        return $this->hasOne(Rating::class, 'trip_id');
+        return $this->hasOne(Rating::class);
     }
 }

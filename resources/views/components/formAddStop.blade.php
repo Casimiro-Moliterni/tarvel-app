@@ -81,12 +81,6 @@
                 <textarea id="description" name="description" class="form-control">{{ old('description') }}</textarea>
                 <div class="error fs-3 text-danger "></div>
             </div>
-            <div class="form-group col">
-                <label for="rating">Valutazione:*</label>
-                <input type="text" id="rating" name="rating" class="form-control "
-                    value="{{ old('rating') }}">
-                <div class="error fs-3 text-danger "></div>
-            </div>
         </div>
 
         <button type="submit" class="btn  mt-5">Salva Tappa</button>

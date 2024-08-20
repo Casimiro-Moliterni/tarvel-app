@@ -84,12 +84,6 @@
                     <textarea id="description" name="description" class="form-control">{{ old('description', $stop->description) }}</textarea>
                     <div class="error text-danger"></div>
                 </div>
-                <div class="form-group col">
-                    <label for="rating">Valutazione:*</label>
-                    <input type="text" id="rating" name="rating" class="form-control"
-                        value="{{ old('rating', $stop->rating) }}">
-                    <div class="error text-danger"></div>
-                </div>
             </div>
 
             <button type="submit" class="btn btn-primary">Aggiorna Tappa</button>

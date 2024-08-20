@@ -270,7 +270,6 @@ document.querySelectorAll('#form-stop').forEach((form) => {
     const timeStart = form.querySelector('#time_start');
     const timeEnd = form.querySelector('#time_end');
     const description = form.querySelector('#description');
-    const rating = form.querySelector('#rating');
     const image = form.querySelector('#image');
 
     const latCountryInput = form.querySelector('#latCountry');
@@ -304,7 +303,6 @@ document.querySelectorAll('#form-stop').forEach((form) => {
         const descriptionValue = description.value.trim();
         const timeStartValue = timeStart.value.trim();
         const timeEndValue = timeEnd.value.trim();
-        const ratingValue = rating.value.trim();
         const imageFile = image.files[0];
 
         if (nameValue === '') {
@@ -329,13 +327,6 @@ document.querySelectorAll('#form-stop').forEach((form) => {
             isValid = false;
         } else {
             setSuccess(streetInput);
-        }
-
-        if (ratingValue === '') {
-            setError(rating, 'La valutazione è obbligatoria');
-            isValid = false;
-        } else {
-            setSuccess(rating);
         }
 
         if (imageFile && !['image/jpeg', 'image/png', 'image/gif', 'image/webp'].includes(imageFile.type)) {

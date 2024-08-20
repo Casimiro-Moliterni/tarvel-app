@@ -8,7 +8,6 @@ document.addEventListener('DOMContentLoaded', function () {
     const timeStarts = document.querySelectorAll('#time_start');
     const timeEnds = document.querySelectorAll('#time_end');
     const descriptions = document.querySelectorAll('#description');
-    const ratings = document.querySelectorAll('#rating');
     const images = document.querySelectorAll('#image');
     // const messages = document.querySelectorAll('messages');
 

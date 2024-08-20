@@ -1,6 +1,12 @@
 @props(['event'])
 <h2>show sstop</h2>
-<x-ratingComponent :trip="$event->id_trip" :stop="$event->id" />
+@if ($event->rating)
+
+@endif
+@dump($event->rating)
+@if($event->rating == null)
+<x-ratingComponent :trip="$event->id_trip" :stop="$event->id" />   
+@endif
     
 @push('scripts')
     @vite(['resources/js/app.js'])

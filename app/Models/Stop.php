@@ -10,7 +10,7 @@ class Stop extends Model
     use HasFactory;
 
     protected $fillable = [
-        'day','id_trip', 'name', 'image', 'description','country','city'  ,'street', 'foods', 'curiosities', 'rating',
+        'day','id_trip', 'name', 'image', 'description','country','city'  ,'street', 'foods', 'curiosities',
         'time_start','time_end','lonCountry','latCountry','lonCity','latCity','lonStreet','latStreet',
     ];
 
@@ -24,6 +24,6 @@ class Stop extends Model
     }
     public function rating()
     {
-        return $this->belongsTo(Rating::class, 'id_trip');
+        return $this->hasOne(Rating::class);
     }
 }

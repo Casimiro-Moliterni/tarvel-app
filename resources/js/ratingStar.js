@@ -1,13 +1,13 @@
 document.addEventListener('DOMContentLoaded', () => {
     const formsRatings = document.querySelectorAll('.form-rating');
-    console.log('Forms found:', formsRatings);
+    // console.log('Forms found:', formsRatings);
 
     formsRatings.forEach((formRating, formIndex) => {
         const stars = formRating.querySelectorAll('.star-input');
         const labels = formRating.querySelectorAll('fieldset label');
         const showValue = formRating.querySelector('.rating-value'); // Usa una classe invece di ID
         const review = formRating.querySelector('.review');
-        console.log(labels);
+        // console.log(labels);
     
         labels.forEach((label, index) => {
             label.addEventListener('click', function() {
@@ -20,7 +20,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     star.checked = true;
                     // Aggiorna il testo visualizzato con il valore dell'input radio
                     showValue.innerHTML = `${star.value} out of 5`;
-                    console.log(`Label clicked: ${star.value}`);
+                    // console.log(`Label clicked: ${star.value}`);
                 }
             });
         });
@@ -29,7 +29,7 @@ document.addEventListener('DOMContentLoaded', () => {
             star.addEventListener('click', function () {
                 const ratingValue = this.value;
                 showValue.innerHTML = `${ratingValue} out of 5`;
-                console.log(`Star clicked: ${ratingValue}`);
+                // console.log(`Star clicked: ${ratingValue}`);
             });
         });
 
@@ -71,7 +71,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         formRating.addEventListener('submit', e => {
             e.preventDefault();
-            console.log(`Form ${formIndex} - Submit event triggered`);
+            // console.log(`Form ${formIndex} - Submit event triggered`);
 
             if (validateInputs()) {
                 const url = formRating.getAttribute('data-url-rating');

@@ -9,12 +9,12 @@
                 <strong>Via:</strong> {{ $event->street }}
             </div>
                 
-            <a href="#" class="btn btn-warning" data-toggle="modal" data-target="#editStopModal-{{ $event->id }}">Modifica</a>
+            <a href="" class="btn btn-warning" data-toggle="modal" data-target="#editStopModal-{{ $event->id }}">Modifica</a>
             
         </summary>
         
         <div class="accordion-content p-2">
-            <x-ContentStopShow :event="$event" />
+            <x-ContentStopShow :event="$event"  />
         </div>
     </details>
 </div>

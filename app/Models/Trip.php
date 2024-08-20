@@ -22,8 +22,8 @@ class Trip extends Model
     public function user(){
         return $this->belongsTo(User::class,'id_user');
     }
-    public function rating()
+    public function ratings()
     {
-        return $this->hasOne(Rating::class);
+        return $this->hasMany(Rating::class,'trip_id');
     }
 }

@@ -22,8 +22,9 @@ class Stop extends Model
     {
         return $this->belongsTo(Trip::class,'id_trip');
     }
-    public function rating()
+    public function ratings()
     {
-        return $this->hasOne(Rating::class);
+        return $this->hasMany(Rating::class,'stop_id');
     }
+    
 }

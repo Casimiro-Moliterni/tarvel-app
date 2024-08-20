@@ -7,7 +7,8 @@
 <div class="d-inline-block">
     <x-ratingComponent :trip="$event->id_trip" :stop="$event->id" />
 </div>
-<div class="d-inline-block">
+<div class="d-inline-block" class="container-rating-star">
+  
     <x-ratingCard :event="$event" />
 </div>
  

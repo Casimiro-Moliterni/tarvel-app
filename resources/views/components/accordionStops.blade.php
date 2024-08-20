@@ -10,6 +10,8 @@
             </div>
                 
             <a href="#" class="btn btn-warning" data-toggle="modal" data-target="#editStopModal-{{ $event->id }}">Modifica</a>
+
+            <a href="#" class="btn btn-danger ml-2" data-toggle="modal" data-target="#deleteStopModal-{{ $event->id }}">Elimina</a>
             
         </summary>
         
@@ -32,6 +34,30 @@
                 </div>
                 <div class="modal-body">
                     @include('admin.stops.edit', ['stop' => $event])
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade my-bg-modal" id="deleteStopModal-{{ $event->id }}" tabindex="-1" role="dialog" aria-labelledby="deleteStopModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content my-bg">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="deleteStopModalLabel">Conferma Eliminazione</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p>Sei sicuro di voler eliminare la tappa "{{ $event->name }}"?</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
+                    <form action="{{ route('admin.stops.destroy', $event->id) }}" method="POST">
+                        @csrf
+                        @method('DELETE')
+                        <button type="submit" class="btn btn-danger">Sì, elimina</button>
+                    </form>                    
                 </div>
             </div>
         </div>

@@ -146,7 +146,7 @@ class StopsController extends Controller
         $stop = Stop::findOrFail($id);
         return view('admin.stops.edit', compact('stop'))->render(); // Render il form come stringa HTML
     }
-    
+
 
     /**
      * Update the specified resource in storage.
@@ -230,9 +230,16 @@ class StopsController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)
-    {
-        //
+    {   
+
+        $stop = Stop::findOrFail($id); 
+        $stop->delete();
+
+        return redirect()->route('admin.trips.show', ['trip' => $stop->id_trip]);
     }
+
+    
+
 
 
 

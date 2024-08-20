@@ -45,6 +45,8 @@ Route::middleware(['auth', 'verified'])
         Route::get('/stops/{trip_id}', [StopsController::class, 'index'])->name('stops.index');
         Route::get('/stops/{id}/edit', [StopsController::class, 'edit'])->name('stops.edit');
         Route::put('/stops/{id}', [StopsController::class, 'update'])->name('stops.update');
+        Route::delete('/destroy/{id}', [StopsController::class, 'destroy'])->name('stops.destroy');
+
 
         // rotta rating 
         Route::resource('ratings', RatingController::class)->parameters(['ratings' => 'rating:id']);

@@ -33,7 +33,6 @@ return new class extends Migration
             $table->double('latStreet', 15, 8)->nullable();
             $table->string('foods')->nullable();
             $table->string('curiosities')->nullable();
-            $table->string('rating');
             $table->timestamps();
 
             $table->foreign('id_trip')->references('id')->on('trips')->onDelete('cascade');

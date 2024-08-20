@@ -24,6 +24,6 @@ class Stop extends Model
     }
     public function rating()
     {
-        return $this->belongsTo(Rating::class, 'id_trip');
+        return $this->hasOne(Rating::class, 'id_trip');
     }
 }

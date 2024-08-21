@@ -1,5 +1,5 @@
 @props(['event', 'trip', 'stop'])
-
+{{-- contenitore stelle --}}
 @php
     $firstRating = $event->ratings->first();
     $ratingValue = $firstRating ? $firstRating->rating : 0;
@@ -22,6 +22,9 @@
     </section>
 </div>
 
+{{--/ contenitore stelle --}}
+
+{{-- contenitore form --}}
 <div class="my-wrapper-star {{ $firstRating ? 'd-none' : '' }}" id="ratingComponentWrapper-{{ $stop }}">
     <div class="rating-wrap">
         <h2>Star Rating</h2>
@@ -57,6 +60,7 @@
         </div>
     </div>
 </div>
+{{-- /contenitore form --}}
 
 
 <style>

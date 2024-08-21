@@ -1,7 +1,8 @@
-@props(['trip', 'stop'])
-<div class="my-wrapper-star">
+{{-- @props(['trip', 'stop'])
+<div class="my-wrapper-star" id="ratingComponentWrapper-{{ $stop }}">
     <div class="rating-wrap">
         <h2>Star Rating</h2>
+        @dump($stop)
         <div class="center">
             <form data-url-rating="{{ route('admin.ratings.store') }}" class="form-rating d-flex flex-column">
                 @csrf
@@ -34,6 +35,7 @@
         </div>
     </div>
 </div>
+
 
 <style>
     @import url(https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css);
@@ -107,4 +109,4 @@
     .rating>input:checked~label:hover~label {
         color: #2ddc76;
     }
-</style>
+</style> --}}

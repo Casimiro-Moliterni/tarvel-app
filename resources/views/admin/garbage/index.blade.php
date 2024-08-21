@@ -31,32 +31,37 @@
 
 
                     @foreach ($trips as $trip)
-                        <div class="col-sm-12 col-md-6 col-lg-4 col-xl-3 mb-4 position-relative">
-                            <article class="card">
-                                @if($trip->thumb)
-                                    <img class="card__background" src="{{ asset('storage/' . $trip->thumb) }}" >  
-                                @else
-                                    <img class=" card__background" style="object-position: center" src="{{ asset('img/default.png') }}">
-                                @endif
-                                <div class="card__content w-100">
-                                    <div class="card__content--container">
-                                        <h2 class="card__title pt-3">
-                                            <a class="link-warning link-underline-opacity-0">
-                                                {{ $trip->title }}
-                                            </a>
-                                        </h2>
-                                        <p class="card__description ">
-                                            {{ $trip->description }}
-                                        </p>
-                                    </div>
-                                    <div class="d-flex">
+                    <div class="col-sm-12 col-md-6 col-lg-4 col-xl-3 mb-4 position-relative">
+                        <article class="card">
+                            @if ($trip->thumb)
+                                <!-- Mostra l'immagine caricata dall'utente -->
+                                <img class="card__background" src="{{ asset('storage/' . $trip->thumb) }}">
+                            @elseif($trip->country && file_exists(public_path('img/country/' . $trip->country . '.png')))
+                                <!-- Mostra l'immagine specifica per il paese se non è stata caricata un'immagine -->
+                                <img class="card__background" style="object-position: center"
+                                    src="{{ asset('img/country/' . $trip->country . '.png') }}">
+                            @else
+                                <!-- Mostra l'immagine di default se non è stata caricata un'immagine e non esiste un'immagine specifica per il paese -->
+                                <img class="card__background" style="object-position: center"
+                                    src="{{ asset('img/default.png') }}">
+                            @endif
+
+                            <div class="card__content w-100">
+                                <div class="card__content--container">
+                                    <h2 class="card__title pt-3">
+                                        <a class="link-light link-underline-opacity-0"
+                                            href="{{ route('admin.trips.show', ['trip' => $trip->id]) }}">
+                                            {{ $trip->title }}
+                                        </a>
+                                    </h2>
+                                </div>
+                                <div class="d-flex mt-3 gap-2">
                                         @if ($trip->trashed())
                                         <form action="{{ route('admin.garbages.restore', $trip->id) }}"
                                         method="POST">
                                         @csrf
                                             <button type="submit" class="btn btn-success ms-index rounded-pill">
-                                                <i class="fa-regular fa-hand-point-up"></i>
-                                                 Ripristina
+                                                <i class="fa-solid fa-recycle"></i>
                                             </button>
                                         </form>
                                     @endif

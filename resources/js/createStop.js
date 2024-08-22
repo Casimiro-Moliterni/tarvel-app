@@ -20,9 +20,9 @@ document.querySelectorAll('#form-stop').forEach((form) => {
     const lonStreetInput = form.querySelector('#lonStreet');
 
     // Suggerimenti per strada, città e paese 
-    const countrySuggestions = document.getElementById('countrySuggestions');
-    const citySuggestions = document.getElementById('citySuggestions');
-    const streetSuggestions = document.getElementById('streetSuggestions');
+    const countrySuggestions = form.querySelector('#countrySuggestions');
+    const citySuggestions = form.querySelector('#citySuggestions');
+    const streetSuggestions = form.querySelector('#streetSuggestions');
 
     let latCountryInputValue = null;
     let lonCountryInputValue = null;
@@ -334,7 +334,7 @@ document.querySelectorAll('#form-stop').forEach((form) => {
         // console.log('Subdivision Code:', streetCountrySubdivisionCode);
 
         if (query.length > 0) {
-            let fetchUrl = `https://api.tomtom.com/search/2/search/${query}.json?key=Lb3Y9TzHCIBgIZGwPcaOlJA0onuuVdnP&language=it-IT`;
+            let fetchUrl = `https://api.tomtom.com/search/2/search/${query}.json?key=Lb3Y9TzHCIBgIZGwPcaOlJA0onuuVdnP&language=it-IT&limit=5`;
             if (streetCountryCode) {
                 fetchUrl += `&countrySet=${streetCountryCode}`;
             }

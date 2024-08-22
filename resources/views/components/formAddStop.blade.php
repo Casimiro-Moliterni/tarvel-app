@@ -21,7 +21,7 @@
                 <div class="error fs-3 text-danger "></div>
                 <input type="hidden" id="latCountry" name="latCountry" class="form-control">
                 <input type="hidden" id="lonCountry" name="lonCountry" class="form-control">
-                <div id="countrySuggestions" class="list-group position-absolute fs-3 w-100 bg-secondary">
+                <div id="countrySuggestions" class="list-group position-absolute fs-3 bg-secondary">
                 </div>
                 <div class="invalid-feedback" id="countryError"></div>
             </div>
@@ -33,7 +33,7 @@
                 <div class="error fs-3 text-danger "></div>
                 <input type="hidden" id="latStreet" name="latStreet" class="form-control">
                 <input type="hidden" id="lonStreet" name="lonStreet" class="form-control">
-                <div id="streetSuggestions" class="list-group position-absolute fs-3 w-100 bg-secondary">
+                <div id="streetSuggestions" class="list-group position-absolute fs-3 bg-secondary">
                 </div>
                 <div class="invalid-feedback" id="countryError"></div>
             </div>
@@ -43,7 +43,7 @@
                 <div class="error fs-3 text-danger "></div>
                 <input type="hidden" id="latCity" name="latCity" class="form-control">
                 <input type="hidden" id="lonCity" name="lonCity" class="form-control">
-                <div id="citySuggestions" class="list-group position-absolute fs-3 w-100 bg-secondary">
+                <div id="citySuggestions" class="list-group position-absolute fs-3 bg-secondary">
                 </div>
                 <div class="invalid-feedback" id="cityError"></div>
             </div>

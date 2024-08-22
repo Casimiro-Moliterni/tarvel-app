@@ -14,8 +14,9 @@ class Stop extends Model
         'time_start','time_end','lonCountry','latCountry','lonCity','latCity','lonStreet','latStreet',
     ];
 
-    public function notes(){
-        return $this->hasMany(note::class);
+    public function notes()
+    {
+        return $this->hasMany(Note::class, 'id_stop');
     }
 
     public function trip()

@@ -15,11 +15,12 @@ return new class extends Migration
     {
         Schema::create('notes', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('id_note');
+            $table->unsignedBigInteger('id_stop');  // Chiave esterna che fa riferimento alla tabella 'stops'
             $table->string('text');
             $table->timestamps();
 
-            $table->foreign('id_note')->references('id')->on('notes')->onDelete('cascade');
+            // Definizione della chiave esterna
+            $table->foreign('id_stop')->references('id')->on('stops')->onDelete('cascade');
         });
     }
 

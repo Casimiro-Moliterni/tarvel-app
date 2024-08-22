@@ -195,14 +195,6 @@ class TripController extends Controller
         return redirect()->route('admin.trips.index')->with('status', 'User restored successfully.');
     }
 
-    // public function forceDelete($id)
-    // {
-    //     $trip = Trip::withTrashed()->find($id);
-    //     $trip->forceDelete();
-    //     session()->flash('apartments_forceDelete', true);
-    //     return redirect()->back();
-    // }
-
     public function restoreAll() //--------------------------------------------------------------------------------------------------------
     {
         Trip::onlyTrashed()->restore();

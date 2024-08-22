@@ -39,7 +39,7 @@ class RatingController extends Controller
     {
        
         // Log dei dati ricevuti
-        \Log::info('Dati ricevuti:', $request->all());
+        // \Log::info('Dati ricevuti:', $request->all());
         // Salva i dati se la validazione è superata
         try {
             $validatedData = $this->validation($request->all());

@@ -6,7 +6,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\StopsController;
 use App\Http\Controllers\Admin\TripController;
-
+use App\Http\Controllers\NoteController;
 
 /*
 |--------------------------------------------------------------------------
@@ -46,6 +46,11 @@ Route::middleware(['auth', 'verified'])
         Route::get('/stops/{id}/edit', [StopsController::class, 'edit'])->name('stops.edit');
         Route::put('/stops/{id}', [StopsController::class, 'update'])->name('stops.update');
         Route::delete('/destroy/{id}', [StopsController::class, 'destroy'])->name('stops.destroy');
+
+        // rotta note 
+        Route::resource('notes', NoteController::class)->parameters(['notes' => 'note:id']);
+        Route::post('/admin/notes', [NoteController::class, 'store'])->name('admin.notes.store');
+
 
 
         // rotta rating 

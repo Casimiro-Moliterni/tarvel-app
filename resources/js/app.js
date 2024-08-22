@@ -65,14 +65,18 @@ function getMatchScore(query, name) {
     const lowerName = name.toLowerCase();
     return lowerName.indexOf(lowerQuery);
 }
+// funzione globale per il formato del text 
+window.getMatchScore = getMatchScore;
 
 document.addEventListener('DOMContentLoaded', function () {
-
+    // funzione e costanti per lo show del form della tappa  
     const btnFormStop = document.querySelectorAll('#btnFormStop');
     const iconBtnFormStop = document.querySelectorAll('#icon-btn-form-stop');
     const myAccordionCreate = document.querySelectorAll('#my-accordion-create');
     const formStop = document.querySelectorAll('#formStop');
     getShowElement(btnFormStop, formStop, 'd-none', iconBtnFormStop,myAccordionCreate)
+
+      
     const countryInput = document.getElementById('country');
     const cityInput = document.getElementById('city');
     const titleInput = document.getElementById('title');
@@ -104,7 +108,7 @@ document.addEventListener('DOMContentLoaded', function () {
         }
 
         if (query.length > 0) {
-            fetch(`https://api.tomtom.com/search/2/search/${query}.json?key=gL9ZtbIAAG015MVGDPOpgKihr8t9e4n0&language=it-IT&typeahead=true&idxSet=Geo`)
+            fetch(`https://api.tomtom.com/search/2/search/${query}.json?key=tNdeH4PSEGzxLQ1CKK0HdCagLd1BsXSc&language=it-IT&typeahead=true&idxSet=Geo`)
                 .then(response => response.json())
                 .then(data => {
                     countrySuggestions.innerHTML = '';
@@ -200,7 +204,7 @@ document.addEventListener('DOMContentLoaded', function () {
         }
 
         if (query.length > 0) {
-            let fetchUrl = `https://api.tomtom.com/search/2/search/${query}.json?key=gL9ZtbIAAG015MVGDPOpgKihr8t9e4n0&language=it-IT`;
+            let fetchUrl = `https://api.tomtom.com/search/2/search/${query}.json?key=tNdeH4PSEGzxLQ1CKK0HdCagLd1BsXSc&language=it-IT&entityTypeSet=Municipality`;
 
             if (cityCountryCode) {
                 fetchUrl += `&countrySet=${cityCountryCode}`;
@@ -213,7 +217,7 @@ document.addEventListener('DOMContentLoaded', function () {
                     const suggestions = [];
 
                     data.results.forEach(result => {
-                        const city = result.address.municipality;
+                        const city = result.address.freeformAddress;
                         if (city && !cities.has(city) && city.toLowerCase().includes(query)) {
                             cities.add(city);
                             suggestions.push({
@@ -251,7 +255,7 @@ document.addEventListener('DOMContentLoaded', function () {
                                 cityCodeValue = suggestion.countryCode;
                                 // chiamata api per salvare la latitudine e longitudine del country 
                                 if (!cityCountryCode) {
-                                    fetch(`https://api.tomtom.com/search/2/search/${cityCodeValue}.json?key=gL9ZtbIAAG015MVGDPOpgKihr8t9e4n0&countrySet=${cityCodeValue}&limit=1&language=it-IT`)
+                                    fetch(`https://api.tomtom.com/search/2/search/${cityCodeValue}.json?key=tNdeH4PSEGzxLQ1CKK0HdCagLd1BsXSc&countrySet=${cityCodeValue}&limit=1&language=it-IT`)
                                         .then(response => response.json())
                                         .then(data => {
                                             data.results.forEach(result => {

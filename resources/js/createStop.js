@@ -1,268 +1,7 @@
-// const forms = document.querySelectorAll('#form-stop');
-
-// forms.forEach((form, formIndex) => {
-//     const cityInput = document.querySelectorAll('#city')[formIndex];
-//     const countryInput = document.querySelectorAll('#country')[formIndex];
-//     const streetInput = document.querySelectorAll('#street')[formIndex];
-//     const name = document.querySelectorAll('#name')[formIndex];
-//     const timeStart = document.querySelectorAll('#time_start')[formIndex];
-//     const timeEnd = document.querySelectorAll('#time_end')[formIndex];
-//     const description = document.querySelectorAll('#description')[formIndex];
-//     const rating = document.querySelectorAll('#rating')[formIndex];
-//     const image = document.querySelectorAll('#image')[formIndex];
-
-//     const latCountryInput = document.querySelectorAll('#latCountry')[formIndex];
-//     const lonCountryInput = document.querySelectorAll('#lonCountry')[formIndex];
-//     const latCityInput = document.querySelectorAll('#latCity')[formIndex];
-//     const lonCityInput = document.querySelectorAll('#lonCity')[formIndex];
-//     const latStreetInput = document.querySelectorAll('#latStreet')[formIndex];
-//     const lonStreetInput = document.querySelectorAll('#lonStreet')[formIndex];
-
-//     const setSuccess = (element) => {
-//         const inputControl = element.parentElement;
-//         const errorDisplay = inputControl.querySelector('.error');
-//         errorDisplay.innerText = '';
-//         inputControl.classList.add('success');
-//         inputControl.classList.remove('error');
-//     };
-
-//     const setError = (element, message) => {
-//         const inputControl = element.parentElement;
-//         const errorDisplay = inputControl.querySelector('.error');
-//         errorDisplay.innerText = message;
-//         inputControl.classList.add('error');
-//         inputControl.classList.remove('success');
-//     };
-
-//     const validateInputs = () => {
-//         let isValid = true;
-
-//         const nameValue = name.value.trim();
-//         const streetValue = streetInput.value.trim();
-//         const descriptionValue = description.value.trim();
-//         const timeStartValue = timeStart.value.trim();
-//         const timeEndValue = timeEnd.value.trim();
-//         const ratingValue = rating.value.trim();
-//         const imageFile = image.files[0];
-
-//         if (nameValue === '') {
-//             setError(name, 'Il titolo è obbligatorio');
-//             isValid = false;
-//         } else if (nameValue.length <= 3) {
-//             setError(name, 'Il campo titolo deve essere almeno di 3 caratteri');
-//             isValid = false;
-//         } else {
-//             setSuccess(name);
-//         }
-
-//         if (descriptionValue !== '' && descriptionValue.length < 5) {
-//             setError(description, 'La descrizione deve essere di almeno 5 caratteri se fornita');
-//             isValid = false;
-//         } else {
-//             setSuccess(description);
-//         }
-
-//         if (streetValue === '') {
-//             setError(streetInput, 'La destinazione è obbligatoria');
-//             isValid = false;
-//         } else {
-//             setSuccess(streetInput);
-//         }
-
-//         if (ratingValue === '') {
-//             setError(rating, 'La valutazione è obbligatoria');
-//             isValid = false;
-//         } else {
-//             setSuccess(rating);
-//         }
-
-//         if (imageFile && !['image/jpeg', 'image/png', 'image/gif', 'image/webp'].includes(imageFile.type)) {
-//             setError(image, 'Se fornito, il file deve essere un\'immagine (JPEG, PNG, GIF, WEBP)');
-//             isValid = false;
-//         } else {
-//             setSuccess(image);
-//         }
-
-//         if (timeStartValue === '') {
-//             setError(timeStart, 'L\'orario di inizio è obbligatorio');
-//             isValid = false;
-//         } else if (!/^\d{2}:\d{2}$/.test(timeStartValue)) {
-//             setError(timeStart, 'L\'orario di inizio deve essere nel formato HH:mm');
-//             isValid = false;
-//         } else {
-//             setSuccess(timeStart);
-//         }
-
-//         if (timeEndValue === '') {
-//             setError(timeEnd, 'L\'orario di fine è obbligatorio');
-//             isValid = false;
-//         } else if (!/^\d{2}:\d{2}$/.test(timeEndValue)) {
-//             setError(timeEnd, 'L\'orario di fine deve essere nel formato HH:mm');
-//             isValid = false;
-//         } else if (new Date(`1970-01-01T${timeEndValue}:00Z`) <= new Date(`1970-01-01T${timeStartValue}:00Z`)) {
-//             setError(timeEnd, 'L\'orario di fine deve essere successivo a quello di inizio');
-//             isValid = false;
-//         } else {
-//             setSuccess(timeEnd);
-//         }
-//         if (/* condizione di sovrapposizione */ false) {  // Cambia questa condizione a seconda della logica
-//             setError(timeStart, 'L\'evento si sovrappone a un altro evento esistente.');
-//             isValid = false;
-//         } else {
-//             setSuccess(timeStart);
-//         }
-
-//         return isValid;
-//     };
-
-//     countryInput.addEventListener('input', function () {
-//         const query = countryInput.value.trim().toLowerCase();
-//         if (query.length > 0) {
-//             // Replace with actual API request to get lat/lon
-//             latCountryInput.value = 45.96937700;
-//             lonCountryInput.value = 8.97064700;
-//             // console.log(
-//             //     'paese:' + query,
-//             //     'lat:' + latCountryInput.value,
-//             //     'lon:' + lonCountryInput.value
-//             // );
-//         }
-//     });
-
-//     cityInput.addEventListener('input', function () {
-//         const query = cityInput.value.trim().toLowerCase();
-//         if (query.length > 0) {
-//             // Replace with actual API request to get lat/lon
-//             latCityInput.value = 45.96937700;
-//             lonCityInput.value = 8.97064700;
-//             // console.log(
-//             //     'city:' + query,
-//             //     'lat:' + latCityInput.value,
-//             //     'lon:' + lonCityInput.value
-//             // );
-//         }
-//     });
-
-//     streetInput.addEventListener('input', function () {
-//         const query = streetInput.value.trim().toLowerCase();
-//         if (query.length > 0) {
-//             // Replace with actual API request to get lat/lon
-//             latStreetInput.value = 45.96937700;
-//             lonStreetInput.value = 8.97064700;
-//             // console.log(
-//             //     'street:' + query,
-//             //     'lat:' + latStreetInput.value,
-//             //     'lon:' + lonStreetInput.value
-//             // );
-//         }
-//     });
-
-//     form.addEventListener('submit', e => {
-//         e.preventDefault();
-
-//         if (validateInputs()) {
-
-//             // questo url lo trovi nel tag form nella pagina formAddStop.blade.php 
-//             const url = form.getAttribute('data-url');
-            
-//             axios.post(url, new FormData(form))
-//                 .then(response => {
-//                     if (response.data.status === 'success') {
-//                         form.reset()
-//                         console.log('Dati del form validati con successo.');
-//                         const successMessage = $('<div class="success-message">Tappa creata con successo!</div>');
-//                         $('body').append(successMessage);
-//                         successMessage.css({
-//                             position: 'fixed',
-//                             top: '20px',
-//                             left: '50%',
-//                             transform: 'translateX(-50%)',
-//                             backgroundColor: '#28a745',
-//                             color: '#fff',
-//                             padding: '10px 20px',
-//                             borderRadius: '5px',
-//                             zIndex: 1000,
-//                             fontSize: '16px',
-//                             display: 'none'
-//                         }).fadeIn();
-
-//                         const stopsContainerSelector = form.getAttribute('data-index');
-//                         const stopsContainer = document.querySelector(`.stops-container[data-index="${stopsContainerSelector}"]`);
-
-//                         setTimeout(() => {
-//                             successMessage.remove()
-//                             // Scorri fino al nuovo elemento creato
-//                             if (stopsContainer) {
-//                                 stopsContainer.insertAdjacentHTML('beforeend', response.data.html);
-//                                 const newElement = stopsContainer.lastElementChild;
-//                                 if (newElement) {
-//                                     newElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
-//                                 }
-//                             } else {
-//                                 console.error(`Contenitore non trovato con il selettore: ${stopsContainerSelector}`);
-//                             }
-//                             // Svuota il modulo e riabilitalo
-//                         }, 2000);
-//                     } else {
-//                         console.error('Errore durante la validazione dei dati:', response.data.message);
-//                     }
-//                 })
-//                 .catch(error => {
-//                     if (error.response) {
-//                         // L'errore ha una risposta dal server
-//                         if (error.response.status === 422) {
-//                             console.log('Errore 422');
-                
-//                              // Verifica se ci sono messaggi di errore specifici nel corpo della risposta
-//                             const errorMessage = error.response.data.message;
-                
-//                             if (errorMessage === 'L\'evento si sovrappone a un altro evento esistente.') {
-//                                 // Mostra un messaggio di errore specifico
-//                                 const errorDisplay = $('<div class="error-message">' + errorMessage + '</div>');
-//                                 $('body').append(errorDisplay);
-                
-//                                 errorDisplay.css({
-//                                     position: 'fixed',
-//                                     top: '20px',
-//                                     left: '50%',
-//                                     transform: 'translateX(-50%)',
-//                                     backgroundColor: '#dc3545',
-//                                     color: '#fff',
-//                                     padding: '10px 20px',
-//                                     borderRadius: '5px',
-//                                     zIndex: 1000,
-//                                     fontSize: '16px',
-//                                     display: 'none'
-//                                 }).fadeIn();
-                
-//                                 // Rimuove il messaggio di errore dopo 3 secondi
-//                                 setTimeout(function () {
-//                                     errorDisplay.fadeOut(function () {
-//                                         $(this).remove();
-//                                     });
-//                                 }, 3000);
-//                             } else {
-//                                 // Gestione di altri errori
-//                                 console.log('Altri errori 422:', error.response.data);
-//                             }
-//                         } else {
-//                             // Gestisci altri codici di stato di errore
-//                             console.log('Errore HTTP:', error.response.status, error.response.data);
-//                         }
-//                     } else if (error.request) {
-//                         // Il server non ha risposto
-//                         console.error('Errore di rete:', error.request);
-//                     } else {
-//                         // Errore di configurazione della richiesta
-//                         console.error('Errore nella richiesta:', error.message);
-//                     }
-//                 });
-                
-// }
-//     });
-// });
 
 document.querySelectorAll('#form-stop').forEach((form) => {
+
+    // Input per creare tappa 
     const cityInput = form.querySelector('#city');
     const countryInput = form.querySelector('#country');
     const streetInput = form.querySelector('#street');
@@ -272,6 +11,7 @@ document.querySelectorAll('#form-stop').forEach((form) => {
     const description = form.querySelector('#description');
     const image = form.querySelector('#image');
 
+    // Input hidden per le coordinate di paese città e strada 
     const latCountryInput = form.querySelector('#latCountry');
     const lonCountryInput = form.querySelector('#lonCountry');
     const latCityInput = form.querySelector('#latCity');
@@ -279,6 +19,19 @@ document.querySelectorAll('#form-stop').forEach((form) => {
     const latStreetInput = form.querySelector('#latStreet');
     const lonStreetInput = form.querySelector('#lonStreet');
 
+    // Suggerimenti per strada, città e paese 
+    const countrySuggestions = document.getElementById('countrySuggestions');
+    const citySuggestions = document.getElementById('citySuggestions');
+    const streetSuggestions = document.getElementById('streetSuggestions');
+
+    let latCountryInputValue = null;
+    let lonCountryInputValue = null;
+    let countryCodeValue = null;
+    let cityCodeValue = null;
+    let cityCountrySubdivisionCod = null;
+    let selectedCity = null;
+    let streetCodeValue = null;
+    let streetSubdivisonValue = null ;
     const setSuccess = (element) => {
         const inputControl = element.parentElement;
         const errorDisplay = inputControl.querySelector('.error');
@@ -359,43 +112,329 @@ document.querySelectorAll('#form-stop').forEach((form) => {
             setSuccess(timeEnd);
         }
 
-        if (/* Condizione di sovrapposizione eventi */ false) {
-            setError(timeStart, 'L\'evento si sovrappone a un altro evento esistente.');
-            isValid = false;
-        } else {
-            setSuccess(timeStart);
-        }
-
         return isValid;
     };
 
+    // Gestione input per la ricerca di Paese
     countryInput.addEventListener('input', function () {
-        const query = countryInput.value.trim().toLowerCase();
+        let query = countryInput.value.trim().toLowerCase();
+        if (cityInput.value && countryCodeValue !== cityCodeValue) {
+            cityInput.value = '';
+        }
+        // Se il paese viene cancellato, resettare il campo città
+        if (query === '') {
+            cityInput.value = '';
+            streetInput.value="";
+            latCityInput.value = '';
+            lonCityInput.value = '';
+            streetCodeValue="";
+            selectedCity = null; // Resetta la selezione della città
+            countryCodeValue = null; // Resetta il countryCode del paese
+            cityCodeValue = null; // Resetta il countryCode della città
+        }
+
         if (query.length > 0) {
-            // Implementare richiesta API per lat/lon
-            latCountryInput.value = 45.96937700;
-            lonCountryInput.value = 8.97064700;
+            let fetchUrl = (`https://api.tomtom.com/search/2/search/${query}.json?key=Lb3Y9TzHCIBgIZGwPcaOlJA0onuuVdnP&language=it-IT&typeahead=true&idxSet=Geo`);
+
+            fetch(fetchUrl)
+                .then(response => response.json())
+                .then(data => {
+                    countrySuggestions.innerHTML = '';
+                    citySuggestions.innerHTML = '';
+
+                    const countries = new Set();
+                    const suggestions = [];
+
+                    data.results.forEach(result => {
+                        const country = result.address.country;
+                        if (country && !countries.has(country) && country.toLowerCase().includes(query)) {
+                            countries.add(country);
+                            suggestions.push({
+                                country: result.address.country,
+                                countryCode: result.address.countryCode,
+                                lat: result.position.lat,
+                                lon: result.position.lon,
+                                score: getMatchScore(query, country)
+                            });
+                        }
+                    });
+
+                    suggestions.sort((a, b) => a.score - b.score);
+
+                    if (suggestions.length > 0) {
+                        suggestions.forEach(suggestion => {
+                            const suggestionElem = document.createElement('a');
+                            suggestionElem.href = "#";
+                            suggestionElem.classList.add('list-group-item', 'list-group-item-action', 'd-flex', 'align-items-center', 'my-suggestion');
+
+                            const countryText = document.createElement('span');
+                            countryText.innerHTML = `
+                            <i class="fa-solid fa-earth-americas"></i>
+                            ${suggestion.country}
+                            `;
+                            countryText.classList.add('d-flex', 'align-items-center', 'gap-2');
+                            suggestionElem.appendChild(countryText);
+
+                            suggestionElem.addEventListener('click', function (e) {
+                                e.preventDefault();
+                                countryInput.value = suggestion.country;
+                                latCountryInput.value = suggestion.lat;
+                                lonCountryInput.value = suggestion.lon;
+                                latCountryInputValue = suggestion.lat;
+                                lonCountryInputValue = suggestion.lon;
+                                countryCodeValue = suggestion.countryCode;
+                                cityInput.value = "";
+                                citySuggestions.innerHTML = '';
+                                countrySuggestions.innerHTML = '';
+
+                                console.log(
+                                    'siamo i valori cambiati :',
+                                    countryInput.value,
+                                    latCountryInput.value,
+                                    lonCountryInput.value
+                                );
+                            });
+                            countrySuggestions.appendChild(suggestionElem);
+                        });
+                    } else {
+                        const noResults = document.createElement('div');
+                        noResults.textContent = 'Nessun paese trovato.';
+                        noResults.classList.add('list-group-item', 'list-group-item-action');
+                        countrySuggestions.appendChild(noResults);
+                    }
+                })
+                .catch(error => console.error('Errore nel recupero dei suggerimenti di paesi:', error));
+        } else {
+            countrySuggestions.innerHTML = '';
         }
     });
 
+    // Gestione input per la ricerca di Città
     cityInput.addEventListener('input', function () {
         const query = cityInput.value.trim().toLowerCase();
+        let cityCountryCode = countryCodeValue || null;
+
+        if (query.length === 0) {
+            cityInput.value = "";
+            lonCityInput.value = "";
+            latCityInput.value = "";
+            selectedCity = null; // Resetta la selezione della città
+            streetInput.value = "";
+            lonStreetInput.value = "";
+            latStreetInput.value = "";
+            streetCodeValue = null;
+            streetSubdivisonValue = null;
+        }
+
         if (query.length > 0) {
-            // Implementare richiesta API per lat/lon
-            latCityInput.value = 45.96937700;
-            lonCityInput.value = 8.97064700;
+            let fetchUrl = `https://api.tomtom.com/search/2/search/${query}.json?key=Lb3Y9TzHCIBgIZGwPcaOlJA0onuuVdnP&language=it-IT`;
+
+            if (cityCountryCode) {
+                fetchUrl += `&countrySet=${cityCountryCode}`;
+            }
+            fetch(fetchUrl)
+                .then(response => response.json())
+                .then(data => {
+                    citySuggestions.innerHTML = '';
+                    const cities = new Set();
+                    const suggestions = [];
+
+                    data.results.forEach(result => {
+                        const city = result.address.municipality;
+                        if (city && !cities.has(city) && city.toLowerCase().includes(query)) {
+                            cities.add(city);
+                            suggestions.push({
+                                freeformAddress: result.address.freeformAddress,
+                                country: result.address.country,
+                                countryCode: result.address.countryCode,
+                                countrySubdivisionCode: result.address.countrySubdivisionCode,
+                                lat: result.position.lat,
+                                lon: result.position.lon,
+                                score: getMatchScore(query, city)
+                            });
+                        }
+                    });
+
+                    suggestions.sort((a, b) => a.score - b.score);
+
+                    if (suggestions.length > 0) {
+                        suggestions.forEach(suggestion => {
+                            const suggestionElem = document.createElement('a');
+                            suggestionElem.href = "#";
+                            suggestionElem.classList.add('list-group-item', 'list-group-item-action', 'd-flex', 'align-items-center', 'my-suggestion');
+
+                            const cityText = document.createElement('span');
+                            cityText.innerHTML = `
+                            <i class="fa-solid fa-location-dot"></i>
+                            ${suggestion.freeformAddress}`;
+                            cityText.classList.add('d-flex', 'align-items-center', 'gap-3');
+                            suggestionElem.appendChild(cityText);
+
+                            suggestionElem.addEventListener('click', function (e) {
+                                e.preventDefault();
+
+                                cityInput.value = suggestion.freeformAddress;
+                                latCityInput.value = suggestion.lat;
+                                lonCityInput.value = suggestion.lon;
+                                cityCodeValue = suggestion.countryCode;
+                                selectedCity = suggestion.freeformAddress; // Imposta la città selezionata
+                                cityCountrySubdivisionCod = suggestion.countrySubdivisionCode;
+                                citySuggestions.innerHTML = '';
+
+                                // Chiamata API per aggiornare la latitudine e longitudine del paese
+                                if (!cityCountryCode) {
+                                    fetch(`https://api.tomtom.com/search/2/search/${cityCodeValue}.json?key=Lb3Y9TzHCIBgIZGwPcaOlJA0onuuVdnP&countrySet=${cityCodeValue}&limit=1&language=it-IT`)
+                                        .then(response => response.json())
+                                        .then(data => {
+                                            data.results.forEach(result => {
+                                                latCountryInputValue = result.position.lat;
+                                                lonCountryInputValue = result.position.lon;
+                                                // Aggiorna il paese se non è già impostato
+                                                if (countryInput.value === '' || countryCodeValue !== cityCodeValue) {
+                                                    countryInput.value = suggestion.country;
+                                                    latCountryInput.value = result.position.lat;
+                                                    lonCountryInput.value = result.position.lon;
+                                                    latCountryInputValue = result.position.lat;
+                                                    lonCountryInputValue = result.position.lon;
+                                                    countryCodeValue = result.address.countryCode;
+                                                }
+                                                console.log('info country:     ' + latCountryInputValue, lonCountryInputValue, countryCodeValue);
+                                                console.log('city:             ' + latCityInput.value, lonCityInput.value, cityCodeValue);
+                                            });
+                                        })
+                                        .catch(error => console.error('Errore nella ricerca del paese:', error));
+                                }
+                            });
+
+                            citySuggestions.appendChild(suggestionElem);
+                        });
+                    } else {
+                        cityInput.classList.remove('color-input', 'text-warning');
+                        const noResults = document.createElement('div');
+                        noResults.textContent = 'Nessuna città trovata.';
+                        noResults.classList.add('list-group-item', 'list-group-item-action');
+                        citySuggestions.appendChild(noResults);
+                    }
+                })
+                .catch(error => console.error('Errore nel recupero dei suggerimenti di città:', error));
+        } else {
+            citySuggestions.innerHTML = '';
         }
     });
 
+    // Gestione input per la ricerca di Strada
     streetInput.addEventListener('input', function () {
-        const query = streetInput.value.trim().toLowerCase();
+
+        const query = streetInput.value.trim();
+        let streetCountryCode = countryCodeValue || cityCodeValue || null;
+        let streetCountrySubdivisionCode = cityCountrySubdivisionCod || null;
+
+        // console.log('Query:', query);
+        // console.log('Country Code:', streetCountryCode);
+        // console.log('Subdivision Code:', streetCountrySubdivisionCode);
+
         if (query.length > 0) {
-            // Implementare richiesta API per lat/lon
-            latStreetInput.value = 45.96937700;
-            lonStreetInput.value = 8.97064700;
+            let fetchUrl = `https://api.tomtom.com/search/2/search/${query}.json?key=Lb3Y9TzHCIBgIZGwPcaOlJA0onuuVdnP&language=it-IT`;
+            if (streetCountryCode) {
+                fetchUrl += `&countrySet=${streetCountryCode}`;
+            }
+
+            fetch(fetchUrl)
+                .then(response => response.json())
+                .then(data => {
+                    streetSuggestions.innerHTML = '';
+                    // console.log('Total results:', data.results.length);
+
+                    let displayedResults = 0;
+
+                    data.results.forEach(result => {
+                        let shouldDisplay = true;
+
+                        // Filtra per countrySubdivisionCode se disponibile
+                        if (streetCountrySubdivisionCode && result.address.countrySubdivisionCode !== streetCountrySubdivisionCode) {
+                            shouldDisplay = false;
+                        }
+
+                        // Se il filtro non è attivo, escludi risultati generici con solo country o municipality
+                        if (!streetCountrySubdivisionCode &&
+                            (!result.address.streetName && !result.address.postalCode)) {
+                            shouldDisplay = false;
+                        }
+
+                        if (shouldDisplay) {
+                            displayedResults++;
+                            const suggestion = document.createElement('a');
+                            suggestion.href = "#";
+                            suggestion.classList.add('list-group-item', 'list-group-item-action');
+                            suggestion.textContent = result.address.freeformAddress;
+
+                            suggestion.addEventListener('click', function (e) {
+                                e.preventDefault();
+                                streetInput.value = result.address.freeformAddress;
+                                latStreetInput.value = result.position.lat;
+                                lonStreetInput.value = result.position.lon;
+                                streetCodeValue = result.address.countryCode;
+                                streetSubdivisonValue = result.address.countrySubdivisionCode
+                                streetSuggestions.innerHTML = '';
+
+                                console.log(result)
+                                console.log(streetCountryCode)
+
+                                if (!streetCountryCode) {
+                                    let fetchUrl = `https://api.tomtom.com/search/2/search/${result.address.municipality}.json?key=Lb3Y9TzHCIBgIZGwPcaOlJA0onuuVdnP&countrySet=${streetCodeValue}&limit=1&language=it-IT`;
+                                    fetch(fetchUrl)
+                                        .then(response => response.json())
+                                        .then(data => {
+                                            data.results.forEach(result => {
+                                                console.log('secondo risultato' + result)
+                                                latCountryInputValue = result.position.lat;
+                                                lonCountryInputValue = result.position.lon;
+                                                // Aggiorna il paese se non è già impostato
+                                                if (countryInput.value === '' || countryCodeValue !== cityCodeValue) {
+                                                    countryInput.value = result.address.country;
+                                                    latCountryInput.value = result.position.lat;
+                                                    lonCountryInput.value = result.position.lon;
+                                                    latCountryInputValue = result.position.lat;
+                                                    lonCountryInputValue = result.position.lon;
+                                                    countryCodeValue = result.address.countryCode;
+                                                } if (cityInput.value === "" || countryCodeValue !== cityCodeValue) {
+                                                    cityInput.value = result.address.municipality;
+                                                    latCityInput.value = result.position.lat;
+                                                    lonCityInput.value = result.position.lon;
+                                                    cityCodeValue = result.address.countryCode;
+                                                    cityCountrySubdivisionCod = result.address.countrySubdivisionCode;
+                                                    console.log(result)
+                                                    // console.log('info country:     ' + latCountryInputValue, lonCountryInputValue, countryCodeValue);
+                                                    console.log('city:             ' + latCityInput.value, lonCityInput.value, cityCodeValue);
+                                                }
+
+                                            });
+                                        })
+                                        .catch(error => console.error('Errore nella ricerca del paese:', error));
+                                }
+
+                            });
+
+                            streetSuggestions.appendChild(suggestion);
+                        }
+                    });
+
+                    console.log('Displayed results:', displayedResults);
+
+                    if (streetSuggestions.children.length === 0) {
+                        const noResults = document.createElement('div');
+                        noResults.textContent = 'Nessuna strada trovata.';
+                        noResults.classList.add('list-group-item', 'list-group-item-action');
+                        streetSuggestions.appendChild(noResults);
+                    }
+                })
+                .catch(error => console.error('Errore nel recupero dei suggerimenti di strada:', error));
+        } else {
+            streetSuggestions.innerHTML = '';
         }
     });
 
+    // Gestione submit del form
     form.addEventListener('submit', (e) => {
         e.preventDefault();
 

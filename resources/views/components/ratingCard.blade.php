@@ -6,7 +6,7 @@
     @dump('ratingID'. $rating->id)
         {{-- Solo crea una sezione per la valutazione se $rating non è null --}}
         @if ($rating != null)
-            <span class="star__container d-none" data-index-container-star="{{ $rating->id }}">
+            <span class="star__container" data-index-container-star="{{ $rating->id }}">
                 <div class="rating_star">
                     @for ($i = 1; $i <= 5; $i++)
                         <label class="star__item {{ $i <= $rating->rating ? 'gold' : '' }}" for="star-{{ $rating->id }}-{{ $i }}">

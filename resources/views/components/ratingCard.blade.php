@@ -20,11 +20,11 @@
         </span>
         <p id="rating-review-{{ $event->id }}">{{ $reviewText }}</p>
     </section>
-    <form class="form-delete-stop" >
+    {{-- <form class="form-delete-stop" >
         @csrf
-        @method('DELETE')
-        <button type="submit" class="btn btn-danger">x</button>
-    </form>
+        @method('DELETE') --}}
+        <button class="ciao btn btn-danger">x</button>
+    {{-- </form> --}}
 </div>
 {{--/ contenitore stelle --}}
 

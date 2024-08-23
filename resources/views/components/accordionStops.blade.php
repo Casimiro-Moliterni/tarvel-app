@@ -1,12 +1,12 @@
 @props(['event'])
 <div class="accordion p-0 mb-2 my-accordion" id="accordionExample">
     <details class="accordion">
-        <summary class="accordion-btn fs-2 fw-bold d-flex justify-content-around ">
+        <summary class="accordion-btn fs-2 fw-bold d-flex justify-content-between ">
             <div>
-                <strong>Ora inizio:</strong> {{ \Carbon\Carbon::parse($event->time_start)->format('H:i') }}||
-                <strong>Ora fine:</strong> {{ \Carbon\Carbon::parse($event->time_end)->format('H:i') }} ||
-                <strong>Evento:</strong> {{ $event->name }} ||
-                <strong>Via:</strong> {{ $event->street }}
+                <strong class="bg-white p-2 py-1 rounded-pill mx-1 ">Da:{{ \Carbon\Carbon::parse($event->time_start)->format('H:i') }}</strong> 
+                <strong class="bg-white p-2 py-1 rounded-pill mx-1 ">A:{{ \Carbon\Carbon::parse($event->time_end)->format('H:i') }} </strong> 
+                <strong class="bg-white p-2 py-1 rounded-pill mx-1">Evento:</strong> {{ $event->name }} 
+                <strong class="bg-white p-2 py-1 rounded-pill mx-1">Via:</strong> {{ $event->street }}
             </div>
             <div>
                 <a href="" class="btn btn-warning" data-toggle="modal"

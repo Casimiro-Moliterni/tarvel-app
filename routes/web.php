@@ -50,7 +50,9 @@ Route::middleware(['auth', 'verified'])
         // rotta note 
         Route::resource('notes', NoteController::class)->parameters(['notes' => 'note:id']);
         Route::post('/admin/notes', [NoteController::class, 'store'])->name('admin.notes.store');
-     
+        // delete valutazione tappa 
+        Route::delete('notes/{noteId}', [NoteController::class, 'destroyByStop'])->name('notes.destroy');
+
 
 
         // rotta rating 

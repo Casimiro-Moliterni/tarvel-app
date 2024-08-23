@@ -1,11 +1,11 @@
-@props(['date', 'tripId','index'])
+@props(['date', 'tripId', 'index'])
 <div class="container my-form-create d-none card mb-5 rounded-4" id="formStop">
     <h1 class="mb-3">Aggiungi una nuova tappa</h1>
     <div id="messages">
 
     </div>
-    <form id="form-stop" class="form-stops position-relative col-10 ms-auto me-auto pb-5" data-url="{{ route('admin.stops.store') }} " data-index="{{ $index }}"
-       enctype="multipart/form-data">
+    <form id="form-stop" class="form-stops position-relative col-10 ms-auto me-auto pb-5"
+        data-url="{{ route('admin.stops.store') }} " data-index="{{ $index }}" enctype="multipart/form-data">
         @csrf
         <input type="hidden" name="day" value="{{ $date }}">
         <input type="hidden" name="id_trip" value="{{ $tripId }}">
@@ -19,8 +19,11 @@
                 <label for="country">Paese:</label>
                 <input type="text" id="country" name="country" class="form-control" value="{{ old('country') }}">
                 <div class="error fs-3 text-danger "></div>
-                <input type="hidden" id="latCountry" name="latCountry" class="form-control" >
-                <input type="hidden" id="lonCountry" name="lonCountry" class="form-control" >
+                <input type="hidden" id="latCountry" name="latCountry" class="form-control">
+                <input type="hidden" id="lonCountry" name="lonCountry" class="form-control">
+                <div id="countrySuggestions" class="list-group position-absolute fs-3 bg-secondary">
+                </div>
+                <div class="invalid-feedback" id="countryError"></div>
             </div>
         </div>
         <div class="row media991px">
@@ -30,6 +33,9 @@
                 <div class="error fs-3 text-danger "></div>
                 <input type="hidden" id="latStreet" name="latStreet" class="form-control">
                 <input type="hidden" id="lonStreet" name="lonStreet" class="form-control">
+                <div id="streetSuggestions" class="list-group position-absolute fs-3 bg-secondary">
+                </div>
+                <div class="invalid-feedback" id="countryError"></div>
             </div>
             <div class="form-group col">
                 <label for="city">Città:</label>
@@ -37,6 +43,9 @@
                 <div class="error fs-3 text-danger "></div>
                 <input type="hidden" id="latCity" name="latCity" class="form-control">
                 <input type="hidden" id="lonCity" name="lonCity" class="form-control">
+                <div id="citySuggestions" class="list-group position-absolute fs-3 bg-secondary">
+                </div>
+                <div class="invalid-feedback" id="cityError"></div>
             </div>
         </div>
         <div class="row media991px">

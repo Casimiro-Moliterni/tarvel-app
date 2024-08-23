@@ -1,4 +1,4 @@
-
+// aggiunta nota 
 document.addEventListener('DOMContentLoaded', function () {
     // Seleziona tutti i moduli di nota
     const forms = document.querySelectorAll('#form-notes');
@@ -39,8 +39,16 @@ document.addEventListener('DOMContentLoaded', function () {
                 if (data.status === 'success') {
                     // Crea un nuovo elemento per la nuova nota
                     const noteElement = document.createElement('div');
-                    noteElement.className = 'alert alert-info';
-                    noteElement.textContent = data.note.text; // Imposta il testo della nota
+                    noteElement.className = 'alert alert-info d-flex justify-content-between px-5';
+                    noteElement.setAttribute('data-note-id', data.note.id); 
+                    // noteElement.textContent = data.note.text; // Imposta il testo della nota
+                    noteElement.innerHTML = `
+                        <p class="mb-0">${data.note.text}</p>
+                        <div class="d-flex gap-5">
+                            <i class="fa-regular fa-pen-to-square"></i>
+                            <i class="fa-solid fa-delete-left"></i>
+                        </div>
+                    `;
                     notesWrapper.appendChild(noteElement); // Aggiungi la nuova nota al wrapper
                     
                     // Pulisci il campo di testo del modulo
@@ -55,3 +63,33 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     });
 });
+// eliminazione nota
+// document.addEventListener('DOMContentLoaded', function () {
+    document.querySelectorAll('.fa-delete-left').forEach(icon => {
+        icon.addEventListener('click', function () {
+            const noteElement = this.closest('.alert');
+            const noteId = noteElement.getAttribute('data-note-id');
+
+            // if (confirm('Sei sicuro di voler eliminare questa nota?')) {
+                axios.delete(`/admin/notes/${noteId}`, {  // URL corretto per la rotta di eliminazione
+                    headers: {
+                        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
+                        'Accept': 'application/json',
+                    }
+                })
+                .then(response => {
+                    if (response.data.status === 'success') {
+                        noteElement.remove();  // Rimuove la nota dal DOM
+                    } else {
+                        console.error('Errore:', response.data.message);
+                    }
+                })
+                .catch(error => {
+                    console.error('Errore:', error.response ? error.response.data : error.message);
+                });
+            // }
+        });
+    });
+// });
+
+

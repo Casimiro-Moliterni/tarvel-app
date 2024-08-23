@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Note;
+use App\Models\Stop;
 use Dotenv\Validator;
 use Illuminate\Http\Request;
 
@@ -116,12 +117,17 @@ class NoteController extends Controller
      * @param  \App\Models\Note  $note
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Note $note)
+    public function destroy($id)
     {
-        // Elimina la nota
+        // $note->delete();
+        // return response()->json(['status' => 'success', 'message' => 'Nota eliminata con successo!']);
+        $note = Note::findOrFail($id); 
         $note->delete();
+        return response()->json(['status' => 'success', 'message' => 'Nota eliminata con successo!']);
+        // dd($id);
 
-        // Reindirizza alla pagina delle note con un messaggio di successo
-        return redirect()->route('notes.index')->with('success', 'Nota eliminata con successo!');
+
+        // return redirect()->route('admin.trips.show', ['trip' => $stop->id_trip]);
     }
+    
 }

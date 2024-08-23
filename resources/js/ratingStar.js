@@ -50,9 +50,9 @@ document.addEventListener('DOMContentLoaded', () => {
                     .then(response => {
                         if (response.data.status === 'success') {
                             if (ratingComponentWrapper) {
-                                if (ratingComponentWrapper.classList.contains('d-none')){
+                                if (ratingComponentWrapper.classList.contains('d-none')) {
                                     ratingComponentWrapper.classList.remove('d-none');
-                                }else{
+                                } else {
                                     ratingComponentWrapper.classList.add('d-none');
                                 }
                             }
@@ -146,24 +146,24 @@ document.addEventListener('DOMContentLoaded', () => {
             inputControl.classList.remove('success');
         };
 
-            // Aggiungi un listener al bottone "ciao" per eliminare la valutazione
-            const deleteButton = ratingCardWrapper.querySelector('.delete-rating-btn');
-            deleteButton.addEventListener('click', function () {
-                axios.delete(`/admin/stops/${stopId}/rating`, {
-                    headers: {
-                        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
-                        'Accept': 'application/json',
-                    }
-                })
+        // Aggiungi un listener al bottone "ciao" per eliminare la valutazione
+        const deleteButton = ratingCardWrapper.querySelector('.delete-rating-btn');
+        deleteButton.addEventListener('click', function () {
+            axios.delete(`/admin/stops/${stopId}/rating`, {
+                headers: {
+                    'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
+                    'Accept': 'application/json',
+                }
+            })
                 .then(response => {
                     if (response.data.status === 'success') {
                         ratingCardWrapper.classList.add('d-none'); // Rimuove la card dal DOM
-                            if(ratingComponentWrapper){     
-                                   ratingComponentWrapper.classList.remove('d-none');
-                                }else{
-                                    ratingComponentWrapper.classList.add('d-none');
-                                    ratingCardWrapper.classList.remove('d-none');
-                                }        
+                        if (ratingComponentWrapper) {
+                            ratingComponentWrapper.classList.remove('d-none');
+                        } else {
+                            ratingComponentWrapper.classList.add('d-none');
+                            ratingCardWrapper.classList.remove('d-none');
+                        }
                     } else {
                         console.error('Errore server:', response.data.message);
                     }
@@ -172,6 +172,6 @@ document.addEventListener('DOMContentLoaded', () => {
                     console.error('Errore:', error);
                     alert(`Errore: ${error.message}`);
                 });
-            });
+        });
     });
 });

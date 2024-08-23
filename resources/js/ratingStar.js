@@ -50,7 +50,11 @@ document.addEventListener('DOMContentLoaded', () => {
                     .then(response => {
                         if (response.data.status === 'success') {
                             if (ratingComponentWrapper) {
-                                ratingComponentWrapper.classList.add('d-none');
+                                if (ratingComponentWrapper.classList.contains('d-none')){
+                                    ratingComponentWrapper.classList.remove('d-none');
+                                }else{
+                                    ratingComponentWrapper.classList.add('d-none');
+                                }
                             }
 
                             if (ratingCardWrapper) {
@@ -154,6 +158,9 @@ document.addEventListener('DOMContentLoaded', () => {
                 .then(response => {
                     if (response.data.status === 'success') {
                         ratingCardWrapper.remove(); // Rimuove la card dal DOM
+                        if (ratingComponentWrapper) {
+                            ratingComponentWrapper.classList.remove('d-none');
+                        }
                     } else {
                         console.error('Errore server:', response.data.message);
                     }

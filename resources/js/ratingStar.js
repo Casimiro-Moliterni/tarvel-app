@@ -50,7 +50,11 @@ document.addEventListener('DOMContentLoaded', () => {
                     .then(response => {
                         if (response.data.status === 'success') {
                             if (ratingComponentWrapper) {
-                                ratingComponentWrapper.classList.add('d-none');
+                                if (ratingComponentWrapper.classList.contains('d-none')){
+                                    ratingComponentWrapper.classList.remove('d-none');
+                                }else{
+                                    ratingComponentWrapper.classList.add('d-none');
+                                }
                             }
 
                             if (ratingCardWrapper) {

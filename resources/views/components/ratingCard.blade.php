@@ -32,7 +32,6 @@
         <h2>Star Rating</h2>
         <div class="center">
             <form data-url-rating="{{ route('admin.ratings.store') }}" class="form-rating d-flex flex-column">
-                @csrf
                 <fieldset class="rating ms-auto me-auto">
                     <input type="radio" id="star5" name="rating" value="5" class="star-input" />
                     <label for="star5" class="full" title="Awesome"></label>

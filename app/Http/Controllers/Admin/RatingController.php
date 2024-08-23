@@ -37,7 +37,7 @@ class RatingController extends Controller
      */
     public function store(Request $request)
     {
-       
+
         // Log dei dati ricevuti
         // \Log::info('Dati ricevuti:', $request->all());
         // Salva i dati se la validazione è superata
@@ -96,7 +96,30 @@ class RatingController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $rating = Rating::findOrFail($id); // Cerca il rating da eliminare
+        $tripId = $rating->trip_id; // Salva l'ID del trip per il redirect
+        $rating->delete(); // Elimina il rating
+
+        return redirect()->route('admin.trips.show', ['id' => $tripId])->with('success', 'Rating eliminato con successo');
+    }
+    public function destroyByStop($stopId)
+    {try{
+
+        // Trova il rating associato alla tappa (stop) specifica
+        $rating = Rating::where('stop_id', $stopId)->firstOrFail();
+
+        // Salva l'ID del trip per il redirect prima di eliminare
+        $tripId = $rating->trip_id;
+
+        // Elimina il rating
+        $rating->delete();
+
+        // Reindirizza alla vista del trip associato con un messaggio di successo
+        return response()->json(['status' => 'success', 'message' => 'Valutazione eliminata con successo',], 200); // 200 OK
+    }catch (\Exception $e) {
+        // Restituisce una risposta JSON in caso di errore
+        return response()->json(['status' => 'error', 'message' => $e->getMessage()], 500);
+    }
     }
     private function validation($data) //----------------------------------------------------------------------------------------------------
     {

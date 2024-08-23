@@ -20,8 +20,12 @@
         </span>
         <p id="rating-review-{{ $event->id }}">{{ $reviewText }}</p>
     </section>
+    <form class="form-delete-stop" >
+        @csrf
+        @method('DELETE')
+        <button type="submit" class="btn btn-danger">x</button>
+    </form>
 </div>
-
 {{--/ contenitore stelle --}}
 
 {{-- contenitore form --}}
@@ -68,6 +72,7 @@
         color: gold;
     }
 </style>
+
 <style>
     @import url(https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css);
 

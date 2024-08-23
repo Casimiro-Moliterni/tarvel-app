@@ -50,11 +50,14 @@ Route::middleware(['auth', 'verified'])
         // rotta note 
         Route::resource('notes', NoteController::class)->parameters(['notes' => 'note:id']);
         Route::post('/admin/notes', [NoteController::class, 'store'])->name('admin.notes.store');
-
+     
 
 
         // rotta rating 
         Route::resource('ratings', RatingController::class)->parameters(['ratings' => 'rating:id']);
+        // delete valutazione tappa 
+        Route::delete('/stops/{stopId}/rating', [RatingController::class, 'destroyByStop'])->name('stops.rating.destroy');
+
     });
 
 Route::middleware('auth')->group(function () {

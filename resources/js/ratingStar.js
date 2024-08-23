@@ -143,3 +143,40 @@ document.addEventListener('DOMContentLoaded', () => {
         };
     });
 });
+
+// eliminazione data 
+document.addEventListener('DOMContentLoaded', () => {
+    const formDeleteStops = document.querySelectorAll('.form-delete-stop');
+
+    formDeleteStops.forEach((formDeleteStop) => {
+        formDeleteStop.addEventListener('submit', e => {
+            e.preventDefault();
+
+            const stopIdInput = document.querySelector('input[name="stop_id"]');
+            
+            // Verifica se l'input esiste prima di accedere al suo valore
+            if (stopIdInput) {
+                const stopId = stopIdInput.value;
+                const ratingCardWrapper = document.getElementById(`ratingCardWrapper-${stopId}`);
+
+                axios.delete(`/admin/stops/${stopId}/rating`)
+                    .then(response => {
+                        if (response.data.status === 'success') {
+                            if (ratingCardWrapper) {
+                                ratingCardWrapper.remove(); // Rimuove la card di valutazione dalla pagina
+                            }
+                            
+
+                        } else {
+                            console.error('Errore server:', response.data.message);
+                        }
+                    }).catch(error => {
+                        console.error('Errore:', error);
+                        alert(`Errore: ${error.message}`);
+                    });
+            } else {
+                console.error('Input con nome "stop_id" non trovato nel modulo.');
+            }
+        });
+    });
+});

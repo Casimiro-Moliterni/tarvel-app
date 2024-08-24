@@ -21,6 +21,11 @@
                     <input type="text" id="country" name="country" class="form-control"
                         value="{{ old('country', $stop->country) }}">
                     <div class="error text-danger"></div>
+                    <input type="hidden" id="latCountry" name="latCountry" class="form-control">
+                    <input type="hidden" id="lonCountry" name="lonCountry" class="form-control">
+                    <div id="countrySuggestions" class="list-group position-absolute fs-3 bg-secondary">
+                    </div>
+                    <div class="invalid-feedback" id="countryError"></div>
                 </div>
             </div>
 
@@ -30,12 +35,22 @@
                     <input type="text" id="street" name="street" class="form-control"
                         value="{{ old('street', $stop->street) }}">
                     <div class="error text-danger"></div>
+                    <input type="hidden" id="latStreet" name="latStreet" class="form-control">
+                    <input type="hidden" id="lonStreet" name="lonStreet" class="form-control">
+                    <div id="streetSuggestions" class="list-group position-absolute fs-3 bg-secondary">
+                    </div>
+                    <div class="invalid-feedback" id="countryError"></div>
                 </div>
                 <div class="form-group col">
                     <label for="city">Città:</label>
                     <input type="text" id="city" name="city" class="form-control"
                         value="{{ old('city', $stop->city) }}">
                     <div class="error text-danger"></div>
+                    <input type="hidden" id="latStreet" name="latStreet" class="form-control">
+                    <input type="hidden" id="lonStreet" name="lonStreet" class="form-control">
+                    <div id="streetSuggestions" class="list-group position-absolute fs-3 bg-secondary">
+                    </div>
+                    <div class="invalid-feedback" id="countryError"></div>
                 </div>
             </div>
 

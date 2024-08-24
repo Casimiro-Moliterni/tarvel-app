@@ -10,6 +10,7 @@
                 <div class="form-group">
                     <label for="text">Testo della Nota:</label>
                     <textarea name="text" id="text" class="form-control" rows="4" required></textarea>
+                     <div class="error text-danger fs-4"></div>
                 </div>
                 <input type="hidden" name="id_stop" value="{{ $event->id }}">
                 <button type="submit" class="btn btn-primary my-4">Crea Nota</button>

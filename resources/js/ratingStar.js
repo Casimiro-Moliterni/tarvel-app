@@ -2,6 +2,7 @@
 // document.addEventListener('DOMContentLoaded', () => {
 //     const formsRatings = document.querySelectorAll('.form-rating');
 
+
 //     formsRatings.forEach((formRating) => {
 //         // Per ogni modulo di valutazione trovato, esegue la seguente funzione.
 //         const labels = formRating.querySelectorAll('fieldset label');
@@ -211,7 +212,7 @@ function initializeFormRatings() {
                 const star = formRating.querySelector(`#${labelFor}`);
                 if (star) {
                     star.checked = true;
-                    showValue.innerHTML = star.value;
+                    showValue.innerHTML = star.value;  // non toccare
                 }
             });
         });

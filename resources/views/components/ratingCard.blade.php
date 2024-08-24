@@ -17,19 +17,17 @@
                     </label>
                 @endfor
             </div>
+            <button class="delete-rating-btn"><i class="fa-solid fa-pen"></i></button>
         </span>
         <p id="rating-review-{{ $event->id }}">{{ $reviewText }}</p>
     </section>
-
-        <button class="delete-rating-btn btn btn-danger">x</button>
-
 </div>
 {{--/ contenitore stelle --}}
 
 {{-- contenitore form --}}
 <div class="my-wrapper-star {{ $firstRating ? 'd-none' : '' }}" id="ratingComponentWrapper-{{ $stop }}">
     <div class="rating-wrap">
-        <h2>Star Rating</h2>
+        <h2></h2>
         <div class="center">
             <form data-url-rating="{{ route('admin.ratings.store') }}" class="form-rating d-flex flex-column">
                 <fieldset class="rating ms-auto me-auto">
@@ -45,18 +43,18 @@
                     <label for="star1" class="full"></label>
                     <input type="hidden" name="trip_id" value="{{ $trip }}">
                     <input type="hidden" name="stop_id" value="{{ $stop }}">
-                    <div class="error"></div>
                 </fieldset>
                 <header>
                     <div></div>
                 </header>
-                <div class="textarea">
+                <div class="textarea d-none">
                     <textarea name="review" id="review" class="review" cols="30"></textarea>
                 </div>
                 <h4 id="rating-value" class="rating-value" class="my-3"></h4>
                 <div class="my-btn">
-                    <button type="submit" id="submit-btn" class="btn btn-primary">Invia</button>
+                    <button type="submit" id="submit-btn" class="">INVIA</button>
                 </div>
+                <div class="error text-danger fs-4"></div>
             </form>
         </div>
     </div>
@@ -66,80 +64,7 @@
 
 <style>
     .gold {
-        color: gold;
+        color: rgb(255, 244, 41);
     }
 </style>
 
-<style>
-    @import url(https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css);
-
-
-    .rating-wrap {
-        max-width: 480px;
-        margin: auto;
-        padding: 15px;
-        box-shadow: 0 0 3px 0 rgba(0, 0, 0, .2);
-        text-align: center;
-    }
-
-    .center {
-        /* width: 162px; */
-        margin: auto;
-    }
-
-
-    #rating-value {
-        width: 110px;
-        height: 40px;
-        margin: 40px auto 0;
-        padding: 10px 5px;
-        text-align: center;
-        box-shadow: inset 0 0 2px 1px rgba(46, 204, 113, .2);
-    }
-
-    /*styling star rating*/
-    .rating {
-        border: none;
-        float: left;
-    }
-
-    .rating>input {
-
-        display: none;
-    }
-
-    .rating>label:before {
-        content: '\f005';
-        font-family: FontAwesome;
-        margin: 5px;
-        font-size: 5rem;
-        display: inline-block;
-        cursor: pointer;
-    }
-
-    .rating>.half:before {
-        content: '\f089';
-        position: absolute;
-        cursor: pointer;
-    }
-
-
-    .rating>label {
-        color: #ddd;
-        float: right;
-        cursor: pointer;
-    }
-
-    .rating>input:checked~label,
-    .rating:not(:checked)>label:hover,
-    .rating:not(:checked)>label:hover~label {
-        color: #2ce679;
-    }
-
-    .rating>input:checked+label:hover,
-    .rating>input:checked~label:hover,
-    .rating>label:hover~input:checked~label,
-    .rating>input:checked~label:hover~label {
-        color: #2ddc76;
-    }
-</style>

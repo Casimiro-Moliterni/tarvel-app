@@ -16,11 +16,14 @@ document.addEventListener('DOMContentLoaded', function () {
 
             const textField = form.querySelector('#text');
             const textValue = textField.value.trim();
-
+            const error = form.querySelector('.error');
             // Validazione lato client
             if (textValue.length < 3) {
-                alert('Il testo della nota deve contenere almeno 3 caratteri.');
-                return;
+                if (error) {
+                    error.innerText = "Il contenuto devo contenere almeno 3 caratteri";
+                }
+            }else{
+                error.innerText = "";
             }
 
             const formData = new FormData(form); // Ottieni i dati del modulo

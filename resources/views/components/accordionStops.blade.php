@@ -1,5 +1,5 @@
 @props(['event'])
-<div class="accordion p-0 mb-2 my-accordion" id="accordionExample">
+<div class="accordion p-0 mb-2 my-accordion"  id="stop-{{ $event->id }}">
     <details class="accordion">
         <summary class="accordion-btn fs-2 fw-bold d-flex justify-content-between ">
             <div>
@@ -17,6 +17,8 @@
 
                 <a href="" class="btn btn-danger ml-2" data-toggle="modal"
                     data-target="#deleteStopModal-{{ $event->id }}">Elimina</a>
+
+                    
             </div>
 
         </summary>
@@ -42,11 +44,14 @@
             {{-- compononente deltestop  --}}
             <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
 
-            <form action="{{ route('admin.stops.destroy', $event->id) }}" method="POST">
+            {{-- <form action="{{ route('admin.stops.destroy', $event->id) }}" method="POST">
                 @csrf
                 @method('DELETE')
-                <button type="submit" class="btn btn-danger">Sì, elimina</button>
-            </form>
+                <button type="submit" class="btn btn-danger miauu">Sì, elimina</button> 
+            </form> --}}
+            
+            <button type="button" class="btn btn-danger delele-stop-btn" data-stopdelit-id="{{ $event->id }}"  >Sì, elimina</button>
+            
             
         </x-modals.modalDeleteStop>
 

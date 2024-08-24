@@ -13,46 +13,45 @@
 
                 @foreach ($trips as $trip)
                     <div class="col-sm-12 col-md-6 col-lg-4 col-xl-3 mb-4 position-relative">
-                        <article class="card">
-                            @if ($trip->thumb)
-                                <!-- Mostra l'immagine caricata dall'utente -->
-                                <img class="card__background" src="{{ asset('storage/' . $trip->thumb) }}">
-                            @elseif($trip->country && file_exists(public_path('img/country/' . $trip->country . '.png')))
-                                <!-- Mostra l'immagine specifica per il paese se non è stata caricata un'immagine -->
-                                <img class="card__background" style="object-position: center"
-                                    src="{{ asset('img/country/' . $trip->country . '.png') }}">
-                            @else
-                                <!-- Mostra l'immagine di default se non è stata caricata un'immagine e non esiste un'immagine specifica per il paese -->
-                                <img class="card__background" style="object-position: center"
-                                    src="{{ asset('img/default.png') }}">
-                            @endif
+                        <a href="{{ route('admin.trips.show', ['trip' => $trip->id]) }}" class="card-link">
+                            <article class="card">
+                                @if ($trip->thumb)
+                                    <img class="card__background" src="{{ asset('storage/' . $trip->thumb) }}">
+                                @elseif($trip->country && file_exists(public_path('img/country/' . $trip->country . '.png')))
+                                    <img class="card__background" style="object-position: center"
+                                        src="{{ asset('img/country/' . $trip->country . '.png') }}">
+                                @else
+                                    <img class="card__background" style="object-position: center"
+                                        src="{{ asset('img/default.png') }}">
+                                @endif
 
-                            <div class="card__content w-100">
-                                <div class="card__content--container">
-                                    <h2 class="card__title pt-3">
-                                        <a class="link-light link-underline-opacity-0"
-                                            href="{{ route('admin.trips.show', ['trip' => $trip->id]) }}">
+                                <div class="card__content w-100">
+                                    <div class="card__content--container">
+                                        <h2 class="card__title pt-3">
                                             {{ $trip->title }}
+                                        </h2>
+                                    </div>
+                                    <div class="d-flex mt-3 gap-2">
+                                        <a type="button" class="btn btn-primary rounded-pill ms-index"
+                                            href="{{ route('admin.trips.edit', ['trip' => $trip->id]) }}"
+                                            onclick="event.stopPropagation();">
+                                            <i class="fa-solid fa-pen"></i>
                                         </a>
-                                    </h2>
+                                        <a type="button"
+                                            class="btn btn-danger js-confirm-delete rounded-pill ms-index"
+                                            data-trip-id="{{ $trip->id }}" data-trip-title="{{ $trip->title }}"
+                                            onclick="event.stopPropagation();">
+                                            <i class="fas fa-trash"></i>
+                                        </a>
+                                    </div>
                                 </div>
-                                <div class="d-flex mt-3 gap-2">
-                                    <a type="button" class="btn btn-primary rounded-pill ms-index"
-                                        href="{{ route('admin.trips.edit', ['trip' => $trip->id]) }}">
-                                        <i class="fa-solid fa-pen"></i>
-                                    </a>
-                                    <a type="button"
-                                        class="btn btn-danger js-confirm-delete rounded-pill ms-index"
-                                        data-trip-id="{{ $trip->id }}" data-trip-title="{{ $trip->title }}">
-                                        <i class="fas fa-trash"></i>
-                                    </a>
-                                </div>
-                            </div>
-                        </article>
+                            </article>
+                        </a>
                     </div>
                 @endforeach
 
             </div>
+        </div>
     </section>
 
     <!-- Modale per cestinare -->
@@ -79,4 +78,5 @@
         </div>
     </div>
 @endsection
+
 

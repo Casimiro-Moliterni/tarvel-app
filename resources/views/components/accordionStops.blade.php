@@ -42,7 +42,7 @@
             {{-- compononente deltestop  --}}
             <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
 
-            <form action="{{ route('admin.stops.destroy', $event->id) }}" method="POST">
+            {{-- <form action="{{ route('admin.stops.destroy', $event->id) }}" method="POST">
                 @csrf
                 @method('DELETE')
                 <button type="submit" class="btn btn-danger">Sì, elimina</button>

@@ -231,11 +231,12 @@ class StopsController extends Controller
      */
     public function destroy($id)
     {   
-
+        
         $stop = Stop::findOrFail($id); 
         $stop->delete();
 
-        return redirect()->route('admin.trips.show', ['trip' => $stop->id_trip]);
+        // return redirect()->route('admin.trips.show', ['trip' => $stop->id_trip]);
+        return response()->json(['status' => 'success', 'message' => 'tappa con successo!']);    
     }
 
     

@@ -4,6 +4,7 @@ import * as bootstrap from 'bootstrap';
 import { constant, result, toUpper } from 'lodash';
 import './createStop';
 import './editStop';
+import './deleteStop';
 import './displayTel';
 import './ratingStar';
 import './note';

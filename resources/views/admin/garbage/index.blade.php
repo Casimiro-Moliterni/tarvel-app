@@ -5,12 +5,12 @@
             <div class="row">
                 <div class="col text-center mb-5">
                     <h1 class="display-4 font-weight-bolder text-black mt-5">Cestino viaggi</h1>
-                    <p class="lead">Puoi vedere i viaggi che hai cestinato</p>
+                    <p class="lead text-black">Puoi vedere i viaggi che hai cestinato</p>
                 </div>
             </div>
             <div class="row">
                 @if ($trips->isEmpty())
-                    <h2>Non ci sono viaggi nel cestino</h2>
+                    <h2 class="text-black">Non ci sono viaggi nel cestino</h2>
                 @endif
                 @if (!$trips->isEmpty())
 

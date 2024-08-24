@@ -73,6 +73,9 @@
             </div> --}}
             {{-- </div> --}}
             {{-- ---------------------------------CHIUSURA OFFCANVAS-------------------------  --}}
+
+
+
             <div class="accordion " id="accordionExample" style="padding-bottom: 126px;">
                 @foreach ($daysRange as $date)
                     <details class="accordion mb-2">
@@ -81,15 +84,34 @@
                         </summary>
                         <div class="accordion-content p-2 px-3 pt-3" id="my-accordion-create">
                             <div class="d-flex align-items-center">
-                                <a id="btnFormStop">
+                                <a id="btnFormStop" data-toggle="modal"
+                                    data-target="#formStopModal-{{ $date->format('d-M-Y') }}"
                                     <i id="icon-btn-form-stop"
                                         class="fa-solid fa-circle-plus mb-2 d-flex align-items-center my-fa-circle-plus">
                                         <span class="btn border-0 ms-3 fs-3 fw-bold content-btn">AGGIUNGI TAPPA</span>
                                     </i>
                                 </a>
                             </div>
-                            {{-- componenete form  --}}
-                            <x-formAddStop :date="$date->format('Y-m-d')" :tripId="$trip->id" :index="$loop->index" />
+
+
+
+                            <div class="modal fade my-bg-modal miaup" id="formStopModal-{{ $date->format('d-M-Y') }}"
+                                tabindex="-1" role="dialog" aria-labelledby="formStopModalLabel" aria-hidden="true">
+                                <div class="modal-dialog" role="document">
+                                    <div class="modal-content">
+                                        <button type="button" id="miauu" class="close" data-dismiss="modal"
+                                            aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                        <x-formAddStop :date="$date->format('Y-m-d')" :tripId="$trip->id" :index="$loop->index" />
+                                    </div>
+                                </div>
+                            </div>
+
+
+
+
+
                             <div id="stops-container" class="stops-container" data-index="{{ $loop->index }}">
                                 @if (isset($events[$date->format('d M Y')]))
                                     @foreach ($events[$date->format('d M Y')] as $event)
@@ -97,9 +119,8 @@
 
                                         <x-accordionStops :event="$event">
                                             <!-- Existing stops are rendered here -->
-                                            
-                                        </x-accordionStops>
 
+                                        </x-accordionStops>
                                     @endforeach
                             </div>
                         @else

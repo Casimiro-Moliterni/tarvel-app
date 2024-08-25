@@ -1,11 +1,9 @@
 <section id="section-edit-stop">
     <div class="container my-bg-edit">
         <h1>Modifica Tappa</h1>
-        <form id="form-edit-stop" action="{{ route('admin.stops.update', $stop->id) }}" method="POST"
-            enctype="multipart/form-data">
+        <form id="form-edit-stop" data-stop-update-id={{ $stop->id }} action="{{ route('admin.stops.update', ['id' => $stop->id]) }}" method="POST" enctype="multipart/form-data">
             @csrf
             @method('PUT')
-
             <input type="hidden" name="day" value="{{ $stop->day }}">
             <input type="hidden" name="id_trip" value="{{ $stop->id_trip }}">
 
@@ -21,8 +19,8 @@
                     <input type="text" id="country" name="country" class="form-control"
                         value="{{ old('country', $stop->country) }}">
                     <div class="error text-danger"></div>
-                    <input type="hidden" id="latCountry" name="latCountry" class="form-control">
-                    <input type="hidden" id="lonCountry" name="lonCountry" class="form-control">
+                    <input type="hidden" id="latCountry" name="latCountry" class="form-control" value="{{ old('latCountry', $stop->latCountry) }}">
+                    <input type="hidden" id="lonCountry" name="lonCountry" class="form-control" value="{{ old('lonCountry', $stop->lonCountry) }}">
                     <div id="countrySuggestions" class="list-group position-absolute fs-3 bg-secondary">
                     </div>
                     <div class="invalid-feedback" id="countryError"></div>
@@ -35,22 +33,22 @@
                     <input type="text" id="street" name="street" class="form-control"
                         value="{{ old('street', $stop->street) }}">
                     <div class="error text-danger"></div>
-                    <input type="hidden" id="latStreet" name="latStreet" class="form-control">
-                    <input type="hidden" id="lonStreet" name="lonStreet" class="form-control">
+                    <input type="hidden" id="latStreet" name="latStreet" class="form-control" value="{{ old('latStreet', $stop->latStreet) }}">
+                    <input type="hidden" id="lonStreet" name="lonStreet" class="form-control" value="{{ old('lonStreet', $stop->lonStreet) }}">
                     <div id="streetSuggestions" class="list-group position-absolute fs-3 bg-secondary">
                     </div>
-                    <div class="invalid-feedback" id="countryError"></div>
+                    <div class="invalid-feedback" id="streetError"></div>
                 </div>
                 <div class="form-group col">
                     <label for="city">Città:</label>
                     <input type="text" id="city" name="city" class="form-control"
                         value="{{ old('city', $stop->city) }}">
                     <div class="error text-danger"></div>
-                    <input type="hidden" id="latStreet" name="latStreet" class="form-control">
-                    <input type="hidden" id="lonStreet" name="lonStreet" class="form-control">
-                    <div id="streetSuggestions" class="list-group position-absolute fs-3 bg-secondary">
+                    <input type="hidden" id="latCity" name="latCity" class="form-control" value="{{ old('latCity', $stop->latCity) }}">
+                    <input type="hidden" id="lonCity" name="lonCity" class="form-control" value="{{ old('lonCity', $stop->lonCity) }}">
+                    <div id="citySuggestions" class="list-group position-absolute fs-3 bg-secondary">
                     </div>
-                    <div class="invalid-feedback" id="countryError"></div>
+                    <div class="invalid-feedback" id="cityError"></div>
                 </div>
             </div>
 

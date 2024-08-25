@@ -93,7 +93,7 @@ document.addEventListener('DOMContentLoaded', function () {
     const iconBtnFormStop = document.querySelectorAll('#icon-btn-form-stop');
     const myAccordionCreate = document.querySelectorAll('#my-accordion-create');
     const formStop = document.querySelectorAll('#formStop');
-    getShowElement(btnFormStop, formStop, 'd-none', iconBtnFormStop,myAccordionCreate)
+    // getShowElement(btnFormStop, formStop, 'd-none', iconBtnFormStop,myAccordionCreate)
 
       
     const countryInput = document.getElementById('country');

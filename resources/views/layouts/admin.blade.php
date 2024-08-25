@@ -72,15 +72,13 @@
             <div class="main">{{-- questa classe qua --}}
                 <div class="topbar">
                     <div class="toggle">
-                        <ion-icon name="menu-outline"></ion-icon>
+                        {{-- <ion-icon name="menu-outline"></ion-icon> --}}
+                        <i name="menu-outline" class="fa-solid fa-down-left-and-up-right-to-center"></i>
                     </div>
 
-                    <div class="search">
-                        <label>
-                            <input type="text" placeholder="Search here">
-                            <ion-icon name="search-outline"></ion-icon>
-                        </label>
-                    </div>
+                    {{-- <div class="search">
+                        
+                    </div> --}}
 
                     <div class="user">
                         <img src="{{ asset('img/logo-black.png') }}" alt="">

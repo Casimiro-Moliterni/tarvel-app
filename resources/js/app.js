@@ -8,7 +8,6 @@ import './deleteStop';
 import './displayTel';
 import './ratingStar';
 import './note';
-import './modalGarbage';
 import.meta.glob([
     '../img/**'
 ]);

@@ -87,7 +87,7 @@
                                 <a id="btnFormStop" data-toggle="modal"
                                     data-target="#formStopModal-{{ $date->format('d-M-Y') }}"
                                     <i id="icon-btn-form-stop"
-                                        class="fa-solid fa-circle-plus mb-2 d-flex align-items-center my-fa-circle-plus">
+                                        class="fa-solid fa-circle-plus mb-2 d-flex align-items-center my-fa-circle-plus" >
                                         <span class="btn border-0 ms-3 fs-3 fw-bold content-btn">AGGIUNGI TAPPA</span>
                                     </i>
                                 </a>

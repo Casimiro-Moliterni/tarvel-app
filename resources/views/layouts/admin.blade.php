@@ -81,7 +81,7 @@
                     </div> --}}
 
                     <div class="user">
-                        <img src="{{ asset('img/logo-black.png') }}" alt="">
+                        <img src="{{ asset('img/logo-black.png') }}" alt="logo">
                     </div>
                 </div>
                 <div class="px-4" >

@@ -1,7 +1,7 @@
 @extends('layouts.admin')
 
 @section('content')
-    <section class="trip-index">
+    <section class="trip-index" >
         <div class="container">
             <div class="row">
                 <div class="col text-center mb-5">
@@ -13,7 +13,7 @@
 
                 @foreach ($trips as $trip)
                     <div class="col-sm-12 col-md-6 col-lg-4 col-xl-3 mb-4 position-relative">
-                        <a href="{{ route('admin.trips.show', ['trip' => $trip->id]) }}" class="link-offset-2 link-underline link-underline-opacity-0">
+                        <a href="{{ route('admin.trips.show', ['trip' => $trip->id]) }}" class="link-offset-2 link-underline link-underline-opacity-0 ">
                             <article class="card">
                                 @if ($trip->thumb)
                                     <img class="card__background" src="{{ asset('storage/' . $trip->thumb) }}">
@@ -78,5 +78,4 @@
         </div>
     </div>
 @endsection
-
 

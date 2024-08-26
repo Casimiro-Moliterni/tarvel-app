@@ -1,8 +1,8 @@
 @props(['event'])
 <div id="my-note">
-    <div class="notes-container container mt-4 text-center row">
+    <div class="notes-container container mt-4 text-center row-lg">
         <div class="col ">
-            <div class="col-6 my-form-note mb-4 m-auto">
+            <div class="col-12 col-lg-6 my-form-note mb-4 m-auto">
                 <h4 class="mb-4">NEW NOTE</h4>
                 <div class="row d-flex flex-column">
                     <div class="col">
@@ -21,7 +21,7 @@
             </div>
             {{-- note create  --}}
             <div id="notesWrapper" class="">
-                <div class=" my-wrap-note  w-75 m-auto">
+                <div class=" my-wrap-note  m-auto">
                     @foreach ($event->notes as $note)
                         <div class="my-col d-flex flex-column align-items-center"
                             data-note-id="{{ $note->id }}">

@@ -1,29 +1,60 @@
-#my-note{
-    .my-col{
-        margin: 5px;
-        min-height: 150px;
-        width: calc((100% / 3) - 10px);
+#my-note {
+
+    .my-form-note {
+        padding: 3rem;
+        padding-top: 3.5rem;
+        padding-bottom: 2.5rem;
+        border-radius: 15px;
+        -webkit-box-shadow: 0px 0px 31px 5px rgba(0, 0, 0, 0.33);
+        -moz-box-shadow: 0px 0px 31px 5px rgba(0, 0, 0, 0.33);
+        box-shadow: 0px 0px 31px 5px rgba(0, 0, 0, 0.33);
+
+        h4 {
+            font-size: 4rem;
+        }
+
+        textarea {
+            font-size: 18px;
+            width: 60%;
+            margin: 0 auto;
+            border: 1px solid #398FDC;
+        }
+
+        button {
+            background-color: #398FDC;
+            color: white;
+            font-size: 16px;
+            font-weight: 700;
+            padding: 1rem;
+            width: 70%;
+            border-radius: 15px;
+        }
     }
 }
-#notesWrapper{
-    
-    .my-wrap-note{
+
+#notesWrapper {
+
+    .my-wrap-note {
         display: flex;
         flex-wrap: wrap;
         justify-content: start;
     }
-    .my-col{
+
+    .my-col {
         margin: 5px;
         min-height: 150px;
         width: calc((100% / 3) - 10px);
+        background-color: #FEEF7A;
+        border-radius: 20px;
+        box-shadow: 0px 0px 16px 12px rgba(0,0,0,0.1);
     }
 }
 
-#my-note-modal{
+#my-note-modal {
 
-    .my-modal-content-note{
-      height: 70%;
-      overflow: hidden;
-      overflow-y: auto;
+    .my-modal-content-note {
+        height: 70%;
+        overflow: hidden;
+        overflow-y: auto;
     }
 }

@@ -13,7 +13,7 @@
 
                 @foreach ($trips as $trip)
                     <div class="col-sm-12 col-md-6 col-lg-4 col-xl-3 mb-4 position-relative">
-                        <a href="{{ route('admin.trips.show', ['trip' => $trip->id]) }}" class="card-link">
+                        <a href="{{ route('admin.trips.show', ['trip' => $trip->id]) }}" class="link-offset-2 link-underline link-underline-opacity-0">
                             <article class="card">
                                 @if ($trip->thumb)
                                     <img class="card__background" src="{{ asset('storage/' . $trip->thumb) }}">
@@ -24,7 +24,7 @@
                                     <img class="card__background" style="object-position: center"
                                         src="{{ asset('img/default.png') }}">
                                 @endif
-
+                        
                                 <div class="card__content w-100">
                                     <div class="card__content--container">
                                         <h2 class="card__title pt-3">

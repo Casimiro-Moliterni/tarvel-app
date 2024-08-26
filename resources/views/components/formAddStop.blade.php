@@ -99,7 +99,7 @@
 @push('scripts')
     @vite(['resources/js/app.js'])
 @endpush
-<script>
+{{-- <script>
     window.apiValidateStopUrl = '{{ route('api.validate.stop') }}';
     window.adminValidateStopUrl = '{{ route('admin.stops.store') }}';
-</script>
+</script> --}}

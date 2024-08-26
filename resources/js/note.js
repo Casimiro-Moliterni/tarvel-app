@@ -9,7 +9,7 @@ function initializeNoteHandlers() {
     
         forms.forEach(form => {
             // Trova il contenitore delle note associato a questo modulo
-            const notesWrapper = form.closest('.notes-container').querySelector('#notesWrapper');
+            const notesWrapper = form.closest('.notes-container').querySelector('.my-wrap-note');
             // console.log('notesrapperok',notesWrapper);
     
     
@@ -48,7 +48,7 @@ function initializeNoteHandlers() {
                         if (data.status === 'success') {
                             // Crea un nuovo elemento per la nuova nota
                             const noteElement = document.createElement('div');
-                            noteElement.className = 'alert alert-info d-flex justify-content-between px-5';
+                            noteElement.className = 'my-col alert alert-info d-flex justify-content-between px-5';
                             noteElement.setAttribute('data-note-id', data.note.id);
                             // noteElement.textContent = data.note.text; // Imposta il testo della nota
                             noteElement.innerHTML = `

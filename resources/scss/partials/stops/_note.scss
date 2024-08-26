@@ -1,0 +1,29 @@
+#my-note{
+    .my-col{
+        margin: 5px;
+        min-height: 150px;
+        width: calc((100% / 3) - 10px);
+    }
+}
+#notesWrapper{
+    
+    .my-wrap-note{
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: start;
+    }
+    .my-col{
+        margin: 5px;
+        min-height: 150px;
+        width: calc((100% / 3) - 10px);
+    }
+}
+
+#my-note-modal{
+
+    .my-modal-content-note{
+      height: 70%;
+      overflow: hidden;
+      overflow-y: auto;
+    }
+}

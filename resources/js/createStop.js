@@ -480,23 +480,17 @@ document.querySelectorAll('#form-stop').forEach((form) => {
                                 }
                                 // chiudere la modale appena finito di creare tappa
                                 // Ottenere il valore di `modalId` prima di cercare `closeButton`
-                                // const modalId = document.querySelector('#btnFormStop').getAttribute('data-target').replace('#formStopModal-', '');
-                                // const closeButton = document.querySelector(`#formStopModal-${modalId} .close`);
-                                // console.log(modalId,'ciao');
-                                // console.log(closeButton,'ciaos');
-
-                                // if (closeButton) {
-                                //     closeButton.click();  // Triggera il click sul bottone per chiudere il modale
-                                // }
+                                // funziona solo una volta da risolvere
                                 const modalId = document.querySelector('#btnFormStop').getAttribute('data-target').replace('#formStopModal-', '');
-                                const modalElement = document.getElementById(`formStopModal-${modalId}`);
+                                const closeButton = document.querySelector(`#formStopModal-${modalId} .close`);
+                                console.log(modalId,'ciao');
+                                console.log(closeButton,'ciaos');
 
-                                if (modalElement) {
-                                    console.log(modalElement, 'modalElement');
-                                    $(modalElement).modal('hide');  // Usa Bootstrap per chiudere la modale
-                                } else {
-                                    console.error('Elemento modale non trovato');
+                                if (closeButton) {
+                                    closeButton.click();  // Triggera il click sul bottone per chiudere il modale
                                 }
+                                // -------------
+                                
 
                             } else {
                                 console.error(`Contenitore non trovato con il selettore: ${stopsContainerSelector}`);

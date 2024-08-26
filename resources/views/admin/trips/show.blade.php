@@ -84,36 +84,30 @@
                         </summary>
                         <div class="accordion-content p-2 px-3 pt-3" id="my-accordion-create">
                             <div class="d-flex align-items-center">
+                                <!--bottone modale -->
                                 <a id="btnFormStop" data-toggle="modal"
-                                    data-target="#formStopModal-{{ $date->format('d-M-Y') }}"
-                                    <i  >
-                                        
-                                    </i>
+                                    data-target="#formStopModal-{{$trip->id}}-{{ $date->format('d-M-Y') }}">
+
                                     <i id="icon-btn-form-stop"
-                                    class="fa-solid fa-circle-plus mb-2 d-flex align-items-center my-fa-circle-plus"><span class="btn border-0 ms-3 fs-3 fw-bold content-btn">AGGIUNGI TAPPA</span></i>
+                                        class="fa-solid fa-circle-plus mb-2 d-flex align-items-center my-fa-circle-plus"><span
+                                            class="btn border-0 ms-3 fs-3 fw-bold content-btn">AGGIUNGI TAPPA</span></i>
                                 </a>
+                                <!--/bottone modale -->
                             </div>
 
-
-
-                            <div class="modal fade my-bg-modal " id="formStopModal-{{ $date->format('d-M-Y') }}"
+                            <!-- modale -->
+                            <div class="modal fade my-bg-modal " id="formStopModal-{{$trip->id}}-{{ $date->format('d-M-Y') }}"
                                 tabindex="-1" role="dialog" aria-labelledby="formStopModalLabel" aria-hidden="true">
                                 <div class="modal-dialog" role="document">
                                     <div class="modal-content">
-                                        <button type="button"  class="close" data-dismiss="modal"
-                                            aria-label="Close">
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                             <span aria-hidden="true">&times;</span>
                                         </button>
                                         <x-formAddStop :date="$date->format('Y-m-d')" :tripId="$trip->id" :index="$loop->index" />
                                     </div>
                                 </div>
                             </div>
-                          
-                            
-
-
-
-
+                            <!-- /modale -->
 
                             <div id="stops-container" class="stops-container" data-index="{{ $loop->index }}">
                                 @if (isset($events[$date->format('d M Y')]))
@@ -138,6 +132,13 @@
     </section>
 @endsection
 @stack('scripts')
+
+<!-- modale -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<!-- /modale -->
+
 <!-- Librerie di TomTom -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
     integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous">

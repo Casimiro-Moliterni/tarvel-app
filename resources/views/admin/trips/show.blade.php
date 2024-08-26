@@ -98,9 +98,9 @@
                             <!-- modale -->
                             <div class="modal fade my-bg-modal " id="formStopModal-{{$trip->id}}-{{ $date->format('d-M-Y') }}"
                                 tabindex="-1" role="dialog" aria-labelledby="formStopModalLabel" aria-hidden="true">
-                                <div class="modal-dialog" role="document">
+                                <div class="modal-dialog modal-xl" role="document">
                                     <div class="modal-content">
-                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <button type="button" class="close py-3 bg-light fs-2" data-dismiss="modal" aria-label="Close">
                                             <span aria-hidden="true">&times;</span>
                                         </button>
                                         <x-formAddStop :date="$date->format('Y-m-d')" :tripId="$trip->id" :index="$loop->index" />

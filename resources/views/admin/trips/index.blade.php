@@ -16,12 +16,12 @@
                         <a href="{{ route('admin.trips.show', ['trip' => $trip->id]) }}" class="link-offset-2 link-underline link-underline-opacity-0 ">
                             <article class="card">
                                 @if ($trip->thumb)
-                                    <img class="card__background" src="{{ asset('storage/' . $trip->thumb) }}">
+                                    <img class="card__background w-100" src="{{ asset('storage/' . $trip->thumb) }}">
                                 @elseif($trip->country && file_exists(public_path('img/country/' . $trip->country . '.png')))
-                                    <img class="card__background" style="object-position: center"
+                                    <img class="card__background w-100" style="object-position: center"
                                         src="{{ asset('img/country/' . $trip->country . '.png') }}">
                                 @else
-                                    <img class="card__background" style="object-position: center"
+                                    <img class="card__background w-100" style="object-position: center"
                                         src="{{ asset('img/default.png') }}">
                                 @endif
                         

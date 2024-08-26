@@ -1,5 +1,5 @@
 @props(['date', 'tripId', 'index'])
-<div class="container my-form-create card mb-5 rounded-4" id="formStop">
+<div class="container my-form-create card rounded-4" id="formStop">
     <h1 class="mb-3">Aggiungi una nuova tappa</h1>
     <div id="messages">
 

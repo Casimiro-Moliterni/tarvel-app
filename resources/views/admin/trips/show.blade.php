@@ -95,11 +95,11 @@
 
 
 
-                            <div class="modal fade my-bg-modal miaup" id="formStopModal-{{ $date->format('d-M-Y') }}"
+                            <div class="modal fade my-bg-modal " id="formStopModal-{{ $date->format('d-M-Y') }}"
                                 tabindex="-1" role="dialog" aria-labelledby="formStopModalLabel" aria-hidden="true">
                                 <div class="modal-dialog" role="document">
                                     <div class="modal-content">
-                                        <button type="button" id="miauu" class="close" data-dismiss="modal"
+                                        <button type="button"  class="close" data-dismiss="modal"
                                             aria-label="Close">
                                             <span aria-hidden="true">&times;</span>
                                         </button>
@@ -107,6 +107,8 @@
                                     </div>
                                 </div>
                             </div>
+                          
+                            
 
 
 

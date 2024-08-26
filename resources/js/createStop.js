@@ -31,7 +31,7 @@ document.querySelectorAll('#form-stop').forEach((form) => {
     let cityCountrySubdivisionCod = null;
     let selectedCity = null;
     let streetCodeValue = null;
-    let streetSubdivisonValue = null ;
+    let streetSubdivisonValue = null;
     const setSuccess = (element) => {
         const inputControl = element.parentElement;
         const errorDisplay = inputControl.querySelector('.error');
@@ -124,10 +124,10 @@ document.querySelectorAll('#form-stop').forEach((form) => {
         // Se il paese viene cancellato, resettare il campo città
         if (query === '') {
             cityInput.value = '';
-            streetInput.value="";
+            streetInput.value = "";
             latCityInput.value = '';
             lonCityInput.value = '';
-            streetCodeValue="";
+            streetCodeValue = "";
             selectedCity = null; // Resetta la selezione della città
             countryCodeValue = null; // Resetta il countryCode del paese
             cityCodeValue = null; // Resetta il countryCode della città
@@ -478,10 +478,35 @@ document.querySelectorAll('#form-stop').forEach((form) => {
                                 if (newElement) {
                                     newElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
                                 }
+                                // chiudere la modale appena finito di creare tappa
+                                // Ottenere il valore di `modalId` prima di cercare `closeButton`
+                                // const modalId = document.querySelector('#btnFormStop').getAttribute('data-target').replace('#formStopModal-', '');
+                                // const closeButton = document.querySelector(`#formStopModal-${modalId} .close`);
+                                // console.log(modalId,'ciao');
+                                // console.log(closeButton,'ciaos');
+
+                                // if (closeButton) {
+                                //     closeButton.click();  // Triggera il click sul bottone per chiudere il modale
+                                // }
+                                const modalId = document.querySelector('#btnFormStop').getAttribute('data-target').replace('#formStopModal-', '');
+                                const modalElement = document.getElementById(`formStopModal-${modalId}`);
+
+                                if (modalElement) {
+                                    console.log(modalElement, 'modalElement');
+                                    $(modalElement).modal('hide');  // Usa Bootstrap per chiudere la modale
+                                } else {
+                                    console.error('Elemento modale non trovato');
+                                }
+
                             } else {
                                 console.error(`Contenitore non trovato con il selettore: ${stopsContainerSelector}`);
                             }
                         }, 2000);
+
+                        // console.log(modalId,closeButton);
+
+                        // -----------------------------------------------
+
                     } else {
                         console.error('Errore durante la validazione dei dati:', response.data.message);
                     }

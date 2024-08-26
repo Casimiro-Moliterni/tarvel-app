@@ -3,6 +3,7 @@
 function initializeNoteHandlers() {
         // Seleziona tutti i moduli di nota
         const forms = document.querySelectorAll('#form-notes');
+       
         // console.log('FORMSok',forms);
     
     
@@ -17,6 +18,9 @@ function initializeNoteHandlers() {
     
                 const textField = form.querySelector('#text');
                 const textValue = textField.value.trim();
+                const error = form.querySelector('.error')
+                console.log(error);
+                
     
                 // Validazione lato client
                 if (textValue.length < 3) {

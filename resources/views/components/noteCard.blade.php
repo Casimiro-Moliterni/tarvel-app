@@ -25,10 +25,10 @@
                     @foreach ($event->notes as $note)
                         <div class="my-col d-flex flex-column align-items-center"
                             data-note-id="{{ $note->id }}">
-                            <p class="mb-0 flex-grow-1">
+                            <p class="mb-0 flex-grow-1 my-p-note">
                                 {{ $note->text }}
                             </p>
-                            <div class="d-flex gap-5 mb-3">
+                            <div class="d-flex gap-5 mb-3 my-fa-delete-left">
                                 <i class="fa-solid fa-delete-left"></i>
                             </div>
                         </div>

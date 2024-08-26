@@ -52,15 +52,15 @@ function initializeNoteHandlers() {
                             noteElement.setAttribute('data-note-id', data.note.id);
                             // noteElement.textContent = data.note.text; // Imposta il testo della nota
                             noteElement.innerHTML = `
-                            <p class="mb-0 flex-grow-1">${data.note.text}</p>
-                            <div class="d-flex gap-5 mb-3">
+                            <p class="mb-0 flex-grow-1 my-p-note">${data.note.text}</p>
+                            <div class="d-flex gap-5 mb-3 my-fa-delete-left">
                                 <i class="fa-solid fa-delete-left"></i>
                             </div>
                         `;
                             notesWrapper.appendChild(noteElement); // Aggiungi la nuova nota al wrapper
     
                             // Ricollega l'evento click sull'icona di eliminazione
-                            attachDeleteListener(noteElement.querySelector('.fa-delete-left'));
+                            attachDeleteListener(noteElement.querySelector('.my-fa-delete-left'));
     
                             // Pulisci il campo di testo del modulo
                             textField.value = '';

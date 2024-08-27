@@ -24,6 +24,11 @@
                 <i class="fa-solid fa-map-location-dot fs-1"></i>
             </a>
         </nav>
+        <div class="suggestions-all bg-light" style="height: 300px">
+              <ul>
+
+              </ul>
+        </div>
     </div>
     <header>
         <div class="d-flex justify-content-between">

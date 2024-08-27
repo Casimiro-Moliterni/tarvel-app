@@ -7,6 +7,7 @@ import './editStop';
 import './deleteStop';
 import './displayTel';
 import './ratingStar';
+import './suggestionPoint';
 import './note';
 import.meta.glob([
     '../img/**'

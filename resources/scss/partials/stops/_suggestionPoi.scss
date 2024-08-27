@@ -1,0 +1,60 @@
+.section-show-stop{
+    width: 100%;
+    min-height: 500px;
+.navbar > a{
+    color: rgba(36, 235, 136, 0.765);
+}
+    li{
+        cursor: pointer;
+        font-size: 18px;
+        background-color: #F2F2F2;
+        &:hover{
+            background-color: rgb(255, 255, 255);
+        }
+    }
+    li:hover .my-hover-icon{
+        color: green;
+    }
+    .my-hover-icon{
+        font-size: 24px;
+    }
+    .my-fa-street-view{
+        color: rgb(0, 0, 0);
+        margin-right:0.2rem ;
+    }
+
+ a,.my-a-url{
+    text-decoration: none;
+ }
+ .my-a-url{
+    color: black;
+    &:hover{
+        color: blue;
+        text-decoration: underline;
+    }
+ }
+ 
+
+.name{
+    color: black;
+    font-size: 14px;
+    font-weight: 500;
+}
+    .suggestions-all ul li{
+        list-style: none;
+    }
+     .suggestions-all{
+         background-color: rgb(255, 255, 255);
+         h3{
+            font-size: 30px;
+         }
+    }
+
+    .my-bg-click-li{
+        background-color: rgb(157, 227, 52);
+
+        &:hover{
+            background-color: rgb(157, 227, 52);
+        }
+    }
+}

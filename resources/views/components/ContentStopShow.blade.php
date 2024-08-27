@@ -1,32 +1,38 @@
 @props(['event'])
 <section class="section-show-stop">
-    <div class="">
-        <nav class="navbar navbar-expand-lg navbar-light bg-light d-flex justify-content-center gap-3">
-            <a href="" class="hotel-btn" data-lat="{{ $event->latStreet }}" data-lon="{{ $event->lonStreet }}" data-event-id="{{ $event->id }}">
+    <div id="">
+        <nav class="navbar navbar-expand-lg navbar-light bg-light d-flex justify-content-around">
+            <a href="" class="hotel-btn d-flex flex-column align-items-center gap-1" data-lat="{{ $event->latStreet }}" data-lon="{{ $event->lonStreet }}" data-event-id="{{ $event->id }}">
                 <i class="fa-solid fa-hotel fs-1"></i>
+                <div class="name">HOTEL/B&B</div>
             </a>
-            <a href="" class="restaurant-btn" data-lat="{{ $event->latStreet }}" data-lon="{{ $event->lonStreet }}" data-event-id="{{ $event->id }}">
+            <a href="" class="restaurant-btn d-flex flex-column align-items-center gap-1" data-lat="{{ $event->latStreet }}" data-lon="{{ $event->lonStreet }}" data-event-id="{{ $event->id }}">
                 <i class="fa-solid fa-utensils fs-1"></i>
+                <div class="name">RISTORANTI</div>
             </a>
-            <a href="" class="pizza-btn" data-lat="{{ $event->latStreet }}" data-lon="{{ $event->lonStreet }}" data-event-id="{{ $event->id }}">
+            <a href="" class="pizza-btn d-flex flex-column align-items-center gap-1" data-lat="{{ $event->latStreet }}" data-lon="{{ $event->lonStreet }}" data-event-id="{{ $event->id }}">
                 <i class="fa-solid fa-pizza-slice fs-1"></i>
+                <div class="name">PIZZERIE</div>
             </a>
-            <a href="" class="bar-btn" data-lat="{{ $event->latStreet }}" data-lon="{{ $event->lonStreet }}" data-event-id="{{ $event->id }}">
+            <a href="" class="bar-btn d-flex flex-column align-items-center gap-1" data-lat="{{ $event->latStreet }}" data-lon="{{ $event->lonStreet }}" data-event-id="{{ $event->id }}">
                 <i class="fa-solid fa-mug-saucer fs-1"></i>
+                <div class="name">BAR</div>
             </a>
-            <a href="" class="museo-btn" data-lat="{{ $event->latStreet }}" data-lon="{{ $event->lonStreet }}" data-event-id="{{ $event->id }}">
+            <a href="" class="museo-btn d-flex flex-column align-items-center gap-1" data-lat="{{ $event->latStreet }}" data-lon="{{ $event->lonStreet }}" data-event-id="{{ $event->id }}">
                 <i class="fa-solid fa-building-columns fs-1"></i>
+                <div class="name">MUSEI</div>
             </a>
-            <a href="" class="centri-benessere-btn" data-lat="{{ $event->latStreet }}" data-lon="{{ $event->lonStreet }}" data-event-id="{{ $event->id }}">
+            <a href="" class="centri-benessere-btn d-flex flex-column align-items-center gap-1" data-lat="{{ $event->latStreet }}" data-lon="{{ $event->lonStreet }}" data-event-id="{{ $event->id }}">
                 <i class="fa-solid fa-spa fs-1"></i>
+                <div class="name">SPA</div>
             </a>
-            <a href="" class="turista-btn" data-lat="{{ $event->latStreet }}" data-lon="{{ $event->lonStreet }}" data-event-id="{{ $event->id }}">
+            <a href="" class="turista-btn d-flex flex-column align-items-center gap-1" data-lat="{{ $event->latStreet }}" data-lon="{{ $event->lonStreet }}" data-event-id="{{ $event->id }}">
                 <i class="fa-solid fa-map-location-dot fs-1"></i>
+                <div class="name">TURIST POINT</div>
             </a>
         </nav>
-        <div class="suggestions-all bg-light" style="height: 300px">
-              <ul>
-
+        <div class="suggestions-all ">
+              <ul class="p-0"> 
               </ul>
         </div>
     </div>

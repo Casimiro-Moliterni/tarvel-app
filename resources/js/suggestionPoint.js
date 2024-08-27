@@ -31,6 +31,9 @@ document.addEventListener('DOMContentLoaded', function() {
         const restaurantIcon = section.querySelector('.restaurant-btn');
         const pizzaIcon = section.querySelector('.pizza-btn');
         const barIcon = section.querySelector('.bar-btn');
+        const museoIcon = section.querySelector('.museo-btn');
+        const CentriBenessereIcon = section.querySelector('.centri-benessere-btn');
+        const turistaIcon = section.querySelector('.turista-btn');
 
         if (hotelIcon) {
             hotelIcon.addEventListener('click', function(e) {
@@ -69,6 +72,46 @@ document.addEventListener('DOMContentLoaded', function() {
                 const lat =  barIcon.getAttribute('data-lat');
                 const lon =  barIcon.getAttribute('data-lon');
                 fetchPOIs('bar', lat, lon,10000); // Passa le coordinate specifiche
+            });
+        } else {
+            console.error('bar icon not found!');
+        }
+        if (museoIcon) {
+            museoIcon.addEventListener('click', function(e) {
+                e.preventDefault();
+                const lat =  museoIcon.getAttribute('data-lat');
+                const lon =  museoIcon.getAttribute('data-lon');
+                fetchPOIs('museo', lat, lon,50000); // Passa le coordinate specifiche
+            });
+        } else {
+            console.error('bar icon not found!');
+        }
+        if (CentriBenessereIcon) {
+            CentriBenessereIcon.addEventListener('click', function(e) {
+                e.preventDefault();
+                const lat =  CentriBenessereIcon.getAttribute('data-lat');
+                const lon =  CentriBenessereIcon.getAttribute('data-lon');
+                fetchPOIs('spa', lat, lon,10000); // Passa le coordinate specifiche
+            });
+        } else {
+            console.error('bar icon not found!');
+        }
+        if (CentriBenessereIcon) {
+            CentriBenessereIcon.addEventListener('click', function(e) {
+                e.preventDefault();
+                const lat =  CentriBenessereIcon.getAttribute('data-lat');
+                const lon =  CentriBenessereIcon.getAttribute('data-lon');
+                fetchPOIs('spa', lat, lon,10000); // Passa le coordinate specifiche
+            });
+        } else {
+            console.error('bar icon not found!');
+        }
+        if (turistaIcon) {
+            turistaIcon.addEventListener('click', function(e) {
+                e.preventDefault();
+                const lat =  turistaIcon.getAttribute('data-lat');
+                const lon =  turistaIcon.getAttribute('data-lon');
+                fetchPOIs('important tourist attraction', lat, lon,10000); // Passa le coordinate specifiche
             });
         } else {
             console.error('bar icon not found!');

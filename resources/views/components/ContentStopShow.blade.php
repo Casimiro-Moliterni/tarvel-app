@@ -14,6 +14,15 @@
             <a href="" class="bar-btn" data-lat="{{ $event->latStreet }}" data-lon="{{ $event->lonStreet }}" data-event-id="{{ $event->id }}">
                 <i class="fa-solid fa-mug-saucer fs-1"></i>
             </a>
+            <a href="" class="museo-btn" data-lat="{{ $event->latStreet }}" data-lon="{{ $event->lonStreet }}" data-event-id="{{ $event->id }}">
+                <i class="fa-solid fa-building-columns fs-1"></i>
+            </a>
+            <a href="" class="centri-benessere-btn" data-lat="{{ $event->latStreet }}" data-lon="{{ $event->lonStreet }}" data-event-id="{{ $event->id }}">
+                <i class="fa-solid fa-spa fs-1"></i>
+            </a>
+            <a href="" class="turista-btn" data-lat="{{ $event->latStreet }}" data-lon="{{ $event->lonStreet }}" data-event-id="{{ $event->id }}">
+                <i class="fa-solid fa-map-location-dot fs-1"></i>
+            </a>
         </nav>
     </div>
     <header>

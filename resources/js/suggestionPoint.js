@@ -10,20 +10,18 @@ document.addEventListener('DOMContentLoaded', function () {
         const centriBenessereIcon = section.querySelector('.centri-benessere-btn');
         const turistaIcon = section.querySelector('.turista-btn');
         const container = section.querySelector('.suggestions-all ul');
-
+        const btnClosedSuggestion = section.querySelector('.btn-closed-suggestion')
         // Memorizza i risultati dell'API in un oggetto
         let poiResults = {};
 
         function fetchPOIs(categoryName, lat, lon, radius) {
             const apiKey = 'tNdeH4PSEGzxLQ1CKK0HdCagLd1BsXSc';
             const limit = 15;
-
             const url = `https://api.tomtom.com/search/2/categorySearch/${categoryName}.json?key=${apiKey}&lat=${lat}&lon=${lon}&radius=${radius}&limit=${limit}&language=it-IT&sortBy=distance`;
 
-            // Se i risultati sono già presenti, mostralo
             if (poiResults[categoryName]) {
                 console.log(`Mostrando risultati salvati per ${categoryName}`);
-                displayResults(poiResults[categoryName]);
+                displayResults(poiResults[categoryName], lat, lon);
                 return;
             }
 
@@ -31,9 +29,8 @@ document.addEventListener('DOMContentLoaded', function () {
                 .then(response => response.json())
                 .then(data => {
                     if (data.results) {
-                        poiResults[categoryName] = data.results.slice(0, limit); // Memorizza i risultati
-                        displayResults(poiResults[categoryName]);
-                        console.log(data.results)
+                        poiResults[categoryName] = data.results.slice(0, limit);
+                        displayResults(poiResults[categoryName], lat, lon);
                     } else {
                         console.log('Nessun risultato trovato.');
                         container.innerHTML = "<li>Nessun risultato trovato.</li>";
@@ -44,67 +41,79 @@ document.addEventListener('DOMContentLoaded', function () {
                 });
         }
 
-        function displayResults(results) {
-            container.innerHTML = ""; // Pulisce il contenitore
+        function displayResults(results, lat, lon) {
+            container.innerHTML = "";
+            container.style.height = "0px";
             container.innerHTML = `<h3>Risultati n:${results.length}</h3>`;
+            container.style.height = "550px";
 
-            results.forEach(result => {
+            results.forEach((result, index) => {
                 const metri = result.dist;
                 const chilometri = metri / 1000;
-
-                // Arrotonda i chilometri a 2 decimali
                 const chilometriArrotondati = chilometri > 1 ? chilometri.toFixed(2) : null;
-
-                // Crea la stringa di risultato
                 const Result = chilometri > 1
-                    ? `${parseFloat(chilometriArrotondati)} Km` // Se la distanza è maggiore di 1 km, mostra in km
-                    : `${Math.round(metri)} Metri`; // Altrimenti, mostra in metri senza decimali
-
-                console.log(Result);
+                    ? `${parseFloat(chilometriArrotondati)} Km`
+                    : `${Math.round(metri)} Metri`;
 
                 const myLi = document.createElement('li');
-                myLi.innerHTML = 
-                `<div class="d-flex align-items-center gap-5 p-2 fw-medium fs-2">
-                <div class="d-flex align-items-center gap-2"><i class=" fa-solid fa-street-view my-hover-icon"></i>${result.poi.name}</div>
-                <div> Distante:${Result}</div>
-                </div>`;
-                // Crea l'elemento di suggerimento ma non lo aggiunge subito al DOM
+                const divFirst = document.createElement('div');
+                divFirst.classList.add('d-flex', 'align-items-center', 'gap-5', 'p-2', 'fw-medium', 'my-li');
+                divFirst.innerHTML = `<div class="d-flex align-items-center gap-2"><i class="fa-solid fa-street-view my-hover-icon"></i>${result.poi.name}</div>
+                    <div class="d-none d-lg-block"> Distante: ${Result}</div>`;
+                myLi.append(divFirst);
+
                 const suggestion = document.createElement('div');
-                suggestion.classList.add('my-card');
+                suggestion.classList.add('my-card', 'd-none');
 
-                let url = result.poi.url || '';  // Prende l'URL se disponibile
-                if (url && !url.startsWith('http://') && !url.startsWith('https://')) {
-                    url = 'http://' + url; // Aggiunge il protocollo se manca
-                }
-
-                const phone = result.poi.phone ? `<div><i class="fa-solid fa-square-phone-flip"></i>: ${result.poi.phone}</div>` : '';
-                const urlComponent = url ? `  <a href="${url}" class="my-a-url" target="_blank"><i class="fa-solid fa-globe"></i>: ${result.poi.url}</a>` : '';
-                const address = result.address.freeformAddress ? result.address.freeformAddress : 'Indirizzo non disponibile';
-
+                const uniqueMapId = `map-${index}`; // ID unico per ciascuna mappa
                 suggestion.innerHTML = `
-                    <div class="bg-white ps-2 py-3">
-                        ${phone}
-                        ${urlComponent}
-                        <div><i class="fa-solid fa-road"></i>: ${address}</div>
+                    <div class="my-bg-content">
+                        ${result.poi.phone ? `<div><i class="fa-solid fa-square-phone-flip"></i>: ${result.poi.phone}</div>` : ''}
+                        ${result.poi.url ? `<a href="https://${result.poi.url}" class="my-a-url" target="_blank"><i class="fa-solid fa-globe"></i>: ${result.poi.url}</a>` : ''}
+                        <div><i class="fa-solid fa-road"></i>: ${result.address.freeformAddress || 'Indirizzo non disponibile'}</div>
+                        <div><i class="fa-solid fa-map-pin"></i>: dista ${Result}</div>
+                        <div class="mt-2">MAPPA</div>
+                        <div id="${uniqueMapId}" class="rounded mb-4 map ms-auto me-auto"></div>
                     </div>
                 `;
-                suggestion.classList.add('d-none'); // Nasconde il suggerimento inizialmente
-
-                myLi.addEventListener('click', function (e) {
-                    // Verifica se il suggerimento è già visibile
+                divFirst.addEventListener('click', function () {
                     if (suggestion.classList.contains('d-none')) {
-                        myLi.classList.add('my-bg-click-li')
-                        // Mostra il suggerimento
+                        divFirst.classList.add('my-bg-click-li');
                         suggestion.classList.remove('d-none');
                         myLi.appendChild(suggestion);
+                        // Inizializzazione della mappa con ID unico
+                        const mapContainer = suggestion.querySelector(`#${uniqueMapId}`);
+                        const map = tt.map({
+                            key: 'tNdeH4PSEGzxLQ1CKK0HdCagLd1BsXSc',
+                            container: mapContainer,
+                            center: [result.position.lon, result.position.lat],
+                            zoom: 15
+                        });
+                        map.addControl(new tt.FullscreenControl());
+                        map.addControl(new tt.NavigationControl());
+                        const marker = new tt.Marker()
+                            .setLngLat([result.position.lon, result.position.lat])
+                            .addTo(map);
                     } else {
-                        // Nasconde il suggerimento
                         suggestion.classList.add('d-none');
-                        myLi.classList.remove('my-bg-click-li')
+                        divFirst.classList.remove('my-bg-click-li');
                     }
                 });
 
                 container.appendChild(myLi);
+                if (container.innerHTML.length > 1) {
+                    btnClosedSuggestion.classList.add('d-block')
+                    btnClosedSuggestion.classList.remove('d-none')
+                    btnClosedSuggestion.addEventListener('click', function () {
+                        container.innerHTML=""
+                         btnClosedSuggestion.classList.add('d-none')
+                         container.style.height = "550px";
+                         btnClosedSuggestion.classList.remove('d-block')
+                    })
+                } else {
+                    btnClosedSuggestion.classList.add('d-none')
+                    btnClosedSuggestion.classList.remove('d-block')
+                }
             });
         }
 
@@ -185,5 +194,42 @@ document.addEventListener('DOMContentLoaded', function () {
         } else {
             console.error('Turista icon not found!');
         }
+
+        // Inizializzazione del grafico
+        const ctx = document.getElementById('myChart').getContext('2d');
+        const myChart = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: ['Marzo', 'Aprile', 'Maggio', 'Giugno', 'Luglio'],
+                datasets: [{
+                    label: 'Messaggi',
+                    data: [12, 15, 20, 16, 25],
+                    backgroundColor: 'rgba(101, 159, 230, 0.5)', // Azzurro
+                    borderColor: 'rgba(101, 159, 230, 1)',
+                    borderWidth: 1
+                }, {
+                    label: 'Visualizzazioni',
+                    data: [100, 110, 100, 150, 180],
+                    backgroundColor: 'rgba(255, 99, 132, 0.5)', // Rosso
+                    borderColor: 'rgba(255, 99, 132, 1)',
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                scales: {
+                    y: {
+                        grid: {
+                            display: false // Imposta display: false per rimuovere la griglia dell'asse y
+                        },
+                        beginAtZero: true,
+                    },
+                    x: {
+                        grid: {
+                            display: false // Imposta display: false per rimuovere la griglia dell'asse x
+                        }
+                    }
+                }
+            }
+        });
     });
 });

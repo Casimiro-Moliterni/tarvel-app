@@ -5,77 +5,10 @@
         <div class="row mt-3">
             <h1 class="text-center mt-3">{{ $trip->title }}</h1>
             <x-cardShow :trip="$trip" />
-            {{-- ---------------------------------OFFCANVAS------------------------- --}}
-            {{-- <button class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#collapseWidthExample" aria-expanded="false" aria-controls="collapseWidthExample">
-                Toggle width collapse
-            </button>
-            </p>
-            <div style="min-height: 120px;">
-                <div class="collapse collapse-horizontal" id="collapseWidthExample">
-                    <div class="" style="width: 300px;">
-                        This is some placeholder content for a horizontal collapse. It's hidden by default and shown when
-                        triggered.
-                    </div>
-                </div>
-            </div> --}}
-            {{-- <div class="pt-3 ps-3">
-                <button class="btn btn-success mb-4 fs-2" type="button" data-bs-toggle="offcanvas"
-                    data-bs-target="#offcanvasScrolling" aria-controls="offcanvasScrolling">Scopri maggiori
-                    dettagli</button>
+            <div>
+                <h3>Visualizza la mappa</h3>
+                <div id="map" class="rounded mb-4 mt-3 map " style="height: 400px; width: 100%;"></div>
             </div>
-            <div class="offcanvas end-0 top-0 " data-bs-scroll="true" data-bs-backdrop="false" tabindex="-1"
-                id="offcanvasScrolling" aria-labelledby="offcanvasScrollingLabel">
-                <button type="button" class="btn-close p-3 fs-2 fw-bold" data-bs-dismiss="offcanvas"
-                    aria-label="Close"></button>
-                <div class="offcanvas-header justify-content-center">
-                    <h2 class="r" id="offcanvasScrollingLabel">{{ $trip->title }}</h2>
-                </div>
-                <div class="offcanvas-body">
-                    <div class="d-flex align-items-center gap-3">
-                        <a id="btn-map"
-                            class="btn fs-1 d-flex justify-content-center align-content-center border-2 rounded-pill border-black"><i
-                                class="fa-solid fa-plus "></i></a>
-                        <h3>Visualizza la mappa</h3>
-                    </div>
-                    <div id="map" class="rounded mb-4 mt-3 map " style="height: 400px; width: 100%;"></div>
-                    <div class="d-flex align-items-center gap-3 mt-2">
-                        <a id="btn-img-cover"
-                            class="btn fs-1 d-flex justify-content-center align-content-center border-2 rounded-pill border-black"><i
-                                class="fa-solid fa-plus "></i></a>
-                        <h3>Visualizza la cover</h3>
-                    </div>
-                    <img id="img-cover" class="img-cover d-none my-2" src="{{ asset('storage/' . $trip->thumb) }}"
-                        alt="">
-                    <div class="d-flex align-items-center gap-3 mt-2">
-                        <a id="btn-description"
-                            class="btn fs-1 d-flex justify-content-center align-content-center border-2 rounded-pill border-black"><i
-                                class="fa-solid fa-plus "></i></a>
-                        <h3>Visualizza la descrizione</h3>
-                    </div>
-                    <div id="show-description" class="card my-2 d-none overflow-y-auto" style="max-height: 200px">
-                        <div class="card-body fs-3 fw-semibold">
-                            {{ $trip->description }}
-                        </div>
-                    </div>
-                    <div class="d-flex align-items-center gap-3 mt-2">
-                        <a id="btn-date"
-                            class="btn fs-1 d-flex justify-content-center align-content-center border-2 rounded-pill border-black"><i
-                                class="fa-solid fa-plus "></i></a>
-                        <h3>Visualizza le date</h3>
-                    </div>
-                    <div id="show-date" class="card my-2 d-none overflow-y-auto" style="max-height: 200px">
-                        <div class="card-body fs-3 fw-semibold">
-                            <div> Giorno di partenza: {{ $trip->start_date }}</div>
-                            <div> Giorno di ritorno: {{ $trip->end_date }}</div>
-                        </div>
-                    </div>
-                </div>
-            </div> --}}
-            {{-- </div> --}}
-            {{-- ---------------------------------CHIUSURA OFFCANVAS-------------------------  --}}
-
-
-
             <div class="accordion " id="accordionExample" style="padding-bottom: 126px;">
                 @foreach ($daysRange as $date)
                     <details class="accordion mb-2">
@@ -86,24 +19,27 @@
                             <div class="d-flex align-items-center">
                                 <!--bottone modale -->
                                 <a id="btnFormStop" data-toggle="modal"
-                                    data-target="#formStopModal-{{$trip->id}}-{{ $date->format('d-M-Y') }}">
+                                    data-target="#formStopModal-{{ $trip->id }}-{{ $date->format('d-M-Y') }}">
 
-                                    <i id="icon-btn-form-stop" class="fa-solid fa-circle-plus mb-2 d-flex align-items-center my-fa-circle-plus">
-                                        <span role="button" class="pointer border-0 ms-3 fs-3 fw-bold content-btn">AGGIUNGI TAPPA</span>
+                                    <i id="icon-btn-form-stop"
+                                        class="fa-solid fa-circle-plus mb-2 d-flex align-items-center my-fa-circle-plus">
+                                        <span role="button" class="pointer border-0 ms-3 fs-3 fw-bold content-btn">AGGIUNGI
+                                            TAPPA</span>
                                     </i>
                                 </a>
                                 <!--/bottone modale -->
                             </div>
-
                             <!-- modale -->
-                            <div class="modal fade my-bg-modal " id="formStopModal-{{$trip->id}}-{{ $date->format('d-M-Y') }}"
-                                tabindex="-1" role="dialog" aria-labelledby="formStopModalLabel" aria-hidden="true">
+                            <div class="modal fade my-bg-modal "
+                                id="formStopModal-{{ $trip->id }}-{{ $date->format('d-M-Y') }}" tabindex="-1"
+                                role="dialog" aria-labelledby="formStopModalLabel" aria-hidden="true">
                                 <div class="modal-dialog modal-xl" role="document">
                                     <div class="modal-content">
-                                        <button type="button" class="close py-3 bg-light fs-2" data-dismiss="modal" aria-label="Close">
+                                        <button type="button" class="close py-3 bg-light fs-2" data-dismiss="modal"
+                                            aria-label="Close">
                                             <span aria-hidden="true">&times;</span>
                                         </button>
-                                        <x-formAddStop :date="$date->format('Y-m-d')" :tripId="$trip->id" :index="$loop->index" />
+                                        <x-formAddStop :date="$date->format('Y-m-d')" :tripId="$trip->id" :index="$loop->index" :trip="$trip" />
                                     </div>
                                 </div>
                             </div>
@@ -166,7 +102,7 @@
         let selectedLon = City && Country ? lonCity : lonCountry;
 
 
-        // getBtnToggle(btnFormStop, formStop)
+
         fetch(
                 `https://api.openweathermap.org/data/2.5/weather?lat=${selectedLat}&lon=${selectedLon}&lang=it&units=metric&appid=461c50c5aad0a7a4b9f77424415c5924`
             )
@@ -197,67 +133,17 @@
             })
             .catch(error => console.error('Errore:', error)); // Gestione errori.
 
-        // const btnMap = document.getElementById('btn-map');
-        // const showMap = document.getElementById("map");
-        // const btnCover = document.getElementById('btn-img-cover');
-        // const showCover = document.getElementById("img-cover");
-        // const btnDescription = document.getElementById('btn-description');
-        // const showDescription = document.getElementById("show-description");
-        // const btnDate = document.getElementById('btn-date');
-        // const showDate = document.getElementById("show-date");
-
-        // Usa la funzione globale
-        // getBtnToggle(btnMap, showMap);
-        // getBtnToggle(btnCover, showCover);
-        // getBtnToggle(btnDescription, showDescription);
-        // getBtnToggle(btnDate, showDate);
-
-        // tt.setProductInfo('Your App Name', 'Your App Version');
-        // let map = tt.map({
-        //     key: 'tNdeH4PSEGzxLQ1CKK0HdCagLd1BsXSc',
-        //     container: 'map',
-        //     center: [selectedLon, selectedLat],
-        //     zoom: 15
-        // });
-        // let marker = new tt.Marker()
-        //     .setLngLat([selectedLon, selectedLat])
-        //     .addTo(map);
-
-        // // Inizializzazione del grafico
-        // var ctx = document.getElementById('myChart').getContext('2d');
-        // var myChart = new Chart(ctx, {
-        //     type: 'bar',
-        //     data: {
-        //         labels: ['Marzo', 'Aprile', 'Maggio', 'Giugno', 'Luglio'],
-        //         datasets: [{
-        //             label: 'Messaggi',
-        //             data: [12, 15, 20, 16, 25],
-        //             backgroundColor: 'rgba(101, 159, 230, 0.5)', // Azzurro
-        //             borderColor: 'rgba(101, 159, 230, 1)',
-        //             borderWidth: 1
-        //         }, {
-        //             label: 'Visualizzazioni',
-        //             data: [100, 110, 100, 150, 180],
-        //             backgroundColor: 'rgba(255, 99, 132, 0.5)', // Rosso
-        //             borderColor: 'rgba(255, 99, 132, 1)',
-        //             borderWidth: 1
-        //         }]
-        //     },
-        //     options: {
-        //         scales: {
-        //             y: {
-        //                 grid: {
-        //                     display: false // Imposta display: false per rimuovere la griglia dell'asse y
-        //                 },
-        //                 beginAtZero: true,
-        //             },
-        //             x: {
-        //                 grid: {
-        //                     display: false // Imposta display: false per rimuovere la griglia dell'asse x
-        //                 }
-        //             }
-        //         }
-        //     }
-        // });
+        tt.setProductInfo('Your App Name', 'Your App Version');
+        let map = tt.map({
+            key: 'tNdeH4PSEGzxLQ1CKK0HdCagLd1BsXSc',
+            container: 'map',
+            center: [selectedLon, selectedLat],
+            zoom: 15
+        });
+        let marker = new tt.Marker()
+            .setLngLat([selectedLon, selectedLat])
+            .addTo(map);
+            map.addControl(new tt.FullscreenControl());
+            map.addControl(new tt.NavigationControl());
     });
 </script>

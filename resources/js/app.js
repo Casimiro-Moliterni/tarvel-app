@@ -302,10 +302,6 @@ document.addEventListener('DOMContentLoaded', function () {
                                         })
                                         .catch(error => console.error('Errore nella ricerca del paese:', error));
                                 };
-
-                                // cityInput.classList.add('color-input', 'text-warning');
-                                // countryInput.classList.add('color-input', 'text-warning');
-                                // titleInput.classList.add('color-input', 'text-warning');
                                 if (query.length === 0) {
                                     titleInput.value = 'Viaggio in: ' + suggestion.country;
                                 } else {

@@ -366,7 +366,26 @@ document.querySelectorAll('#form-stop').forEach((form) => {
                             const suggestion = document.createElement('a');
                             suggestion.href = "#";
                             suggestion.classList.add('list-group-item', 'list-group-item-action');
-                            suggestion.textContent = result.address.freeformAddress;
+                            if (result.type === 'POI') {
+                                suggestion.innerHTML = `
+                                <div class="d-flex align-items-center gap-3">
+                                    <div ><i class="fa-solid fa-house-flag text-secondary"></i></div>
+                                   <div class="d-flex flex-column align-items-start gap-1">
+                                      <div class="fw-semibold"> ${result.poi.name}</div>
+                                      <div class="fs-4 text-secondary">${result.address.freeformAddress}</div>
+                                  </div>
+                                </div>`;
+                            } else {
+                                suggestion.innerHTML = ` 
+                                <div class="d-flex align-items-center gap-3">
+                                    <div ><i class="fa-solid fa-location-dot text-secondary"></i></div>
+                                     <div class="d-flex flex-column align-items-start gap-1">
+                                       <div class="fw-semibold"></i>${result.address.freeformAddress}</div>
+                                      ${result.address.postalCode ? `<div class="text-secondary fs-4 text-start">${result.address.postalCode}  ${result.address.localName}</div> ` : ''}
+                                    </div>
+                                </div>`;
+                               
+                            }
 
                             suggestion.addEventListener('click', function (e) {
                                 e.preventDefault();
@@ -483,14 +502,14 @@ document.querySelectorAll('#form-stop').forEach((form) => {
                                 // funziona solo una volta da risolvere
                                 const modalId = document.querySelector('#btnFormStop').getAttribute('data-target').replace('#formStopModal-', '');
                                 const closeButton = document.querySelector(`#formStopModal-${modalId} .close`);
-                                console.log(modalId,'ciao');
-                                console.log(closeButton,'ciaos');
+                                console.log(modalId, 'ciao');
+                                console.log(closeButton, 'ciaos');
 
                                 if (closeButton) {
                                     closeButton.click();  // Triggera il click sul bottone per chiudere il modale
                                 }
                                 // -------------
-                                
+
 
                             } else {
                                 console.error(`Contenitore non trovato con il selettore: ${stopsContainerSelector}`);

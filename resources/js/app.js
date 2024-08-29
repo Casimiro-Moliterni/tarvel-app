@@ -223,7 +223,7 @@ document.addEventListener('DOMContentLoaded', function () {
         }
 
         if (query.length > 0) {
-            let fetchUrl = `https://api.tomtom.com/search/2/search/${query}.json?key=tNdeH4PSEGzxLQ1CKK0HdCagLd1BsXSc&language=it-IT&entityTypeSet=Municipality`;
+            let fetchUrl = `https://api.tomtom.com/search/2/search/${query}.json?key=tNdeH4PSEGzxLQ1CKK0HdCagLd1BsXSc&language=it-IT&entityTypeSet=Municipality&limit=5`;
 
             if (cityCountryCode) {
                 fetchUrl += `&countrySet=${cityCountryCode}`;
@@ -260,8 +260,13 @@ document.addEventListener('DOMContentLoaded', function () {
 
                             const cityText = document.createElement('span');
                             cityText.innerHTML = `
-                            <i class="fa-solid fa-location-dot"></i>
-                            ${suggestion.freeformAddress}`;
+                               <div class="d-flex align-items-center gap-3">
+                                    <div ><i class="fa-solid fa-location-dot"></i></div>
+                                     <div class="d-flex flex-column align-items-start gap-1">
+                                       <div class="fw-semibold"></i>${suggestion.freeformAddress}</div>
+                                       <div class=" fs-4 text-start">${suggestion.country}</div>
+                                    </div>
+                                </div>`;
                             cityText.classList.add('d-flex', 'align-items-center', 'gap-3');
                             suggestionElem.appendChild(cityText);
 

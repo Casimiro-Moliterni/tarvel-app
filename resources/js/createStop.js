@@ -1,4 +1,5 @@
 
+
 document.querySelectorAll('#form-stop').forEach((form) => {
 
     // Input per creare tappa 
@@ -463,7 +464,7 @@ document.querySelectorAll('#form-stop').forEach((form) => {
                 .then(response => {
                     if (response.data.status === 'success') {
                         form.reset();
-                        console.log('Dati del form validati con successo.');
+                        // console.log('Dati del form validati con successo.');
 
                         const successMessage = document.createElement('div');
                         successMessage.className = 'success-message';
@@ -497,8 +498,8 @@ document.querySelectorAll('#form-stop').forEach((form) => {
                                 if (newElement) {
                                     newElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
                                 }
+                                // ------------
                                 // chiudere la modale appena finito di creare tappa
-                                // Ottenere il valore di `modalId` prima di cercare `closeButton`
                                 // funziona solo una volta da risolvere
                                 const modalId = document.querySelector('#btnFormStop').getAttribute('data-target').replace('#formStopModal-', '');
                                 const closeButton = document.querySelector(`#formStopModal-${modalId} .close`);
@@ -509,8 +510,10 @@ document.querySelectorAll('#form-stop').forEach((form) => {
                                     closeButton.click();  // Triggera il click sul bottone per chiudere il modale
                                 }
                                 // -------------
-
-
+                                // Ho scritto questa nuova funzione per gestire le note e la valutazione
+                                window.initializeRatingHandlers();
+                                window.initializeNoteHandlers();
+                                
                             } else {
                                 console.error(`Contenitore non trovato con il selettore: ${stopsContainerSelector}`);
                             }
@@ -572,3 +575,4 @@ document.querySelectorAll('#form-stop').forEach((form) => {
         }
     });
 });
+

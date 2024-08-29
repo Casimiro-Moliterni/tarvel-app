@@ -57,7 +57,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
                 const myLi = document.createElement('li');
                 const divFirst = document.createElement('div');
-                divFirst.classList.add('d-flex', 'align-items-center', 'gap-5', 'p-2', 'fw-medium', 'my-li');
+                divFirst.classList.add('d-flex', 'align-items-center', 'gap-5', 'fw-medium', 'my-li');
                 divFirst.innerHTML = `<div class="d-flex align-items-center gap-2"><i class="fa-solid fa-street-view my-hover-icon"></i>${result.poi.name}</div>
                     <div class="d-none d-lg-block"> Distante: ${Result}</div>`;
                 myLi.append(divFirst);
@@ -107,7 +107,7 @@ document.addEventListener('DOMContentLoaded', function () {
                     btnClosedSuggestion.addEventListener('click', function () {
                         container.innerHTML=""
                          btnClosedSuggestion.classList.add('d-none')
-                         container.style.height = "550px";
+                         container.style.height = "0px";
                          btnClosedSuggestion.classList.remove('d-block')
                     })
                 } else {
@@ -194,42 +194,5 @@ document.addEventListener('DOMContentLoaded', function () {
         } else {
             console.error('Turista icon not found!');
         }
-
-        // Inizializzazione del grafico
-        const ctx = document.getElementById('myChart').getContext('2d');
-        const myChart = new Chart(ctx, {
-            type: 'bar',
-            data: {
-                labels: ['Marzo', 'Aprile', 'Maggio', 'Giugno', 'Luglio'],
-                datasets: [{
-                    label: 'Messaggi',
-                    data: [12, 15, 20, 16, 25],
-                    backgroundColor: 'rgba(101, 159, 230, 0.5)', // Azzurro
-                    borderColor: 'rgba(101, 159, 230, 1)',
-                    borderWidth: 1
-                }, {
-                    label: 'Visualizzazioni',
-                    data: [100, 110, 100, 150, 180],
-                    backgroundColor: 'rgba(255, 99, 132, 0.5)', // Rosso
-                    borderColor: 'rgba(255, 99, 132, 1)',
-                    borderWidth: 1
-                }]
-            },
-            options: {
-                scales: {
-                    y: {
-                        grid: {
-                            display: false // Imposta display: false per rimuovere la griglia dell'asse y
-                        },
-                        beginAtZero: true,
-                    },
-                    x: {
-                        grid: {
-                            display: false // Imposta display: false per rimuovere la griglia dell'asse x
-                        }
-                    }
-                }
-            }
-        });
     });
 });

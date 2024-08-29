@@ -1,8 +1,11 @@
 .section-show-stop {
     width: 100%;
     overflow: hidden;
+    border: 1px solid rgba(0, 0, 0, 0.202);
+    border-radius: 5px;
 nav{
-
+    background: linear-gradient(0deg,#ffffff, #00000032);
+    border-radius: 5px;
  .row{
  }
  a {
@@ -12,7 +15,7 @@ nav{
     transition: transform 0.3s ease, box-shadow 0.3s ease;
 
     &:hover {
-        transform: translateY(-5px); // Solleva leggermente l'elemento
+        transform: translateY(0px); // Solleva leggermente l'elemento
         box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2); // Aggiunge un'ombra per effetto di profondità
     }
 
@@ -28,6 +31,7 @@ nav{
    .my-li{
       border-radius: 15px;
       background-color: hsla(145, 72%, 63%, 0.674);
+      padding: 1.2rem 1rem;
       @media (max-width: 580px) {
         font-size: 13px;
     text-wrap: nowrap;}

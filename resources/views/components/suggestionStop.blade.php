@@ -1,7 +1,7 @@
 @props(['event'])
 <div class="section-show-stop">
     <nav
-        class="navbar navbar-expand-lg navbar-light bg-light d-flex justify-content-around flex-wrap flex-lg-nowrap">
+        class="navbar navbar-expand-lg  d-flex justify-content-around flex-wrap flex-lg-nowrap">
         <div class="row w-100 justify-content-center gy-2">
             <a href="" class="hotel-btn d-flex flex-column align-items-center gap-1 col-3 col-md"
                 data-lat="{{ $event->latStreet }}" data-lon="{{ $event->lonStreet }}"
@@ -55,9 +55,6 @@
     
 </div>
 <!-- Librerie di TomTom -->
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
-    integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous">
-</script>
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-<script src="https://api.tomtom.com/maps-sdk-for-web/cdn/6.x/6.25.0/maps/maps-web.min.js"></script>
-<link rel="stylesheet" href="https://api.tomtom.com/maps-sdk-for-web/cdn/6.x/6.25.0/maps/maps.css">
+<link rel='stylesheet' type='text/css' href='https://api.tomtom.com/maps-sdk-for-web/cdn/6.x/6.25.1/maps/maps.css'>
+<link rel='stylesheet' type='text/css' href='../assets/ui-library/icons-css/routing.css'/>
+<link rel='stylesheet' type='text/css' href='../assets/ui-library/index.css'/>

@@ -9,6 +9,8 @@
 @use './partials/stops/rating';
 @use './partials/stops/modalEdit';
 @use './partials/stops/note';
+@use './partials/stops/cardStop';
+@use './partials/stops/suggestionPoi';
 
 @import '~bootstrap/scss/bootstrap';
 
@@ -30,4 +32,20 @@ body{
 .my-suggestion:hover{
     background-color: white;
     color: black;
+}
+
+.ms-edit-stop {
+    color: #f2eb2e;
+}
+
+.ms-edit-stop:hover {
+    color: #e7df08;
+}
+
+.ms-delete-stop {
+    color: #ff0000;
+}
+
+.ms-delete-stop:hover {
+    color: rgb(198, 44, 44);
 }

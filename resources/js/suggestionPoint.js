@@ -16,6 +16,8 @@ document.addEventListener('DOMContentLoaded', function() {
                         console.log(result.poi.name); // Mostra il nome del POI
                         // Qui puoi aggiungere il codice per visualizzare i risultati
                         console.log(result.address.freeformAddress)
+                        console.log(result ,'result');
+                        
                     });
                 } else {
                     console.log('Nessun risultato trovato.');

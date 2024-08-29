@@ -1,6 +1,7 @@
 // aggiunta nota 
 
-function initializeNoteHandlers() {
+// function initializeNoteHandlers() {
+    window.initializeNoteHandlers = function() {
         // Seleziona tutti i moduli di nota
         const forms = document.querySelectorAll('#form-notes');
        
@@ -105,9 +106,14 @@ function initializeNoteHandlers() {
 
 }
 
+
+
+
 document.addEventListener('DOMContentLoaded', function () {
     initializeNoteHandlers();
 });
+
+
 // eliminazione nota NON ELIMINARE LASCIARE IN CASO DI PROBLEMI DI ELIMINAZIONE NOTE
 // document.addEventListener('DOMContentLoaded', function () {
 // document.querySelectorAll('.fa-delete-left').forEach(icon => {

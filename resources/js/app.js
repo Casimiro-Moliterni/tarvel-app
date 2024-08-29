@@ -2,13 +2,13 @@ import './bootstrap';
 import '~resources/scss/app.scss';
 import * as bootstrap from 'bootstrap';
 import { constant, result, toUpper } from 'lodash';
-import './createStop';
 import './editStop';
 import './deleteStop';
 import './displayTel';
+import './note';
 import './ratingStar';
 import './suggestionPoint';
-import './note';
+import './createStop';
 import.meta.glob([
     '../img/**'
 ]);

@@ -1,5 +1,6 @@
 
-function initializeRatingHandlers() {
+// function initializeRatingHandlers() {
+    window.initializeRatingHandlers = function() {
 
         const formsRatings = document.querySelectorAll('.form-rating');
     
@@ -181,8 +182,10 @@ function initializeRatingHandlers() {
                 });
         });
 
-}
+};
 
 document.addEventListener('DOMContentLoaded', function () {
+
     initializeRatingHandlers();
 });
+

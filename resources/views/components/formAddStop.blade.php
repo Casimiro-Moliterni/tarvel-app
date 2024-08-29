@@ -1,4 +1,4 @@
-@props(['date', 'tripId', 'index'])
+@props(['date', 'tripId', 'index','trip'])
 <div class="container my-form-create card rounded-4" id="formStop">
     <h1 class="mb-3">Aggiungi una nuova tappa</h1>
     <div id="messages">
@@ -10,25 +10,21 @@
         <input type="hidden" name="day" value="{{ $date }}">
         <input type="hidden" name="id_trip" value="{{ $tripId }}">
         <div class="row media991px">
-            <div class="form-group col ">
+            <div class="form-group col-12 ">
                 <label for="name">Nome evento:*</label>
                 <input type="text" id="name" name="name" class="form-control">
                 <div class="error fs-3 text-danger "></div>
             </div>
             <div class="form-group col">
-                <label for="country">Paese:</label>
-                <input type="text" id="country" name="country" class="form-control" value="{{ old('country') }}">
+                <input type="hidden" id="country" name="country" class="form-control" value="{{ $trip->country }}">
                 <div class="error fs-3 text-danger "></div>
-                <input type="hidden" id="latCountry" name="latCountry" class="form-control">
-                <input type="hidden" id="lonCountry" name="lonCountry" class="form-control">
-                <div id="countrySuggestions" class="list-group position-absolute fs-3 bg-secondary">
-                </div>
-                <div class="invalid-feedback" id="countryError"></div>
+                <input type="hidden" id="latCountry" name="latCountry" class="form-control" value="{{ $trip->latCountry }}">
+                <input type="hidden" id="lonCountry" name="lonCountry" class="form-control" value="{{ $trip->lonCountry }}">
             </div>
         </div>
         <div class="row media991px">
             <div class="form-group col">
-                <label for="region">Via:*</label>
+                <label for="region">Luogo/via:*</label>
                 <input type="text" id="street" name="street" class="form-control" value="{{ old('street') }}">
                 <div class="error fs-3 text-danger "></div>
                 <input type="hidden" id="latStreet" name="latStreet" class="form-control">

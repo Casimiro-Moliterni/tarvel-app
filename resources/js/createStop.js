@@ -1,4 +1,5 @@
 
+
 document.querySelectorAll('#form-stop').forEach((form) => {
 
     // Input per creare tappa 
@@ -20,7 +21,6 @@ document.querySelectorAll('#form-stop').forEach((form) => {
     const lonStreetInput = form.querySelector('#lonStreet');
 
     // Suggerimenti per strada, città e paese 
-    const countrySuggestions = form.querySelector('#countrySuggestions');
     const citySuggestions = form.querySelector('#citySuggestions');
     const streetSuggestions = form.querySelector('#streetSuggestions');
 
@@ -115,105 +115,9 @@ document.querySelectorAll('#form-stop').forEach((form) => {
         return isValid;
     };
 
-    // Gestione input per la ricerca di Paese
-    countryInput.addEventListener('input', function () {
-        let query = countryInput.value.trim().toLowerCase();
-        if (cityInput.value && countryCodeValue !== cityCodeValue) {
-            cityInput.value = '';
-        }
-        // Se il paese viene cancellato, resettare il campo città
-        if (query === '') {
-            cityInput.value = '';
-            streetInput.value = "";
-            latCityInput.value = '';
-            lonCityInput.value = '';
-            streetCodeValue = "";
-            selectedCity = null; // Resetta la selezione della città
-            countryCodeValue = null; // Resetta il countryCode del paese
-            cityCodeValue = null; // Resetta il countryCode della città
-        }
-
-        if (query.length > 0) {
-            let fetchUrl = (`https://api.tomtom.com/search/2/search/${query}.json?key=Lb3Y9TzHCIBgIZGwPcaOlJA0onuuVdnP&language=it-IT&typeahead=true&idxSet=Geo`);
-
-            fetch(fetchUrl)
-                .then(response => response.json())
-                .then(data => {
-                    countrySuggestions.innerHTML = '';
-                    citySuggestions.innerHTML = '';
-
-                    const countries = new Set();
-                    const suggestions = [];
-
-                    data.results.forEach(result => {
-                        const country = result.address.country;
-                        if (country && !countries.has(country) && country.toLowerCase().includes(query)) {
-                            countries.add(country);
-                            suggestions.push({
-                                country: result.address.country,
-                                countryCode: result.address.countryCode,
-                                lat: result.position.lat,
-                                lon: result.position.lon,
-                                score: getMatchScore(query, country)
-                            });
-                        }
-                    });
-
-                    suggestions.sort((a, b) => a.score - b.score);
-
-                    if (suggestions.length > 0) {
-                        suggestions.forEach(suggestion => {
-                            const suggestionElem = document.createElement('a');
-                            suggestionElem.href = "#";
-                            suggestionElem.classList.add('list-group-item', 'list-group-item-action', 'd-flex', 'align-items-center', 'my-suggestion');
-
-                            const countryText = document.createElement('span');
-                            countryText.innerHTML = `
-                            <i class="fa-solid fa-earth-americas"></i>
-                            ${suggestion.country}
-                            `;
-                            countryText.classList.add('d-flex', 'align-items-center', 'gap-2');
-                            suggestionElem.appendChild(countryText);
-
-                            suggestionElem.addEventListener('click', function (e) {
-                                e.preventDefault();
-                                countryInput.value = suggestion.country;
-                                latCountryInput.value = suggestion.lat;
-                                lonCountryInput.value = suggestion.lon;
-                                latCountryInputValue = suggestion.lat;
-                                lonCountryInputValue = suggestion.lon;
-                                countryCodeValue = suggestion.countryCode;
-                                cityInput.value = "";
-                                citySuggestions.innerHTML = '';
-                                countrySuggestions.innerHTML = '';
-
-                                console.log(
-                                    'siamo i valori cambiati :',
-                                    countryInput.value,
-                                    latCountryInput.value,
-                                    lonCountryInput.value
-                                );
-                            });
-                            countrySuggestions.appendChild(suggestionElem);
-                        });
-                    } else {
-                        const noResults = document.createElement('div');
-                        noResults.textContent = 'Nessun paese trovato.';
-                        noResults.classList.add('list-group-item', 'list-group-item-action');
-                        countrySuggestions.appendChild(noResults);
-                    }
-                })
-                .catch(error => console.error('Errore nel recupero dei suggerimenti di paesi:', error));
-        } else {
-            countrySuggestions.innerHTML = '';
-        }
-    });
-
     // Gestione input per la ricerca di Città
     cityInput.addEventListener('input', function () {
         const query = cityInput.value.trim().toLowerCase();
-        let cityCountryCode = countryCodeValue || null;
-
         if (query.length === 0) {
             cityInput.value = "";
             lonCityInput.value = "";
@@ -229,19 +133,15 @@ document.querySelectorAll('#form-stop').forEach((form) => {
         if (query.length > 0) {
             let fetchUrl = `https://api.tomtom.com/search/2/search/${query}.json?key=Lb3Y9TzHCIBgIZGwPcaOlJA0onuuVdnP&language=it-IT`;
 
-            if (cityCountryCode) {
-                fetchUrl += `&countrySet=${cityCountryCode}`;
-            }
             fetch(fetchUrl)
                 .then(response => response.json())
                 .then(data => {
                     citySuggestions.innerHTML = '';
                     const cities = new Set();
                     const suggestions = [];
-
                     data.results.forEach(result => {
                         const city = result.address.municipality;
-                        if (city && !cities.has(city) && city.toLowerCase().includes(query)) {
+                        if (city && !cities.has(city) && city.toLowerCase().includes(query) && result.address.country === countryInput.value) {
                             cities.add(city);
                             suggestions.push({
                                 freeformAddress: result.address.freeformAddress,
@@ -280,30 +180,6 @@ document.querySelectorAll('#form-stop').forEach((form) => {
                                 selectedCity = suggestion.freeformAddress; // Imposta la città selezionata
                                 cityCountrySubdivisionCod = suggestion.countrySubdivisionCode;
                                 citySuggestions.innerHTML = '';
-
-                                // Chiamata API per aggiornare la latitudine e longitudine del paese
-                                if (!cityCountryCode) {
-                                    fetch(`https://api.tomtom.com/search/2/search/${cityCodeValue}.json?key=Lb3Y9TzHCIBgIZGwPcaOlJA0onuuVdnP&countrySet=${cityCodeValue}&limit=1&language=it-IT`)
-                                        .then(response => response.json())
-                                        .then(data => {
-                                            data.results.forEach(result => {
-                                                latCountryInputValue = result.position.lat;
-                                                lonCountryInputValue = result.position.lon;
-                                                // Aggiorna il paese se non è già impostato
-                                                if (countryInput.value === '' || countryCodeValue !== cityCodeValue) {
-                                                    countryInput.value = suggestion.country;
-                                                    latCountryInput.value = result.position.lat;
-                                                    lonCountryInput.value = result.position.lon;
-                                                    latCountryInputValue = result.position.lat;
-                                                    lonCountryInputValue = result.position.lon;
-                                                    countryCodeValue = result.address.countryCode;
-                                                }
-                                                console.log('info country:     ' + latCountryInputValue, lonCountryInputValue, countryCodeValue);
-                                                console.log('city:             ' + latCityInput.value, lonCityInput.value, cityCodeValue);
-                                            });
-                                        })
-                                        .catch(error => console.error('Errore nella ricerca del paese:', error));
-                                }
                             });
 
                             citySuggestions.appendChild(suggestionElem);
@@ -326,18 +202,11 @@ document.querySelectorAll('#form-stop').forEach((form) => {
     streetInput.addEventListener('input', function () {
 
         const query = streetInput.value.trim();
-        let streetCountryCode = countryCodeValue || cityCodeValue || null;
         let streetCountrySubdivisionCode = cityCountrySubdivisionCod || null;
 
-        // console.log('Query:', query);
-        // console.log('Country Code:', streetCountryCode);
-        // console.log('Subdivision Code:', streetCountrySubdivisionCode);
 
         if (query.length > 0) {
             let fetchUrl = `https://api.tomtom.com/search/2/search/${query}.json?key=Lb3Y9TzHCIBgIZGwPcaOlJA0onuuVdnP&language=it-IT&limit=5`;
-            if (streetCountryCode) {
-                fetchUrl += `&countrySet=${streetCountryCode}`;
-            }
 
             fetch(fetchUrl)
                 .then(response => response.json())
@@ -348,7 +217,10 @@ document.querySelectorAll('#form-stop').forEach((form) => {
                     let displayedResults = 0;
 
                     data.results.forEach(result => {
-                        let shouldDisplay = true;
+                        let shouldDisplay = false
+                        if(result.address.country === countryInput.value){
+                             shouldDisplay = true;
+                        }
 
                         // Filtra per countrySubdivisionCode se disponibile
                         if (streetCountrySubdivisionCode && result.address.countrySubdivisionCode !== streetCountrySubdivisionCode) {
@@ -366,7 +238,27 @@ document.querySelectorAll('#form-stop').forEach((form) => {
                             const suggestion = document.createElement('a');
                             suggestion.href = "#";
                             suggestion.classList.add('list-group-item', 'list-group-item-action');
-                            suggestion.textContent = result.address.freeformAddress;
+                            if (result.type === 'POI') {
+                                suggestion.innerHTML = `
+                                <div class="d-flex align-items-center gap-3">
+                                    <div ><i class="fa-solid fa-house-flag text-secondary"></i></div>
+                                   <div class="d-flex flex-column align-items-start gap-1">
+                                      <div class="fw-semibold"> ${result.poi.name}</div>
+                                      <div class="fs-4 text-secondary">${result.address.freeformAddress}</div>
+                                  </div>
+                                </div>`;
+                            } else {
+                                suggestion.innerHTML = ` 
+                                <div class="d-flex align-items-center gap-3">
+                                    <div ><i class="fa-solid fa-location-dot text-secondary"></i></div>
+                                     <div class="d-flex flex-column align-items-start gap-1">
+                                       <div class="fw-semibold"></i>${result.address.freeformAddress}</div>
+                                      ${result.address.postalCode ? `<div class="text-secondary fs-4 text-start">${result.address.postalCode}  ${result.address.localName}</div> ` : ''}
+                                      ${ !result.address.postalCode ? `<div class="text-secondary fs-4 text-start">${result.address.countrySecondarySubdivision},${result.address.country}</div> ` : ''}
+                                    </div>
+                                </div>`;
+                               
+                            }
 
                             suggestion.addEventListener('click', function (e) {
                                 e.preventDefault();
@@ -376,28 +268,16 @@ document.querySelectorAll('#form-stop').forEach((form) => {
                                 streetCodeValue = result.address.countryCode;
                                 streetSubdivisonValue = result.address.countrySubdivisionCode
                                 streetSuggestions.innerHTML = '';
-
-                                console.log(result)
-                                console.log(streetCountryCode)
-
-                                if (!streetCountryCode) {
-                                    let fetchUrl = `https://api.tomtom.com/search/2/search/${result.address.municipality}.json?key=Lb3Y9TzHCIBgIZGwPcaOlJA0onuuVdnP&countrySet=${streetCodeValue}&limit=1&language=it-IT`;
+                                if (cityInput.value === '') {
+                                    let fetchUrl = `https://api.tomtom.com/search/2/search/${result.address.municipality}.json?key=Lb3Y9TzHCIBgIZGwPcaOlJA0onuuVdnP&limit=1&language=it-IT&countrySet=${result.address.countryCode}`;
                                     fetch(fetchUrl)
                                         .then(response => response.json())
                                         .then(data => {
                                             data.results.forEach(result => {
                                                 console.log('secondo risultato' + result)
-                                                latCountryInputValue = result.position.lat;
-                                                lonCountryInputValue = result.position.lon;
-                                                // Aggiorna il paese se non è già impostato
-                                                if (countryInput.value === '' || countryCodeValue !== cityCodeValue) {
-                                                    countryInput.value = result.address.country;
-                                                    latCountryInput.value = result.position.lat;
-                                                    lonCountryInput.value = result.position.lon;
-                                                    latCountryInputValue = result.position.lat;
-                                                    lonCountryInputValue = result.position.lon;
-                                                    countryCodeValue = result.address.countryCode;
-                                                } if (cityInput.value === "" || countryCodeValue !== cityCodeValue) {
+
+                                                // Aggiorna la cittá se non è già impostato
+                                               if (cityInput.value === "" || countryCodeValue !== cityCodeValue) {
                                                     cityInput.value = result.address.municipality;
                                                     latCityInput.value = result.position.lat;
                                                     lonCityInput.value = result.position.lon;
@@ -405,7 +285,7 @@ document.querySelectorAll('#form-stop').forEach((form) => {
                                                     cityCountrySubdivisionCod = result.address.countrySubdivisionCode;
                                                     console.log(result)
                                                     // console.log('info country:     ' + latCountryInputValue, lonCountryInputValue, countryCodeValue);
-                                                    console.log('city:             ' + latCityInput.value, lonCityInput.value, cityCodeValue);
+                                                    console.log('city: ' + latCityInput.value, lonCityInput.value, cityCodeValue);
                                                 }
 
                                             });
@@ -444,7 +324,7 @@ document.querySelectorAll('#form-stop').forEach((form) => {
                 .then(response => {
                     if (response.data.status === 'success') {
                         form.reset();
-                        console.log('Dati del form validati con successo.');
+                        // console.log('Dati del form validati con successo.');
 
                         const successMessage = document.createElement('div');
                         successMessage.className = 'success-message';
@@ -478,20 +358,22 @@ document.querySelectorAll('#form-stop').forEach((form) => {
                                 if (newElement) {
                                     newElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
                                 }
+                                // ------------
                                 // chiudere la modale appena finito di creare tappa
-                                // Ottenere il valore di `modalId` prima di cercare `closeButton`
                                 // funziona solo una volta da risolvere
                                 const modalId = document.querySelector('#btnFormStop').getAttribute('data-target').replace('#formStopModal-', '');
                                 const closeButton = document.querySelector(`#formStopModal-${modalId} .close`);
-                                console.log(modalId,'ciao');
-                                console.log(closeButton,'ciaos');
+                                console.log(modalId, 'ciao');
+                                console.log(closeButton, 'ciaos');
 
                                 if (closeButton) {
                                     closeButton.click();  // Triggera il click sul bottone per chiudere il modale
                                 }
                                 // -------------
+                                // Ho scritto questa nuova funzione per gestire le note e la valutazione
+                                window.initializeRatingHandlers();
+                                window.initializeNoteHandlers();
                                 
-
                             } else {
                                 console.error(`Contenitore non trovato con il selettore: ${stopsContainerSelector}`);
                             }
@@ -553,3 +435,4 @@ document.querySelectorAll('#form-stop').forEach((form) => {
         }
     });
 });
+

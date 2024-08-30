@@ -1,6 +1,6 @@
 @extends('layouts.admin')
 @section('content')
-    <section id="trip-show" class="trip-show" data-lon-country-show={{ $trip->lonCountry }} data-lat-country-show={{ $trip->latCountry }} data-lon-city-show={{ $trip->lonCity }} data-lat-city-show={{ $trip->latCity}}>
+    <section id="trip-show" class="trip-show" data-trip-country={{ $trip->country }} data-trip-city={{ $trip->city }} data-lon-country-show={{ $trip->lonCountry }} data-lat-country-show={{ $trip->latCountry }} data-lon-city-show={{ $trip->lonCity }} data-lat-city-show={{ $trip->latCity}}>
         {{-- <x-ratingComponent :trip="$trip->id" :stop="null"/> --}}
         <div class="row mt-3">
             <h1 class="text-center mt-3">{{ $trip->title }}</h1>

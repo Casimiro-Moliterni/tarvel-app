@@ -24,7 +24,7 @@
     <div id="app">
 
 
-        <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm nav-bar-homepage">
+        <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm nav-bar-homepage {{ Route::currentRouteName() == '' ? 'd-none' : '' }}">
             <div class="container">
                 <a class="navbar-brand d-flex align-items-center" href="{{ url('/') }}">
                     <div class="logo_laravel">

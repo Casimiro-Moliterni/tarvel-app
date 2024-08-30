@@ -76,7 +76,7 @@
 
         h2 {
             color: #ffff24e6;
-            margin-bottom: 1rem;
+            // margin-bottom: 1rem;
         }
     }
 
@@ -109,7 +109,7 @@
         text-align: center;
         color: #ffff24e6;
         background-color: rgb(25, 16, 16);
-        margin-bottom: 1rem;
+        // margin-bottom: 1rem;
         box-shadow: rgba(255, 255, 255, 0.329) 0px 0px 5px 0px, rgba(255, 255, 255, 0.346) 0px 0px 1px 0px;
     }
 
@@ -164,4 +164,8 @@
         box-shadow: 0 0 15px 0.5rem rgba(0, 0, 0, 0.333);
         box-shadow: rgba(255, 255, 255, 0.329) 0px 0px 5px 0px, rgba(255, 255, 255, 0.346) 0px 0px 1px 0px;
     }
+}
+
+.my-bg-rating{
+    background: linear-gradient(115deg,#fffc337b, #338dee45);
 }

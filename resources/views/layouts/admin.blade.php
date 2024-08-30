@@ -69,7 +69,8 @@
             </div>
 
             <!-- ========================= Main ==================== -->
-            <div class="main">{{-- questa classe qua --}}
+            <div class="main position-relative">{{-- questa classe qua --}}
+                <img class="wave position-absolute w-100" style="height: 300px ; z-index:0" src="{{ asset('img/wave.png') }}">
                 <div class="topbar">
                     <div class="toggle">
                         {{-- <ion-icon name="menu-outline"></ion-icon> --}}

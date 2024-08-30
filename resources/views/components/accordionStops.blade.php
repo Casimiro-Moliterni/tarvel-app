@@ -28,7 +28,7 @@
             </div>
         </summary>
 
-        <div class="accordion-content p-2">
+        <div class="accordion-content">
             <x-ContentStopShow :event="$event" />
         </div>
     </details>

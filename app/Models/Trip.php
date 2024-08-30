@@ -17,7 +17,7 @@ class Trip extends Model
     protected $fillable=['title','description','start_date','end_date','thumb','lonCountry','latCountry','latCity','lonCity','country','city'];
 
     public function stops(){
-        return $this->hasMany(Stop::class);
+        return $this->hasMany(Stop::class,'id_trip');
     }
     public function user(){
         return $this->belongsTo(User::class,'id_user');

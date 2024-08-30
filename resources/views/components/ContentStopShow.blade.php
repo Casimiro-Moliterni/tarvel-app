@@ -12,7 +12,7 @@
         <x-cardStopContent :event="$event" />
     </div>
 </main>
-<footer class="p-2">
+<footer class="">
     {{-- bottone per richiamare modale di note --}}
     <a href="" class="btn btn-outline-warning ml-2" data-toggle="modal"
         data-target="#notesStopModal-{{ $event->id }}">+ Notes</a>
@@ -24,7 +24,7 @@
         </x-modalNotes>
 
         {{-- container con valutazione --}}
-        <div id="ratingComponentWrapper" class="mb-2">
+        <div id="ratingComponentWrapper" class="my-bg-rating py-3">
             <x-ratingCard :event="$event" :trip="$event->id_trip" :stop="$event->id" />
         </div>
 </footer>

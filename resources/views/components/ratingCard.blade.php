@@ -8,6 +8,7 @@
 
 <div id="ratingCardWrapper-{{ $event->id }}" class="{{ $firstRating ? '' : 'd-none' }}">
     <section id="star-values">
+        <h3 class="text-center fs-1">La tua recensione</h3>
         <span class="star__container">
             <div class="rating_star">
                 @for ($i = 1; $i <= 5; $i++)
@@ -19,7 +20,7 @@
             </div>
             <button class="delete-rating-btn"><i class="fa-solid fa-pen"></i></button>
         </span>
-        <p id="rating-review-{{ $event->id }}">{{ $reviewText }}</p>
+        <p id="rating-review-{{ $event->id }}" class="mb-0">{{ $reviewText }}</p>
     </section>
 </div>
 {{--/ contenitore stelle --}}
@@ -27,7 +28,7 @@
 {{-- contenitore form --}}
 <div class="my-wrapper-star {{ $firstRating ? 'd-none' : '' }}" id="ratingComponentWrapper-{{ $stop }}">
     <div class="rating-wrap">
-        <h2></h2>
+        <h2>Aggiungi una recensione</h2>
         <div class="center">
             <form data-url-rating="{{ route('admin.ratings.store') }}" class="form-rating d-flex flex-column">
                 <fieldset class="rating ms-auto me-auto">

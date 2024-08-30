@@ -1,3 +1,4 @@
+
 /* =========== Google Fonts ============ */
 @import url("https://fonts.googleapis.com/css2?family=Ubuntu:wght@300;400;500;700&display=swap");
 
@@ -511,4 +512,24 @@ body {
     justify-content: center;
   }
 
+}
+
+.my-card-user{
+  border-radius: 15px;
+  box-shadow: 0px 10px 13px 11px rgba(0,0,0,0.2);
+  .my-card-header{
+    border-top-left-radius: 15px;
+    border-top-right-radius: 15px;
+    background-color: #fffdfd;
+    padding: 1rem;
+    font-size: 26px;
+  }
+  .my-card-body{
+        padding: 1rem;
+        font-size: 20px;
+        background-color: #E3F2FD;
+        min-height: 200px;
+        border-bottom-left-radius: 15px;
+        border-bottom-right-radius: 15px;
+  }
 }

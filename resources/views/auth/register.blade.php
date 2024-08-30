@@ -17,7 +17,7 @@
                     <form method="POST" action="{{ route('register') }}">
                         @csrf
 
-                        <div class="mb-4 row d-flex flex-column">
+                        <div class="my-2 my-lg-0 row d-flex flex-column">
                             <label for="name" class="col col-form-label text-md-right">{{ __('Name') }}</label>
 
                             <div class="col">
@@ -31,7 +31,7 @@
                             </div>
                         </div>
 
-                        <div class="mb-4 row d-flex flex-column">
+                        <div class="my-2 my-lg-0 row d-flex flex-column">
                             <label for="email" class="col col-form-label text-md-right">{{ __('E-Mail Address') }}</label>
 
                             <div class="col">
@@ -45,7 +45,7 @@
                             </div>
                         </div>
 
-                        <div class="mb-4 row d-flex flex-column">
+                        <div class="my-2 my-lg-0 row d-flex flex-column">
                             <label for="password" class="col col-form-label text-md-right">{{ __('Password') }}</label>
 
                             <div class="col">
@@ -59,7 +59,7 @@
                             </div>
                         </div>
 
-                        <div class="mb-4 row d-flex flex-column">
+                        <div class="my-2 my-lg-0 row d-flex flex-column">
                             <label for="password-confirm" class="col col-form-label text-md-right">{{ __('Confirm Password') }}</label>
 
                             <div class="col">
@@ -67,7 +67,7 @@
                             </div>
                         </div>
 
-                        <div class="mb-4 row mb-0">
+                        <div class="my-2 my-lg-0 row mb-0">
                             <div class="col offset">
                                 <button type="submit" class="buttonRegister">
                                     {{ __('Register') }}

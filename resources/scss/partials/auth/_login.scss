@@ -8,11 +8,19 @@
     box-sizing: border-box;
   }
 
-  body {
-   
-  }
+  .wrapper{
+    height: calc(100vh - 80px);
+    // background-color: #080710;
+    background-image: url('/public/img/R.png');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+      // background-color: #080710;
+      background-image: url('/public/img/R.png');
+      background-size: cover;
+      background-position: center;
 
-  .background {
+   .background {
     width: 430px;
     height: 520px;
     position: absolute;
@@ -112,6 +120,9 @@
     margin-top: 8px;
     font-size: 14px;
     font-weight: 300;
+    color: black;
+    font-size: 16px;
+    font-weight: 500;
   }
 
   ::placeholder {
@@ -161,6 +172,9 @@
 
   .social i {
     margin-right: 4px;
+  }   background-repeat: no-repeat;  
   }
+
+  
 
 }

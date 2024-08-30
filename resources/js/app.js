@@ -9,6 +9,7 @@ import './note';
 import './ratingStar';
 import './suggestionPoint';
 import './createStop';
+import './showTrip';
 import.meta.glob([
     '../img/**'
 ]);

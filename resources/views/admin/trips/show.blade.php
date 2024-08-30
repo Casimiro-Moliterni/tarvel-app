@@ -5,10 +5,7 @@
         <div class="row mt-3">
             <h1 class="text-center mt-3">{{ $trip->title }}</h1>
             <x-cardShow :trip="$trip" />
-            <div>
-                <h3>Visualizza la mappa</h3>
-                <div id="map" class="rounded mb-4 mt-3 map " style="height: 400px; width: 100%;"></div>
-            </div>
+            
             <div class="accordion " id="accordionExample" style="padding-bottom: 126px;">
                 @foreach ($daysRange as $date)
                     <details class="accordion mb-2">
@@ -63,6 +60,12 @@
             </details>
             @endforeach
         </div>
+        <!-- mappa-->
+        <div>
+            <h3>Visualizza la mappa</h3>
+            <div id="map" class="rounded mb-4 mt-3 map " style="height: 400px; width: 100%;"></div>
+        </div>
+        <!-- /mappa-->
         </div>
 
     </section>

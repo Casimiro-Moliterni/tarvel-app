@@ -1,6 +1,7 @@
 @use './partials/dashboard';
 @use './partials/cardDashboard';
 @use './partials/auth/login';
+@use './partials/auth/register';
 @use './partials/trips/index';
 @use './partials/trips/show';
 @use './partials/trips/create';

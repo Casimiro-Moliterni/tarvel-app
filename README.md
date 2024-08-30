@@ -17,7 +17,7 @@ task
 
 <!-- 9)trasformare bottone crea tappa in modale come edit (FATTO) -->
 
-10)quando si crea la tappa risolvere bug di crea note e crea rating
+<!-- 10)quando si crea la tappa risolvere bug di crea note e crea rating (FATTO) -->
 
 11)creare api di un viaggio ,per far si che un utente agiunga un viaggio gia creato da unaltro utente 
 

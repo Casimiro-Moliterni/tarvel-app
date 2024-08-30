@@ -3,7 +3,7 @@
         <div class="container">
             <a id="btnFormStop">
                 <i id="icon-btn-form-stop"
-                    class="fs-1 fa-solid fa-circle-plus mb-2 d-flex align-items-center my-fa-circle-plus">
+                    class="fs-1 fa-solid fa-circle-plus mb-2 d-flex align-items-center my-fa-circle-plus position-relative z-2">
                     <span role="button" class="border-0 ms-3 fs-3 fw-bold content-btn">Aggiungi un viaggio</span></i>
             </a>
             <x-formCard />

@@ -10,6 +10,7 @@
     <div>
         {{-- qua dentro tutte le card della show della tappa --}}
         <x-cardStopContent :event="$event" />
+        <div id="map"></div>
     </div>
 </main>
 <footer class="">

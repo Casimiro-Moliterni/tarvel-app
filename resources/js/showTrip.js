@@ -1,29 +1,27 @@
-
+// funzione generale 
 function showDetails() {
     const containerTripShow = document.querySelectorAll('#trip-show');
 
     containerTripShow.forEach(container => {
         const latCountry = container.getAttribute('data-lat-country-show');
-        const lonCountry = container.getAttribute('data-lon-country-show');
+        const lonCountry = container.getAttribute('data-lon-country');
         const latCity = container.getAttribute('data-lat-city-show'); // Corrected attribute name
         const lonCity = container.getAttribute('data-lon-city-show');
-
-        let country =  container.getAttribute('data-trip-country');
-        let city =  container.getAttribute('data-trip-city');
+        let country = container.getAttribute('data-trip-country');
+        let city = container.getAttribute('data-trip-city');
 
         let selectedLat = city && country ? latCity : latCountry;
         let selectedLon = city && country ? lonCity : lonCountry;
-        let selectedPoint = city && country ? city : country;
+        let selectedPoint = city || country;
+
         // funzione che fa partire la chiamata api per il meteo 
-        console.log(selectedPoint)
         MeteoApi(container, selectedLat, selectedLon)
 
         // funzione che mostra la mappa in pagina 
         mapShow(container, selectedLat, selectedLon)
 
         // funzione che fa partire la chiamata API TOMTOM 
-
-        detailsPOI('tourist%20attraction', selectedLat, selectedLon,selectedPoint)
+        detailsPOI('tourist%20attraction', selectedLat, selectedLon, selectedPoint)
 
     });
 }
@@ -87,30 +85,28 @@ function MeteoApi(container, selectedLat, selectedLon) {
         .catch(error => console.error('Errore:', error)); // Gestione errori.
 }
 
-function detailsPOI(name, selectedLat, selectedLon ,point) {
+function detailsPOI(name, selectedLat, selectedLon, point) {
     const apiKey = 'tNdeH4PSEGzxLQ1CKK0HdCagLd1BsXSc';
 
     fetch(`https://api.tomtom.com/search/2/poiSearch/${name}.json?key=${apiKey}&lat=${selectedLat}&lon=${selectedLon}&language=it-IT&radius=20000&limit=5`)
         .then(response => response.json())
         .then(data => {
             const div = document.createElement('div');
-            div.innerHTML = `<h3>POSTI DA VISITARE SUGERITI DALLA IA</h3>`;
+            div.innerHTML = `<h3>POSTI DA VISITARE SUGGERITI DAI NOSTRI SERVER</h3>`;
             const ul = document.createElement('ul');
-            div.classList.add('bg-white', 'p-3', 'rounded-3', 'list-unstyled','fs-3');
-            div.style.zIndex = '1000';
-            div.style.position = 'fixed';
-            div.style.top = '2%';
-            div.style.right = '5%';
-            const button = document.createElement('button')
-            button.innerHTML=`<i class="fa-solid fa-x"></i>`
-            button.classList.add('bg-danger','w-100','rounded-pill','text-white','py-3')
-            button.addEventListener('click',function(){
-                div.remove()
-            })
+            div.classList.add('fs-3', 'thought');
+            const button = document.createElement('button');
+            button.innerHTML = `<i class="fa-solid fa-x"></i>`;
+            button.classList.add('bg-danger', 'w-100', 'rounded-pill', 'text-white', 'py-3');
+            button.addEventListener('click', function () {
+                div.remove();
+            });
+
             if (data.results && data.results.length > 0) {
                 // Aggiungi <ul> al <div> solo una volta
                 div.append(ul);
                 div.append(button);
+                
                 // Log delle categorie per comprendere meglio i risultati
                 data.results.forEach(result => {
                     let filter = false;
@@ -118,17 +114,42 @@ function detailsPOI(name, selectedLat, selectedLon ,point) {
                         filter = true;
                     }
                     if (filter) {
+                        console.log(result);
+
                         const li = document.createElement('li');
+                        li.classList.add('py-1', 'border-bottom');
+                        li.style.cursor = 'pointer';
                         li.innerHTML = `${result.poi.name}`;
+
+                        // Crea un nuovo `showLi` per ogni `li`
+                        const showLi = document.createElement('div');
+                        showLi.classList.add('d-none');
+                        showLi.innerHTML = `<div class="d-flex align-items-center gap-1"><i class="fa-solid fa-map-pin"></i>${result.address.freeformAddress}</div>`;
+
+                        li.addEventListener('click', function () {
+                            showLi.classList.toggle('d-none');
+                            showLi.classList.add('show-li')
+                           
+                                div.classList.add('no-animation')
+                             if(this){
+                                 setTimeout(function(){
+                                     div.classList.remove('no-animation')
+                                 },5000)
+                             }
+                          
+                            li.append(showLi); // Aggiungi `showLi` solo al `li` cliccato
+                        });
+                        
                         ul.append(li);
                         console.log(li); // Log per il debug
                     }
                 });
-            
+
                 // Aggiungi <div> al body una sola volta
-                setTimeout(function() {
+                setTimeout(function () {
                     document.querySelector('body').append(div);
                 }, 5000);
+
             } else {
                 console.log('Nessun risultato trovato.');
             }
@@ -137,6 +158,7 @@ function detailsPOI(name, selectedLat, selectedLon ,point) {
             console.error('Errore nella richiesta:', error);
         });
 }
+
 
 
 document.addEventListener('DOMContentLoaded', function () {

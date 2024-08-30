@@ -1,11 +1,12 @@
 @extends('layouts.admin')
 @section('content')
-    <section id="trip-show" class="trip-show" data-trip-country={{ $trip->country }} data-trip-city={{ $trip->city }} data-lon-country-show={{ $trip->lonCountry }} data-lat-country-show={{ $trip->latCountry }} data-lon-city-show={{ $trip->lonCity }} data-lat-city-show={{ $trip->latCity}}>
-        {{-- <x-ratingComponent :trip="$trip->id" :stop="null"/> --}}
+    <section id="trip-show" class="trip-show" data-trip-country="{{ $trip->country }}" data-trip-city="{{ $trip->city }}"
+        data-lat-country-show="{{ $trip->latCountry }}" data-lon-country="{{ $trip->lonCountry }}"
+        data-lon-city-show="{{ $trip->lonCity }}" data-lat-city-show="{{ $trip->latCity }}">
         <div class="row mt-3">
             <h1 class="text-center mt-3">{{ $trip->title }}</h1>
             <x-cardShow :trip="$trip" />
-            
+
             <div class="accordion " id="accordionExample" style="padding-bottom: 126px;">
                 @foreach ($daysRange as $date)
                     <details class="accordion mb-2">
@@ -36,7 +37,8 @@
                                             aria-label="Close">
                                             <span aria-hidden="true">&times;</span>
                                         </button>
-                                        <x-formAddStop :date="$date->format('Y-m-d')" :tripId="$trip->id" :index="$loop->index" :trip="$trip" />
+                                        <x-formAddStop :date="$date->format('Y-m-d')" :tripId="$trip->id" :index="$loop->index"
+                                            :trip="$trip" />
                                     </div>
                                 </div>
                             </div>

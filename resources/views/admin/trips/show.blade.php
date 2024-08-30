@@ -1,6 +1,6 @@
 @extends('layouts.admin')
 @section('content')
-    <section class="trip-show">
+    <section id="trip-show" class="trip-show" data-trip-country={{ $trip->country }} data-trip-city={{ $trip->city }} data-lon-country-show={{ $trip->lonCountry }} data-lat-country-show={{ $trip->latCountry }} data-lon-city-show={{ $trip->lonCity }} data-lat-city-show={{ $trip->latCity}}>
         {{-- <x-ratingComponent :trip="$trip->id" :stop="null"/> --}}
         <div class="row mt-3">
             <h1 class="text-center mt-3">{{ $trip->title }}</h1>
@@ -88,65 +88,3 @@
 @push('scripts')
     @vite(['resources/js/app.js'])
 @endpush
-<script>
-    document.addEventListener('DOMContentLoaded', function() {
-        const btnFormStop = document.querySelector('#btnFormStop');
-        const formStop = document.querySelector('#formStop');
-        const tempElement = document.querySelector('.temp');
-        const cityElement = document.querySelector('.city');
-        const weatherIconElement = document.querySelector('.weather-icon');
-        const lonCountry = @json($trip->lonCountry);
-        const latCountry = @json($trip->latCountry);
-        const lonCity = @json($trip->lonCity);
-        const latCity = @json($trip->latCity);
-        const City = @json($trip->city);
-        const Country = @json($trip->country);
-        let selectedLat = City && Country ? latCity : latCountry;
-        let selectedLon = City && Country ? lonCity : lonCountry;
-
-
-
-        fetch(
-                `https://api.openweathermap.org/data/2.5/weather?lat=${selectedLat}&lon=${selectedLon}&lang=it&units=metric&appid=461c50c5aad0a7a4b9f77424415c5924`
-            )
-            .then(response => response.json())
-            .then(data => {
-
-                console.log(data)
-                tempElement.innerHTML = `${data.main.temp} °C`;
-                cityElement.innerHTML = `${data.name}`;
-                if (data.weather[0].main == "Clouds") {
-                    weatherIconElement.src = `{{ asset('img/wheater/clouds.png') }}`;
-                } else if (data.weather[0].main == "Clear") {
-                    weatherIconElement.src = `{{ asset('img/wheater/clear.png') }}`;
-                } else if (data.weather[0].main == "Rain") {
-                    weatherIconElement.src = `{{ asset('img/wheater/rain.png') }}`;
-                } else if (data.weather[0].main == "Drizzle") {
-                    weatherIconElement.src = `{{ asset('img/wheater/drizzle.png') }}`;
-                } else if (data.weather[0].main == "Mist") {
-                    weatherIconElement.src = `{{ asset('img/wheater/mist.png') }}`;
-                } else if (data.weather[0].main == "Snow") {
-                    weatherIconElement.src = `{{ asset('img/wheater/snow.png') }}`;
-                } else if (data.weather[0].main == "Thunderstorm") {
-                    weatherIconElement.src = `{{ asset('img/wheater/storm.png') }}`;
-                }
-
-                // Imposta l'icona nel tuo elemento HTML
-                weatherIconElement.alt = data.weather[0].description; // Descrizione dell'icona
-            })
-            .catch(error => console.error('Errore:', error)); // Gestione errori.
-
-        tt.setProductInfo('Your App Name', 'Your App Version');
-        let map = tt.map({
-            key: 'tNdeH4PSEGzxLQ1CKK0HdCagLd1BsXSc',
-            container: 'map',
-            center: [selectedLon, selectedLat],
-            zoom: 15
-        });
-        let marker = new tt.Marker()
-            .setLngLat([selectedLon, selectedLat])
-            .addTo(map);
-            map.addControl(new tt.FullscreenControl());
-            map.addControl(new tt.NavigationControl());
-    });
-</script>

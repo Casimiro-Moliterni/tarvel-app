@@ -17,7 +17,6 @@
         transition: box-shadow .3s ease;
         box-shadow: 0 0.125em .5em rgba(0, 0, 0, .5);
         position: relative;
-
         .delete-rating-btn {
             width: 100%;
             font-size: 1.5rem;
@@ -75,7 +74,8 @@
         border-color: cornflowerblue;
         border-radius: 15px;
         background-color: #229BE9;
-
+        position: relative;
+        z-index: 111;
         h2 {
             color: #ffff24e6;
             // margin-bottom: 1rem;
@@ -170,5 +170,5 @@
 }
 
 .my-bg-rating{
-    background: linear-gradient(115deg,#fffc337b, #338dee45);
+    position: relative;
 }

@@ -28,6 +28,7 @@
 
     {{-- container con valutazione --}}
     <div id="ratingComponentWrapper" class="my-bg-rating py-5">
+        <img class="wave position-absolute w-100" style="height: 300px ; z-index:0" src="{{ asset('img/wave-pink.png') }}">
         <x-ratingCard :event="$event" :trip="$event->id_trip" :stop="$event->id" />
     </div>
 </footer>

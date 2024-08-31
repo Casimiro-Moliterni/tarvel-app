@@ -1,5 +1,5 @@
 @props(['event'])
-<div class="section-show-stop">
+<div class="section-show-stop border-0">
     <nav
         class="navbar navbar-expand-lg  d-flex justify-content-around flex-wrap flex-lg-nowrap">
         <div class="row w-100 justify-content-center gy-2">

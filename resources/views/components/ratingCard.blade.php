@@ -28,7 +28,7 @@
 {{-- contenitore form --}}
 <div class="my-wrapper-star {{ $firstRating ? 'd-none' : '' }}" id="ratingComponentWrapper-{{ $stop }}">
     <div class="rating-wrap">
-        <h2>Aggiungi una recensione</h2>
+        <h2 class="text-white">Aggiungi una recensione</h2>
         <div class="center">
             <form data-url-rating="{{ route('admin.ratings.store') }}" class="form-rating d-flex flex-column">
                 <fieldset class="rating ms-auto me-auto">
@@ -52,8 +52,8 @@
                     <textarea name="review" id="review" class="review" cols="30"></textarea>
                 </div>
                 <h4 id="rating-value" class="rating-value" class="my-3"></h4>
-                <div class="my-btn">
-                    <button type="submit" id="submit-btn" class="">INVIA</button>
+                <div class="my-btn my-3">
+                    <button type="submit" id="submit-btn" class="">Vota</button>
                 </div>
                 <div class="error text-danger fs-4"></div>
             </form>

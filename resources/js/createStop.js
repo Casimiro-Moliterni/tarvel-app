@@ -373,6 +373,7 @@ document.querySelectorAll('#form-stop').forEach((form) => {
                                 // Ho scritto questa nuova funzione per gestire le note e la valutazione
                                 window.initializeRatingHandlers();
                                 window.initializeNoteHandlers();
+                                window.searchPOISuggestion();
                                 
                             } else {
                                 console.error(`Contenitore non trovato con il selettore: ${stopsContainerSelector}`);

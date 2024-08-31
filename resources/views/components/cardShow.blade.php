@@ -21,7 +21,7 @@
     <div class="col mb-4">
         <div class="card text-dark card-has-bg click-col">
             <div class="card-img-overlay d-flex flex-column details-card">
-                <div class="card-body">
+                <div class="d-flex flex-grow-1">
                     <small class="card-meta mb-2">Date di viaggio</small>
                     <h4 class="card-title mt-0 ">
                         <i class="fa-solid fa-plane-departure"></i>

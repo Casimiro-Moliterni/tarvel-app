@@ -13,6 +13,12 @@ function showDetails() {
         let selectedLat = city && country ? latCity : latCountry;
         let selectedLon = city && country ? lonCity : lonCountry;
         let selectedPoint = city || country;
+        let radius;
+        if(selectedPoint = city){
+            radius = 20000;
+        }else if(selectedPoint = country){
+            radius =100000000
+        }
 
         // funzione che fa partire la chiamata api per il meteo 
         MeteoApi(container, selectedLat, selectedLon)
@@ -21,7 +27,7 @@ function showDetails() {
         mapShow(container, selectedLat, selectedLon)
 
         // funzione che fa partire la chiamata API TOMTOM 
-        detailsPOI('tourist%20attraction', selectedLat, selectedLon, selectedPoint)
+        detailsPOI('tourist%20attraction', selectedLat, selectedLon, selectedPoint,radius)
 
     });
 }
@@ -85,10 +91,9 @@ function MeteoApi(container, selectedLat, selectedLon) {
         .catch(error => console.error('Errore:', error)); // Gestione errori.
 }
 
-function detailsPOI(name, selectedLat, selectedLon, point) {
+function detailsPOI(name, selectedLat, selectedLon, point,radius) {
     const apiKey = 'tNdeH4PSEGzxLQ1CKK0HdCagLd1BsXSc';
-
-    fetch(`https://api.tomtom.com/search/2/poiSearch/${name}.json?key=${apiKey}&lat=${selectedLat}&lon=${selectedLon}&language=it-IT&radius=20000&limit=5`)
+    fetch(`https://api.tomtom.com/search/2/poiSearch/${name}.json?key=${apiKey}&lat=${selectedLat}&lon=${selectedLon}&language=it-IT&radius=${radius}&limit=5`)
         .then(response => response.json())
         .then(data => {
             const div = document.createElement('div');
@@ -110,12 +115,11 @@ function detailsPOI(name, selectedLat, selectedLon, point) {
                 // Log delle categorie per comprendere meglio i risultati
                 data.results.forEach(result => {
                     let filter = false;
-                    if (result.address.countrySecondarySubdivision === point) {
+                    if (result.address.countrySecondarySubdivision === point || result.address.country === point) {
                         filter = true;
                     }
                     if (filter) {
                         console.log(result);
-
                         const li = document.createElement('li');
                         li.classList.add('py-1', 'border-bottom');
                         li.style.cursor = 'pointer';

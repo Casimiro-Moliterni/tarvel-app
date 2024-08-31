@@ -3,7 +3,7 @@
     <section id="welcome-page">
         <header class="row px-5">
             <div class="ms-logo-home">
-                <img src="{{ asset('img/logo-black.png') }}" alt="Trip Notes">
+                <img src="{{ asset('img/logo.png') }}" alt="Trip Notes">
             </div>
         </header>
 

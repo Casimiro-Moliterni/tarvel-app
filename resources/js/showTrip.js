@@ -114,12 +114,7 @@ function detailsPOI(name, selectedLat, selectedLon, point,radius) {
                 
                 // Log delle categorie per comprendere meglio i risultati
                 data.results.forEach(result => {
-                    let filter = false;
-                    if (result.address.countrySecondarySubdivision === point || result.address.country === point) {
-                        filter = true;
-                    }
-                    if (filter) {
-                        console.log(result);
+   
                         const li = document.createElement('li');
                         li.classList.add('py-1', 'border-bottom');
                         li.style.cursor = 'pointer';
@@ -145,8 +140,6 @@ function detailsPOI(name, selectedLat, selectedLon, point,radius) {
                         });
                         
                         ul.append(li);
-                        console.log(li); // Log per il debug
-                    }
                 });
 
                 // Aggiungi <div> al body una sola volta

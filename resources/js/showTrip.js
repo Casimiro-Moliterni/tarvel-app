@@ -156,32 +156,55 @@ function detailsPOI(name, selectedLat, selectedLon, point, radius) {
 }
 
 
-
 document.addEventListener('DOMContentLoaded', function () {
     showDetails();
 
-    // Seleziona tutti i contenitori degli accordions
-    const accordionContainers = document.querySelectorAll('#stops-container');
+    // // variabile per inizializzare il timer 
+    // let timer;
 
-    accordionContainers.forEach(container => {
-        // Seleziona tutti gli accordions all'interno del contenitore
+    // // funzione che fa uscire un alert 
+    // function Myalert() {
+    //     return alert('ricorda di usare le note');
+    // }
 
-        const accordions = container.querySelectorAll('.my-accordion');
+    // // funzione che parte al click del singolo accordion 
+    // function cliccaAccordion() {
+    //     let tempo = 5000;
+    //     timer = setTimeout(Myalert, tempo);
+    // }
 
-        accordions.forEach((accordion) => {
-          
-            // Imposta il timer quando l'accordion viene cliccato
-            accordion.addEventListener('click', function () {
-                     
-                // qui dove avviene la funzione dell'alert 
-                
-                console.log(accordion.id)
+    // // funzione che stoppa il timer se l'utente clicca prima del tempo 
+    // function cliccato() {
+    //     clearTimeout(timer);
+    //     return
+    // }
 
-            });
+    // // Seleziona tutti i contenitori degli accordions
+    // const accordionContainers = document.querySelectorAll('#stops-container');
 
-        });
-    });
+    // accordionContainers.forEach(container => {
+    //     // Seleziona tutti gli accordions all'interno del contenitore
+    //     const accordions = container.querySelectorAll('.my-accordion');
+
+    //     accordions.forEach((accordion) => {
+    //         // bottone che apre la modale per aggiungere le note 
+    //         const btnNotes = accordion.querySelector('#btn-notes');
+
+    //         // Imposta il timer quando l'accordion viene cliccato
+    //         accordion.addEventListener('click', function () {
+    //             cliccaAccordion();
+    //             if(btnNotes){
+    //                   btnNotes.addEventListener('click',cliccato)
+    //             }
+    //         });
+    //             // Stoppa il timer quando viene cliccato il bottone per aggiungere le note
+    //             btnNotes.addEventListener('click', function () {
+    //                 cliccato();
+    //             });
+    //     });
+    // });
 });
+
 
 
 

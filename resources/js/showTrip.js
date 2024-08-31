@@ -9,19 +9,25 @@ function showDetails() {
         const lonCity = container.getAttribute('data-lon-city-show');
         let country = container.getAttribute('data-trip-country');
         let city = container.getAttribute('data-trip-city');
-    
+
         let selectedLat = city && country ? latCity : latCountry;
         let selectedLon = city && country ? lonCity : lonCountry;
         let selectedPoint = city || country;
+        let radius;
+        if(selectedPoint = city){
+            radius = 20000;
+        }else if(selectedPoint = country){
+            radius =100000000
+        }
+
         // funzione che fa partire la chiamata api per il meteo 
-        console.log(latCity)
         MeteoApi(container, selectedLat, selectedLon)
 
         // funzione che mostra la mappa in pagina 
         mapShow(container, selectedLat, selectedLon)
 
         // funzione che fa partire la chiamata API TOMTOM 
-        detailsPOI('tourist%20attraction', selectedLat, selectedLon, selectedPoint)
+        detailsPOI('tourist%20attraction', selectedLat, selectedLon, selectedPoint,radius)
 
     });
 }
@@ -87,7 +93,7 @@ function MeteoApi(container, selectedLat, selectedLon) {
 
 function detailsPOI(name, selectedLat, selectedLon, point,radius) {
     const apiKey = 'tNdeH4PSEGzxLQ1CKK0HdCagLd1BsXSc';
-    fetch(`https://api.tomtom.com/search/2/search/${name}.json?key=${apiKey}&lat=${selectedLat}&lon=${selectedLon}&language=it-IT&radius=15000&limit=5`)
+    fetch(`https://api.tomtom.com/search/2/poiSearch/${name}.json?key=${apiKey}&lat=${selectedLat}&lon=${selectedLon}&language=it-IT&radius=${radius}&limit=5`)
         .then(response => response.json())
         .then(data => {
             const div = document.createElement('div');
@@ -108,8 +114,7 @@ function detailsPOI(name, selectedLat, selectedLon, point,radius) {
                 
                 // Log delle categorie per comprendere meglio i risultati
                 data.results.forEach(result => {
-
-                        console.log(result);
+   
                         const li = document.createElement('li');
                         li.classList.add('py-1', 'border-bottom');
                         li.style.cursor = 'pointer';
@@ -135,7 +140,6 @@ function detailsPOI(name, selectedLat, selectedLon, point,radius) {
                         });
                         
                         ul.append(li);
-
                 });
 
                 // Aggiungi <div> al body una sola volta

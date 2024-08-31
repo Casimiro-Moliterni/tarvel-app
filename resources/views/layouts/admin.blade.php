@@ -67,7 +67,7 @@
                     </li>
                     <li class="{{ Route::currentRouteName() == 'profile' ? 'hovered' : '' }}">
                         <a href="{{ route('profile.edit') }}" class="icon fs-5">
-                            <i class="fa-solid fa-trash-can"></i><span class="ms-span">Profilo</span>
+                            <i class="fa-solid fa-user-gear"></i><span class="ms-span">Profilo</span>
                         </a>
                     </li>
                 </ul>

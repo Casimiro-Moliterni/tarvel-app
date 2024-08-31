@@ -38,9 +38,9 @@
             <div class="navigation">
                 <ul>
                     {{-- logo della sidebar --}}
-                    <li class="h-10 my-5">
+                    <li class="my-2 mb-5">
                         <img id="logo"
-                            src="{{ 'navigation' == 'active' ? asset('img/logo-black-small.png') : asset('img/logo-black.png') }}"
+                            src="{{ asset('img/logo.png')}}"
                             class="icon-image" alt="">
                     </li>
                     {{-- /logo della sidebar --}}
@@ -63,6 +63,11 @@
                     <li class="{{ Route::currentRouteName() == 'admin.garbage' ? 'hovered' : '' }}">
                         <a href="{{ route('admin.garbage') }}" class="icon fs-5">
                             <i class="fa-solid fa-trash-can"></i><span class="ms-span">Cestino</span>
+                        </a>
+                    </li>
+                    <li class="{{ Route::currentRouteName() == 'profile' ? 'hovered' : '' }}">
+                        <a href="{{ route('profile.edit') }}" class="icon fs-5">
+                            <i class="fa-solid fa-trash-can"></i><span class="ms-span">Profilo</span>
                         </a>
                     </li>
                 </ul>
@@ -130,10 +135,10 @@
 
             // Cambia l'immagine del logo in base alla presenza della classe 'active'
             if (navigation.classList.contains("active")) {
-                logo.src = "{{ asset('img/logo-black-small.png') }}"; // Nuova immagine quando attivo
+                logo.src = "{{ asset('img/logo-small.png') }}"; // Nuova immagine quando attivo
                 logo.classList.add('logo-small');
             } else {
-                logo.src = "{{ asset('img/logo-black.png') }}"; // Immagine originale quando inattivo
+                logo.src = "{{ asset('img/logo.png') }}"; // Immagine originale quando inattivo
                 logo.classList.remove('logo-small');
             }
         };

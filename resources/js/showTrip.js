@@ -14,10 +14,10 @@ function showDetails() {
         let selectedLon = city && country ? lonCity : lonCountry;
         let selectedPoint = city || country;
         let radius;
-        if(selectedPoint = city){
+        if (selectedPoint = city) {
             radius = 20000;
-        }else if(selectedPoint = country){
-            radius =100000000
+        } else if (selectedPoint = country) {
+            radius = 100000000
         }
 
         // funzione che fa partire la chiamata api per il meteo 
@@ -27,8 +27,7 @@ function showDetails() {
         mapShow(container, selectedLat, selectedLon)
 
         // funzione che fa partire la chiamata API TOMTOM 
-        detailsPOI('tourist%20attraction', selectedLat, selectedLon, selectedPoint,radius)
-
+        detailsPOI('tourist%20attraction', selectedLat, selectedLon, selectedPoint, radius)
     });
 }
 
@@ -91,7 +90,7 @@ function MeteoApi(container, selectedLat, selectedLon) {
         .catch(error => console.error('Errore:', error)); // Gestione errori.
 }
 
-function detailsPOI(name, selectedLat, selectedLon, point,radius) {
+function detailsPOI(name, selectedLat, selectedLon, point, radius) {
     const apiKey = 'tNdeH4PSEGzxLQ1CKK0HdCagLd1BsXSc';
     fetch(`https://api.tomtom.com/search/2/poiSearch/${name}.json?key=${apiKey}&lat=${selectedLat}&lon=${selectedLon}&language=it-IT&radius=${radius}&limit=5`)
         .then(response => response.json())
@@ -111,35 +110,35 @@ function detailsPOI(name, selectedLat, selectedLon, point,radius) {
                 // Aggiungi <ul> al <div> solo una volta
                 div.append(ul);
                 div.append(button);
-                
+
                 // Log delle categorie per comprendere meglio i risultati
                 data.results.forEach(result => {
-   
-                        const li = document.createElement('li');
-                        li.classList.add('py-1', 'border-bottom');
-                        li.style.cursor = 'pointer';
-                        li.innerHTML = `${result.poi.name}`;
 
-                        // Crea un nuovo `showLi` per ogni `li`
-                        const showLi = document.createElement('div');
-                        showLi.classList.add('d-none');
-                        showLi.innerHTML = `<div class="d-flex align-items-center gap-1"><i class="fa-solid fa-map-pin"></i>${result.address.freeformAddress}</div>`;
+                    const li = document.createElement('li');
+                    li.classList.add('py-1', 'border-bottom');
+                    li.style.cursor = 'pointer';
+                    li.innerHTML = `${result.poi.name}`;
 
-                        li.addEventListener('click', function () {
-                            showLi.classList.toggle('d-none');
-                            showLi.classList.add('show-li')
-                           
-                                div.classList.add('no-animation')
-                             if(this){
-                                 setTimeout(function(){
-                                     div.classList.remove('no-animation')
-                                 },5000)
-                             }
-                          
-                            li.append(showLi); // Aggiungi `showLi` solo al `li` cliccato
-                        });
-                        
-                        ul.append(li);
+                    // Crea un nuovo `showLi` per ogni `li`
+                    const showLi = document.createElement('div');
+                    showLi.classList.add('d-none');
+                    showLi.innerHTML = `<div class="d-flex align-items-center gap-1"><i class="fa-solid fa-map-pin"></i>${result.address.freeformAddress}</div>`;
+
+                    li.addEventListener('click', function () {
+                        showLi.classList.toggle('d-none');
+                        showLi.classList.add('show-li')
+
+                        div.classList.add('no-animation')
+                        if (this) {
+                            setTimeout(function () {
+                                div.classList.remove('no-animation')
+                            }, 5000)
+                        }
+
+                        li.append(showLi); // Aggiungi `showLi` solo al `li` cliccato
+                    });
+
+                    ul.append(li);
                 });
 
                 // Aggiungi <div> al body una sola volta
@@ -160,4 +159,31 @@ function detailsPOI(name, selectedLat, selectedLon, point,radius) {
 
 document.addEventListener('DOMContentLoaded', function () {
     showDetails();
+
+    // Seleziona tutti i contenitori degli accordions
+    const accordionContainers = document.querySelectorAll('#stops-container');
+
+    accordionContainers.forEach(container => {
+        // Seleziona tutti gli accordions all'interno del contenitore
+
+        const accordions = container.querySelectorAll('.my-accordion');
+
+        accordions.forEach((accordion) => {
+          
+            // Imposta il timer quando l'accordion viene cliccato
+            accordion.addEventListener('click', function () {
+                     
+                // qui dove avviene la funzione dell'alert 
+                
+                console.log(accordion.id)
+
+            });
+
+        });
+    });
 });
+
+
+
+
+

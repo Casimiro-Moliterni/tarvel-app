@@ -1,6 +1,8 @@
 @props(['event'])
 {{-- @dump($event) --}}
-<header>
+
+<section id="contentStop">
+    <header>
     <x-suggestionStop :event="$event" />
     <div class="d-flex justify-content-between p-4">
         <h2><span class="fw-bold">Info tappa</span> - {{ $event->name }}</h2>
@@ -16,7 +18,7 @@
 <footer class="">
     {{-- bottone per richiamare modale di note --}}
     <div class="container text-center my-4">
-        <a href="" class="btn btn-warning ml-2" data-toggle="modal"
+        <a href="" id="btn-notes" class="btn btn-warning ml-2" data-toggle="modal"
             data-target="#notesStopModal-{{ $event->id }}">Aggiungi note</a>
     </div>
 
@@ -32,6 +34,8 @@
         <x-ratingCard :event="$event" :trip="$event->id_trip" :stop="$event->id" />
     </div>
 </footer>
+</section>
+
 
 @push('scripts')
     @vite(['resources/js/app.js'])

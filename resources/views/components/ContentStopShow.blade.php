@@ -18,7 +18,7 @@
 <footer class="">
     {{-- bottone per richiamare modale di note --}}
     <div class="container text-center my-4">
-        <a href="" id="btn-notes" class="btn btn-warning ml-2" data-toggle="modal"
+        <a href="" id="btn-notes" class="btn ms-btn-note ml-2" data-toggle="modal"
             data-target="#notesStopModal-{{ $event->id }}">Aggiungi note</a>
     </div>
 

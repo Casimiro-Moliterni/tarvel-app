@@ -154,18 +154,32 @@
         color: #ffff24e6;
     }
 
-    .rating-wrap .my-btn button {
-        background-color: rgb(73, 119, 234);
+    .my-btn {
         display: flex;
-        width: 50%;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .my-btn div {
+        width: 100%;
+    }
+
+    .rating-wrap .my-btn button {
+        background-color: #FB319D;
+        width: 40%;
         padding: 1rem 0;
-        border-radius: 10px;
+        border-radius: 20px;
         color: #ffffff;
         font-weight: 400;
         font-size: 15px;
-        justify-content: center;
         box-shadow: 0 0 10px 0.5rem rgba(0, 0, 0, 0.333);
         box-shadow: rgba(255, 255, 255, 0.329) 0px 0px 5px 0px, rgba(255, 255, 255, 0.346) 0px 0px 1px 0px;
+    }
+
+    .rating-wrap .my-btn button:hover {
+        transition: 0.4s;
+        background-color: #FDA2D3;
+        color: black;
     }
 }
 

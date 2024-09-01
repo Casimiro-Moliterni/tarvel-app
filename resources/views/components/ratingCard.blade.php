@@ -53,7 +53,9 @@
                 </div>
                 <h4 id="rating-value" class="rating-value" class="my-3"></h4>
                 <div class="my-btn my-3">
-                    <button type="submit" id="submit-btn" class="">Vota</button>
+                    <div>
+                        <button type="submit" id="submit-btn" class="">Vota</button>
+                    </div>
                 </div>
                 <div class="error text-danger fs-4"></div>
             </form>

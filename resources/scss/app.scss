@@ -84,4 +84,12 @@ body{
     background-color: #ff9100;
     color: rgb(77, 76, 76);
     border-radius: 20px;
+.ms-bg-transparent {
+    background-color: blue;
+}
+
+@media screen and (max-width:991px) {
+    .my-padding-display-tel{
+        padding-bottom: 13rem;
+    }
 }

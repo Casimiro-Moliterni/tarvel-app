@@ -22,7 +22,7 @@
                 </li>
                 <li>
                     <a class="round-button" style="--round-button-active-color: #00c853" data-translate-value="200%"
-                        data-color="green">
+                        data-color="green"  href="{{ route('admin.trips.create')}}">
                         <svg fill="currentColor" viewBox="0 0 16 16">
                             <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z" />
                             <path
@@ -42,7 +42,7 @@
                 </li>
                 <li>
                     <a class="round-button" style="--round-button-active-color: #ff6d00 " data-translate-value="400%"
-                        data-color="orange">
+                        data-color="orange" href="{{ route('admin.garbage')}}">
                         <svg xmlns="http://www.w3.org/2000/svg"
                             viewBox="0 0 512 512"><!--!Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.-->
                             <path

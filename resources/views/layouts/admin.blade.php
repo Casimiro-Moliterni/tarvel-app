@@ -91,7 +91,7 @@
                         <img src="{{ asset('img/logo-black.png') }}" alt="logo">
                     </div>
                 </div>
-                <div class="px-4" >
+                <div class="px-4 my-padding-display-tel">
                     @yield('content')
                 </div>
 

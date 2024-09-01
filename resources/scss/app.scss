@@ -70,3 +70,9 @@ body{
 .ms-bg-transparent {
     background-color: blue;
 }
+
+@media screen and (max-width:991px) {
+    .my-padding-display-tel{
+        padding-bottom: 13rem;
+    }
+}

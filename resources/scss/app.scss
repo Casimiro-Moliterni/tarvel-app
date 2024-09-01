@@ -23,7 +23,7 @@ body{
     overflow-x:hidden ;
 }
 .nav-bar-homepage{
-   height: 80px;
+    height: 80px;
     z-index:10000;
     position:relative
 }
@@ -67,8 +67,23 @@ body{
     }
 }
 
-.ms-bg-transparent {
-    background-color: blue;
+// css del bottone delle note
+
+.ms-btn-note {
+    font-size: 14px;
+    padding: 16px 14px;
+    background-color: #FDB854;
+    color: black;
+    border-radius: 20px;
+}
+
+.ms-btn-note:hover {
+    transition: 0.4s;
+    font-size: 14px;
+    padding: 16px 14px;
+    background-color: #ff9100;
+    color: rgb(77, 76, 76);
+    border-radius: 20px;
 }
 
 @media screen and (max-width:991px) {

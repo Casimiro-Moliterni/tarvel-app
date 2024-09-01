@@ -1,27 +1,28 @@
 @props(['event'])
 <div id="my-note">
     <div class="notes-container container mt-4 text-center row-lg">
-        <div class="col ">
+        <div class="col">
             <div class="col-12 col-lg-6 my-form-note mb-4 m-auto">
-                <h4 class="mb-4">NEW NOTE</h4>
+                <h4 class="mb-4">Scrivi note alla tappa</h4>
+                <hr>
                 <div class="row d-flex flex-column">
                     <div class="col">
                         <form id="form-notes" action="{{ route('admin.notes.store') }}" class="text-center" method="POST">
                             @csrf
                             <div class="form-group">
-                                <label for="text">Testo della Nota:</label>
+                                <label for="text">Testo della nota:</label>
                                 <textarea name="text" id="text" class="form-control" rows="4" required></textarea>
                                 <div class="error text-danger fs-4"></div>
                             </div>
                             <input type="hidden" name="id_stop" value="{{ $event->id }}">
-                            <button type="submit" class="btn my-4">Crea Nota</button>
+                            <button type="submit" class="btn my-4">Aggiungi</button>
                         </form>
                     </div>
                 </div>
             </div>
             {{-- note create  --}}
-            <div id="notesWrapper" class="">
-                <div class=" my-wrap-note  m-auto">
+            <div id="notesWrapper" class="ms-bg-notes rounded p-4">
+                <div class=" my-wrap-note m-auto">
                     @foreach ($event->notes as $note)
                         <div class="my-col d-flex flex-column align-items-center"
                             data-note-id="{{ $note->id }}">

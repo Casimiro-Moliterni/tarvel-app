@@ -91,3 +91,9 @@ body{
         padding-bottom: 13rem;
     }
 }
+/* Media query per attivare la classe .miao solo su schermi più larghi di 992px */
+@media (min-width: 992px) {
+    .miao{
+        background-color: yellow; /* Esempio di stile per schermi larghi */
+    }
+}

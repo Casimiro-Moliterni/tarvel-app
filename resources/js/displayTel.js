@@ -10,7 +10,7 @@
 
     // Seleziona l'elemento con la classe .main, che potrebbe essere utilizzato per cambiare lo sfondo.
     const mainElement = document.querySelector(".main");
-
+   
     // Definisce un oggetto contenente diverse palette di colori con varianti.
     const colors = {
         blue: {
@@ -71,6 +71,21 @@
         }
     };
 
+
+    function myFunction(x) {
+        if (x.matches) { // If media query matches
+          mainElement.style.backgroundColor = "#E3F2FD";
+        }
+      }
+  // Create a MediaQueryList object
+var x = window.matchMedia("(min-width: 992px)")
+
+myFunction(x);
+
+// Attach listener function on state changes
+x.addEventListener("change", function() {
+  myFunction(x);
+});
     // Recupera il colore e la traslazione salvati nel localStorage e applica questi valori al caricamento della pagina.
     const applySavedSettings = () => {
         const savedColor = localStorage.getItem('selectedColor');
@@ -82,7 +97,12 @@
             root.style.setProperty("--main-slider-color", getColor(savedColor, 50));
             root.style.setProperty("--background-color", getColor(savedColor, 100));
 
-            if (mainElement) {
+
+            if (mainElement.classList.contains('miao')) {
+           
+                    mainElement.style.backgroundColor="#E3F2FD"
+            
+            }else{
                 mainElement.style.backgroundColor = getColor(savedColor, 50);
             }
 

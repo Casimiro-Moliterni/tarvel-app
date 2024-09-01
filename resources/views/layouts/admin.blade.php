@@ -83,25 +83,65 @@
         </div>
 
         <!-- ========================= Main ==================== -->
-        <div class="main position-relative my-padding-display-tel">{{-- questa classe qua --}}
-            {{-- wave  --}}
-            <img class="wave position-absolute w-100" style="height: 300px ; z-index:0" src="{{ asset('img/wave.png') }}">
+        <div class="main position-relative my-padding-display-tel">
+            <!-- Wave Image -->
+            <img class="wave position-absolute w-100" style="height: 300px; z-index: 0;" src="{{ asset('img/wave.png') }}">
+        
             <div class="topbar">
                 <div class="toggle">
-                    {{-- <ion-icon name="menu-outline"></ion-icon> --}}
+                    <!-- Menu Toggle Icon -->
                     <i name="menu-outline" class="fa-solid fa-down-left-and-up-right-to-center"></i>
                 </div>
-
-                <div class="user">
-                    {{-- <img src="{{ asset('img/logo-black.png') }}" alt="logo"> --}}
-                                       
+        
+                <!-- User Dropdown Toggle Button -->
+                <button class="user navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
+                    <div class="logo">
+                        <i class="fa-solid fa-right-to-bracket"></i>         
+                    </div>
+                </button>
+        
+                <!-- Dropdown Menu -->
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav ml-auto">
+                        <!-- Authentication Links -->
+                        @guest
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
+                            </li>
+                            @if (Route::has('register'))
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
+                                </li>
+                            @endif
+                        @else
+                            <li class="nav-item dropdown">
+                                <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                    {{ Auth::user()->name }}
+                                </a>
+                                <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                                    <li><a class="dropdown-item" href="{{ url('admin/dashboard') }}">{{ __('Dashboard') }}</a></li>
+                                    <li><a class="dropdown-item" href="{{ url('profile') }}">{{ __('Profile') }}</a></li>
+                                    <li>
+                                        <a class="dropdown-item" href="{{ route('logout') }}"
+                                            onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                                            {{ __('Logout') }}
+                                        </a>
+                                        <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                                            @csrf
+                                        </form>
+                                    </li>
+                                </ul>
+                            </li>
+                        @endguest
+                    </ul>
                 </div>
             </div>
+        
             <div class="px-4">
                 @yield('content')
             </div>
-
         </div>
+        
     </div>
     </div>
 

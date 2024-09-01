@@ -15,6 +15,10 @@ import.meta.glob([
 ]);
 
 
+
+
+
+
 // logica della modale per la softdelete ****NON TOCCARE****
 document.addEventListener('DOMContentLoaded', function () {
     const deleteButtons = document.querySelectorAll('.js-confirm-delete');

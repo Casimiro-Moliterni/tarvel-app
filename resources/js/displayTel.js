@@ -31,10 +31,10 @@
         },
         purple: {
             50: {
-                value: "#f3e5f5"
+                value: "#d4dfed"
             },
             100: {
-                value: "#e1bee7"
+                value: "#ffffff"
             }
         },
         orange: {

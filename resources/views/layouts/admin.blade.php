@@ -83,7 +83,7 @@
         </div>
 
         <!-- ========================= Main ==================== -->
-        <div class="main position-relative">{{-- questa classe qua --}}
+        <div class="main position-relative my-padding-display-tel">{{-- questa classe qua --}}
             {{-- wave  --}}
             <img class="wave position-absolute w-100" style="height: 300px ; z-index:0" src="{{ asset('img/wave.png') }}">
             <div class="topbar">

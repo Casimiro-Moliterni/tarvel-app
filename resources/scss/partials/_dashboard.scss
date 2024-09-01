@@ -160,7 +160,8 @@ body {
   box-shadow: 35px -35px 0 10px #E3F2FD;
   pointer-events: none;
 }
-li:hover {
+@media screen and (min-width:992px){
+  li:hover {
   background-color: #E3F2FD;
 
   &::before {
@@ -199,6 +200,8 @@ li:hover {
     color: #222;
   }
 }
+}
+
 .navigation ul li:hover .ms-span::before,
 .navigation ul li.hovered .ms-span:before {
   color: #222;

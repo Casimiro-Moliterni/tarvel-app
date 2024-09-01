@@ -62,11 +62,11 @@ body {
   border-bottom-left-radius: 30px;
 }
 
-.navigation ul li:hover,
-.navigation ul li.hovered {
-  // background-color: var(--white);
-  background-color: #ffffff;
-}
+// .navigation ul li:hover,
+// .navigation ul li.hovered {
+//   // background-color: var(--white);
+//   background-color: #ffffff;
+// }
 
 .navigation ul li:nth-child(1) {
   margin-bottom: 40px;
@@ -82,10 +82,10 @@ body {
   color: var(--white);
 }
 
-.navigation ul li:hover a,
-.navigation ul li.hovered a {
-  color:#222;
-}
+// .navigation ul li:hover a,
+// .navigation ul li.hovered a {
+//   color:#222;
+// }
 
 // .navigation ul li a .icon {
 //   position: relative;
@@ -132,8 +132,8 @@ body {
 // }
 
 /* --------- curve outside ---------- */
-.navigation ul li:hover a::before,
-.navigation ul li.hovered a::before {
+.curvet a::before,
+.curveb li::before {
   content: "";
   position: absolute;
   right: 0;
@@ -147,8 +147,8 @@ body {
   pointer-events: none;
 }
 
-.navigation ul li:hover a::after,
-.navigation ul li.hovered a::after {
+.curvet a::after,
+.curveb a::after {
   content: "";
   position: absolute;
   right: 0;

@@ -45,35 +45,35 @@
                     </li>
                     {{-- /logo della sidebar --}}
 
-                    <li class="{{ Route::currentRouteName() == 'admin.dashboard' ? 'hovered' : '' }}" id="dashboard-link"
+                    <li class="{{ Route::currentRouteName() == 'admin.dashboard' ? 'hovered curvet curveb' : '' }}" id="dashboard-link"
                     style="{{ Route::currentRouteName() == 'admin.dashboard' ? 'background-color: white;color: black;' : '' }}" >
                         <a href="{{ route('admin.dashboard') }}" class="icon fs-5" 
                         style="{{ Route::currentRouteName() == 'admin.dashboard' ? 'color: black;' : '' }}" >
                             <i class="fa-solid fa-house-user"></i><span class="ms-span">Dashboard</span>
                         </a>
                     </li>
-                    <li class="{{ Route::currentRouteName() == 'admin.trips.index' ? 'hovered' : '' }}"  id="trip-index-link" 
+                    <li class="{{ Route::currentRouteName() == 'admin.trips.index' ? 'hovered curvet curveb' : '' }}"  id="trip-index-link" 
                     style="{{ Route::currentRouteName() == 'admin.trips.index' ? 'background-color: white;color: black;' : '' }}">
                         <a href="{{ route('admin.trips.index') }}" class="icon fs-5"
                         style="{{ Route::currentRouteName() == 'admin.trips.index' ? 'color: black;' : '' }}">
                             <i class="fa-solid fa-plane"></i><span class="ms-span">Viaggi</span>
                         </a>
                     </li>
-                    <li class="{{ Route::currentRouteName() == 'admin.trips.create' ? 'hovered' : '' }}"
+                    <li class="{{ Route::currentRouteName() == 'admin.trips.create' ? 'hovered curvet curveb' : '' }}"
                     style="{{ Route::currentRouteName() == 'admin.trips.create' ? 'background-color: white;color: black;' : '' }}">
                         <a href="{{ route('admin.trips.create') }}" class="icon fs-5"
                         style="{{ Route::currentRouteName() == 'admin.trips.create' ? 'color: black;' : '' }}">
                             <i class="fa-solid fa-circle-plus"></i><span class="ms-span">Aggiungi viaggio</span>
                         </a>
                     </li>
-                    <li class="{{ Route::currentRouteName() == 'admin.garbage' ? 'hovered' : '' }}"
+                    <li class="{{ Route::currentRouteName() == 'admin.garbage' ? 'hovered curvet curveb' : '' }}"
                     style="{{ Route::currentRouteName() == 'admin.garbage' ? 'background-color: white;color: black;' : '' }}">
                         <a href="{{ route('admin.garbage') }}" class="icon fs-5"
                         style="{{ Route::currentRouteName() == 'admin.garbage' ? 'color: black;' : '' }}">
                             <i class="fa-solid fa-trash-can"></i><span class="ms-span">Cestino</span>
                         </a>
                     </li>
-                    <li class="{{ Route::currentRouteName() == 'profile' ? 'hovered' : '' }}"
+                    <li class="{{ Route::currentRouteName() == 'profile' ? 'hovered curvet curveb' : '' }}"
                     style="{{ Route::currentRouteName() == 'profile' ? 'background-color: white;color: black;' : '' }}">
                         <a href="{{ route('profile.edit') }}" class="icon fs-5"
                         style="{{ Route::currentRouteName() == 'profile' ? 'color: black;' : '' }}">

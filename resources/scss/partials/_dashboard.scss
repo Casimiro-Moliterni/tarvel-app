@@ -161,7 +161,7 @@ body {
   pointer-events: none;
 }
 @media screen and (min-width:992px){
-  li:hover {
+  #content-container .navigation li:hover {
   background-color: #E3F2FD;
 
   &::before {

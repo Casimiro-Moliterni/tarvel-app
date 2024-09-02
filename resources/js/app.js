@@ -39,10 +39,12 @@ document.addEventListener('DOMContentLoaded', function () {
 document.addEventListener("DOMContentLoaded", function() {
     const loader = document.getElementById('loader');
     const content = document.getElementById('main');
-
     // Nascondi il loader e mostra il contenuto quando la pagina è caricata
     window.addEventListener('load', function() {
-        loader.style.display = 'none';
-        content.style.display = 'block';
+        if(content){
+
+            loader.style.display = 'none';
+            content.style.display = 'block';
+        }
     });
 });

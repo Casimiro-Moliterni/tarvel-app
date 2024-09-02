@@ -21,21 +21,26 @@
 </head>
 
 <body>
+    <!-- Loader -->
+    <div id="loader"
+        style="display: flex; justify-content: center; align-items: center; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: white; z-index: 9999;">
+        <img src="https://i.pinimg.com/originals/c7/e1/b7/c7e1b7b5753737039e1bdbda578132b8.gif" alt="Loading...">
+    </div>
+
     <div id="app">
-
-
-        <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm nav-bar-homepage {{ Route::currentRouteName() == '' ? 'd-none' : '' }}">
+        <nav
+            class="navbar navbar-expand-md navbar-light bg-white shadow-sm nav-bar-homepage {{ Route::currentRouteName() == '' ? 'd-none' : '' }}">
             <div class="container">
                 <a class="navbar-brand d-flex align-items-center" href="{{ url('/') }}">
-                    <div >
-                       <img style="height:80px;object-fit:cover" src="{{  asset('img/logo.png') }}" alt="">
+                    <div>
+                        <img style="height:80px;object-fit:cover" src="{{ asset('img/logo.png') }}" alt="">
                     </div>
                     {{-- config('app.name', 'Laravel') --}}
                 </a>
 
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
-                    data-bs-target="#navbarDropdown" aria-controls="navbarSupportedContent"
-                    aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarDropdown"
+                    aria-controls="navbarSupportedContent" aria-expanded="false"
+                    aria-label="{{ __('Toggle navigation') }}">
                     <span class="navbar-toggler-icon"></span>
                 </button>
 
@@ -59,7 +64,8 @@
                                     {{ Auth::user()->name }}
                                 </a>
 
-                                <div class="dropdown-menu dropdown-menu-right" id="" aria-labelledby="navbarDropdown">
+                                <div class="dropdown-menu dropdown-menu-right" id=""
+                                    aria-labelledby="navbarDropdown">
                                     <a class="dropdown-item" href="{{ url('admin/dashboard') }}">{{ __('Dashboard') }}</a>
                                     <a class="dropdown-item" href="{{ url('profile') }}">{{ __('Profile') }}</a>
                                     <a class="dropdown-item" href="{{ route('logout') }}"
@@ -87,3 +93,19 @@
 @stack('scripts')
 
 </html>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        const loader = document.getElementById('loader');
+        const contentApp = document.getElementById('app');
+
+        console.log(contentApp)
+        // Nascondi il loader e mostra il contenuto quando la pagina è caricata
+
+        window.addEventListener('load', function() {
+            loader.style.display = 'none';
+            contentApp.style.display = 'block';
+        });
+
+    });
+</script>

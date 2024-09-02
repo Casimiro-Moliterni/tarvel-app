@@ -99,47 +99,32 @@
                 </div>
         
                 <!-- User Dropdown Toggle Button -->
-                <button class="user navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
+                <button class="user" type="button" id="my-btn-dropdown">
                     <div class="logo">
                         <i class="fa-solid fa-right-to-bracket"></i>         
                     </div>
-                </button>
-        
-                <!-- Dropdown Menu -->
-                <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <ul class="navbar-nav ml-auto">
-                        <!-- Authentication Links -->
-                        @guest
-                            <li class="nav-item">
-                                <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
-                            </li>
-                            @if (Route::has('register'))
-                                <li class="nav-item">
-                                    <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
+                    <!-- Dropdown Menu -->
+                    <div class="bg-white d-none" id="my-dropdown-list">
+                        <a class="dropdown-item" id="user-title">Ciao {{ Auth::user()->name }}</a>
+                        <ul class="m-0 p-0">
+                                <li class="" >
+                                    <ul class="text-start m-0 p-0" >
+                                        <li><a class="dropdown-item" href="{{ url('admin/dashboard') }}">{{ __('Dashboard') }}</a></li>
+                                        <li><a class="dropdown-item" href="{{ url('profile') }}">{{ __('Profile') }}</a></li>
+                                        <li>
+                                            <a class="dropdown-item" href="{{ route('logout') }}"
+                                                onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                                                {{ __('Logout') }}
+                                            </a>
+                                            <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                                                @csrf
+                                            </form>
+                                        </li>
+                                    </ul>
                                 </li>
-                            @endif
-                        @else
-                            <li class="nav-item dropdown">
-                                <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                    {{ Auth::user()->name }}
-                                </a>
-                                <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                                    <li><a class="dropdown-item" href="{{ url('admin/dashboard') }}">{{ __('Dashboard') }}</a></li>
-                                    <li><a class="dropdown-item" href="{{ url('profile') }}">{{ __('Profile') }}</a></li>
-                                    <li>
-                                        <a class="dropdown-item" href="{{ route('logout') }}"
-                                            onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
-                                            {{ __('Logout') }}
-                                        </a>
-                                        <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
-                                            @csrf
-                                        </form>
-                                    </li>
-                                </ul>
-                            </li>
-                        @endguest
-                    </ul>
-                </div>
+                        </ul>
+                    </div>
+                </button>    
             </div>
         
             <div class="px-4">
@@ -167,7 +152,7 @@
             // Aggiunge la classe "hovered" all'elemento <li> che ha attivato l'evento mouseover (quello su cui si trova il mouse).
             this.classList.add("hovered");
         }
-
+         
         // Aggiunge un gestore di eventi "mouseover" a ciascun elemento della lista, che chiama la funzione activeLink.
         list.forEach((item) => item.addEventListener("mouseover", activeLink));
 
@@ -194,6 +179,10 @@
                 logo.classList.remove('logo-small');
             }
         };
+
+        document.querySelector('#my-btn-dropdown').addEventListener('click',function(){
+            document.querySelector('#my-dropdown-list').classList.toggle('d-none')
+        })
     </script>
     <!-- ====== ionicons ======= -->
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"

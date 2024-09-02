@@ -9,6 +9,11 @@
                 <div class="shape"></div>
             </div>
             <div class="myCard">
+                <a href="/" class="w-100 text-center">
+                    <div class="logo">
+                        <img src="{{ asset('img/logo.png') }}" alt="">
+                    </div>
+                </a>
                 <div class="card-header">
                     <h2>{{ __('Register') }}</h2>
                 </div>
@@ -74,6 +79,8 @@
                                 </button>
                             </div>
                         </div>
+                        <div class="mt-3">Sei registrato?</div>
+                        <div><a href="/login">Accedi</a></div>
                     </form>
                 </div>
             </div>

@@ -11,6 +11,11 @@
                 </div>
                 <form method="POST" action="{{ route('login') }}">
                     @csrf
+                    <a href="/" class="w-100 text-center">
+                        <div class="logo">
+                            <img src="{{ asset('img/logo.png') }}" alt="">
+                        </div>
+                    </a>
                     <h3>Login Here</h3>
 
                     <label for="email">Email</label>
@@ -49,6 +54,8 @@
                             {{ __('Forgot Your Password?') }}
                         </a>
                     @endif
+                    <div class="mt-3">Ti devi registrare?</div>
+                    <div><a href="/register">Registrati!</a></div>
                 </form>
             </div>
 

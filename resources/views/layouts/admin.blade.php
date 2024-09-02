@@ -32,6 +32,11 @@
 </head>
 
 <body>
+     <!-- Loader -->
+     <div id="loader" style="display: flex; justify-content: center; align-items: center; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: white; z-index: 9999;">
+        <img src="https://i.pinimg.com/originals/c7/e1/b7/c7e1b7b5753737039e1bdbda578132b8.gif" alt="Loading...">
+    </div>
+
     <!-- =============== Navigation ================ -->
     {{-- QUA AGGIUNTO ID CONTENT-CONTAINER PER VISUALIZARE API DEL CLICK --}}
     <div class="my-container" id="content-container">
@@ -83,7 +88,7 @@
         </div>
 
         <!-- ========================= Main ==================== -->
-        <div class="main position-relative my-padding-display-tel">
+        <div class="main position-relative my-padding-display-tel" id="main">
             <!-- Wave Image -->
             <img class="wave position-absolute w-100" style="height: 300px; z-index: 0;" src="{{ asset('img/wave.png') }}">
         

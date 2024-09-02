@@ -17,11 +17,13 @@
                                         <div class="row">
                                             <div class="col-md-12 ">
                                                 <div class="form-group">
-                                                    <label for="title">Titolo*</label>
-                                                    <input id="title" value="{{ old('title') }}"
-                                                        type="text"name="title"
-                                                        class="form-control non-clickable"placeholder="Aggiungi un titolo *">
-                                                    <div class="error bg-ligth fs-3 text-danger "></div>
+                                                    <label for="title">Titolo Autocompilato</label>
+                                                    <span id="span-title">
+                                                        <input id="title" value="{{ old('title') }}"
+                                                            type="text"name="title"
+                                                            class="form-control non-clickable"placeholder="Aggiungi un titolo *">
+                                                        <div class="error bg-ligth fs-3 text-danger "></div>
+                                                    </span>
                                                 </div>
                                             </div>
                                         </div>
@@ -32,7 +34,8 @@
                                                     <input type="text" class="form-control" id="city"
                                                         name="city" value="{{ old('city') }}" autocomplete="off">
                                                     <div class="error bg-ligth fs-3 text-danger "></div>
-                                                    <div id="citySuggestions" class="list-group position-absolute fs-3 w-100 bg-secondary">
+                                                    <div id="citySuggestions"
+                                                        class="list-group position-absolute fs-3 w-100 bg-secondary">
                                                     </div>
                                                     <div class="invalid-feedback" id="cityError"></div>
                                                 </div>
@@ -135,12 +138,13 @@
     const end_date = document.querySelector('#end_date');
     const description = document.querySelector('#description');
     const thumb = document.querySelector('#thumb');
-
+    const city = document.querySelector('#city');
+    
     form.addEventListener('submit', e => {
         e.preventDefault(); // Previene sempre l'invio del form
-
+        
         const isValid = ValidateInputs(); // Ritorna true o false
-
+        
         if (isValid) {
             form.submit(); // Invia il form se è valido
         }
@@ -153,7 +157,7 @@
         inputControl.classList.add('success');
         inputControl.classList.remove('error');
     };
-
+    
     const setError = (element, message) => {
         const inputControl = element.parentElement;
         const errorDisplay = inputControl.querySelector('.error');
@@ -163,7 +167,13 @@
         inputControl.classList.remove('success');
     };
     
-
+    
+        document.querySelector('#span-title').addEventListener('click', function() {
+            setError(title, 'Il titolo viene autocompilato')
+        })
+        if (country.value.length > 0) {
+            setSuccess(title);
+        }
 
     const ValidateInputs = () => {
         let isValid = true;
@@ -191,7 +201,7 @@
         // Validazione description (non obbligatoria, ma almeno 5 caratteri se presente)
         if (descriptionValue !== '' && descriptionValue.length < 5) {
             setError(description, 'La descrizione deve essere di almeno 5 caratteri se fornita');
-            description.classList.remove('color-input','text-warning');
+            description.classList.remove('color-input', 'text-warning');
             isValid = false;
         } else {
             setSuccess(description);
@@ -234,7 +244,6 @@
         } else {
             setSuccess(end_date);
         }
-
         return isValid;
     };
 </script>

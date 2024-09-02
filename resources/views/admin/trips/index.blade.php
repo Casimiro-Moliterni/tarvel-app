@@ -28,7 +28,8 @@
                                 <div class="card__content w-100">
                                     <div class="card__content--container">
                                         <h2 class="card__title pt-3">
-                                            {{ $trip->title }}
+                                            
+                                         Viaggio a:{{ $trip->city && $trip->country ? $trip->city :  $trip->country }}
                                         </h2>
                                     </div>
                                     <div class="d-flex mt-3 gap-2">

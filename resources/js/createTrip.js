@@ -99,7 +99,7 @@ document.addEventListener('DOMContentLoaded', function () {
     let lonCountryInputValue = null;
     let countryCodeValue = null;
     let cityCodeValue = null;
-    titleInput.value = 'Viaggio in:'
+    titleInput.value = 'Viaggio a:'
     // titleInput.disabled = true;
 
     // Aggiusta l'input dei Paesi
@@ -166,7 +166,7 @@ document.addEventListener('DOMContentLoaded', function () {
                                 // countryInput.classList.add('color-input', 'text-warning');
                                 if (cityInput.value === '') {
                                     // Crea la stringa del titolo risultato
-                                    let resultTitle = 'Viaggio in: ' + countryInput.value;
+                                    let resultTitle = 'Viaggio a: ' + countryInput.value;
 
                                     // Imposta il valore dell'input titleInput con la stringa creata
                                     titleInput.value = resultTitle;
@@ -174,7 +174,7 @@ document.addEventListener('DOMContentLoaded', function () {
                                     // Aggiungi la classe di avviso al titleInput per evidenziarlo
                                     // titleInput.classList.add('text-warning', 'color-input');
                                 } else {
-                                    titleInput.value = 'Viaggio in: ' + cityInput.value + ' ,' + countryInput.value;
+                                    titleInput.value = 'Viaggio a: ' + cityInput.value + ' ,' + countryInput.value;
                                 }
 
                             });
@@ -288,9 +288,9 @@ document.addEventListener('DOMContentLoaded', function () {
                                         .catch(error => console.error('Errore nella ricerca del paese:', error));
                                 };
                                 if (query.length === 0) {
-                                    titleInput.value = 'Viaggio in: ' + suggestion.country;
+                                    titleInput.value = 'Viaggio a: ' + suggestion.country;
                                 } else {
-                                    titleInput.value = 'Viaggio in: ' + cityInput.value + ' , ' + suggestion.country;
+                                    titleInput.value = 'Viaggio a: ' + cityInput.value + ' , ' + suggestion.country;
 
                                 }
                                 citySuggestions.innerHTML = '';

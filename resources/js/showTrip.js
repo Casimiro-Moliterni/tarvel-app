@@ -92,7 +92,7 @@ function MeteoApi(container, selectedLat, selectedLon) {
 
 function detailsPOI(name, selectedLat, selectedLon, point, radius) {
     const apiKey = 'tNdeH4PSEGzxLQ1CKK0HdCagLd1BsXSc';
-    fetch(`https://api.tomtom.com/search/2/poiSearch/${name}.json?key=${apiKey}&lat=${selectedLat}&lon=${selectedLon}&language=it-IT&radius=${radius}&limit=5`)
+    fetch(`https://api.tomtom.com/search/2/poiSearch/${name}.json?key=${apiKey}&lat=${selectedLat}&lon=${selectedLon}&language=it-IT&radius=${radius}&limit=10`)
         .then(response => response.json())
         .then(data => {
             const div = document.createElement('div');

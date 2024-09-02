@@ -27,10 +27,10 @@
 {{--/ contenitore stelle --}}
 
 {{-- contenitore form --}}
-<div class="pb-4">
+<div class="pb-3">
     <div class="my-wrapper-star {{ $firstRating ? 'd-none' : '' }}" id="ratingComponentWrapper-{{ $stop }}" class="position-relative">
         <img class="wave position-absolute w-100" style="height: 350px ; z-index:0 ; bottom:-8rem" src="{{ asset('img/wave-pink.png') }}">
-        <div class="rating-wrap pb-3">
+        <div class="rating-wrap">
             <h2 class="text-white">Aggiungi una recensione</h2>
             <div class="center">
                 <form data-url-rating="{{ route('admin.ratings.store') }}" class="form-rating d-flex flex-column">

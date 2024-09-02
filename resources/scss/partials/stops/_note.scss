@@ -45,7 +45,7 @@
 #notesWrapper {
 
     .ms-bg-notes {
-        background-color: rgb(253, 145, 203);
+        background-color: #F8B350;
     }
 
     .my-wrap-note {
@@ -59,7 +59,7 @@
         height: 250px;
         padding: 0.5rem;
         width: calc((100% / 3) - 10px);
-        background-color: rgb(253, 145, 203);
+        background-color:#F8B350;
         border-radius: 20px;
         box-shadow: 0px 0px 16px 12px rgba(0, 0, 0, 0.1);
         /* Permette lo scrolling verticale */
@@ -69,11 +69,11 @@
 }
 
 #my-note-modal {
-    .modal-content {
-        background-image: url('/img/wave-pink.png');
-        background-repeat: no-repeat;
-        background-size: cover;
-    }
+    // .modal-content {
+    //     background-image: url('/img/wave-pink.png');
+    //     background-repeat: no-repeat;
+    //     background-size: cover;
+    // }
 
     .my-modal-content-note {
         height: 70%;

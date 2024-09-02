@@ -15,7 +15,7 @@
                     </div>
                 </a>
                 <div class="card-header">
-                    <h2>{{ __('Register') }}</h2>
+                    <h2 class="text-white">{{ __('Register') }}</h2>
                 </div>
 
                 <div class="card-body">
@@ -79,8 +79,8 @@
                                 </button>
                             </div>
                         </div>
-                        <div class="mt-3">Sei registrato?</div>
-                        <div><a href="/login">Accedi</a></div>
+                        <div class="mt-3 text-white">Sei registrato?</div>
+                        <div><a href="/login" class="text-white">Accedi</a></div>
                     </form>
                 </div>
             </div>

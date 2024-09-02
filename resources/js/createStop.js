@@ -340,7 +340,7 @@ document.querySelectorAll('#form-stop').forEach((form) => {
                             color: '#fff',
                             padding: '10px 20px',
                             borderRadius: '5px',
-                            zIndex: 1000,
+                            zIndex: 1000000,
                             fontSize: '16px',
                             display: 'none'
                         });
@@ -409,7 +409,7 @@ document.querySelectorAll('#form-stop').forEach((form) => {
                                     color: '#fff',
                                     padding: '10px 20px',
                                     borderRadius: '5px',
-                                    zIndex: 1000,
+                                    zIndex: 10000000,
                                     fontSize: '16px',
                                     display: 'none'
                                 });

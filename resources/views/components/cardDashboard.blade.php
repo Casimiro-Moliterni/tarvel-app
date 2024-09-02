@@ -37,7 +37,7 @@
                         <li class="paragrafo p-1">Recensioni totali: <span
                                 class="countTrip ">{{ $totalRatingCount }}</span></li>
                         <li class="paragrafo p-1">Media Recensioni: <span
-                                class="countTrip ">{{ $totalRatingAvg }}</span></li>
+                                class="countTrip p-2">{{ number_format($totalRatingAvg, 2) }}</span></li>
                     </ul>
                 </div>
             </div>

@@ -29,9 +29,11 @@
     </x-modalNotes>
 
     {{-- container con valutazione --}}
-    <div id="ratingComponentWrapper" class="my-bg-rating py-5">
-        <img class="wave position-absolute w-100" style="height: 300px ; z-index:0" src="{{ asset('img/wave-pink.png') }}">
-        <x-ratingCard :event="$event" :trip="$event->id_trip" :stop="$event->id" />
+    <div id="ratingComponentWrapper" class="my-bg-rating">
+        {{-- <img class="wave position-absolute w-100" style="height: 300px ; z-index:0" src="{{ asset('img/wave-pink.png') }}"> --}}
+        <div class="mt-2">
+            <x-ratingCard :event="$event" :trip="$event->id_trip" :stop="$event->id"/>
+        </div>
     </div>
 </footer>
 </section>

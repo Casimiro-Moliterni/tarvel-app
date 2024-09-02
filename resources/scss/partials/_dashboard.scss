@@ -32,10 +32,16 @@ body {
   position: fixed;
   width: 300px;
   height: 100%;
-  // background: var(--blue);
-  background-image: url('https://wallpapers.com/images/hd/hot-air-balloon-above-ocean-art-c50cs3rcasevsi3u.jpg');
+  // background: linear-gradient(0deg, #96ACCD 20%, #569aff 100%);
+
+  // background: rgb(146,182,238);
+  // background: -moz-linear-gradient(0deg, rgba(146,182,238,1) 29%, rgba(71,140,246,1) 100%);
+  // background: -webkit-linear-gradient(0deg, rgba(146,182,238,1) 29%, rgba(71,140,246,1) 100%);
+  // background: linear-gradient(0deg, rgba(146,182,238,1) 29%, rgba(71,140,246,1) 100%);
+  // filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#92b6ee",endColorstr="#478cf6",GradientType=1);
+  background-image: url('https://dynamic-media-cdn.tripadvisor.com/media/photo-o/11/52/5e/49/charbonnier-mongolfiere.jpg?w=1200&h=1200&s=1');
   // border-left: 10px solid var(--blue);
-  background-position: center;
+  background-position:right;
   background-size: cover;
   background-repeat: no-repeat;
   transition: 0.5s;
@@ -313,7 +319,7 @@ body {
     height: 50px;
     width: 50px;
     border-radius: 100%;
-    background-color: #ff29d1;
+    background-color: #1795ce;
     box-shadow: 0px 0px 5px 5px rgba(0, 0, 0, 0.2);
     z-index: 100000;
 

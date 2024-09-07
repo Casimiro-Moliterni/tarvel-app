@@ -23,9 +23,10 @@ return new class extends Migration {
             $table->double('latCountry', 15, 8);
             $table->double('lonCity', 15, 8)->nullable();
             $table->double('latCity', 15, 8)->nullable();
-            $table->string('description')->nullable();
+            $table->text('description')->nullable();
             $table->date('start_date');
             $table->date('end_date');
+            $table->string('code')->unique();
             $table->timestamps();
 
             $table->foreign('id_user')->references('id')->on('users')->onDelete('cascade');

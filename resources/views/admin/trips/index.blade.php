@@ -51,6 +51,51 @@
                     </div>
                 @endforeach
 
+                @if($tripsFriend)
+                <h2>viaggi condivisi</h2>
+                @foreach ($tripsFriend as $trip)
+                    <div class="col-sm-12 col-md-6 col-lg-4 col-xl-3 mb-4 position-relative">
+                        <a href="{{ route('admin.trips.show', ['trip' => $trip->id]) }}" class="link-offset-2 link-underline link-underline-opacity-0 ">
+                            <article class="card">
+                                @if ($trip->thumb)
+                                    <img class="card__background w-100" src="{{ asset('storage/' . $trip->thumb) }}">
+                                @elseif($trip->country && file_exists(public_path('img/country/' . $trip->country . '.png')))
+                                    <img class="card__background w-100" style="object-position: center"
+                                        src="{{ asset('img/country/' . $trip->country . '.png') }}">
+                                @else
+                                    <img class="card__background w-100" style="object-position: center"
+                                        src="{{ asset('img/default.png') }}">
+                                @endif
+                        
+                                <div class="card__content w-100">
+                                    <div class="card__content--container">
+                                        <h2 class="card__title pt-3">
+                                            
+                                         Viaggio a:{{ $trip->city && $trip->country ? $trip->city :  $trip->country }}
+                                        </h2>
+                                    </div>
+                                    <div class="d-flex mt-3 gap-2">
+                                        <a type="button" class="btn btn-primary rounded-pill ms-index"
+                                            href="{{ route('admin.trips.edit', ['trip' => $trip->id]) }}"
+                                            onclick="event.stopPropagation();">
+                                            <i class="fa-solid fa-pen"></i>
+                                        </a>
+                                        <a type="button"
+                                            class="btn btn-danger js-confirm-delete rounded-pill ms-index"
+                                            data-trip-id="{{ $trip->id }}" data-trip-title="{{ $trip->title }}"
+                                            onclick="event.stopPropagation();">
+                                            <i class="fas fa-trash"></i>
+                                        </a>
+                                    </div>
+                                </div>
+                            </article>
+                        </a>
+                    </div>
+                @endforeach
+                @else
+                
+                @endif
+
             </div>
         </div>
     </section>

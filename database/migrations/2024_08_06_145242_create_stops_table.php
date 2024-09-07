@@ -24,7 +24,7 @@ return new class extends Migration
             $table->string('city')->nullable();
             $table->string('street');
             $table->string('image')->nullable();
-            $table->string('description')->nullable();
+            $table->text('description')->nullable();
             $table->double('lonCountry', 15, 8);
             $table->double('latCountry', 15, 8);
             $table->double('lonCity', 15, 8)->nullable();

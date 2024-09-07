@@ -60,6 +60,10 @@ Route::middleware(['auth', 'verified'])
         // delete valutazione tappa 
         Route::delete('/stops/{stopId}/rating', [RatingController::class, 'destroyByStop'])->name('stops.rating.destroy');
 
+        // routes/web.php
+        Route::post('/trips/join', [TripController::class, 'joinTrip'])->name('trips.join');
+
+
     });
 
 Route::middleware('auth')->group(function () {

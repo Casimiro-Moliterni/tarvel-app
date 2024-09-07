@@ -1,5 +1,17 @@
 @extends('layouts.admin')
 @section('content')
+
+@if($trip->users->count() > 1)
+<h3>partecipanti</h3>
+ @foreach($trip->users as $admin)
+ <div>
+    <i class="fa-solid fa-user"></i>
+    <span>{{ $admin->name }}</span>
+    {{-- @dump($trip->users) --}}
+ </div>
+ @endforeach
+@endif
+
     <section id="trip-show" class="trip-show" data-trip-country="{{ $trip->country }}" data-trip-city="{{ $trip->city }}"
         data-lat-country-show="{{ $trip->latCountry }}" data-lon-country="{{ $trip->lonCountry }}"
         data-lon-city-show="{{ $trip->lonCity }}" data-lat-city-show="{{ $trip->latCity }}">

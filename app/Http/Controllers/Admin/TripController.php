@@ -26,15 +26,24 @@ class TripController extends Controller
     {
         // Ottieni l'ID dell'utente autenticato
         $user = Auth::id();
-
-        // Recupera i viaggi dell'utente ordinati per data di creazione (dal più recente al più vecchio)
+    
+        // Recupera i viaggi creati dall'utente
         $trips = Trip::where('id_user', $user)
-            ->orderBy('created_at', 'desc') // Ordina per data di creazione in ordine decrescente
+            ->orderBy('created_at', 'desc')
             ->get();
-
-        // Restituisce la vista con i viaggi ordinati e l'ID utente
-        return view('admin.trips.index', compact('trips', 'user'));
+    
+        // Recupera i viaggi condivisi con l'utente (non creati dall'utente)
+        $tripsFriend = Trip::whereHas('users', function ($query) use ($user) {
+            $query->where('user_id', $user);  // Controlla la tabella pivot per i viaggi condivisi
+        })
+        ->where('id_user', '!=', $user)  // Escludi i viaggi creati dall'utente
+        ->orderBy('created_at', 'desc')
+        ->get();
+    
+        // Restituisce la vista con entrambi i viaggi
+        return view('admin.trips.index', compact('trips', 'tripsFriend', 'user'));
     }
+    
     /**
      * Show the form for creating a new resource.
      *
@@ -117,7 +126,7 @@ class TripController extends Controller
         $ratings = Stop::with('ratings')->where('id_trip', $id)->get(); // Recupera le tappe con i loro rating
         // dd($ratings);
         // Passa i dati alla vista
-        return view('admin.trips.show', compact('trip', 'daysRange', 'events','ratings'));
+        return view('admin.trips.show', compact('trip', 'daysRange', 'events', 'ratings'));
     }
 
     /**
@@ -239,4 +248,55 @@ class TripController extends Controller
             ]
         )->validate();
     }
+
+    // app/Http/Controllers/TripController.php
+    public function joinTrip(Request $request)
+    {
+        $validated = $request->validate([
+            'code' => 'required|string',
+        ]);
+    
+        // Trova il viaggio tramite il codice
+        $trip = Trip::where('code', $validated['code'])->first();
+    
+        if (!$trip) {
+            return response()->json(['message' => 'Codice non valido.'], 404);
+        }
+    
+        // // Verifica che l'utente non sia già partecipante del viaggio
+        // if ($trip->users()->where('user_id', auth()->id())->exists()) {
+        //     return response()->json(['message' => 'Sei già nel viaggio.'], 400);
+        // }
+    
+        // Aggiungi l'utente come partecipante al viaggio originale
+        $trip->users()->attach(auth()->id());
+    dd( auth()->id());
+
+        // Crea una copia del viaggio per l'utente, con un nuovo codice
+        $newTrip = Trip::create([
+            'title' => $trip->title,
+            'description' => $trip->description,
+            'id_user' => auth()->id(),  // Qui passiamo l'ID dell'utente autenticato
+            'thumb' => $trip->thumb,
+            'country' => $trip->country,
+            'city' => $trip->city,
+            'start_date' => $trip->start_date,
+            'end_date' => $trip->end_date,
+            'lonCountry' => $trip->lonCountry,
+            'latCountry' => $trip->latCountry,
+            'lonCity' => $trip->lonCity,
+            'latCity' => $trip->latCity,
+            'code' => $trip->code,   // Genera un nuovo codice univoco per il viaggio duplicato
+        ]);
+    
+        // return response()->json([
+        //     'message' => 'Sei stato aggiunto al viaggio esistente e un nuovo viaggio è stato creato per te!',
+        //     'new_trip_code' => $newTrip->code  // Restituisce il codice del nuovo viaggio
+        // ]);
+        return view('admin.trips.show');
+    }
+    
+
+
+
 }
